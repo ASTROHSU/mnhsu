@@ -6,11 +6,67 @@ const projects = [
     en: '郭美伶談台灣 RWA 代幣化',
     meta: 'Interactive article / 2026',
   },
+  {
+    href: 'https://www.blocktrend.today',
+    zh: '區塊勢',
+    en: 'Blocktrend',
+    meta: 'Founder / Newsletter & Podcast / 2017-',
+  },
+  {
+    href: 'https://www.twex.tw',
+    zh: '富昇數位',
+    en: 'TWEX',
+    meta: 'Board Director / Virtual asset exchange',
+  },
+  {
+    href: 'https://fluidkey.com',
+    zh: 'Fluidkey',
+    en: 'Stealth address wallet',
+    meta: 'Advisor / Taiwan market',
+  },
+  {
+    href: 'https://stevechoice.org',
+    zh: '兆量富足教育協會',
+    en: 'Blockchain education',
+    meta: 'Blockchain Advisor',
+  },
 ];
 
 const links = [
   { href: 'https://www.blocktrend.today', label: 'Blocktrend' },
   { href: 'https://github.com/ASTROHSU', label: 'GitHub' },
+  { href: 'https://card.mnhsu.xyz', label: 'Namecard' },
+];
+
+const recognitions = [
+  {
+    href: 'https://www.bnext.com.tw',
+    title: '數位時代 2025、2026 區塊鏈影響力人物',
+    meta: 'Recognition',
+  },
+  {
+    href: 'https://nxbn.ethereum.foundation',
+    title: '2024 Ethereum Foundation Devcon Scholar',
+    meta: 'Scholar',
+  },
+];
+
+const publications = [
+  {
+    href: 'https://bookzone.cwgv.com.tw',
+    title: 'Read Write Own',
+    meta: '審定',
+  },
+  {
+    href: 'https://www.books.com.tw',
+    title: '以太奇襲',
+    meta: '推薦序',
+  },
+  {
+    href: 'https://readmoo.com',
+    title: '無限風暴',
+    meta: '推薦序',
+  },
 ];
 ---
 
@@ -39,6 +95,7 @@ const links = [
         <nav class="site-nav" aria-label="Primary">
           <a href="#work" class="active">work</a>
           <a href="#about">about</a>
+          <a href="#recognition">recognition</a>
           <a href="/contact/">contact</a>
         </nav>
       </header>
@@ -48,7 +105,7 @@ const links = [
           <h2 class="block-title">work</h2>
           <div class="work-grid">
             {projects.map((project) => (
-              <a href={project.href} class="project">
+              <a href={project.href} class="project" target={project.href.startsWith('http') ? '_blank' : undefined} rel={project.href.startsWith('http') ? 'noopener noreferrer' : undefined}>
                 <div class="project-title">
                   <span class="zh">{project.zh}</span>
                   <span class="en">{project.en}</span>
@@ -63,13 +120,40 @@ const links = [
           <h2 class="block-title">about</h2>
           <div class="about-body">
             <p>
-              我是 MN Hsu。這裡收集我為活動、文章和研究題目做出的互動頁面，也放一些暫時還不需要被歸檔得太整齊的網頁實驗。
+              我是許明恩，區塊勢創辦人，長期關注 Web3、金融科技與科技敘事。區塊勢是臺灣最多人訂閱的 Web3 電子報與 Podcast，累積超過 20,000 位訂閱者。
+            </p>
+            <p>
+              這裡收集我為活動、文章和研究題目做出的互動頁面，也放一些暫時還不需要被歸檔得太整齊的網頁實驗。
             </p>
           </div>
 
           <div class="pill-row">
             {links.map((link) => (
               <a href={link.href} class="pill" target="_blank" rel="noopener noreferrer">{link.label}</a>
+            ))}
+          </div>
+        </section>
+
+        <section id="recognition" class="block">
+          <h2 class="block-title">recognition</h2>
+          <div class="list-grid">
+            {recognitions.map((item) => (
+              <a href={item.href} class="list-item" target="_blank" rel="noopener noreferrer">
+                <span>{item.title}</span>
+                <small>{item.meta}</small>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section id="publications" class="block">
+          <h2 class="block-title">publications</h2>
+          <div class="list-grid">
+            {publications.map((item) => (
+              <a href={item.href} class="list-item" target="_blank" rel="noopener noreferrer">
+                <span>{item.title}</span>
+                <small>{item.meta}</small>
+              </a>
             ))}
           </div>
         </section>
@@ -172,8 +256,22 @@ const links = [
     gap: 72px 32px;
   }
 
+  .list-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px 32px;
+    max-width: 980px;
+  }
+
   .project {
     display: block;
+  }
+
+  .list-item {
+    display: grid;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1.5px solid var(--line);
   }
 
   .project-title {
@@ -181,6 +279,12 @@ const links = [
     font-weight: 500;
     line-height: 1.35;
     margin-bottom: 10px;
+  }
+
+  .list-item span {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.35;
   }
 
   .project-title .zh,
@@ -194,11 +298,26 @@ const links = [
     letter-spacing: 0.01em;
   }
 
+  .list-item small {
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 0.01em;
+  }
+
   .project:hover {
     text-decoration: none;
   }
 
+  .list-item:hover {
+    text-decoration: none;
+  }
+
   .project:hover .project-title {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .list-item:hover span {
     text-decoration: underline;
     text-underline-offset: 4px;
   }
@@ -249,6 +368,10 @@ const links = [
     .work-grid {
       grid-template-columns: repeat(3, 1fr);
     }
+
+    .list-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 768px) {
@@ -257,6 +380,9 @@ const links = [
     }
 
     .site-header {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 18px;
       margin-bottom: 72px;
     }
 
@@ -281,6 +407,11 @@ const links = [
     .work-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 48px 20px;
+    }
+
+    .list-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
     }
   }
 
