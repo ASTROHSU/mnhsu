@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>15 天到 0.01 秒|郭美伶談台灣 RWA 代幣化</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --warm: #FAFAF7;
+  --cream: #EDE0D4;
+  --terra: #C06A3A;
+  --terra-light: #F5EBE5;
+  --green: #2D6B4F;
+  --green-light: #E8F3ED;
+  --green-deep: #0D2E20;
+  --blue: #2563EB;
+  --blue-light: #EFF4FF;
+  --yellow: #8B6914;
+  --yellow-light: #FDF8EC;
+  --text: #2C2A25;
+  --text-secondary: #6B6860;
+  --text-muted: #9E9A90;
+  --gold: #8B7340;
+  --gold-light: #F9F3E6;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 18px; }
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: var(--warm);
+  color: var(--text);
+  line-height: 1.9;
+  overflow-x: hidden;
+}
+
+/* 滿版突破保險 */
+.big-quote, .choice-section, .cta, .subscribe-cta {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(180deg, var(--cream) 0%, var(--warm) 70%);
+  position: relative;
+}
+.hero img.logo { height: 48px; margin-bottom: 2rem; }
+.hero h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
+.hero h1 .terra { color: var(--terra); }
+.hero .subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  color: var(--text-secondary);
+  max-width: 540px;
+  margin: 0 auto 0.5rem;
+}
+.hero .meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 2rem;
+  letter-spacing: 0.05em;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.3em;
+  animation: breathe 2s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { opacity: 0.4; transform: translate(-50%, 0); }
+  50% { opacity: 1; transform: translate(-50%, 6px); }
+}
+
+/* PART sections */
+section {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 5rem 1.5rem 2rem;
+}
+section.wide {
+  max-width: 900px;
+}
+.part-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: var(--terra);
+  margin-bottom: 1rem;
+}
+section h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 1.8rem;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+section p {
+  font-size: 1rem;
+  margin-bottom: 1.4rem;
+  color: var(--text);
+}
+section p .hl {
+  background: linear-gradient(180deg, transparent 60%, var(--terra-light) 60%);
+  padding: 0 0.1em;
+  font-weight: 500;
+}
+section p .num {
+  font-weight: 700;
+  color: var(--terra);
+}
+
+/* 對比卡片 */
+.compare-card {
+  background: #fff;
+  border: 1px solid #E8E3D8;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+.compare-card .title {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.compare-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.compare-side {
+  padding: 1.5rem 1.2rem;
+  border-radius: 8px;
+}
+.compare-side.old {
+  background: #FBEEE5;
+  border: 1px solid #E4C9B5;
+}
+.compare-side.new {
+  background: var(--green-light);
+  border: 1px solid #A8D4BC;
+}
+.compare-side .label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.compare-side.old .label { color: #B85A2F; }
+.compare-side.new .label { color: var(--green); }
+.compare-side .big {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.4rem;
+}
+.compare-side.old .big { color: #B85A2F; }
+.compare-side.new .big { color: var(--green); }
+.compare-side .small {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* 流程節點圖 */
+.flow-card {
+  background: #fff;
+  border: 1px solid #E8E3D8;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  margin: 2rem 0;
+}
+.flow-card .ftitle {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.flow-nodes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  align-items: center;
+}
+.flow-node {
+  background: #FBEEE5;
+  border: 1px solid #E4C9B5;
+  color: #B85A2F;
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  min-width: 90px;
+}
+.flow-arrow {
+  color: #C8A082;
+  font-size: 1rem;
+}
+.flow-card .fdesc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 1.5rem;
+  text-align: center;
+  line-height: 1.7;
+}
+
+/* 痛點清單 */
+.pain-list {
+  background: var(--gold-light);
+  border-left: 4px solid var(--gold);
+  border-radius: 4px;
+  padding: 1.5rem 1.5rem 1.5rem 2rem;
+  margin: 1.5rem 0;
+}
+.pain-list .pl-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.pain-list ol {
+  padding-left: 1.2rem;
+  margin: 0;
+}
+.pain-list li {
+  font-size: 0.95rem;
+  margin-bottom: 0.6rem;
+  color: var(--text);
+  line-height: 1.7;
+}
+.pain-list li:last-child { margin-bottom: 0; }
+.pain-list li strong { color: var(--gold); font-weight: 700; }
+
+/* 區塊鏈架構圖 */
+.chain-card {
+  background: #fff;
+  border: 1px solid #E8E3D8;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  margin: 2rem 0;
+}
+.chain-card .ctitle {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.chain-center {
+  background: var(--green-light);
+  border: 2px solid var(--green);
+  border-radius: 12px;
+  padding: 1.2rem;
+  text-align: center;
+  margin: 0 auto 1.5rem;
+  max-width: 320px;
+}
+.chain-center .name {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 0.3rem;
+}
+.chain-center .sub {
+  font-size: 0.8rem;
+  color: var(--green);
+  opacity: 0.8;
+}
+.chain-nodes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+.chain-node {
+  background: #F5FAF7;
+  border: 1px solid #B5D8C5;
+  color: var(--green);
+  padding: 0.7rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+}
+.chain-node.special {
+  background: #FFF8EC;
+  border: 1px solid #E4D5B8;
+  color: var(--gold);
+}
+.chain-node.payment {
+  background: var(--blue-light);
+  border: 1px solid #B8CCE8;
+  color: var(--blue);
+}
+.chain-card .cdesc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 0.8rem;
+  line-height: 1.7;
+}
+
+/* 時間軸 */
+.timeline-card {
+  background: #fff;
+  border: 1px solid #E8E3D8;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  margin: 2rem 0;
+}
+.timeline-card .ttitle {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.timeline-row {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.timeline-date {
+  flex: 0 0 90px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--terra);
+  padding-top: 0.2rem;
+  text-align: right;
+  padding-right: 1rem;
+  border-right: 2px solid var(--terra-light);
+}
+.timeline-content {
+  flex: 1;
+  padding-left: 1rem;
+  padding-bottom: 0.8rem;
+}
+.timeline-content .tname {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+}
+.timeline-content .tdesc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.timeline-row.highlight .timeline-date { color: var(--green); }
+.timeline-row.highlight .timeline-date { border-right-color: var(--green-light); }
+.timeline-row.highlight .timeline-content .tname { color: var(--green); }
+.timeline-row.final .timeline-date { color: var(--terra); font-weight: 700; }
+.timeline-row.final .timeline-content {
+  background: var(--terra-light);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+}
+.timeline-row.final .timeline-content .tname { color: var(--terra); }
+
+/* 四階段 */
+.phase-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin: 2rem 0 1rem;
+}
+.phase-item {
+  padding: 1rem 0.6rem;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+.phase-item.done {
+  background: var(--green);
+  color: #fff;
+}
+.phase-item.active {
+  background: var(--terra);
+  color: #fff;
+}
+.phase-item.future {
+  background: #E8E3D8;
+  color: var(--text-muted);
+}
+.phase-item .p-num {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+  margin-bottom: 0.3rem;
+}
+.phase-item .p-name {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.phase-item .p-tag {
+  font-size: 0.7rem;
+  opacity: 0.85;
+  margin-top: 0.3rem;
+}
+
+/* 大金句 */
+.big-quote {
+  text-align: center;
+  padding: 5rem 2rem;
+  background: linear-gradient(180deg, var(--warm), var(--terra-light));
+}
+.big-quote p {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 700;
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 auto;
+  letter-spacing: 0.03em;
+}
+.big-quote .hl {
+  background: linear-gradient(180deg, transparent 60%, #F2D9C7 60%);
+  padding: 0 0.15em;
+}
+
+/* 互動選擇 */
+.choice-section {
+  padding: 5rem 2rem;
+  background: var(--green-deep);
+  text-align: center;
+}
+.choice-section h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 700;
+  line-height: 1.5;
+  color: #fff;
+  margin-bottom: 1rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.choice-sub {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.95rem;
+  margin-bottom: 2.5rem;
+}
+.choice-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.choice-btn {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  text-align: left;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  padding: 1.2rem 1.4rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+.choice-btn:hover {
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-1px);
+}
+.choice-btn.selected {
+  background: var(--terra);
+  border-color: var(--terra);
+}
+.choice-btn .emoji {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+.choice-btn .label {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+  color: #fff;
+}
+.choice-btn .desc {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.5;
+}
+.choice-btn.selected .desc {
+  color: rgba(255,255,255,0.9);
+}
+.result-card {
+  max-width: 520px;
+  margin: 2rem auto 0;
+  padding: 1.8rem;
+  border-radius: 12px;
+  text-align: left;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.5s, max-height 0.5s;
+  border: 1px solid;
+}
+.result-card.show {
+  opacity: 1;
+  max-height: 600px;
+}
+.r-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--terra);
+  margin-bottom: 0.8rem;
+}
+.r-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.8rem;
+  line-height: 1.5;
+}
+.r-desc {
+  font-size: 0.95rem;
+  color: var(--text);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+/* CTA */
+.cta {
+  text-align: center;
+  padding: 5rem 2rem;
+  background: linear-gradient(180deg, #F5F3ED, var(--cream));
+}
+.cta h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+.cta p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 480px;
+  margin: 0 auto 2rem;
+  line-height: 1.8;
+}
+.cta-btn {
+  display: inline-block;
+  background: var(--terra);
+  color: #fff;
+  text-decoration: none;
+  padding: 0.9rem 2.2rem;
+  border-radius: 2rem;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+.cta-btn:hover {
+  background: #A8572E;
+  transform: translateY(-1px);
+}
+
+/* Share */
+.share-row {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1.2rem;
+  flex-wrap: wrap;
+}
+.share-btn {
+  padding: 0.55rem 1.2rem;
+  border-radius: 2rem;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Noto Sans TC', sans-serif;
+  letter-spacing: 0.05em;
+  transition: transform 0.2s;
+}
+.share-btn:hover { transform: scale(1.03); }
+.share-btn.tw { background: #0f1419; color: #fff; }
+.share-btn.fb { background: #1877f2; color: #fff; }
+
+/* Subscribe CTA */
+.subscribe-cta {
+  text-align: center;
+  padding: 4rem 2rem 5rem;
+  background: var(--green-deep);
+}
+.subscribe-inner {
+  max-width: 520px;
+  margin: 0 auto;
+}
+.subscribe-eyebrow {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 1rem;
+}
+.subscribe-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(1.3rem, 3.5vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.6;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.subscribe-desc {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+.subscribe-btn {
+  display: inline-block;
+  background: var(--terra);
+  color: #fff;
+  text-decoration: none;
+  padding: 0.9rem 2.2rem;
+  border-radius: 2rem;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+.subscribe-btn:hover {
+  background: #A8572E;
+  transform: translateY(-1px);
+}
+.subscribe-note {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 1rem;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+}
+
+/* Fade in */
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* RWD */
+@media (max-width: 640px) {
+  html { font-size: 16px; }
+  .compare-row { grid-template-columns: 1fr; }
+  .phase-strip { grid-template-columns: repeat(2, 1fr); }
+  .timeline-date { flex: 0 0 70px; font-size: 0.75rem; }
+  .chain-nodes { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>從 <span class="terra">15 天</span><br>到 <span class="terra">0.01 秒</span></h1>
+  <p class="subtitle">郭美伶在金管會 5/7 拍板「債券、黃金代幣先行」當週,公開了台灣 RWA 代幣化的第一份成績單。</p>
+  <p class="meta">PwC × 集保 · 現實世界資產代幣化小組 · 2026.05.21</p>
+  <div class="scroll-hint">向下捲動 ↓</div>
+</div>
+
+<!-- PART 1 -->
+<section>
+  <span class="part-label fade-in">PART 1</span>
+  <h2 class="fade-in">一筆基金贖回,在台灣要等多久?</h2>
+  <p class="fade-in">郭美伶在今年農曆年前一天贖回一檔基金,<span class="hl">15 天之後才拿到錢</span>。如果剛好缺錢,就得去周轉、去借錢。</p>
+  <p class="fade-in">買股票不用先有錢,T+2 自動扣;賣股票也是 T+2 自動入帳。但基金不是這樣。你買的時候得先有錢,賣的時候卻不知道哪天拿得到錢。</p>
+
+  <div class="flow-card fade-in">
+    <div class="ftitle">傳統基金贖回的五道關卡</div>
+    <div class="flow-nodes">
+      <div class="flow-node">投資人</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">銷售機構</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">帳代行<br>(扣款銀行)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">發行機構</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">保管銀行</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">連結資產<br>(股票債券)</div>
+    </div>
+    <div class="fdesc">每一道關卡之間,都有一個必須對齊的交會點。一個等一個。</div>
+  </div>
+
+  <div class="pain-list fade-in">
+    <div class="pl-title">為什麼要等這麼久</div>
+    <ol>
+      <li><strong>連結資產處分時間:</strong>基金背後是股票債券,股票賣出本身就要 T+2。</li>
+      <li><strong>擇時交易法令:</strong>不得以 T 日淨值計算贖回價格,實務多以 T+1 計算。</li>
+      <li><strong>各機構作業流程不同:</strong>就算款項到了,內部撥款也不一定當天完成。</li>
+    </ol>
+  </div>
+</section>
+
+<!-- PART 2 -->
+<section>
+  <span class="part-label fade-in">PART 2</span>
+  <h2 class="fade-in">把五道關卡放到同一條鏈上</h2>
+  <p class="fade-in">郭美伶是集保結算所董事長,也是金管會 RWA 代幣化小組基金組的召集人。她帶著元大投信、北富銀、凱基銀做了一件事:<span class="hl">把這五個機構全部變成同一條區塊鏈上的節點</span>。</p>
+  <p class="fade-in">區塊鏈最關鍵的特性不是「去中心化」,而是「同步」。所有節點即時看到一樣的帳本,智能合約寫好條件,自動執行。</p>
+
+  <div class="chain-card fade-in">
+    <div class="ctitle">RWA 區塊鏈平台架構</div>
+    <div class="chain-center">
+      <div class="name">RWA 區塊鏈平台</div>
+      <div class="sub">節點即時同步 · 智能合約自動執行</div>
+    </div>
+    <div class="chain-nodes">
+      <div class="chain-node">銷售機構</div>
+      <div class="chain-node">發行機構</div>
+      <div class="chain-node">保管銀行</div>
+      <div class="chain-node">集保中心</div>
+      <div class="chain-node special">數位監理<br>(金管會節點)</div>
+      <div class="chain-node payment">財金公司<br>存款代幣</div>
+    </div>
+    <div class="cdesc">傳統金融的所有角色不消失,只是搬上鏈。橘色「數位監理」是主管機關的節點,藍色「存款代幣」是金流。</div>
+  </div>
+
+  <p class="fade-in">這次最關鍵的不是商品上鏈,而是<span class="hl">商品流和金流第一次匯合</span>。財金公司的存款代幣 POC 已經跟央行做完,郭美伶請他們加入,跟集保的 RWA 平台跨鏈介接。</p>
+  <p class="fade-in">「不是我把商品放鏈上,那一點意義都沒有。我們必須真的完成這個款券交割。」她在台上說。</p>
+</section>
+
+<!-- PART 3 -->
+<section>
+  <span class="part-label fade-in">PART 3</span>
+  <h2 class="fade-in">實證結果:0.01 秒同步</h2>
+  <p class="fade-in">2025 年 7 月到 8 月,六家金融機構在這條鏈上跑了整個流程,包括募集、申購、贖回、次級市場買賣。實證商品分股票型和貨幣型兩類基金。</p>
+
+  <div class="compare-card fade-in">
+    <div class="title">傳統 vs 鏈上 — 同一個動作,兩個世界</div>
+    <div class="compare-row">
+      <div class="compare-side old">
+        <div class="label">傳統流程</div>
+        <div class="big">15 天</div>
+        <div class="small">投資人贖回基金,要等款項到帳的時間。每間機構作業時間不一,境外基金更難預估。</div>
+      </div>
+      <div class="compare-side new">
+        <div class="label">鏈上同步交割</div>
+        <div class="big">0.01 秒</div>
+        <div class="small">基金代幣移轉和款項移轉的時間差,以 8/8 次級市場交易記錄為例。實現銀貨兩訖,T+0 取回。</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="fade-in">具體數字:股票型基金總鑄造 <span class="num">8,436 萬枚</span>代幣、總申購金額 <span class="num">9.36 億</span>台幣;次級市場買賣委託 667 筆。實證結論寫得很乾淨:<span class="hl">技術可行</span>。</p>
+  <p class="fade-in">這件事的意義不只在於「快」,而是證明了一件事:傳統金融追求的「銀貨兩訖」,一手交錢一手交貨,在鏈上可以做到,還能保留現有監理框架。</p>
+</section>
+
+<!-- PART 4 -->
+<section>
+  <span class="part-label fade-in">PART 4</span>
+  <h2 class="fade-in">關鍵設計:去中心化的效率 + 中心化的監理</h2>
+  <p class="fade-in">這套架構能跑下去,前提是金管會願意點頭。郭美伶反覆強調的這句話,就是她說服主管機關的核心論述。</p>
+  <p class="fade-in">技術選型上,平台用 Hyperledger Besu 聯盟鏈、PoA 共識、許可制(Permissioned)。但<span class="hl">關鍵不在技術,在節點配置</span>。主管機關是鏈上的一個節點。</p>
+  <p class="fade-in">所有交易軌跡上鏈、不可竄改。金管會不必另外調資料,在鏈上就看得到全部。對監理機關來說,這比現在「事後查報表」更即時、更完整。</p>
+  <p class="fade-in">效率交給去中心化,監理留給中心化。這是傳統金融能接受區塊鏈的版本。</p>
+</section>
+
+<!-- PART 5 -->
+<section>
+  <span class="part-label fade-in">PART 5</span>
+  <h2 class="fade-in">為什麼是債券和黃金先行</h2>
+  <p class="fade-in">金管會在 2026 年 5 月 7 日宣布,RWA 代幣化以債券和黃金先行,就在郭美伶這場演講的兩週前。</p>
+  <p class="fade-in">為什麼是這兩個?BIS(國際清算銀行)有一張代幣化連續譜:資產的「數位化程度」決定代幣化難度。</p>
+
+  <div class="compare-card fade-in">
+    <div class="title">BIS 代幣化連續譜</div>
+    <div class="compare-row">
+      <div class="compare-side old">
+        <div class="label">不易代幣化</div>
+        <div class="big" style="font-size:1.3rem;line-height:1.4;">房地產<br>聯貸案<br>藝術品</div>
+        <div class="small">手動流程多、價格無標準、法規複雜。商機很大,但難。</div>
+      </div>
+      <div class="compare-side new">
+        <div class="label">易代幣化</div>
+        <div class="big" style="font-size:1.3rem;line-height:1.4;">貨幣型基金<br>政府債券<br>黃金</div>
+        <div class="small">數位化程度高、流程標準、有明確法規。容易轉換成智能合約。</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="fade-in">不是金管會挑商品,是商品的特性自己選了自己。<span class="hl">先把容易的做出來,再向難的延伸</span>。</p>
+</section>
+
+<!-- PART 6 -->
+<section>
+  <span class="part-label fade-in">PART 6</span>
+  <h2 class="fade-in">台灣已經走到第三階段</h2>
+  <p class="fade-in">郭美伶把整套 RWA 推進拆成四個階段。前兩個已完成,目前進入第三階段。</p>
+
+  <div class="phase-strip fade-in">
+    <div class="phase-item done">
+      <div class="p-num">PHASE 1 ✓</div>
+      <div class="p-name">基礎建設</div>
+      <div class="p-tag">區塊鏈平台</div>
+    </div>
+    <div class="phase-item done">
+      <div class="p-num">PHASE 2 ✓</div>
+      <div class="p-name">次級市場</div>
+      <div class="p-tag">7×24 全時交易</div>
+    </div>
+    <div class="phase-item active">
+      <div class="p-num">PHASE 3 進行中</div>
+      <div class="p-name">代幣資產交換</div>
+      <div class="p-tag">不同代幣互換</div>
+    </div>
+    <div class="phase-item future">
+      <div class="p-num">PHASE 4</div>
+      <div class="p-name">探索虛擬通貨</div>
+      <div class="p-tag">跨境穩定幣</div>
+    </div>
+  </div>
+
+  <p class="fade-in">第四階段「探索虛擬通貨」原本放得很後面,因為郭美伶「不敢想」。如果政策不支持,怎麼跨境?</p>
+  <p class="fade-in">但實證結束時她發現,<span class="hl">它離我們好近</span>。穩定幣專法已送行政院、等待立法院三讀,只差最後一哩路。</p>
+
+  <div class="timeline-card fade-in">
+    <div class="ttitle">台灣 RWA 推動關鍵時間點</div>
+    <div class="timeline-row">
+      <div class="timeline-date">2024/06</div>
+      <div class="timeline-content">
+        <div class="tname">RWA 代幣化小組成立</div>
+        <div class="tdesc">集保 + 元大、台新銀、台北富邦、國泰投信、中信銀、國泰證券</div>
+      </div>
+    </div>
+    <div class="timeline-row highlight">
+      <div class="timeline-date">2025/7–8</div>
+      <div class="timeline-content">
+        <div class="tname">基金代幣化 POC 實證完成</div>
+        <div class="tdesc">款券同步交割 0.01 秒,跨鏈介接財金存款代幣</div>
+      </div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-date">2025/09/25</div>
+      <div class="timeline-content">
+        <div class="tname">小組向彭金隆主委做期末報告</div>
+        <div class="tdesc">確認可行,責成從可行走向可用</div>
+      </div>
+    </div>
+    <div class="timeline-row final">
+      <div class="timeline-date">2026/05/07</div>
+      <div class="timeline-content">
+        <div class="tname">金管會拍板:RWA 以債券、黃金先行</div>
+        <div class="tdesc">從這一天起,台灣鏈上金融正式開工</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PART 7 -->
+<section>
+  <span class="part-label fade-in">PART 7</span>
+  <h2 class="fade-in">一個容易被忽略的觀點:不一定要等穩定幣</h2>
+  <p class="fade-in">外界都在等穩定幣專法,但郭美伶在收尾時提醒:「<span class="hl">大家不要忘了存款代幣也是一件事情</span>。」</p>
+  <p class="fade-in">穩定幣是給跨境用的,如果你不需要跨境,境內的存款代幣就夠了,而且財金的存款代幣 POC 已經跑完、跟集保 RWA 平台跨鏈介接也已驗證。</p>
+  <p class="fade-in">換句話說,在穩定幣專法通過之前,<span class="hl">台灣境內的鏈上金流方案已經存在</span>。等穩定幣專法是為了跨境;不跨境的事,現在就能做。</p>
+  <p class="fade-in">「殺雞不用牛刀。」她說。</p>
+</section>
+
+<!-- Big Quote -->
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">業者要效率,市場要安全,主管機關要監理。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">三者要能 meet,區塊鏈金融才能穩健往下走。</p>
+</div>
+
+<!-- Choice -->
+<div class="choice-section" id="choice">
+  <h2 class="fade-in">看完郭美伶這份成績單,你覺得台灣下一步應該怎麼走?</h2>
+  <p class="choice-sub fade-in">選完後可以分享你的觀點</p>
+
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">🐢</div>
+      <div>
+        <div class="label">先把債券和黃金做好</div>
+        <div class="desc">穩紮穩打,讓金管會看到實績再放寬</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">💰</div>
+      <div>
+        <div class="label">先把存款代幣推開</div>
+        <div class="desc">境內金流方案已經能用,不必等穩定幣</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">🌏</div>
+      <div>
+        <div class="label">直接做穩定幣跨境</div>
+        <div class="desc">國際巨擘已經下場,慢了就追不上</div>
+      </div>
+    </button>
+  </div>
+
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的選擇</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <h2>想看更深入的分析?</h2>
+  <p>區塊勢每週深入拆解一個你該知道的科技趨勢。從穩定幣、AI 代理人到平台策略,用台灣讀者看得懂的語言把複雜的產業變局說清楚。</p>
+  <a class="cta-btn" href="https://www.blocktrend.today" target="_blank">前往區塊勢 →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw"
+      onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('業者要效率,市場要安全,主管機關要監理。三者要能 meet,區塊鏈金融才能穩健往下走。—— 郭美伶談台灣 RWA 代幣化\n\n')+'&url='+encodeURIComponent(location.href),'_blank')">分享到 𝕏</button>
+    <button class="share-btn fb"
+      onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('業者要效率,市場要安全,主管機關要監理。三者要能 meet,區塊鏈金融才能穩健往下走。—— 郭美伶談台灣 RWA 代幣化'),'_blank')">分享到 Facebook</button>
+  </div>
+</div>
+
+<!-- Subscribe CTA -->
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎?</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從穩定幣、RWA 代幣化到 AI 代理人,用台灣讀者看得懂的語言,把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持,解鎖每週完整文章</p>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer><img src="https://i.urusai.cc/yaku8.png" alt="區塊勢" style="height:44px;opacity:0.5"></footer>
+
+<script>
+let userChoice = -1;
+const labels = ['先把債券和黃金做好', '先把存款代幣推開', '直接做穩定幣跨境'];
+const results = [
+  {
+    title: '穩紮穩打派',
+    desc: 'BIS 的代幣化連續譜確實是這樣建議,先做容易的,再向難的延伸。但這條路有個風險:當美國、新加坡、香港都在跑時,台灣只做債券黃金,可能會發現上鏈金融的真正商機不在這裡。',
+    bg: 'var(--terra-light)',
+    border: '#DBBFAD'
+  },
+  {
+    title: '存款代幣派',
+    desc: '這是郭美伶在演講中暗示但沒明說的觀點。台灣境內金流方案其實已經就緒,財金的存款代幣和集保 RWA 平台跨鏈介接已驗證。問題是:存款代幣只能在台灣銀行體系內流通,跨境還是要靠穩定幣。',
+    bg: 'var(--yellow-light)',
+    border: '#E4D5B8'
+  },
+  {
+    title: '跨境急進派',
+    desc: '貝萊德 BUIDL、富蘭克林 FOBXX、紐交所申請 23 小時交易,國際金融巨擘已經下場。但台灣穩定幣專法還在立法院,沒有法規業者不敢動,業界共識是先過法、再上路。急也急不來。',
+    bg: 'var(--green-light)',
+    border: '#A8D4BC'
+  }
+];
+
+function choose(idx) {
+  if (userChoice >= 0) return;
+  userChoice = idx;
+  document.querySelectorAll('.choice-btn').forEach((b, i) => {
+    if (i === idx) b.classList.add('selected');
+    b.style.cursor = 'default';
+  });
+  const r = results[idx];
+  const card = document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent = r.title;
+  document.getElementById('rDesc').textContent = r.desc;
+  card.style.background = r.bg;
+  card.style.borderColor = r.border;
+  card.classList.add('show');
+
+  const shareText = `我的選擇:${labels[idx]}。\n\n看完郭美伶談台灣 RWA 代幣化的成績單,從 15 天到 0.01 秒。`;
+  document.getElementById('shareTw').onclick = function () {
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText + '\n\n') + '&url=' + encodeURIComponent(location.href), '_blank');
+  };
+  document.getElementById('shareFb').onclick = function () {
+    window.open('https://www.facebook.com/share.php?u=' + encodeURIComponent(location.href) + '&quote=' + encodeURIComponent(shareText), '_blank');
+  };
+  setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
