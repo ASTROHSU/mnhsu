@@ -1,0 +1,110 @@
+---
+const links = [
+  {
+    href: '/pwc0521/',
+    title: '15 天到 0.01 秒',
+    desc: '郭美伶談台灣 RWA 代幣化',
+  },
+];
+---
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MN Hsu</title>
+  </head>
+  <body>
+    <main>
+      <h1>MN Hsu</h1>
+      <p>個人筆記、活動頁和一些臨時但有用的網頁。</p>
+
+      <div class="links">
+        {links.map((link) => (
+          <a href={link.href}>
+            <span class="title">{link.title}</span>
+            <span class="desc">{link.desc}</span>
+          </a>
+        ))}
+      </div>
+    </main>
+  </body>
+</html>
+
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #fafaf7;
+    --ink: #25231f;
+    --muted: #6d6961;
+    --line: #e5dfd3;
+    --accent: #2d6b4f;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  main {
+    width: min(720px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 72px 0;
+  }
+
+  h1 {
+    margin: 0 0 12px;
+    font-size: clamp(2rem, 7vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: 0;
+  }
+
+  p {
+    margin: 0 0 32px;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  .links {
+    display: grid;
+    gap: 12px;
+    margin-top: 40px;
+  }
+
+  a {
+    display: block;
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--ink);
+    background: #fff;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  a:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .title {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .desc {
+    display: block;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+</style>
