@@ -1,0 +1,399 @@
+---
+const projectTypes = [
+  '互動網頁 / interactive page',
+  '活動頁 / event page',
+  '文章體驗 / article experience',
+  '筆記整理 / notes',
+  '其他 / other',
+];
+
+const contactEmail = 'hello@mnhsu.xyz';
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Contact MN Hsu." />
+    <title>Contact — MN Hsu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="page">
+      <header class="site-header">
+        <a href="/" class="logo">mnhsu</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="/#work">work</a>
+          <a href="/#about">about</a>
+          <a href="/contact/" class="active">contact</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="contact-hero">
+          <div class="thumb thumb-a">
+            <img src="/assets/pwc0521-thumb.png?v=20260522" alt="" />
+          </div>
+          <h1>Let’s work<br />together</h1>
+          <div class="thumb thumb-b">
+            <img src="/assets/pwc0521-thumb.png?v=20260522" alt="" />
+          </div>
+        </section>
+
+        <form class="contact-form" id="contact-form">
+          <label>
+            <span>Name <em>(required)</em></span>
+            <input name="name" type="text" required />
+          </label>
+
+          <label>
+            <span>Email <em>(required)</em></span>
+            <input name="email" type="email" required />
+          </label>
+
+          <fieldset>
+            <legend>
+              Project type <em>(multiple choice allowed)</em>
+            </legend>
+            <div class="checkbox-grid">
+              {projectTypes.map((type) => (
+                <label class="check">
+                  <input name="projectType" type="checkbox" value={type} />
+                  <span>{type}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <label>
+            <span>How did you find this site?</span>
+            <select name="source">
+              <option value="Friend referral">朋友介紹 Friend referral</option>
+              <option value="Social media">社群 Social media</option>
+              <option value="Online search">網路搜尋 Online search</option>
+              <option value="Other">其他 Other</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Requirements summary <em>(required)</em></span>
+            <textarea
+              name="message"
+              rows="8"
+              required
+              placeholder="請簡單描述你想做的頁面、活動、文章或研究題目。"
+            ></textarea>
+          </label>
+
+          <button type="submit">SUBMIT</button>
+          <p class="form-note">送出會開啟你的 email app，內容不會直接存在網站後台。</p>
+        </form>
+      </main>
+
+      <footer class="site-footer">
+        <span>MN Hsu © 2026</span>
+      </footer>
+    </div>
+
+    <script define:vars={{ contactEmail }}>
+      const form = document.querySelector('#contact-form');
+
+      form?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const data = new FormData(form);
+        const projectTypes = data.getAll('projectType');
+        const body = [
+          `Name: ${data.get('name') || ''}`,
+          `Email: ${data.get('email') || ''}`,
+          `Project type: ${projectTypes.join(', ') || 'N/A'}`,
+          `Source: ${data.get('source') || ''}`,
+          '',
+          'Requirements:',
+          data.get('message') || '',
+        ].join('\\n');
+
+        const subject = `mnhsu.xyz contact - ${data.get('name') || 'new message'}`;
+        window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  :root {
+    --bg: #ffffff;
+    --ink: #000000;
+    --muted: #6a6a66;
+    --accent: #3d9e5b;
+    --line: rgba(0, 0, 0, 0.2);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Space Grotesk", "Noto Sans TC", "PingFang TC",
+      "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .page {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 36px 60px 60px;
+  }
+
+  .site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 84px;
+  }
+
+  .logo {
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1;
+  }
+
+  .site-nav {
+    display: flex;
+    gap: 28px;
+    font-size: 15px;
+  }
+
+  .site-nav a.active {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .contact-hero {
+    position: relative;
+    min-height: 520px;
+    margin-bottom: 76px;
+  }
+
+  .contact-hero h1 {
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    z-index: 2;
+    margin: 0;
+    transform: translate(-50%, -50%);
+    font-size: clamp(3.4rem, 7vw, 7.2rem);
+    font-weight: 400;
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+    text-align: center;
+  }
+
+  .thumb {
+    position: absolute;
+    width: min(22vw, 300px);
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #f3f3f3;
+  }
+
+  .thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .thumb-a {
+    left: 0;
+    top: 0;
+  }
+
+  .thumb-b {
+    right: 12%;
+    bottom: 0;
+  }
+
+  .contact-form {
+    display: grid;
+    gap: 34px;
+    max-width: 760px;
+    margin: 0 auto 120px;
+  }
+
+  label,
+  fieldset {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+  }
+
+  fieldset {
+    padding: 0;
+    border: 0;
+  }
+
+  label > span,
+  legend {
+    font-size: 17px;
+    font-weight: 500;
+  }
+
+  em {
+    color: var(--muted);
+    font-style: normal;
+    font-size: 0.86em;
+    font-weight: 400;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    border: 0;
+    border-bottom: 1.5px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    padding: 12px 0;
+    outline: none;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 160px;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-bottom-color: var(--ink);
+  }
+
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 28px;
+    padding-top: 8px;
+  }
+
+  .check {
+    display: flex;
+    grid-template-columns: none;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 15px;
+  }
+
+  .check input {
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+    accent-color: var(--ink);
+  }
+
+  button {
+    justify-self: start;
+    min-width: 150px;
+    padding: 13px 28px;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  button:hover {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .form-note {
+    margin: -16px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .site-footer {
+    padding-top: 36px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  @media (max-width: 768px) {
+    .page {
+      padding: 24px 24px 48px;
+    }
+
+    .site-header {
+      margin-bottom: 60px;
+    }
+
+    .logo {
+      font-size: 28px;
+    }
+
+    .site-nav {
+      gap: 18px;
+      font-size: 14px;
+    }
+
+    .contact-hero {
+      min-height: 440px;
+    }
+
+    .thumb {
+      width: 42vw;
+    }
+
+    .thumb-b {
+      right: 0;
+      bottom: 20px;
+    }
+
+    .checkbox-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .site-nav {
+      gap: 14px;
+    }
+
+    .contact-hero h1 {
+      font-size: 3.4rem;
+    }
+  }
+</style>
