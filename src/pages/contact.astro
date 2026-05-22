@@ -1,12 +1,4 @@
 ---
-const projectTypes = [
-  '互動網頁 / interactive page',
-  '活動頁 / event page',
-  '文章體驗 / article experience',
-  '筆記整理 / notes',
-  '其他 / other',
-];
-
 const contactEmail = 'hello@mnhsu.xyz';
 ---
 
@@ -36,87 +28,42 @@ const contactEmail = 'hello@mnhsu.xyz';
         </nav>
       </header>
 
-      <main>
+      <main class="contact-page">
         <section class="contact-hero">
-          <h1>Let’s work<br />together</h1>
+          <h1>Contact</h1>
+          <p>
+            這裡不是很正式的工作頁面，只是放一個可以找到我的地方。
+          </p>
         </section>
 
-        <form class="contact-form" id="contact-form">
-          <label>
-            <span>Name <em>(required)</em></span>
-            <input name="name" type="text" required />
-          </label>
+        <section class="contact-links" aria-label="Contact links">
+          <a class="email-link" href={`mailto:${contactEmail}`}>
+            {contactEmail}
+          </a>
 
-          <label>
-            <span>Email <em>(required)</em></span>
-            <input name="email" type="email" required />
-          </label>
-
-          <fieldset>
-            <legend>
-              Project type <em>(multiple choice allowed)</em>
-            </legend>
-            <div class="checkbox-grid">
-              {projectTypes.map((type) => (
-                <label class="check">
-                  <input name="projectType" type="checkbox" value={type} />
-                  <span>{type}</span>
-                </label>
-              ))}
-            </div>
-          </fieldset>
-
-          <label>
-            <span>How did you find this site?</span>
-            <select name="source">
-              <option value="Friend referral">朋友介紹 Friend referral</option>
-              <option value="Social media">社群 Social media</option>
-              <option value="Online search">網路搜尋 Online search</option>
-              <option value="Other">其他 Other</option>
-            </select>
-          </label>
-
-          <label>
-            <span>Requirements summary <em>(required)</em></span>
-            <textarea
-              name="message"
-              rows="8"
-              required
-              placeholder="請簡單描述你想做的頁面、活動、文章或研究題目。"
-            ></textarea>
-          </label>
-
-          <button type="submit">SUBMIT</button>
-          <p class="form-note">送出會開啟你的 email app，內容不會直接存在網站後台。</p>
-        </form>
+          <div class="link-row">
+            <a
+              href="https://github.com/ASTROHSU"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://www.blocktrend.today"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Blocktrend
+            </a>
+          </div>
+        </section>
       </main>
 
       <footer class="site-footer">
         <span>MN Hsu © 2026</span>
       </footer>
     </div>
-
-    <script define:vars={{ contactEmail }}>
-      const form = document.querySelector('#contact-form');
-
-      form?.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const data = new FormData(form);
-        const projectTypes = data.getAll('projectType');
-        const body = [
-          `Name: ${data.get('name') || ''}`,
-          `Email: ${data.get('email') || ''}`,
-          `Project type: ${projectTypes.join(', ') || 'N/A'}`,
-          `Source: ${data.get('source') || ''}`,
-          '',
-          'Requirements:',
-          data.get('message') || '',
-        ].join('\\n');
-
-        const subject = `mnhsu.xyz contact - ${data.get('name') || 'new message'}`;
-        window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      });
-    </script>
   </body>
 </html>
 
@@ -125,8 +72,6 @@ const contactEmail = 'hello@mnhsu.xyz';
     --bg: #E1DFD9;
     --ink: #000000;
     --muted: #6a6a66;
-    --accent: #3d9e5b;
-    --line: rgba(0, 0, 0, 0.2);
   }
 
   * {
@@ -160,6 +105,9 @@ const contactEmail = 'hello@mnhsu.xyz';
   }
 
   .page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     max-width: 1600px;
     margin: 0 auto;
     padding: 36px 60px 60px;
@@ -169,7 +117,7 @@ const contactEmail = 'hello@mnhsu.xyz';
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 84px;
+    margin-bottom: 120px;
   }
 
   .logo {
@@ -190,127 +138,55 @@ const contactEmail = 'hello@mnhsu.xyz';
     text-underline-offset: 4px;
   }
 
+  .contact-page {
+    flex: 1;
+    width: min(100%, 760px);
+    margin: 0 auto;
+  }
+
   .contact-hero {
-    max-width: 760px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 76px;
+    margin-bottom: 72px;
   }
 
   .contact-hero h1 {
-    margin: 0;
-    font-size: clamp(3.4rem, 7vw, 7.2rem);
+    margin: 0 0 28px;
+    font-size: clamp(4rem, 8vw, 8rem);
     font-weight: 400;
-    line-height: 0.94;
+    line-height: 0.92;
     letter-spacing: -0.04em;
   }
 
-  .contact-form {
-    display: grid;
-    gap: 34px;
-    max-width: 760px;
-    margin: 0 auto 120px;
-  }
-
-  label,
-  fieldset {
-    display: grid;
-    gap: 10px;
+  .contact-hero p {
+    max-width: 420px;
     margin: 0;
-  }
-
-  fieldset {
-    padding: 0;
-    border: 0;
-  }
-
-  label > span,
-  legend {
-    font-size: 17px;
-    font-weight: 500;
-  }
-
-  em {
     color: var(--muted);
-    font-style: normal;
-    font-size: 0.86em;
-    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.8;
   }
 
-  input,
-  select,
-  textarea {
-    width: 100%;
-    border: 0;
-    border-bottom: 1.5px solid var(--line);
-    border-radius: 0;
-    background: transparent;
-    color: var(--ink);
-    font: inherit;
-    padding: 12px 0;
-    outline: none;
-  }
-
-  textarea {
-    resize: vertical;
-    min-height: 160px;
-  }
-
-  input:focus,
-  select:focus,
-  textarea:focus {
-    border-bottom-color: var(--ink);
-  }
-
-  .checkbox-grid {
+  .contact-links {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px 28px;
-    padding-top: 8px;
+    gap: 28px;
   }
 
-  .check {
+  .email-link {
+    width: fit-content;
+    font-size: clamp(2rem, 5vw, 4.6rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+  }
+
+  .link-row {
     display: flex;
-    grid-template-columns: none;
-    align-items: flex-start;
-    gap: 9px;
+    flex-wrap: wrap;
+    gap: 18px 28px;
+    color: var(--muted);
     font-size: 15px;
   }
 
-  .check input {
-    width: 16px;
-    height: 16px;
-    margin-top: 3px;
-    accent-color: var(--ink);
-  }
-
-  button {
-    justify-self: start;
-    min-width: 150px;
-    padding: 13px 28px;
-    border: 1.5px solid var(--ink);
-    border-radius: 999px;
-    background: transparent;
-    color: var(--ink);
-    font: inherit;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
-  }
-
-  button:hover {
-    background: var(--ink);
-    color: var(--bg);
-  }
-
-  .form-note {
-    margin: -16px 0 0;
-    color: var(--muted);
-    font-size: 13px;
-  }
-
   .site-footer {
-    padding-top: 36px;
+    padding-top: 72px;
     color: var(--muted);
     font-size: 14px;
   }
@@ -321,7 +197,7 @@ const contactEmail = 'hello@mnhsu.xyz';
     }
 
     .site-header {
-      margin-bottom: 60px;
+      margin-bottom: 80px;
     }
 
     .logo {
@@ -333,8 +209,12 @@ const contactEmail = 'hello@mnhsu.xyz';
       font-size: 14px;
     }
 
-    .checkbox-grid {
-      grid-template-columns: 1fr;
+    .contact-hero {
+      margin-bottom: 56px;
+    }
+
+    .email-link {
+      font-size: clamp(1.8rem, 9vw, 3.4rem);
     }
   }
 
@@ -344,7 +224,7 @@ const contactEmail = 'hello@mnhsu.xyz';
     }
 
     .contact-hero h1 {
-      font-size: 3.4rem;
+      font-size: 3.8rem;
     }
   }
 </style>
