@@ -4,7 +4,9 @@ const projects = [
     href: '/pwc0521/',
     zh: '15 天到 0.01 秒',
     en: '郭美伶談台灣 RWA 代幣化',
-    meta: 'Interactive article / 2026',
+    type: 'Interactive article',
+    date: '2026.05.21',
+    tags: ['RWA', '代幣化', '金融科技', '台灣'],
   },
 ];
 
@@ -53,7 +55,15 @@ const links = [
                   <span class="zh">{project.zh}</span>
                   <span class="en">{project.en}</span>
                 </div>
-                <div class="project-meta">{project.meta}</div>
+                <div class="project-detail">
+                  <span>{project.type}</span>
+                  <time datetime={project.date.replaceAll('.', '-')}>{project.date}</time>
+                </div>
+                <div class="project-tags" aria-label="Tags">
+                  {project.tags.map((tag) => (
+                    <span>#{tag}</span>
+                  ))}
+                </div>
               </a>
             ))}
           </div>
@@ -63,7 +73,7 @@ const links = [
           <h2 class="block-title">about</h2>
           <div class="about-body">
             <p>
-              我是 MN Hsu。這裡收集我為活動、文章和研究題目做出的互動頁面，也放一些暫時還不需要被歸檔得太整齊的網頁實驗。
+              這裡收集我為活動、文章和研究題目做出的互動頁面，也放一些暫時還不需要被歸檔得太整齊的網頁實驗。比起正式履歷，這裡更像我的個人索引。
             </p>
           </div>
 
@@ -188,10 +198,22 @@ const links = [
     display: block;
   }
 
-  .project-meta {
+  .project-detail,
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
     font-size: 13px;
     color: var(--muted);
     letter-spacing: 0.01em;
+  }
+
+  .project-tags {
+    margin-top: 12px;
+  }
+
+  .project-tags span {
+    color: var(--accent);
   }
 
   .project:hover {
