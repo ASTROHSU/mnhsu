@@ -38,13 +38,7 @@ const contactEmail = 'hello@mnhsu.xyz';
 
       <main>
         <section class="contact-hero">
-          <div class="thumb thumb-a">
-            <img src="/assets/pwc0521-thumb.png?v=20260522" alt="" />
-          </div>
           <h1>Let’s work<br />together</h1>
-          <div class="thumb thumb-b">
-            <img src="/assets/pwc0521-thumb.png?v=20260522" alt="" />
-          </div>
         </section>
 
         <form class="contact-form" id="contact-form">
@@ -197,48 +191,18 @@ const contactEmail = 'hello@mnhsu.xyz';
   }
 
   .contact-hero {
-    position: relative;
-    min-height: 520px;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 76px;
   }
 
   .contact-hero h1 {
-    position: absolute;
-    left: 50%;
-    top: 48%;
-    z-index: 2;
     margin: 0;
-    transform: translate(-50%, -50%);
     font-size: clamp(3.4rem, 7vw, 7.2rem);
     font-weight: 400;
     line-height: 0.94;
     letter-spacing: -0.04em;
-    text-align: center;
-  }
-
-  .thumb {
-    position: absolute;
-    width: min(22vw, 300px);
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    background: #f3f3f3;
-  }
-
-  .thumb img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .thumb-a {
-    left: 0;
-    top: 0;
-  }
-
-  .thumb-b {
-    right: 12%;
-    bottom: 0;
   }
 
   .contact-form {
@@ -367,19 +331,6 @@ const contactEmail = 'hello@mnhsu.xyz';
     .site-nav {
       gap: 18px;
       font-size: 14px;
-    }
-
-    .contact-hero {
-      min-height: 440px;
-    }
-
-    .thumb {
-      width: 42vw;
-    }
-
-    .thumb-b {
-      right: 0;
-      bottom: 20px;
     }
 
     .checkbox-grid {
