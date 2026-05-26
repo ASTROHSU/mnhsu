@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>廉價航空與 Ondo 股票代幣</title>
+<meta property="og:title" content="廉價航空與 Ondo 股票代幣">
+<meta property="og:description" content="Ondo 掌握七成美股代幣市場，卻被質疑不是股票。從西南航空的歷史來看，拆掉服務的廉航也曾被嘲笑是巴士。當 SEC 開始為股票代幣畫新邊界，Ondo 的廉航時刻是否來臨？">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://mnhsu.xyz/ondo-southwest/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="廉價航空與 Ondo 股票代幣">
+<meta name="twitter:description" content="Ondo 掌握七成美股代幣市場，卻被質疑不是股票。從西南航空看懂股票代幣的拆解邏輯。">
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --warm: #FAFAF7;
+  --cream: #EDE0D4;
+  --terra: #C06A3A;
+  --terra-light: #F5EBE5;
+  --green: #2D6B4F;
+  --green-light: #E8F3ED;
+  --green-deep: #0D2E20;
+  --blue: #2563EB;
+  --blue-light: #EFF4FF;
+  --yellow: #8B6914;
+  --yellow-light: #FDF8EC;
+  --text: #2C2A25;
+  --text-secondary: #6B6860;
+  --text-muted: #9E9A90;
+  --gold: #8B7340;
+  --gold-light: #F9F3E6;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 18px; scroll-behavior: smooth; }
+body { background: var(--warm); color: var(--text); font-family: 'Noto Sans TC', sans-serif; line-height: 1.9; overflow-x: hidden; }
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(180deg, var(--warm), var(--cream));
+  position: relative;
+}
+.hero img { height: 48px; margin-bottom: 2rem; }
+.hero h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+  max-width: 600px;
+  margin-bottom: 1rem;
+}
+.hero .subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 420px;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.2em;
+  animation: breathe 2.5s ease-in-out infinite;
+}
+@keyframes breathe { 0%,100%{ opacity:0.4; transform:translateY(0); } 50%{ opacity:1; transform:translateY(-6px); } }
+
+/* Sections */
+section {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+section .part-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--terra);
+  margin-bottom: 0.6rem;
+}
+section h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(1.3rem, 3.5vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 1.2rem;
+}
+section p {
+  margin-bottom: 1.2rem;
+  font-size: 1rem;
+}
+section .hl {
+  background: linear-gradient(transparent 60%, var(--terra-light) 60%);
+  padding: 0 2px;
+}
+
+/* Image cards */
+.img-card {
+  background: #fff;
+  border: 1px solid #E8E3D8;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 1.8rem 0;
+}
+.img-card img { width: 100%; display: block; }
+.img-card .caption {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  padding: 0.8rem 1rem;
+  text-align: center;
+}
+
+/* Wide image cards */
+section.wide {
+  max-width: 900px;
+}
+
+/* Blockquote */
+.quote-box {
+  background: var(--gold-light);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+/* Fullwidth blocks */
+.big-quote, .choice-section, .cta, .subscribe-cta {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Big Quote */
+.big-quote {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(180deg, var(--warm), var(--terra-light));
+}
+.big-quote p {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 700;
+  line-height: 1.6;
+  max-width: 500px;
+  margin: 0 auto;
+  letter-spacing: 0.03em;
+}
+
+/* Choice Section */
+.choice-section {
+  text-align: center;
+  padding: 4rem 1.5rem;
+  background: var(--warm);
+}
+.choice-section h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(1.3rem, 3.5vw, 1.6rem);
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+.choice-sub {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+.choice-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-width: 520px;
+  margin: 0 auto;
+}
+.choice-btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border: 1.5px solid #E8E3D8;
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+.choice-btn:hover { border-color: var(--terra); background: var(--terra-light); }
+.choice-btn.selected { border-color: var(--terra); background: var(--terra-light); }
+.choice-btn .emoji { font-size: 1.6rem; flex-shrink: 0; }
+.choice-btn .label { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.2rem; }
+.choice-btn .desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; }
+
+/* Result Card */
+.result-card {
+  max-width: 520px;
+  margin: 1.5rem auto 0;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1.5px solid transparent;
+  display: none;
+  text-align: left;
+}
+.result-card.show { display: block; }
+.r-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--terra);
+  margin-bottom: 0.5rem;
+}
+.r-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.r-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
+
+/* Share */
+.share-row {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1.2rem;
+  flex-wrap: wrap;
+}
+.share-btn {
+  padding: 0.55rem 1.2rem;
+  border-radius: 2rem;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Noto Sans TC', sans-serif;
+  letter-spacing: 0.05em;
+  transition: transform 0.2s;
+}
+.share-btn:hover { transform: scale(1.03); }
+.share-btn.tw { background: #0f1419; color: #fff; }
+.share-btn.fb { background: #1877f2; color: #fff; }
+
+/* CTA */
+.cta {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(180deg, #F5F3ED, var(--cream));
+}
+.cta h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+.cta p { font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1.5rem; }
+.cta-btn {
+  display: inline-block;
+  background: var(--terra);
+  color: #fff;
+  text-decoration: none;
+  padding: 0.9rem 2.2rem;
+  border-radius: 2rem;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+.cta-btn:hover { background: #A8572E; transform: translateY(-1px); }
+
+/* Subscribe CTA */
+.subscribe-cta {
+  text-align: center;
+  padding: 4rem 2rem 5rem;
+  background: var(--green-deep);
+}
+.subscribe-inner { max-width: 520px; margin: 0 auto; }
+.subscribe-eyebrow { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.15em; color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
+.subscribe-title { font-family: 'Noto Serif TC', serif; font-size: clamp(1.3rem, 3.5vw, 1.7rem); font-weight: 700; line-height: 1.6; color: #fff; margin-bottom: 1rem; }
+.subscribe-desc { font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 2rem; }
+.subscribe-btn { display: inline-block; background: var(--terra); color: #fff; text-decoration: none; padding: 0.9rem 2.2rem; border-radius: 2rem; font-weight: 500; font-size: 1rem; transition: all 0.3s; font-family: 'Noto Sans TC', sans-serif; }
+.subscribe-btn:hover { background: #A8572E; transform: translateY(-1px); }
+.subscribe-note { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 1rem; }
+
+/* Footer */
+footer { text-align: center; padding: 3rem 2rem; }
+
+/* Fade animation */
+.fade-in { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>當股票開始像<br>廉航一樣拆開賣</h1>
+  <p class="subtitle">從西南航空到 Ondo，看懂股票代幣的拆解邏輯</p>
+  <div class="scroll-hint">SCROLL ↓</div>
+</div>
+
+<!-- PART 1: 廉價航空 -->
+<section>
+  <div class="part-label fade-in">PART 1</div>
+  <h2 class="fade-in">廉價航空</h2>
+  <p class="fade-in">台北飛沖繩不到一小時。7,000 元的廉航和 12,000 元的傳統航空，你選哪個？對多數人來說，答案很直覺。但這個選擇在五十年前根本不存在。</p>
+  <p class="fade-in">1970 年代的美國，航空業受到民航委員會（CAB）高度管制。航線怎麼飛、票價怎麼訂，都是主管機關說了算。據說連機上三明治的大小都有規定。所有航空公司賣的都是同一種東西：被規範好的「完整機票」。</p>
+</section>
+
+<section class="wide">
+  <div class="img-card fade-in">
+    <img src="img3-southwest-vs-traditional.png" alt="1971 年的西南航空 vs 傳統航空">
+    <div class="caption">西南航空重新定義了一張機票該包含什麼。區塊勢製圖</div>
+  </div>
+</section>
+
+<section>
+  <p class="fade-in">1971 年，西南航空正式營運。它主打德州境內航線，避開政府對跨州航線的管制。不提供豪華餐點、不劃位，只做短程密集航班。在其他業者眼裡，這不像航空公司，更像「飛在空中的巴士」。</p>
+  <p class="fade-in">1978 年，美國通過《航空業解除管制法》，西南航空順勢把這套模式推向全國。即便沒有完整的機上服務，只要價格夠低、班次夠密、能安全把人送到目的地，乘客仍然願意買單。</p>
+  <p class="fade-in">傳統航空也跟著改變。餐點、選位、托運行李，開始被拆成可以額外購買的選項。今天你飛沖繩能在 7,000 跟 12,000 之間選，正是這場拆解的結果。</p>
+  <p class="fade-in">現在，同樣的事正發生在股票上。<span class="hl">Ondo Finance 掌握全球超過七成的美股代幣市場，管理規模突破 10 億美元</span>，卻常被傳統金融人士質疑：這不是股票。</p>
+</section>
+
+<!-- PART 2: 只有股價的股票 -->
+<section>
+  <div class="part-label fade-in">PART 2</div>
+  <h2 class="fade-in">只有股價的股票</h2>
+  <p class="fade-in">傳統股票像全包式機票：股價、股息、投票權，全都包在裡面。Ondo 的美股代幣更像廉航機票，只保留最核心的股價漲跌。</p>
+  <p class="fade-in">Ondo 不囤庫存。用戶下單時，它才透過券商 Alpaca 買進對應股票、即時鑄造代幣。投資人買賣的價格，幾乎和在美股券商下單一樣。</p>
+</section>
+
+<section class="wide">
+  <div class="img-card fade-in">
+    <img src="img2-stock-vs-ondo.png" alt="股票 vs Ondo 美股代幣">
+    <div class="caption">傳統股票是全包，Ondo 只保留核心的股價曝險。區塊勢製圖</div>
+  </div>
+</section>
+
+<section>
+  <p class="fade-in">有人會問：有股價、沒股權，這不就是差價合約（CFD）嗎？不一樣。差價合約是你跟平台對賭，背後通常沒有真實股票。Ondo 的代幣背後有對應股票，由法律實體代為持有。更像基金或 ETF：買到的是股價，但不是完整股權。</p>
+  <p class="fade-in">沒有出現在股東名冊上，怎麼能叫股票？但很多散戶其實不在乎。他們不想參加股東會，只想要一個價格夠好、操作簡單、背後有資產支撐的投資工具。</p>
+  <p class="fade-in">Ondo 也沒有停在「追蹤股價」。今年四月，它與 Broadridge 合作推出代理投票機制，讓代幣持有人能依持有比例表達投票偏好，再由發行方代為投票。</p>
+  <div class="quote-box fade-in">代幣不賦予持有人股東權利，持有人行使的是向發行方表達投票偏好的權利。</div>
+  <p class="fade-in">這終究不是自己投票，也不是完整股東權利。但 Ondo 的優勢正在於此：它一開始就不是股票，不需要照傳統股票的模式設計。它從最基礎的股價開始，觀察市場需要什麼，一路把功能加回去。</p>
+  <p class="fade-in">傳統金融想複製這套做法，卻可能因為既有法規與制度包袱，很難自廢武功。<span class="hl">Ondo 走的是加法：從最陽春的核心做起，看需求一塊塊補上。傳統金融走的是減法：想從全包版往下拆，但每拆一塊就撞一條法規。</span></p>
+</section>
+
+<!-- PART 3: 廉航時刻 -->
+<section>
+  <div class="part-label fade-in">PART 3</div>
+  <h2 class="fade-in">廉航時刻</h2>
+  <p class="fade-in">西南航空能把廉航模式推向全美，不只靠乘客買單，更靠 1978 年的《航空業解除管制法》。制度鬆綁之後，「空中巴士」才真正變成航空市場的新選擇。</p>
+  <p class="fade-in">美國 SEC 主席 Paul Atkins 提出的 Project Crypto，很可能就是 Ondo 等待的廉航時刻。SEC 想主動調整規則，讓股票、基金等證券有機會在區塊鏈上發行和交易。</p>
+</section>
+
+<section class="wide">
+  <div class="img-card fade-in">
+    <img src="img1-project-crypto.png" alt="Project Crypto 是 Ondo 的 1978 年時刻">
+    <div class="caption">1978 年航空去管制 vs. 2025 年 Project Crypto。區塊勢製圖</div>
+  </div>
+</section>
+
+<section>
+  <p class="fade-in">彭博社報導，SEC 準備推出「創新豁免」機制，可能允許第三方發行追蹤上市公司股價的代幣，即便不附帶投票權或股利等傳統股票權利。SEC 委員 Hester Peirce 隨即澄清，豁免範圍預計有限，只針對「同一證券的數位表徵」，暫不開放純粹追蹤價格的合成代幣。</p>
+  <p class="fade-in">SEC 不是要讓市場完全放飛，但規則已經開始鬆動。最後可能有兩種結果：一種是所有股票代幣都得補回傳統股票的完整功能，只是把金融搬上鏈。另一種是在投資人保護的前提下，讓市場探索使用者真正需要什麼。</p>
+  <p class="fade-in">如果是後者，Project Crypto 之於 Ondo，就會像 1978 年的法案之於西南航空。</p>
+</section>
+
+<!-- Big Quote -->
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">西南航空不是取代了傳統航空，而是讓機票不再只有一種選擇。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">Ondo 也不一定會取代股票，但它可能讓股票第一次出現不同版本。</p>
+</div>
+
+<!-- Choice Section -->
+<div class="choice-section" id="choice">
+  <h2 class="fade-in">如果未來股票可以像機票一樣<br>拆開來賣，你會怎麼選？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">🛡️</div>
+      <div>
+        <div class="label">我選全包</div>
+        <div class="desc">股票就該有完整股權。安全與信任是底線，沒有安全，再多花招都是空的。</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">✈️</div>
+      <div>
+        <div class="label">我選廉航版</div>
+        <div class="desc">只要價格夠好、背後有資產支撐就行。股東會投票？跟我沒關係。</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">🔀</div>
+      <div>
+        <div class="label">看情況選</div>
+        <div class="desc">不同需求選不同版本。重點是市場要有選擇，不是所有人都得買同一種。</div>
+      </div>
+    </button>
+  </div>
+
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <h2>想看更深入的分析？</h2>
+  <p>Substack 文章包含更多脈絡、案例與細節，幫你把這個論點讀得更透。</p>
+  <a class="cta-btn" href="https://www.blocktrend.today/p/ondo-southwest" target="_blank">閱讀完整文章 →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('西南航空不是取代了傳統航空，而是讓機票不再只有一種選擇。Ondo 也可能讓股票第一次出現不同版本。\n\n')+'&url='+encodeURIComponent(location.href),'_blank')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('西南航空不是取代了傳統航空，而是讓機票不再只有一種選擇。Ondo 也可能讓股票第一次出現不同版本。'),'_blank')">分享到 Facebook</button>
+  </div>
+</div>
+
+<!-- Subscribe CTA -->
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從股票代幣、穩定幣到平台策略，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer><img src="https://i.urusai.cc/yaku8.png" alt="區塊勢" style="height:44px;opacity:0.5"></footer>
+
+<script>
+// Fade-in observer
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Choice interaction
+let userChoice = -1;
+const labels = ['我選全包', '我選廉航版', '看情況選'];
+const results = [
+  { title: '安全與信任是你的底線', desc: '你認為股票就該有完整的股東權利保障。效率很重要，但沒有安全，再多花招都是空的。這跟當年堅持全服務航空的人一樣：穩定、可靠、受保護。', bg: 'var(--terra-light)', border: '#DBBFAD' },
+  { title: '效率與價格才是重點', desc: '你在乎的是能不能用更好的價格、更簡單的方式參與市場。股東會投票？那是大股東的事。你就像選廉航的旅客：安全送到就好，其他都能省。', bg: 'var(--yellow-light)', border: '#E4D5B8' },
+  { title: '不同需求該有不同版本', desc: '你認為重點不是哪一種比較好，而是市場要有選擇。就像今天機票有廉航和傳統航空並存，股票也不該只有一種版本。', bg: 'var(--green-light)', border: '#A8D4BC' }
+];
+
+function choose(idx) {
+  if (userChoice >= 0) return;
+  userChoice = idx;
+  document.querySelectorAll('.choice-btn').forEach((b, i) => {
+    if (i === idx) b.classList.add('selected');
+    b.style.cursor = 'default';
+  });
+  const r = results[idx];
+  const card = document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent = r.title;
+  document.getElementById('rDesc').textContent = r.desc;
+  card.style.background = r.bg;
+  card.style.borderColor = r.border;
+  card.classList.add('show');
+
+  const shareText = `我的觀點：${labels[idx]}。\n\n西南航空不是取代了傳統航空，而是讓機票不再只有一種選擇。Ondo 也可能讓股票第一次出現不同版本。`;
+  document.getElementById('shareTw').onclick = function () {
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText + '\n\n') + '&url=' + encodeURIComponent(location.href), '_blank');
+  };
+  document.getElementById('shareFb').onclick = function () {
+    window.open('https://www.facebook.com/share.php?u=' + encodeURIComponent(location.href) + '&quote=' + encodeURIComponent(shareText), '_blank');
+  };
+  setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+}
+</script>
+</body>
+</html>
