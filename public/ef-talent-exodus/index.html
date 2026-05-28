@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>以太坊基金會的人才流失，到底是誰的問題？</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta property="og:title" content="以太坊基金會的人才流失，到底是誰的問題？">
+<meta property="og:description" content="2026 年五月，至少八位以太坊基金會核心成員離職，包括全部三位協定主管。The Defiant 找來四位重量級人物討論：問題出在組織太大、太小、領導太溫和，還是策略缺席？四種診斷，四條路。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://mnhsu.xyz/ef-talent-exodus/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="以太坊基金會的人才流失，到底是誰的問題？">
+<meta name="twitter:description" content="2026 年五月，至少八位以太坊基金會核心成員離職，包括全部三位協定主管。The Defiant 找來四位重量級人物討論：問題出在組織太大、太小、領導太溫和，還是策略缺席？四種診斷，四條路。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --warm: #FAFAF7;
+  --cream: #EDE0D4;
+  --terra: #C06A3A;
+  --terra-light: #F5EBE5;
+  --green: #2D6B4F;
+  --green-light: #E8F3ED;
+  --green-deep: #0D2E20;
+  --blue: #2563EB;
+  --blue-light: #EFF4FF;
+  --yellow: #8B6914;
+  --yellow-light: #FDF8EC;
+  --text: #2C2A25;
+  --text-secondary: #6B6860;
+  --text-muted: #9E9A90;
+  --gold: #8B7340;
+  --gold-light: #F9F3E6;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 18px; scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: var(--warm);
+  color: var(--text);
+  line-height: 1.9;
+  overflow-x: hidden;
+}
+
+section {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+section.wide {
+  max-width: 900px;
+}
+
+.big-quote, .choice-section, .cta, .subscribe-cta {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(180deg, var(--cream), var(--warm));
+  position: relative;
+}
+.hero img.logo {
+  height: 48px;
+  margin-bottom: 2.5rem;
+  opacity: 0.85;
+}
+.hero h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.5rem;
+  max-width: 720px;
+}
+.hero .subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 540px;
+  line-height: 1.9;
+}
+.hero .scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  color: var(--text-muted);
+  animation: breathe 2.5s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50% { opacity: 0.8; transform: translateY(6px); }
+}
+
+/* Part 標籤 */
+.part-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  color: var(--terra);
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+/* h2 */
+h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.02em;
+}
+h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 2rem 0 1rem;
+  letter-spacing: 0.02em;
+}
+
+p { margin-bottom: 1.2rem; }
+
+/* 人物卡片 */
+.person-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.person-card {
+  background: #fff;
+  border: 1px solid #E8E3D8;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+.person-card .name {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+.person-card .role {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+.person-card .stance {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+}
+
+/* 數字卡 */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.stat-card {
+  background: #fff;
+  border: 1px solid #E8E3D8;
+  border-radius: 10px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
+.stat-card .num {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--terra);
+  line-height: 1.2;
+}
+.stat-card .label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 0.4rem;
+  line-height: 1.6;
+}
+
+/* Highlight 框 */
+.highlight-box {
+  background: var(--gold-light);
+  border-left: 3px solid var(--gold);
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+}
+.highlight-box p:last-child { margin-bottom: 0; }
+
+.hl {
+  background: linear-gradient(180deg, transparent 65%, var(--gold-light) 65%);
+  padding: 0 0.1em;
+}
+
+/* 引述 */
+.quote-block {
+  border-left: 3px solid var(--terra);
+  padding: 0.8rem 1.5rem;
+  margin: 1.5rem 0;
+  background: var(--terra-light);
+  border-radius: 0 8px 8px 0;
+}
+.quote-block .quote-text {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--text);
+}
+.quote-block .quote-attr {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 0.6rem;
+}
+
+/* Big-quote */
+.big-quote {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(180deg, var(--warm), var(--terra-light));
+}
+.big-quote p {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 700;
+  line-height: 1.6;
+  max-width: 580px;
+  margin: 0 auto;
+  letter-spacing: 0.03em;
+}
+
+/* Choice section */
+.choice-section {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--warm);
+}
+.choice-section h2 {
+  max-width: 640px;
+  margin: 0 auto 1rem;
+}
+.choice-sub {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 2.5rem;
+}
+.choice-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-width: 560px;
+  margin: 0 auto;
+}
+.choice-btn {
+  background: #fff;
+  border: 1.5px solid #E8E3D8;
+  border-radius: 12px;
+  padding: 1.2rem 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-align: left;
+  font-family: inherit;
+}
+.choice-btn:hover {
+  border-color: var(--terra);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(192, 106, 58, 0.08);
+}
+.choice-btn.selected {
+  border-color: var(--terra);
+  background: var(--terra-light);
+}
+.choice-btn .emoji {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+.choice-btn .label {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+.choice-btn .desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.result-card {
+  margin: 2rem auto 0;
+  max-width: 560px;
+  background: var(--terra-light);
+  border: 1px solid #DBBFAD;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s, transform 0.6s;
+  pointer-events: none;
+  display: none;
+}
+.result-card.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  display: block;
+}
+.r-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: var(--terra);
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--terra);
+  border-radius: 2rem;
+  margin-bottom: 1.2rem;
+}
+.r-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
+.r-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.9;
+  text-align: left;
+}
+
+/* Share */
+.share-row {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+.share-btn {
+  padding: 0.55rem 1.2rem;
+  border-radius: 2rem;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Noto Sans TC', sans-serif;
+  letter-spacing: 0.05em;
+  transition: transform 0.2s;
+}
+.share-btn:hover { transform: scale(1.03); }
+.share-btn.tw { background: #0f1419; color: #fff; }
+.share-btn.fb { background: #1877f2; color: #fff; }
+
+/* CTA */
+.cta {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(180deg, #F5F3ED, var(--cream));
+}
+.cta h2 {
+  margin-bottom: 1rem;
+}
+.cta p {
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 0 auto 2rem;
+}
+.cta-btn {
+  display: inline-block;
+  background: var(--terra);
+  color: #fff;
+  text-decoration: none;
+  padding: 0.9rem 2.2rem;
+  border-radius: 2rem;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+.cta-btn:hover {
+  background: #A8572E;
+  transform: translateY(-1px);
+}
+
+/* Subscribe CTA */
+.subscribe-cta {
+  text-align: center;
+  padding: 4rem 2rem 5rem;
+  background: var(--green-deep);
+}
+.subscribe-inner {
+  max-width: 520px;
+  margin: 0 auto;
+}
+.subscribe-eyebrow {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 1rem;
+}
+.subscribe-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(1.3rem, 3.5vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.6;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.subscribe-desc {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+.subscribe-btn {
+  display: inline-block;
+  background: var(--terra);
+  color: #fff;
+  text-decoration: none;
+  padding: 0.9rem 2.2rem;
+  border-radius: 2rem;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+.subscribe-btn:hover {
+  background: #A8572E;
+  transform: translateY(-1px);
+}
+.subscribe-note {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 1rem;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+/* Fade-in */
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  html { font-size: 16px; }
+  section { padding: 2.5rem 1.2rem; }
+  .hero { padding: 2rem 1.2rem; }
+  .person-card { padding: 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>以太坊基金會的人才流失，<br>到底是誰的問題？</h1>
+  <p class="subtitle">五月底，The Defiant 找來四位重量級人物坐下來討論。同一場危機，四個不同的診斷。讀完之後，輪到你站邊。</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<!-- PART 1 -->
+<section>
+  <div class="fade-in">
+    <div class="part-label">PART 1　事件</div>
+    <h2>三位協定主管，全部走了</h2>
+    <p>二〇二六年的五月，以太坊基金會（Ethereum Foundation，以下簡稱 EF）正在經歷一場罕見的人才大撤退。從年初到五月底，至少八位資深成員離開，包含全部三位 Protocol Cluster 主管：Tim Beiko、Barnabe Monnot、Alex Stokes。</p>
+    <p>離開的還有 Carl Beek、Julian Ma、Trent Van Epps、營運主管 Josh，以及上任不到一年就離職的前共同執行長 Tomasz Stanczak（Tomas）。再往前一點，研究員 Dankrad Feist 已經離開去了 Stripe 投資的支付鏈 Tempo。</p>
+
+    <div class="stat-row">
+      <div class="stat-card"><div class="num">8+</div><div class="label">今年離職的核心成員</div></div>
+      <div class="stat-card"><div class="num">3/3</div><div class="label">協定主管全數離開</div></div>
+      <div class="stat-card"><div class="num">11</div><div class="label">前執行長 Tomas 任期月數</div></div>
+      <div class="stat-card"><div class="num">&lt;0.1%</div><div class="label">EF 持有的 ETH 佔比</div></div>
+    </div>
+
+    <p>社群成員 Banteg 在 X 上貼了一張 EF 組織圖截圖，把離職的名字一個一個用刪除線劃掉。圖片爆紅，配文只有一句話：「三位協定主管全部走了。」</p>
+    <p>更耐人尋味的是 EF 的沉默。沒有公開說明、沒有送別文，只有當事人各自貼出語焉不詳的告別。輿論開始追問：到底發生了什麼事？</p>
+  </div>
+</section>
+
+<!-- PART 2 -->
+<section>
+  <div class="fade-in">
+    <div class="part-label">PART 2　起因</div>
+    <h2>從「超音波貨幣」到「賽博龐克回歸」</h2>
+    <p>這場風暴的伏筆，要從兩、三年前說起。</p>
+    <p>二〇二四年是以太坊歷史上很特別的一年。它是自二〇一三年只有比特幣存在以來，第一次以太坊不在加密熱潮的中心。Solana 取而代之，meme coin 在 Solana 上爆發，ETH 雖然漲，但漲幅遠遠落後比特幣與 Solana。社群開始焦慮。</p>
+    <p>批評聲音逐漸集中到當時已經做了六年執行長的 Aya Miyaguchi 身上。社群希望換人。本來呼聲很高的人選 Danny Ryan 後來去了主打華爾街業務的 Etherealize。最後 EF 端出一個少見的雙執行長架構：對外是 Tomas Stanczak（前 Nethermind 執行長，有商業實戰經驗），對內是研究員王曉薇（Hsiao-Wei Wang）。</p>
+
+    <div class="quote-block">
+      <p class="quote-text">Tomas 上任之後，EF 第一次把資金部署到 DeFi 協定。對我來說那是一個很大的訊號。他們終於開始吃自己的狗食了。</p>
+      <p class="quote-attr">——Laura Shin，加密記者</p>
+    </div>
+
+    <p>然後二〇二六年二月，Tomas 走人，任期不滿一年。緊接著 EF 發布一份新的章程（mandate），把方向重新拉回賽博龐克價值觀（cypherpunk values），也就是抗審查、開源、隱私。傳言內部成員被要求簽署這份章程，雖然 EF 從未證實。</p>
+    <p>章程公布後，離職潮開始。每隔幾天就有一位資深成員在 X 上發告別文。沒有人說明真正的原因，但時間點與章程的接續，讓「離職是對章程的抗議」變成社群的主流猜測。</p>
+  </div>
+</section>
+
+<!-- PART 3 -->
+<section>
+  <div class="fade-in">
+    <div class="part-label">PART 3　四種診斷</div>
+    <h2>四個人，四種完全不同的看法</h2>
+    <p>The Defiant 創辦人 Camila Russo 找來四位身份各異的關鍵人物，圍繞「EF 接下來該怎麼辦」展開兩小時的討論。四個人對同一個現象，給出四個方向完全不同的診斷。</p>
+
+    <div class="person-cards">
+      <div class="person-card">
+        <div class="name">William Mougayar</div>
+        <div class="role">區塊鏈作家、「tokenomics」一詞的提出者</div>
+        <div class="stance">問題不存在。EF 縮小是好事，回歸研究與協定升級，把舞台留給生態系。期待 EF 做更多，本身就是誤解了它的角色。</div>
+      </div>
+      <div class="person-card">
+        <div class="name">Dankrad Feist</div>
+        <div class="role">前 EF 研究員，現任職於 Stripe 投資的支付鏈 Tempo</div>
+        <div class="stance">EF 的結構從根本上不適合競爭。應該另外創立一個資金至少十億美元、永久由質押收益挹注的新組織，負責商務開發與代幣經濟。</div>
+      </div>
+      <div class="person-card">
+        <div class="name">Laura Shin</div>
+        <div class="role">加密記者，《Unchained》主持人、《Cryptopia》作者</div>
+        <div class="stance">問題在領導文化，不在組織。Vitalik 沒有競爭心態，所以有競爭心態的人才會離開。代幣經濟跟技術綁在一起，不能切割給外部組織做。</div>
+      </div>
+      <div class="person-card">
+        <div class="name">Ajit Tripathi</div>
+        <div class="role">Eigen Foundation 執行長，前 PwC 區塊鏈合夥人</div>
+        <div class="stance">整個加密產業在 AI 時代陷入中年危機。Vitalik 主動選了賽博龐克方向，這是有意識的取捨。重點是抓住 Clarity Act 後的代幣化機會。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PART 4 -->
+<section>
+  <div class="fade-in">
+    <div class="part-label">PART 4　第一種診斷</div>
+    <h2>William：基金會本來就該縮小</h2>
+    <p>William Mougayar 的立場最反直覺：他認為大家根本搞錯方向。問題不在 EF 做太少，而在大家對它的期待本來就太多。</p>
+    <p>他的邏輯是這樣的：要先理解基金會的角色，才能判斷它做得對不對。看看比特幣，比特幣基金會幾乎不存在，比特幣依然運作，因為它夠去中心化，沒有任何單一組織可以被指責「為什麼不多做點什麼」。</p>
+
+    <div class="quote-block">
+      <p class="quote-text">這種人來人往，正是基金會韌性的一部分。它讓基金會不依賴任何一個人，這才是真正的去中心化。我們應該對基金會期待少一點，讓生態系做更多。</p>
+      <p class="quote-attr">——William Mougayar</p>
+    </div>
+
+    <p>他甚至預告：「未來幾週還會有更多人離開。這是設計好的，目標是讓留下的人形成核心小組。」一年前 EF 擴張到接近三百人，他當時就擔心太大了。這些管理階層根本駕馭不了那種規模的組織。</p>
+    <p>在他眼中，EF 的核心使命只有三件事：做研究、維護協定、一年完成兩次升級。其他的事情交給生態系，像是 Aave 在做的 DeFi 機構化、各種 L2、新的應用，這些都不需要 EF 親自下海做。</p>
+    <p>不過 Laura Shin 在現場就反駁了一點：把以太坊類比比特幣本身就有問題。比特幣的代碼已經僵化（ossified），而這在量子威脅面前正在變成大麻煩。以太坊還在持續升級，所以基金會的協定開發角色，遠比比特幣基金會吃重。</p>
+  </div>
+</section>
+
+<!-- PART 5 -->
+<section>
+  <div class="fade-in">
+    <div class="part-label">PART 5　第二種診斷</div>
+    <h2>Dankrad：需要一個全新的組織</h2>
+    <p>Dankrad Feist 不只是嘴上講講。他在討論的前一天，剛在 X 上正式提出新組織方案：</p>
+
+    <div class="highlight-box">
+      <p><strong>規模：</strong>初始資金至少十億美元，永久由 ETH 質押收益挹注。</p>
+      <p><strong>領導：</strong>一個願意為以太坊競爭力而戰的執行長。</p>
+      <p><strong>問責：</strong>董事會由「希望 ETH 漲」的人組成，章程把組織問責綁到 ETH 價格上。</p>
+    </div>
+
+    <p>他的論證從一個讓人意外的事實切入：<span class="hl">EF 持有的 ETH 不到 0.1%。</span>沒有質押收益、沒有手續費分潤。一個無法從生態系成長中受益的中央組織，自然不會用全力去推動成長。</p>
+    <p>他指出，過去 EF 是一群研究員與工程師，研究做得很好，但缺乏的是「策略思考者」，那種會看出「啊，我們的根本論點變了」的人。Stablecoin 取代 ETH 成為鏈上計價單位，是二〇二一、二〇二二年的大轉折，但 EF 內部沒有人意識到這個轉變的策略意涵，繼續按照舊路線推進。</p>
+    <p>他承認自己這個提案有點極端：「老實說，這個建議很爛。要真的做到，得有更深的危機才行。」但他堅持一個信念。如果以太坊真的想贏得「金融上鏈」這場仗，光靠一群理想主義的研究員不夠，需要協調的資源、明確的策略、可以快速轉向的機制。</p>
+    <p>反對者最尖銳的質疑是 Laura Shin 提出的：代幣經濟和技術根本切不開。每一次協定升級都會影響經濟模型，外部組織要怎麼參與這種決策？Dankrad 的回應是「組織不需要控制 EF，但社群可以給它足夠的合法性，讓它在路線圖上發揮影響力」。</p>
+  </div>
+</section>
+
+<!-- PART 6 -->
+<section>
+  <div class="fade-in">
+    <div class="part-label">PART 6　第三種診斷</div>
+    <h2>Laura：問題是 Vitalik 不夠好勝</h2>
+    <p>Laura Shin 把焦點從組織結構拉到個人。她認為這場人才流失的根源，是文化不合。</p>
+
+    <div class="quote-block">
+      <p class="quote-text">Vitalik 沒有競爭心態，所以有競爭心態的人會離開 EF。這是我的觀察。</p>
+      <p class="quote-attr">——Laura Shin</p>
+    </div>
+
+    <p>她認為 Tomas 短暫的在任期間，EF 走了一條更務實、更商業導向的路線，把資金部署到 DeFi、開始強調以太坊上的應用。社群至少一部分聲音很期待這個方向。Tomas 離開、章程拉回賽博龐克方向，等於一百八十度大轉彎，本質上是 Vitalik 重新主張了他的偏好。</p>
+    <p>但 Laura 認為這個方向選擇有時間問題。她說以太坊現在的策略短期內幫不上忙，長期或許行得通。但如果短期輸了，長期還有人回來嗎？</p>
+    <p>她舉 Tempo 為例：Tempo 是 Stripe 孵化的支付鏈，整合的對象是日常使用者，不是加密原生使用者。「我在現實生活裡沒有任何朋友是加密圈的。多數人根本不知道也不在乎以太坊。」這個落差正是當下競賽的主戰場。誰能先把人帶上鏈，誰就贏了下個十年。</p>
+    <p>她不反對 Dankrad 的新組織提案，但補了一刀：BD 可以外包，代幣經濟不行。「整個系統的賽局理論跟技術緊緊綁在一起。外部組織要怎麼做這個？」</p>
+  </div>
+</section>
+
+<!-- PART 7 -->
+<section>
+  <div class="fade-in">
+    <div class="part-label">PART 7　第四種診斷</div>
+    <h2>Tripathi：這是整個加密產業的中年危機</h2>
+    <p>Ajit Tripathi 把鏡頭拉得最遠。他認為這不只是 EF 的問題，是整個加密產業在 AI 時代的存在性危機。</p>
+    <p>過去十年加密在創新敘事上是主角，現在 AI 接手了。從 meme coin 退潮、深科技回歸、監管環境改變這幾個變化合在一起看，加密產業正在被迫回答一個問題：我們到底要解決什麼問題？</p>
+
+    <div class="highlight-box">
+      <p>有些人接受了答案，去做 Hyperliquid（永續合約交易所）、Polygon（支付鏈）、Tempo（支付鏈）、Eigen（AI 代理人）這類具體應用，因為這些有真實的營收、真實的使用者、真實的市場指標。</p>
+      <p>Vitalik 選的是另一條路：繼續強化以太坊的差異化定位，繼續走抗審查、信任最小化。這是有意識的選擇，不是疏忽。</p>
+    </div>
+
+    <p>Tripathi 不認為 EF 縮小是壞事。他用一個說法形容過去這段時間：「曾經有一陣子，社群以為以太坊已經贏了。」Polygon 內部、社群輿論，都瀰漫著「以太坊已勝出」的氣氛。然後 Solana 爆發，把這個假設打碎。</p>
+    <p>他認為以太坊現在最需要的不是新組織，而是抓住下一波結構性順風，例如美國的 Clarity Act 通過、代幣化市場擴張、agentic commerce（AI 代理人經濟）。「如果未來有 agentic 公司被代幣化，那就需要可擴展的市場，不是那種小打小鬧的群眾募資。」這才是以太坊該贏的地方。</p>
+  </div>
+</section>
+
+<!-- PART 8 -->
+<section>
+  <div class="fade-in">
+    <div class="part-label">PART 8　共識與分歧</div>
+    <h2>四個人的唯一共識</h2>
+    <p>四種診斷的方向都不一樣，但有一件事四個人都同意：</p>
+
+    <div class="highlight-box">
+      <p><strong>EF 接下來會做更少，不會做更多。</strong>它會回歸研究與協定開發的核心，把更廣的責任讓給生態系。</p>
+    </div>
+
+    <p>分歧在於：這對以太坊是好事還是壞事？</p>
+    <p>William 認為這是健康的去中心化。Dankrad 認為留下的空缺需要新組織填補。Laura 認為問題出在領導文化，不是組織形式。Tripathi 認為這只是大潮流的一部分，重點不是內部結構，是抓住外部機會。</p>
+    <p>另一個有趣的觀察是 Camila Russo 主持時的提問：「大家是否都同意，以太坊已經贏了那個假設是錯的？」四個人雖然用詞不同，但都點頭。沒有人覺得這場仗已經打完。差別在於：誰來打。</p>
+  </div>
+</section>
+
+<!-- Big quote -->
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">EF 在選擇做更少，市場在要求更多。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">以太坊進入新的階段，剩下的問題是：誰來組織、誰來建設、誰來為 ETH 而戰？</p>
+</div>
+
+<!-- Choice section -->
+<div class="choice-section" id="choice">
+  <h2 class="fade-in">如果你是以太坊社群的一員，<br>你站哪一邊？</h2>
+  <p class="choice-sub fade-in">四種診斷，四條路。選完之後，分享你的觀點</p>
+
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">🛡️</div>
+      <div>
+        <div class="label">William 派：基金會本來就該縮小</div>
+        <div class="desc">回歸研究與協定升級，讓生態系自然接手，這就是去中心化該有的樣子</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">💰</div>
+      <div>
+        <div class="label">Dankrad 派：需要一個十億美元新組織</div>
+        <div class="desc">EF 不能改變結構，那就另起爐灶。專注代幣經濟與商務開發，向 ETH 價格負責</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">🎯</div>
+      <div>
+        <div class="label">Laura 派：問題是領導文化，不是組織</div>
+        <div class="desc">Vitalik 需要更好勝的心態，否則有競爭心態的人才只會繼續離開</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(3)">
+      <div class="emoji">🌊</div>
+      <div>
+        <div class="label">Tripathi 派：這是整個產業的中年危機</div>
+        <div class="desc">內鬥意義不大，重點是抓住 Clarity Act 與代幣化的順風</div>
+      </div>
+    </button>
+  </div>
+
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <h2>想看更深入的分析？</h2>
+  <p>每週區塊勢都會用台灣讀者看得懂的語言，把這類產業變局拆給你聽，從商業策略、競爭格局到底層邏輯，一次說清楚。</p>
+  <a class="cta-btn" href="https://www.blocktrend.today" target="_blank">前往區塊勢 →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw"
+      onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('EF 在選擇做更少，市場在要求更多。\n\n以太坊基金會的人才流失，到底是誰的問題？四個人四種診斷。\n\n')+'&url='+encodeURIComponent(location.href),'_blank')">分享到 𝕏</button>
+    <button class="share-btn fb"
+      onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('EF 在選擇做更少，市場在要求更多。以太坊基金會的人才流失，到底是誰的問題？'),'_blank')">分享到 Facebook</button>
+  </div>
+</div>
+
+<!-- Subscribe CTA -->
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從以太坊路線圖、穩定幣競爭到 AI 代理人經濟，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer><img src="https://i.urusai.cc/yaku8.png" alt="區塊勢" style="height:44px;opacity:0.5"></footer>
+
+<script>
+let userChoice = -1;
+const labels = ['William 派：基金會該縮小', 'Dankrad 派：需要新組織', 'Laura 派：是領導文化問題', 'Tripathi 派：產業中年危機'];
+const results = [
+  {
+    title: '你選了 William 的路線',
+    desc: '你相信去中心化的力量。基金會做少一點，不是退讓，而是回歸本分。比特幣沒有強勢基金會也撐到今天，以太坊有更好的協定團隊與更活躍的生態系，為什麼要害怕？真正的健康，是不再有任何一個組織可以被指著鼻子問「你怎麼不多做點什麼」。',
+    bg: 'var(--blue-light)', border: '#B8CFF0'
+  },
+  {
+    title: '你選了 Dankrad 的路線',
+    desc: '你認為「自然湧現」太樂觀。沒有資源、沒有問責、沒有明確負責人的事，最後就是沒人做。EF 持有不到 0.1% 的 ETH，也沒有質押或手續費分潤。一個沒誘因從生態系成長中受益的組織，怎麼可能用全力去推動成長？十億美元的新組織不是要取代 EF，是要補上那個缺口。',
+    bg: 'var(--terra-light)', border: '#DBBFAD'
+  },
+  {
+    title: '你選了 Laura 的路線',
+    desc: '你認為組織只是表象，真正的問題在最上面那個人。Vitalik 不好勝，所以好勝的人才會走。再怎麼換組織形式都救不了，除非文化先變。代幣經濟跟技術綁在一起，本來就不可能外包出去，唯一的解是讓 EF 內部有人真的把 ETH 價格當一回事。',
+    bg: 'var(--gold-light)', border: '#D4C39A'
+  },
+  {
+    title: '你選了 Tripathi 的路線',
+    desc: '你認為糾結在 EF 內鬥，是見樹不見林。整個加密產業在 AI 時代必須重新證明自己。EF 縮不縮小、誰留誰走、誰提什麼新組織，都沒有抓住 Clarity Act 通過、代幣化擴張、agentic commerce 興起這些外部機會來得重要。誰先在這幾條軌道上建出規模，誰就贏。',
+    bg: 'var(--green-light)', border: '#A8D4BC'
+  }
+];
+
+function choose(idx) {
+  if (userChoice >= 0) return;
+  userChoice = idx;
+  document.querySelectorAll('.choice-btn').forEach((b, i) => {
+    if (i === idx) b.classList.add('selected');
+    b.style.cursor = 'default';
+  });
+  const r = results[idx];
+  const card = document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent = r.title;
+  document.getElementById('rDesc').textContent = r.desc;
+  card.style.background = r.bg;
+  card.style.borderColor = r.border;
+  card.classList.add('show');
+
+  const shareText = `我的觀點：${labels[idx]}。\n\nEF 在選擇做更少，市場在要求更多。以太坊基金會的人才流失，你站哪邊？`;
+  document.getElementById('shareTw').onclick = function () {
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText + '\n\n') + '&url=' + encodeURIComponent(location.href), '_blank');
+  };
+  document.getElementById('shareFb').onclick = function () {
+    window.open('https://www.facebook.com/share.php?u=' + encodeURIComponent(location.href) + '&quote=' + encodeURIComponent(shareText), '_blank');
+  };
+  setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
