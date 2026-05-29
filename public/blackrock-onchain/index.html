@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>貝萊德要當穩定幣的央行</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta property="og:title" content="貝萊德要當穩定幣的央行">
+<meta property="og:description" content="貝萊德申請一檔不投資任何加密貨幣、卻把基金股份直接發行到區塊鏈上的貨幣市場基金。它瞄準的不是散戶，而是穩定幣發行商手上那幾千億美元的儲備。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://mnhsu.xyz/blackrock-onchain/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="貝萊德要當穩定幣的央行">
+<meta name="twitter:description" content="貝萊德申請一檔不投資任何加密貨幣、卻把基金股份直接發行到區塊鏈上的貨幣市場基金。它瞄準的不是散戶，而是穩定幣發行商手上那幾千億美元的儲備。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
+  --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
+  --blue:#2563EB;--blue-light:#EFF4FF;--yellow:#8B6914;--yellow-light:#FDF8EC;
+  --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
+  --gold:#8B7340;--gold-light:#F9F3E6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,var(--cream),var(--warm));position:relative;}
+.hero .logo{height:48px;margin-bottom:2.5rem;}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(2rem,6vw,3.2rem);line-height:1.3;letter-spacing:0.02em;margin-bottom:1.5rem;}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.2rem);color:var(--text-secondary);max-width:540px;line-height:1.8;}
+.scroll-hint{position:absolute;bottom:2.5rem;font-size:0.8rem;letter-spacing:0.3em;color:var(--text-muted);animation:breathe 2.4s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(6px);}}
+section{max-width:720px;margin:0 auto;padding:3.5rem 1.6rem;}
+section.wide{max-width:900px;}
+.part-label{font-size:0.78rem;font-weight:700;letter-spacing:0.25em;color:var(--terra);margin-bottom:1rem;}
+h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2rem);line-height:1.5;margin-bottom:1.5rem;letter-spacing:0.01em;}
+p{margin-bottom:1.4rem;font-size:1.05rem;}
+.hl{background:linear-gradient(transparent 60%,var(--gold-light) 60%);padding:0 0.1em;font-weight:500;}
+.callout{background:var(--terra-light);border-left:4px solid var(--terra);border-radius:0 10px 10px 0;padding:1.4rem 1.6rem;margin:2rem 0;}
+.callout p{margin:0;font-size:1rem;color:var(--text);}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light));}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:540px;margin:0 auto;letter-spacing:0.03em;}
+.flow-card{background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.8rem 1.5rem;margin:2rem 0;}
+.flow-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.05rem;margin-bottom:1.4rem;text-align:center;color:var(--text);}
+.flow-row{display:flex;align-items:stretch;gap:0.5rem;flex-wrap:wrap;justify-content:center;}
+.flow-box{flex:1;min-width:120px;border-radius:10px;padding:1rem 0.8rem;text-align:center;position:relative;}
+.flow-box .n{font-size:0.7rem;font-weight:700;opacity:0.6;letter-spacing:0.1em;}
+.flow-box .name{font-weight:700;font-size:0.95rem;margin:0.3rem 0;}
+.flow-box .det{font-size:0.8rem;line-height:1.6;opacity:0.85;}
+.flow-box.b1{background:var(--blue-light);color:#1A3E8A;}
+.flow-box.b2{background:var(--terra-light);color:#8A4220;}
+.flow-box.b3{background:var(--green-light);color:#1C4A35;}
+.flow-arrow{display:flex;align-items:center;color:var(--text-muted);font-size:1.3rem;}
+.flow-note{font-size:0.82rem;color:var(--text-secondary);text-align:center;margin-top:1.2rem;line-height:1.7;}
+.compare{background:#fff;border:1px solid #E8E3D8;border-radius:12px;overflow:hidden;margin:2rem 0;}
+.compare-row{display:flex;border-bottom:1px solid #EFEAE0;}
+.compare-row:last-child{border-bottom:none;}
+.compare-row .label{flex:0 0 30%;background:#F6F2EA;padding:0.9rem 1rem;font-size:0.85rem;font-weight:700;color:var(--text-secondary);display:flex;align-items:center;}
+.compare-row .val{flex:1;padding:0.9rem 1rem;font-size:0.9rem;line-height:1.6;}
+.compare-head .label,.compare-head .val{background:var(--green-deep);color:#fff;font-weight:700;}
+.choice-section{padding:4rem 1.6rem;background:#fff;text-align:center;}
+.choice-section h2{margin-bottom:0.8rem;}
+.choice-sub{color:var(--text-secondary);font-size:0.95rem;margin-bottom:2.5rem;}
+.choice-options{display:flex;flex-direction:column;gap:1rem;max-width:560px;margin:0 auto;}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:var(--warm);border:2px solid #E8E3D8;border-radius:14px;padding:1.2rem 1.4rem;cursor:pointer;text-align:left;transition:all 0.25s;font-family:'Noto Sans TC',sans-serif;}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light);}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0;}
+.choice-btn .label{font-weight:700;font-size:1rem;margin-bottom:0.2rem;}
+.choice-btn .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+.result-card{max-width:560px;margin:2rem auto 0;border:2px solid #DBBFAD;border-radius:14px;padding:1.8rem;background:var(--terra-light);opacity:0;transform:translateY(20px);transition:all 0.5s;display:none;}
+.result-card.show{opacity:1;transform:translateY(0);display:block;}
+.r-badge{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;color:var(--terra);background:#fff;padding:0.3rem 0.9rem;border-radius:2rem;margin-bottom:1rem;}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;}
+.r-desc{font-size:0.95rem;color:var(--text);line-height:1.8;}
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap;}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s;}
+.share-btn:hover{transform:scale(1.03);}
+.share-btn.tw{background:#0f1419;color:#fff;}
+.share-btn.fb{background:#1877f2;color:#fff;}
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream));}
+.cta h2{margin-bottom:1rem;}
+.cta p{max-width:520px;margin:0 auto 2rem;color:var(--text-secondary);font-size:1rem;}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.95rem 2.4rem;border-radius:2rem;font-weight:500;font-size:1.05rem;transition:all 0.3s;}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep);}
+.subscribe-inner{max-width:520px;margin:0 auto;}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem;}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem;}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif;}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem;}
+footer{text-align:center;padding:3rem 2rem;}
+footer img{height:44px;opacity:0.5;}
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>貝萊德要當<br>穩定幣的央行</h1>
+  <p class="sub">一檔不買任何加密貨幣的基金，卻把股份直接發行到以太坊上。它瞄準的不是散戶，而是穩定幣發行商手上的幾千億美元。</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<section class="fade-in">
+  <div class="part-label">PART 1 ｜ 一份奇怪的申請書</div>
+  <h2>全世界最大的資產管理公司，<br>想做一檔不碰加密貨幣的鏈上基金</h2>
+  <p>二〇二六年五月，貝萊德向美國證券交易委員會遞交了一份招股說明書，申請成立一檔新基金，名字很長：<span class="hl">BlackRock Daily Reinvestment Stablecoin Reserve Vehicle</span>，直譯是「貝萊德每日再投資穩定幣儲備工具」。</p>
+  <p>這檔基金的投資內容平淡無奇。它把百分之百的資產投入現金、九十三天以內到期的美國短期公債，以及以公債作擔保的隔夜附買回交易。這就是一檔標準的政府型貨幣市場基金，受美國《投資公司法》Rule 2a-7 規範，目標是把每股淨值穩穩維持在一美元。招股書甚至白紙黑字寫著：本基金不會投資任何數位資產，包含任何虛擬貨幣。</p>
+  <p>奇怪的地方在發行方式。這檔基金的股份不走傳統券商帳戶，而是以「OnChain Shares」的形式，直接用代幣（Token）發行在公開的區塊鏈上。一檔完全不碰加密貨幣的基金，卻把自己變成了一串可以在鏈上轉移的代幣。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 2 ｜ 它真正瞄準的客戶</div>
+  <h2>三百萬美元起跳的門檻，<br>說明了它不是給你我買的</h2>
+  <p>誰會買這檔基金？招股書設了一道門檻：<span class="hl">最低申購金額是三百萬美元。</span>這個數字直接排除了一般散戶。貝萊德想找的客戶，藏在招股書反覆出現的一個詞裡。那就是 payment stablecoin issuers，穩定幣發行商。</p>
+  <p>關鍵在二〇二五年七月通過的美國《GENIUS 法案》。這部法律替支付型穩定幣建立了監管框架，要求發行商必須用「合格儲備資產」來支撐流通的穩定幣。貝萊德這檔基金的設計目標，就是讓它的股份符合 GENIUS 法案定義的合格儲備資產。招股書直接寫明：基金不會投資任何不符合 GENIUS 法案、或不符合 Rule 2a-7 政府型貨幣市場基金規範的資產。</p>
+  <div class="callout">
+    <p>翻成白話：當一家公司發行穩定幣，它收到的美元不能只是放在銀行裡，而要拿去買合格的儲備。貝萊德要做的，就是那個讓發行商把儲備停泊進來、還能每天領利息的地方。</p>
+  </div>
+  <p>招股書還點名了另一類預期客戶：那些替穩定幣發行商與終端使用者提供託管、清算服務的「加密中介機構」（Crypto Intermediaries），包含拿到牌照的加密銀行。貝萊德甚至明說，可能會自掏腰包付錢給這些中介，換取它們把客戶的儲備導進這檔基金。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 3 ｜ 穩定幣的儲備長什麼樣</div>
+  <h2>原本的兩層結構，<br>被貝萊德塞進中間那一層</h2>
+  <p>要看懂貝萊德的位置，先看穩定幣的運作。你拿一美元給發行商，發行商給你一枚穩定幣；它收下的那一美元，要找地方存放並產生收益。過去這筆儲備大多是發行商自己去買公債、或存進銀行。</p>
+  <div class="flow-card">
+    <div class="flow-title">穩定幣儲備的資金流：貝萊德想插進中間</div>
+    <div class="flow-row">
+      <div class="flow-box b1">
+        <div class="n">第一層</div>
+        <div class="name">穩定幣發行商</div>
+        <div class="det">收使用者美元，發行穩定幣，手握龐大儲備</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box b2">
+        <div class="n">第二層・貝萊德這檔基金</div>
+        <div class="name">鏈上貨幣市場基金</div>
+        <div class="det">儲備停泊於此，每日再投資、每日生息</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box b3">
+        <div class="n">第三層</div>
+        <div class="name">美國短期公債</div>
+        <div class="det">九十三天內到期的國庫券與隔夜附買回</div>
+      </div>
+    </div>
+    <div class="flow-note">貝萊德不取代穩定幣，也不取代公債。它要當的是中間那一層，讓穩定幣發行商的儲備有個既合規、又能在鏈上即時調度的停泊處。</div>
+  </div>
+  <p>基金名稱裡的「Daily Reinvestment（每日再投資）」就是賣點。穩定幣發行商的儲備不能死放，要持續滾動生息；而「鏈上發行」讓這份基金股份能像穩定幣一樣，在區塊鏈上即時申購、贖回、轉移。對發行商來說，這等於把儲備管理直接接上了它本來就在用的那條鏈。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 4 ｜ 鏈是公開的，但門是鎖的</div>
+  <h2>它用了以太坊，<br>卻把區塊鏈最自由的部分關掉</h2>
+  <p>這檔基金的鏈上設計藏著一個張力。它的股份代幣發行在公開、無需許可的公鏈上，任何人都能在鏈上看到這些代幣的發行、轉移與贖回紀錄。但同一時間，貝萊德與轉帳代理商 Securitize 在這條開放的鏈上，架了一套「許可制」系統。</p>
+  <p>運作方式是這樣：只有通過 KYC 與反洗錢審查、被「白名單」核可的錢包，才能持有這檔基金的代幣。智慧合約被寫死，禁止把代幣轉給任何沒進白名單的錢包；發行商還能在必要時凍結、甚至「召回」（claw back）特定錢包裡的代幣，把它銷毀後重新發給正確的人。<span class="hl">底層的鏈是無需許可的，但能站上這條鏈的人，全都得先經過貝萊德點頭。</span></p>
+  <div class="callout">
+    <p>招股書的原話是：這套設計的目的，是讓交易無法發生在未知的人或未知的錢包之間，即使區塊鏈基礎設施本身仍是無需許可的。</p>
+  </div>
+  <p>這就是它跟比特幣、跟一般 DeFi 最根本的分野。它要的不是「無人可擋的自由轉帳」，而是「在一條人人可驗證的公開帳本上，蓋一座只有合規者能進的圍牆花園」。公鏈提供的是透明與即時結算，許可制補上的是監管要的身分與控制權。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 5 ｜ 鏈上化帶來的新風險</div>
+  <h2>當基金股份變成代幣，<br>連私鑰遺失都成了招股書的風險條款</h2>
+  <p>把基金股份搬上鏈，也把加密世界的風險一起搬了進來。這份招股書裡出現了一般貨幣市場基金不會有的警語。</p>
+  <p>它寫到：如果股東的私鑰遺失或被盜，第三方可能直接把股東的基金代幣變現、捲走資金，造成不可逆的損失。它也提醒，贖回與點對點轉帳需要股東自己支付區塊鏈的「gas 費」，若錢包裡沒有足夠的原生代幣付手續費，交易可能失敗，甚至可能讓你在贖回截止前送出的請求，因為塞車而沒被及時受理。</p>
+  <div class="compare">
+    <div class="compare-row compare-head">
+      <div class="label">面向</div>
+      <div class="val">這檔基金的特殊之處</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">買得到的人</div>
+      <div class="val">僅限通過白名單審查、三百萬美元起跳的合格投資人</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">紀錄在哪</div>
+      <div class="val">公鏈上的代幣，加上鏈下一份連結錢包與真實身分的私有資料庫</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">隱私風險</div>
+      <div class="val">鏈下資料庫若外洩，可反推出股東身分與完整投資紀錄</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">轉移方式</div>
+      <div class="val">可在白名單錢包之間做點對點轉帳，但價格可能偏離淨值</div>
+    </div>
+  </div>
+  <p>更微妙的是法律地位。招股書坦言，這些代幣在各州法律下的定性仍不確定。基金希望它們被當成《統一商法典》第八條下的「證券」，但麻州法院也可能把代幣視為與基金股份分離的「一般無形資產」，落入第九條。鏈上化解決了結算速度，卻打開了一串還沒判例可循的法律問號。</p>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">貝萊德不發行穩定幣，也不取代穩定幣。它想做的，是穩定幣背後那家收存準備金、每天派息的銀行。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">穩定幣負責流通，貝萊德負責它背後那筆錢的去處。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2>一檔不碰加密貨幣的鏈上基金，<br>你怎麼看它的算盤？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">🏦</div>
+      <div>
+        <div class="label">這是傳統金融的勝利</div>
+        <div class="desc">用合規圍牆收編公鏈，貝萊德把監管框架變成自己的護城河</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">⚙️</div>
+      <div>
+        <div class="label">這是區塊鏈的勝利</div>
+        <div class="desc">連最大的資產管理公司都得把產品發到鏈上，鏈成了結算層</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">🤔</div>
+      <div>
+        <div class="label">兩邊都被馴化了</div>
+        <div class="desc">公鏈失去無需許可，傳統基金背上私鑰風險，誰也沒全贏</div>
+      </div>
+    </button>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想看更深入的分析？</h2>
+  <p>區塊勢的完整文章包含更多脈絡、案例與細節，幫你把這個論點讀得更透。</p>
+  <a class="cta-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">閱讀完整文章 →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('貝萊德不發行穩定幣，也不取代穩定幣。它想做的，是穩定幣背後那家收存準備金、每天派息的銀行。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('貝萊德想當穩定幣背後那家收存準備金、每天派息的銀行。'),'_blank','noopener')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從穩定幣、AI 代理人到平台策略，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer><img src="https://i.urusai.cc/yaku8.png" alt="區塊勢"></footer>
+
+<script>
+let userChoice=-1;
+const labels=['這是傳統金融的勝利','這是區塊鏈的勝利','兩邊都被馴化了'];
+const results=[
+  {title:'傳統金融的勝利',desc:'貝萊德沒有挑戰加密世界，而是用 KYC、白名單與召回權，在公鏈上重建了傳統金融的規矩。它把監管要求變成只有自己能蓋的圍牆，誰想進來都得先過它這關。',bg:'var(--blue-light)',border:'#B8CDF0'},
+  {title:'區塊鏈的勝利',desc:'當全世界最大的資產管理公司都得把旗艦級的儲備產品發行到以太坊上，等於承認鏈才是未來的結算層。基礎設施贏了，連最保守的玩家也來鏈上設攤。',bg:'var(--terra-light)',border:'#DBBFAD'},
+  {title:'兩邊都被馴化了',desc:'公鏈交出了無需許可的核心，只剩透明帳本；傳統貨幣市場基金則背上了私鑰遺失、gas 費、法律定性不明的新風險。雙方各取所需，也各自妥協，沒有人是純粹的贏家。',bg:'var(--green-light)',border:'#A8D4BC'}
+];
+function choose(idx){
+  if(userChoice>=0)return;
+  userChoice=idx;
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===idx)b.classList.add('selected');
+    b.style.cursor='default';
+  });
+  const r=results[idx];
+  const card=document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent=r.title;
+  document.getElementById('rDesc').textContent=r.desc;
+  card.style.background=r.bg;
+  card.style.borderColor=r.border;
+  card.classList.add('show');
+  const shareText='我的觀點：'+labels[idx]+'。\n\n貝萊德想當穩定幣背後那家收存準備金、每天派息的銀行。';
+  document.getElementById('shareTw').onclick=function(){
+    window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener');
+  };
+  document.getElementById('shareFb').onclick=function(){
+    window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener');
+  };
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
