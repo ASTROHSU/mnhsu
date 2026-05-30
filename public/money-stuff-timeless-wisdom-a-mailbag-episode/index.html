@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>五個問題，拆開金融直覺</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta property="og:title" content="五個問題，拆開金融直覺">
+<meta property="og:description" content="Money Stuff 的信箱特輯沒有單一新聞，卻很好看出 Matt Levine 怎麼拆金融問題：顧問不是幫你猜股價，股價不是公司錢包，公司債也不是房貸。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.mnhsu.xyz/money-stuff-timeless-wisdom-a-mailbag-episode/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="五個問題，拆開金融直覺">
+<meta name="twitter:description" content="Money Stuff 的信箱特輯沒有單一新聞，卻很好看出 Matt Levine 怎麼拆金融問題。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
+  --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
+  --blue:#2563EB;--blue-light:#EFF4FF;--yellow:#8B6914;--yellow-light:#FDF8EC;
+  --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
+  --gold:#8B7340;--gold-light:#F9F3E6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,var(--cream),var(--warm));position:relative;}
+.hero .logo{height:48px;margin-bottom:2.5rem;}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.9rem,5.2vw,3rem);line-height:1.35;letter-spacing:0.02em;margin-bottom:1.5rem;}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.2rem);color:var(--text-secondary);max-width:600px;line-height:1.8;}
+.scroll-hint{position:absolute;bottom:2.5rem;font-size:0.8rem;letter-spacing:0.3em;color:var(--text-muted);animation:breathe 2.4s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(6px);}}
+section{max-width:720px;margin:0 auto;padding:3.5rem 1.6rem;}
+section.wide{max-width:900px;}
+.part-label{font-size:0.78rem;font-weight:700;letter-spacing:0.25em;color:var(--terra);margin-bottom:1rem;}
+h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2rem);line-height:1.5;margin-bottom:1.5rem;letter-spacing:0.01em;}
+p{margin-bottom:1.4rem;font-size:1.05rem;}
+.hl{background:linear-gradient(transparent 60%,var(--gold-light) 60%);padding:0 0.1em;font-weight:500;}
+.callout{background:var(--terra-light);border-left:4px solid var(--terra);border-radius:0 10px 10px 0;padding:1.4rem 1.6rem;margin:2rem 0;}
+.callout p{margin:0;font-size:1rem;color:var(--text);}
+.question-card{background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.5rem;margin:2rem 0;}
+.question-card .q{font-size:0.82rem;font-weight:700;letter-spacing:0.12em;color:var(--terra);margin-bottom:0.8rem;}
+.question-card .a{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.18rem;line-height:1.6;}
+.book-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:0.8rem;margin:2rem 0;}
+.book-card{background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.2rem;}
+.book-card .name{font-weight:700;color:var(--green-deep);font-size:0.95rem;margin-bottom:0.5rem;}
+.book-card .idea{font-size:0.84rem;color:var(--text-secondary);line-height:1.65;}
+.split-card{background:#fff;border:1px solid #E8E3D8;border-radius:12px;overflow:hidden;margin:2rem 0;}
+.split-row{display:grid;grid-template-columns:0.8fr 1fr 1fr;border-bottom:1px solid #EFEAE0;}
+.split-row:last-child{border-bottom:none;}
+.split-row div{padding:0.9rem;font-size:0.86rem;line-height:1.6;}
+.split-row .head{background:var(--green-deep);color:#fff;font-weight:700;}
+.split-row .label{background:#F6F2EA;font-weight:700;color:var(--text-secondary);}
+.signal{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.8rem;margin:2rem 0;}
+.signal div{background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.1rem;text-align:center;}
+.signal .n{font-size:1.55rem;font-family:'Noto Serif TC',serif;font-weight:900;color:var(--terra);line-height:1;}
+.signal .t{font-weight:700;margin:0.45rem 0 0.25rem;}
+.signal .d{font-size:0.82rem;color:var(--text-secondary);line-height:1.55;}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light));}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:560px;margin:0 auto;letter-spacing:0.03em;}
+.choice-section{padding:4rem 1.6rem;background:#fff;text-align:center;}
+.choice-section h2{margin-bottom:0.8rem;}
+.choice-sub{color:var(--text-secondary);font-size:0.95rem;margin-bottom:2.5rem;}
+.choice-options{display:flex;flex-direction:column;gap:1rem;max-width:560px;margin:0 auto;}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:var(--warm);border:2px solid #E8E3D8;border-radius:14px;padding:1.2rem 1.4rem;cursor:pointer;text-align:left;transition:all 0.25s;font-family:'Noto Sans TC',sans-serif;}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light);}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0;}
+.choice-btn .label{font-weight:700;font-size:1rem;margin-bottom:0.2rem;}
+.choice-btn .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+.result-card{max-width:560px;margin:2rem auto 0;border:2px solid #DBBFAD;border-radius:14px;padding:1.8rem;background:var(--terra-light);opacity:0;transform:translateY(20px);transition:all 0.5s;display:none;}
+.result-card.show{opacity:1;transform:translateY(0);display:block;}
+.r-badge{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;color:var(--terra);background:#fff;padding:0.3rem 0.9rem;border-radius:2rem;margin-bottom:1rem;}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;}
+.r-desc{font-size:0.95rem;color:var(--text);line-height:1.8;}
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap;}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s;}
+.share-btn:hover{transform:scale(1.03);}
+.share-btn.tw{background:#0f1419;color:#fff;}
+.share-btn.fb{background:#1877f2;color:#fff;}
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream));}
+.cta h2{margin-bottom:1rem;}
+.cta p{max-width:520px;margin:0 auto 2rem;color:var(--text-secondary);font-size:1rem;}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.95rem 2.4rem;border-radius:2rem;font-weight:500;font-size:1.05rem;transition:all 0.3s;}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep);}
+.subscribe-inner{max-width:520px;margin:0 auto;}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem;}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem;}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif;}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem;}
+footer{text-align:center;padding:3rem 2rem;}
+footer img{height:44px;opacity:0.5;}
+footer .src{font-size:0.78rem;color:var(--text-muted);margin:1rem auto 0;line-height:1.7;max-width:560px;}
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:640px){
+  html{font-size:17px;}
+  section{padding:3rem 1.25rem;}
+  .split-row{grid-template-columns:1fr;}
+  .split-row .head:nth-child(2),.split-row .head:nth-child(3){display:none;}
+  .choice-btn{align-items:flex-start;padding:1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>五個問題，<br>拆開金融直覺</h1>
+  <p class="sub">Money Stuff 這集信箱特輯沒有單一新聞，卻很好看出 Matt Levine 怎麼拆金融問題：顧問不是幫你猜股價，股價不是公司錢包，公司債也不是房貸。</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<section class="fade-in">
+  <div class="part-label">PART 1 ｜ 投資顧問</div>
+  <h2>懂金融的人，<br>為什麼還需要顧問？</h2>
+  <p>第一個問題很直接：Matt Levine 自己寫 Money Stuff，為什麼還會有財務顧問？他的答案不是「因為顧問比較會選股」。他要的不是有人告訴他哪支股票會漲，而是有人處理比較無聊、也比較貼近日常的問題。</p>
+  <p>例如退休目標該抓多少、孩子教育基金該放多少、稅務安排怎麼做。這些問題不一定需要一個天才投資人，但需要一個會把你的財務人生攤開來檢查的人。</p>
+  <div class="question-card">
+    <div class="q">顧問真正賣的是什麼？</div>
+    <div class="a">不是「我幫你打敗市場」，而是「我幫你少犯幾個自己懶得處理的錯」。</div>
+  </div>
+  <p>這一段還有一個 Money Stuff 式的尷尬：他透過顧問持有一點點 private credit fund，後來那個領域變成他常寫的題材。金額不大，但每次寫到相關議題都得揭露。這不是投資風險，而是寫作者的職業麻煩。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 2 ｜ 金融書</div>
+  <h2>好金融書不是給答案，<br>而是給你一組看市場的問題</h2>
+  <p>有人問 Matt 喜歡哪些金融書。他先說最經典的《Liar's Poker》和《Barbarians at the Gate》大家都知道，真正有趣的是他從其他書裡記住的幾個思考工具。</p>
+  <div class="book-grid">
+    <div class="book-card">
+      <div class="name">Diary of a Very Bad Year</div>
+      <div class="idea">危機裡相關性會變成一百。你以為每筆投資只會分散占用時間，結果所有火同時燒起來。</div>
+    </div>
+    <div class="book-card">
+      <div class="name">Expected Returns</div>
+      <div class="idea">投資前先問：你為什麼會被付錢？報酬不是魔法，而是某種風險、限制或不舒服的補償。</div>
+    </div>
+    <div class="book-card">
+      <div class="name">The Bond King</div>
+      <div class="idea">金融公司裡的權力，有時候藏在座位表。誰坐主桌，誰被放到觀眾席，大家都看得懂。</div>
+    </div>
+    <div class="book-card">
+      <div class="name">Trading at the Speed of Light</div>
+      <div class="idea">高頻交易裡，雨會改變流動性。天氣拖慢訊號，市場製造者反而可能報出更窄價差。</div>
+    </div>
+  </div>
+  <p>這些例子共同指向一件事：金融書最有用的地方，不是記住哪個交易賺了多少，而是留下幾個可以重複拿來拆問題的句子。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 3 ｜ ESG</div>
+  <h2>ESG 三個字母，<br>其實不是同一種東西</h2>
+  <p>有位 private equity 從業者問：基金公司把員工福利、健康計畫、公司 retreat 寫進 ESG 敘事，這到底是好的 ESG，還是壞的 ESG？</p>
+  <p>Matt 的拆法是把三個字母拆開。E 和 S 多半是在說股東以外的人：環境、員工、社群。G 則常常是在說股東：董事會怎麼監督管理層，管理層有沒有把股東的錢拿去服務自己。</p>
+  <div class="split-card">
+    <div class="split-row">
+      <div class="head">問題</div>
+      <div class="head">像好的 S</div>
+      <div class="head">像壞的 G</div>
+    </div>
+    <div class="split-row">
+      <div class="label">員工福利</div>
+      <div>給一般員工合理待遇，可能是 social。</div>
+      <div>給高階主管昂貴特權，可能是 governance 問題。</div>
+    </div>
+    <div class="split-row">
+      <div class="label">PE 公司</div>
+      <div>投資組合公司的員工福利，比較容易放進 S。</div>
+      <div>基金公司自己高薪員工的福利，拿來宣傳就很微妙。</div>
+    </div>
+  </div>
+  <p>所以這不是一道是非題。同一個「福利」放在不同人身上，會從照顧員工變成管理層自肥。ESG 的難題不在縮寫，而在誰付錢、誰受益。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 4 ｜ 股價</div>
+  <h2>公司上市後，<br>股價為什麼還會影響公司？</h2>
+  <p>另一個問題是：公司 IPO 之後已經拿到現金，為什麼股價還重要？公司是不是保留一包股票，之後再拿出來賣？</p>
+  <p>Matt 先拆掉一個直覺。在美國，公司不是拿著一罐有限的「庫藏股票」等著賣完。大致上，公司需要時可以發新股。多數成熟公司也不是天天靠賣股票營運。</p>
+  <p>股價重要，是因為它在公司內外同時扮演幾個角色。</p>
+  <div class="signal">
+    <div>
+      <div class="n">1</div>
+      <div class="t">薪酬</div>
+      <div class="d">員工和高階主管拿股票，股價會直接影響激勵。</div>
+    </div>
+    <div>
+      <div class="n">2</div>
+      <div class="t">併購</div>
+      <div class="d">股價高，公司比較容易用股票買公司。</div>
+    </div>
+    <div>
+      <div class="n">3</div>
+      <div class="t">融資</div>
+      <div class="d">股權價值高，債權人也比較願意借錢。</div>
+    </div>
+    <div>
+      <div class="n">4</div>
+      <div class="t">紀律</div>
+      <div class="d">股價像即時成績單，逼管理層解釋資本該去哪。</div>
+    </div>
+  </div>
+  <p>這也解釋了迷因股為什麼麻煩。股價本來是資本配置訊號，告訴公司「市場覺得你能把錢用好」。如果股價因為迷因暴漲，管理層可能收到錯誤訊號，以為自己應該擴張、收購、聘更多人。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 5 ｜ 公司債與房貸</div>
+  <h2>公司借錢，<br>為什麼不像房貸一樣慢慢還？</h2>
+  <p>最後一題問的是公司貸款。個人房貸通常每月還本付息，最後一期不會突然冒出一大筆本金。公司債和許多商業貸款卻常常是前面付利息，到期再一次還本金。</p>
+  <p>差別在生命週期。人會先收入少，後來收入變高，退休後收入下降。房貸設計成慢慢還，正好配合這條曲線。公司理論上應該持續成長，十年後賺錢能力比現在強，也比較能一次還錢或再融資。</p>
+  <div class="callout">
+    <p>人借錢，是為了把未來收入拉到現在使用；公司借錢，是為了維持一個它認為有效率的資本結構。</p>
+  </div>
+  <p>公司也常常不想把債務清到零。對公司來說，債通常比股權便宜，適度負債能提高股東報酬。投資人也偏好 bullet bond，因為本金中途一直還回來，反而要重新找地方投資。</p>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">金融問題常常不是問答案，而是問這個工具到底在服務誰。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">同一個工具，放在顧問、股東、管理層、員工或債權人眼裡，答案會完全不同。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2>這集你最想帶走哪一個金融直覺？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">🧭</div>
+      <div>
+        <div class="label">顧問不是選股機器</div>
+        <div class="desc">真正有用的是稅務、退休、教育基金和少犯錯</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">📈</div>
+      <div>
+        <div class="label">股價是即時成績單</div>
+        <div class="desc">它不只是價格，也會回頭影響公司怎麼配置資本</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">🏢</div>
+      <div>
+        <div class="label">公司不是放大版個人</div>
+        <div class="desc">公司債不像房貸，因為公司和人的生命週期不同</div>
+      </div>
+    </button>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想聽原始對話？</h2>
+  <p>這頁整理自 Money Stuff 的信箱特輯。原始節目保留了 Matt Levine 和 Katie Greifeld 之間更完整的對話節奏。</p>
+  <a class="cta-btn" href="https://www.youtube.com/watch?v=H5oudQaFu9U" target="_blank" rel="noopener">前往 YouTube →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Money Stuff 這集信箱特輯，拆開五個金融直覺：顧問、金融書、ESG、股價、公司債。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('Money Stuff 這集信箱特輯，拆開五個金融直覺。'),'_blank','noopener')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從穩定幣、AI 代理人到平台策略，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer>
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <div class="src">本頁整理自 Bloomberg Podcasts 的 Money Stuff: The Podcast〈Timeless Wisdom: A Mailbag Episode〉，僅作為閱讀導覽。</div>
+</footer>
+
+<script>
+let userChoice=-1;
+const labels=['顧問不是選股機器','股價是即時成績單','公司不是放大版個人'];
+const results=[
+  {title:'顧問不是選股機器',desc:'你帶走的是最務實的一點：好顧問不一定要替你猜市場，而是幫你處理稅務、退休、教育基金和紀律。金融服務有時候賣的不是聰明，而是把麻煩事定期攤開檢查。',bg:'var(--terra-light)',border:'#DBBFAD'},
+  {title:'股價是即時成績單',desc:'你帶走的是公司治理那一層：股價不是公司口袋裡的現金，卻會影響薪酬、併購、借錢能力和管理層的資本配置。當訊號失真，公司收到的指令也會跟著歪掉。',bg:'var(--green-light)',border:'#A8D4BC'},
+  {title:'公司不是放大版個人',desc:'你帶走的是借貸產品背後的生命週期。人會退休，所以房貸慢慢還；公司理論上會成長，也常常想維持債務，所以公司債到期還本、再融資，並不奇怪。',bg:'var(--blue-light)',border:'#B8CDF0'}
+];
+function choose(idx){
+  if(userChoice>=0)return;
+  userChoice=idx;
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===idx)b.classList.add('selected');
+    b.style.cursor='default';
+  });
+  const r=results[idx];
+  const card=document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent=r.title;
+  document.getElementById('rDesc').textContent=r.desc;
+  card.style.background=r.bg;
+  card.style.borderColor=r.border;
+  card.classList.add('show');
+  const shareText='我的觀點：'+labels[idx]+'。\n\nMoney Stuff 這集信箱特輯，拆開五個金融直覺。';
+  document.getElementById('shareTw').onclick=function(){
+    window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener');
+  };
+  document.getElementById('shareFb').onclick=function(){
+    window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener');
+  };
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
