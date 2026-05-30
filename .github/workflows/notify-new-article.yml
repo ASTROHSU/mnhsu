@@ -1,0 +1,41 @@
+name: Notify new article
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'public/**/index.html'
+      - 'scripts/notify-new-article.mjs'
+      - '.github/workflows/notify-new-article.yml'
+  workflow_dispatch:
+    inputs:
+      article_path:
+        description: 'Optional article file path, for example public/example/index.html'
+        required: false
+        type: string
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Send Resend notification
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_FROM: ${{ vars.RESEND_FROM }}
+          RESEND_TO: mn@mnhsu.xyz
+          SITE_ORIGIN: https://www.mnhsu.xyz
+          GITHUB_BEFORE: ${{ github.event.before }}
+          GITHUB_SHA: ${{ github.sha }}
+          ARTICLE_PATH: ${{ inputs.article_path }}
+        run: node scripts/notify-new-article.mjs
