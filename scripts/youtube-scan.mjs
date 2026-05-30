@@ -3,7 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import path from 'node:path';
-import { enqueueJobs, makeJob } from './youtube-queue.mjs';
+import { enqueueJobs, loadQueue, makeJob } from './youtube-queue.mjs';
 
 const repoRoot = path.resolve(new URL('..', import.meta.url).pathname);
 const sources = JSON.parse(readFileSync(path.join(repoRoot, 'scripts/youtube-sources.json'), 'utf8'));
@@ -13,6 +13,19 @@ const dryRun = args.has('--dry-run');
 const processLatest = args.has('--process-latest');
 const processAll = args.has('--all') || args.has('--once') || !argValue('--source');
 const sourceId = argValue('--source');
+const latestUnprocessedArg = argValue('--latest-unprocessed') || argValue('--latest-unseen') || argValue('--backfill');
+const latestUnprocessedCount = Number(latestUnprocessedArg || (processLatest ? 1 : 0));
+const playlistLimit = Number(
+  argValue('--playlist-limit') || (latestUnprocessedCount > 0 ? Math.max(30, latestUnprocessedCount * 5) : 10),
+);
+
+if (!Number.isInteger(latestUnprocessedCount) || latestUnprocessedCount < 0) {
+  throw new Error('--latest-unprocessed must be a positive integer.');
+}
+
+if (!Number.isInteger(playlistLimit) || playlistLimit < 1) {
+  throw new Error('--playlist-limit must be a positive integer.');
+}
 
 function log(message) {
   console.log(`[${new Date().toISOString()}] ${message}`);
@@ -72,7 +85,7 @@ function fetchPlaylist(source) {
     '--flat-playlist',
     '--dump-single-json',
     '--playlist-items',
-    '1:10',
+    `1:${playlistLimit}`,
     source.url,
   ]);
   const playlist = JSON.parse(raw);
@@ -85,11 +98,21 @@ function fetchPlaylist(source) {
     }));
 }
 
+function queuedVideoIdsForSource(sourceId) {
+  const queue = loadQueue();
+  return new Set(
+    queue.jobs
+      .filter((job) => job.sourceId === sourceId)
+      .map((job) => job.video?.id || job.videoId)
+      .filter(Boolean),
+  );
+}
+
 function videosToQueue(source, state, entries) {
   const latest = entries[0];
   if (!latest) return [];
 
-  if (!state.lastSeenId && !processLatest) {
+  if (!state.lastSeenId && latestUnprocessedCount === 0) {
     state.lastSeenId = latest.id;
     state.lastSeenTitle = latest.title;
     state.lastCheckedAt = new Date().toISOString();
@@ -98,8 +121,14 @@ function videosToQueue(source, state, entries) {
   }
 
   let candidates = [];
-  if (processLatest && !state.processed?.[latest.id]) {
-    candidates = [latest];
+  if (latestUnprocessedCount > 0) {
+    const queued = queuedVideoIdsForSource(source.id);
+    const pending = new Set((state.pending || []).map((video) => video.id).filter(Boolean));
+    candidates = entries
+      .filter((video) => !state.processed?.[video.id])
+      .filter((video) => !queued.has(video.id))
+      .filter((video) => !pending.has(video.id))
+      .slice(0, latestUnprocessedCount);
   } else if (state.lastSeenId && latest.id !== state.lastSeenId) {
     const lastSeenIndex = entries.findIndex((entry) => entry.id === state.lastSeenId);
     candidates = lastSeenIndex === -1 ? [latest] : entries.slice(0, lastSeenIndex).reverse();
@@ -155,7 +184,7 @@ async function main() {
     const added = await scanSource(source);
     addedCount += added.length;
   }
-  log(`Scan complete. Added ${addedCount} job(s).`);
+  log(`Scan complete. ${dryRun ? 'Would add' : 'Added'} ${addedCount} job(s).`);
 }
 
 main().catch((error) => {
