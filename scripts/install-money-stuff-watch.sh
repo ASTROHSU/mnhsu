@@ -28,7 +28,7 @@ cat > "$PLIST" <<PLIST
   <string>${REPO_DIR}</string>
 
   <key>StartInterval</key>
-  <integer>3600</integer>
+  <integer>86400</integer>
 
   <key>RunAtLoad</key>
   <true/>
@@ -53,7 +53,7 @@ launchctl bootstrap "gui/$(id -u)" "$PLIST"
 launchctl enable "gui/$(id -u)/com.staarrr.mnhsu-money-stuff-watch"
 
 echo "Installed launchd job: $PLIST"
-echo "It checks Money Stuff every hour."
+echo "It checks Money Stuff once per day."
 echo "Logs:"
 echo "  $LOG_DIR/watch.log"
 echo "  $LOG_DIR/watch.err.log"
