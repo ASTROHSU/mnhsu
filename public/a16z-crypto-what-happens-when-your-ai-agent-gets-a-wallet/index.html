@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 代理人拿到錢包，金融會怎麼變？</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta name="description" content="a16z crypto 的討論指出，AI 代理人的錢包不只是支付工具，而是把穩定幣、開發工具、內容資料、交易策略與代幣化資產接成新的商業基礎設施。">
+<meta property="og:title" content="AI 代理人拿到錢包，金融會怎麼變？">
+<meta property="og:description" content="從 headless merchants 到穩定幣結算，再到 vibe trading 與代幣化資產：AI 代理人有了錢包之後，商業模式可能從訂閱制走向按次使用。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.mnhsu.xyz/a16z-crypto-what-happens-when-your-ai-agent-gets-a-wallet/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI 代理人拿到錢包，金融會怎麼變？">
+<meta name="twitter:description" content="AI 代理人的錢包不只是支付工具，而是把穩定幣、內容資料、交易策略與代幣化資產接成新的商業基礎設施。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
+  --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
+  --blue:#2563EB;--blue-light:#EFF4FF;--yellow:#8B6914;--yellow-light:#FDF8EC;
+  --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
+  --gold:#8B7340;--gold-light:#F9F3E6;--line:#E8E3D8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,var(--cream),var(--warm));position:relative;}
+.hero .logo{height:48px;margin-bottom:2.5rem;}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.9rem,5.2vw,3rem);line-height:1.35;letter-spacing:0.02em;margin-bottom:1.5rem;}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.2rem);color:var(--text-secondary);max-width:640px;line-height:1.8;}
+.scroll-hint{position:absolute;bottom:2.5rem;font-size:0.8rem;letter-spacing:0.3em;color:var(--text-muted);animation:breathe 2.4s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(6px);}}
+section{max-width:720px;margin:0 auto;padding:3.5rem 1.6rem;}
+section.wide{max-width:940px;}
+.part-label{font-size:0.78rem;font-weight:700;letter-spacing:0.25em;color:var(--terra);margin-bottom:1rem;}
+h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2rem);line-height:1.5;margin-bottom:1.5rem;letter-spacing:0.01em;}
+p{margin-bottom:1.4rem;font-size:1.05rem;}
+.hl{background:linear-gradient(transparent 60%,var(--gold-light) 60%);padding:0 0.1em;font-weight:500;}
+.callout{background:var(--terra-light);border-left:4px solid var(--terra);border-radius:0 10px 10px 0;padding:1.4rem 1.6rem;margin:2rem 0;}
+.callout p{margin:0;font-size:1rem;color:var(--text);}
+.rail-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.5rem;margin:2rem 0;}
+.rail-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.1rem;text-align:center;margin-bottom:1.2rem;}
+.rail-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0.85rem;}
+.rail-step{background:var(--warm);border:1px solid var(--line);border-radius:12px;padding:1.1rem;}
+.rail-step .num{font-family:'Noto Serif TC',serif;font-size:1.4rem;font-weight:900;color:var(--terra);line-height:1;margin-bottom:0.7rem;}
+.rail-step .name{font-weight:700;font-size:0.95rem;line-height:1.45;margin-bottom:0.45rem;}
+.rail-step .desc{font-size:0.84rem;color:var(--text-secondary);line-height:1.6;}
+.compare{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:2rem 0;}
+.compare-row{display:grid;grid-template-columns:0.75fr 1fr 1fr;border-bottom:1px solid #EFEAE0;}
+.compare-row:last-child{border-bottom:none;}
+.compare-row div{padding:0.9rem;font-size:0.86rem;line-height:1.6;}
+.compare-row .head{background:var(--green-deep);color:#fff;font-weight:700;}
+.compare-row .label{background:#F6F2EA;font-weight:700;color:var(--text-secondary);}
+.stack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.9rem;margin:2rem 0;}
+.stack-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.25rem;}
+.stack-card .tag{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;color:var(--terra);background:var(--terra-light);border-radius:2rem;padding:0.2rem 0.7rem;margin-bottom:0.8rem;}
+.stack-card .name{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.06rem;line-height:1.5;margin-bottom:0.5rem;}
+.stack-card .desc{font-size:0.9rem;color:var(--text-secondary);line-height:1.7;}
+.money-map{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.5rem;margin:2rem 0;}
+.map-line{display:flex;align-items:stretch;gap:0.55rem;}
+.map-node{flex:1;background:var(--warm);border:1px solid var(--line);border-radius:12px;padding:1rem;text-align:center;}
+.map-node strong{display:block;font-size:0.95rem;margin-bottom:0.35rem;color:var(--green-deep);}
+.map-node span{display:block;font-size:0.82rem;color:var(--text-secondary);line-height:1.55;}
+.map-arrow{display:flex;align-items:center;color:var(--terra);font-weight:900;}
+.risk-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0.85rem;margin:2rem 0;}
+.risk{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.15rem;}
+.risk .emoji{font-size:1.6rem;margin-bottom:0.5rem;}
+.risk .name{font-weight:700;font-size:0.96rem;margin-bottom:0.4rem;}
+.risk .desc{font-size:0.86rem;color:var(--text-secondary);line-height:1.65;}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light));}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:560px;margin:0 auto;letter-spacing:0.03em;}
+.choice-section{padding:4rem 1.6rem;background:#fff;text-align:center;}
+.choice-section h2{margin-bottom:0.8rem;}
+.choice-sub{color:var(--text-secondary);font-size:0.95rem;margin-bottom:2.5rem;}
+.choice-options{display:flex;flex-direction:column;gap:1rem;max-width:560px;margin:0 auto;}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:var(--warm);border:2px solid #E8E3D8;border-radius:14px;padding:1.2rem 1.4rem;cursor:pointer;text-align:left;transition:all 0.25s;font-family:'Noto Sans TC',sans-serif;}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light);}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0;}
+.choice-btn .label{font-weight:700;font-size:1rem;margin-bottom:0.2rem;}
+.choice-btn .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+.result-card{max-width:560px;margin:2rem auto 0;border:2px solid #DBBFAD;border-radius:14px;padding:1.8rem;background:var(--terra-light);opacity:0;transform:translateY(20px);transition:all 0.5s;display:none;}
+.result-card.show{opacity:1;transform:translateY(0);display:block;}
+.r-badge{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;color:var(--terra);background:#fff;padding:0.3rem 0.9rem;border-radius:2rem;margin-bottom:1rem;}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;}
+.r-desc{font-size:0.95rem;color:var(--text);line-height:1.8;}
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap;}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s;}
+.share-btn:hover{transform:scale(1.03);}
+.share-btn.tw{background:#0f1419;color:#fff;}
+.share-btn.fb{background:#1877f2;color:#fff;}
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream));}
+.cta h2{margin-bottom:1rem;}
+.cta p{max-width:520px;margin:0 auto 2rem;color:var(--text-secondary);font-size:1rem;}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.95rem 2.4rem;border-radius:2rem;font-weight:500;font-size:1.05rem;transition:all 0.3s;}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep);}
+.subscribe-inner{max-width:520px;margin:0 auto;}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem;}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem;}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif;}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem;}
+footer{text-align:center;padding:3rem 2rem;}
+footer img{height:44px;opacity:0.5;}
+footer .src{font-size:0.78rem;color:var(--text-muted);margin:1rem auto 0;line-height:1.7;max-width:560px;}
+footer .src a{color:var(--text-secondary);text-underline-offset:3px;}
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:760px){
+  html{font-size:17px;}
+  section{padding:3rem 1.25rem;}
+  .rail-grid,.stack,.risk-list{grid-template-columns:1fr;}
+  .compare-row{grid-template-columns:1fr;}
+  .compare-row .head:nth-child(2),.compare-row .head:nth-child(3){display:none;}
+  .map-line{flex-direction:column;}
+  .map-arrow{justify-content:center;transform:rotate(90deg);height:1rem;}
+  .choice-btn{align-items:flex-start;padding:1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>AI 代理人拿到錢包，<br>金融會怎麼變？</h1>
+  <p class="sub">a16z crypto 這集討論的不是「讓 AI 幫你買鞋」。真正的問題是：當代理人可以自己花錢、收錢、買資料、執行交易，穩定幣會變成哪一層基礎設施？</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<section class="fade-in">
+  <div class="part-label">PART 1 ｜ 不是聊天購物</div>
+  <h2>代理人商務的入口，<br>可能不是網頁，而是端點</h2>
+  <p>許多人談 agentic commerce，直覺會想到「我在 ChatGPT 裡買雜貨或球鞋」。影片裡 Noah Lavine 把範圍拉大：下一批使用者可能不是傳統工程師，而是用 AI 寫程式的人。他們需要資料、模型、API、內容與工具，使用時間短，需求零散，不想簽長約。</p>
+  <p>這會催生一種新的商家：<span class="hl">headless merchants</span>。它們不是漂亮網站，也不靠銷售團隊推年約，而是把商品包成可呼叫的端點。代理人要完成任務時，直接向端點付費、取得結果。</p>
+  <div class="rail-card">
+    <div class="rail-title">代理人付款的基本路徑</div>
+    <div class="rail-grid">
+      <div class="rail-step">
+        <div class="num">01</div>
+        <div class="name">人提出目標</div>
+        <div class="desc">例如查資料、寫程式、找投資論點、訂位或購買一篇付費內容。</div>
+      </div>
+      <div class="rail-step">
+        <div class="num">02</div>
+        <div class="name">代理人呼叫端點</div>
+        <div class="desc">端點賣的是資料、API、內容、價格、推論或一段可執行服務。</div>
+      </div>
+      <div class="rail-step">
+        <div class="num">03</div>
+        <div class="name">錢包完成結算</div>
+        <div class="desc">穩定幣讓這些小額、跨平台、即時的交易比較容易被自動化。</div>
+      </div>
+    </div>
+  </div>
+  <p>Michael Blau 的 Dripstack 就是這個方向的例子。他們想讓原本在 Substack 付費牆後的內容，可以直接賣給代理人。代理人不是「訂閱一整年」，而是為了完成任務，買下其中一小塊資訊。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 2 ｜ 訂閱制鬆動</div>
+  <h2>AI 讓按次使用<br>重新變得自然</h2>
+  <p>過去內容與軟體走向訂閱制，不只是因為收費方便，也是因為每次付款都有心理成本。買一首歌、買一篇文章、買一個小工具，金額可能不高，但每次決定都很煩。</p>
+  <p>AI 改變了這件事。當代理人替使用者拆解任務，付款決策可以藏在任務流程裡。使用者不一定在乎每次花了幾分錢，只在乎最後結果值不值得。影片裡把這件事連到大型語言模型的使用習慣：越多人用 API、點數、token 付費，越容易接受「用多少付多少」。</p>
+  <div class="compare">
+    <div class="compare-row">
+      <div class="head">模式</div>
+      <div class="head">訂閱制</div>
+      <div class="head">代理人按次使用</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">使用者想法</div>
+      <div>先付一筆月費，之後盡量用回本。</div>
+      <div>先設定目標，讓代理人為必要資源付費。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">商家包裝</div>
+      <div>網站、方案頁、帳號、信用卡、收據。</div>
+      <div>端點、權限、價格、回傳資料或服務。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">穩定幣角色</div>
+      <div>只是另一種付款方式。</div>
+      <div>讓代理人能在不同服務間快速結算。</div>
+    </div>
+  </div>
+  <p>G Money 的判斷是，這對低毛利業務很有吸引力。信用卡處理費、平台抽成與跨境摩擦，只要省下一兩個百分點，對創作者、工具商與資料供應者就有差。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 3 ｜ 錢包長什麼樣</div>
+  <h2>前端可能是信用卡，<br>後端可能是穩定幣</h2>
+  <p>影片裡有一個務實分歧。加密原生使用者會覺得代理人錢包很自然，但一般 AI 使用者可能不想先買穩定幣、不想處理上鏈、不想理解 gas。Kai Sheffield 提出 Visa 正在思考的混合模式：前端讓使用者放信用卡，後端用穩定幣結算給商家。</p>
+  <p>這個安排把兩種需求拆開。使用者需要的是好懂、可控、有額度限制的付款入口；商家需要的是週末、假日、跨境都能更快收到錢的結算層。穩定幣不一定要站到消費者眼前，仍然可能在後台扮演關鍵角色。</p>
+  <div class="money-map">
+    <div class="map-line">
+      <div class="map-node">
+        <strong>使用者</strong>
+        <span>放信用卡、設定限制，不必先管理加密錢包。</span>
+      </div>
+      <div class="map-arrow">→</div>
+      <div class="map-node">
+        <strong>AI 代理人</strong>
+        <span>依照任務呼叫工具、資料、內容與交易服務。</span>
+      </div>
+      <div class="map-arrow">→</div>
+      <div class="map-node">
+        <strong>商家</strong>
+        <span>後台用穩定幣更快收款，減少跨境結算延遲。</span>
+      </div>
+    </div>
+  </div>
+  <p>所以「代理人拿到錢包」不代表每個人都要變成鏈上高手。它比較像支付與金融基礎設施的重新分工：前端保留熟悉體驗，後端讓錢流更適合機器自動執行。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 4 ｜ 第一批需求</div>
+  <h2>最願意忍受摩擦的人，<br>可能是交易者</h2>
+  <p>Michael Blau 直說，今天這些錢包仍然不好用。第一批願意跨過摩擦的人，不會是只想省幾塊錢的普通消費者，而是相信工具能幫自己賺更多錢的人。交易者和投資人一直願意為更快資料、更好工具、更低摩擦付出成本。</p>
+  <p>這也是影片把話題拉到 vibe trading 的原因。AI 可以幫使用者整理投資論點、測試策略、讀付費研究、追蹤即時資料，甚至執行交易。這不是說散戶問聊天機器人「買哪支股票」就會變富，而是新一代財富管理工具正在把研究、資料與執行接起來。</p>
+  <div class="stack">
+    <div class="stack-card">
+      <div class="tag">交易需要</div>
+      <div class="name">三個元件</div>
+      <div class="desc">下單場所、即時價格、投資論點。AI 代理人可以把三者接在同一個流程裡，但論點品質仍然決定結果。</div>
+    </div>
+    <div class="stack-card">
+      <div class="tag">付費內容</div>
+      <div class="name">從訂閱變成資料來源</div>
+      <div class="desc">深度研究通常在付費牆後。代理人若能為單篇、單段或單次查詢付款，就能替使用者跨來源整合。</div>
+    </div>
+    <div class="stack-card">
+      <div class="tag">加密市場</div>
+      <div class="name">二十四小時的實驗場</div>
+      <div class="desc">加密交易所與鏈上市場門檻較低，較容易測試自動化策略，也更接近不打烊的全球交易環境。</div>
+    </div>
+    <div class="stack-card">
+      <div class="tag">風險</div>
+      <div class="name">自動化不等於有優勢</div>
+      <div class="desc">如果所有人都問同一個模型、買同一批熱門標的，短期可能自我實現，長期仍可能只是更快的投機。</div>
+    </div>
+  </div>
+  <p>這段討論也回答了需求從哪來：不是每個人都需要代理人錢包，但想用 AI 賺錢的人，會先推動資料、內容、交易與支付工具整合。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 5 ｜ 穩定幣與資產</div>
+  <h2>穩定幣長大後，<br>代幣化資產會跟著長大</h2>
+  <p>Noah Lavine 的判斷是，代幣化資產的需求很大一部分會來自穩定幣原生金融科技。使用者先拿穩定幣收款、儲值、消費，下一個問題自然是：這些錢要怎麼投資？如果錢已經在同一條帳本上，最容易購買的投資商品也會是在同一條帳本上的代幣化資產。</p>
+  <p>代理人錢包會強化同一件事。當每個代理人都有錢包，它要買代幣化股票、貨幣市場基金或其他鏈上資產，可能比走傳統券商流程更順。穩定幣提供可程式化的現金層，代幣化資產提供可程式化的投資層。</p>
+  <div class="callout">
+    <p>影片裡對非美元穩定幣的答案也很務實：工程師會先去流動性最多的地方。不是哪個貨幣敘事最漂亮，而是哪個穩定幣有 DeFi、收益來源、交易對與使用者。</p>
+  </div>
+  <p>這說明美元穩定幣為什麼有滾雪球效果。流動性吸引更多開發者，更多開發者帶來更多應用，更多應用再帶來更多流動性。地方貨幣穩定幣不是沒有機會，但它們需要找到清楚用途，例如把當地國債收益傳給使用者，或支撐鏈上外匯與在地支付。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 6 ｜ 風險清單</div>
+  <h2>這不是無痛升級，<br>而是新的控制問題</h2>
+  <p>代理人有錢包之後，商業模式更細、更快、更自動，但新的問題也會出現。誰能授權代理人花錢？它可以花多少？買錯資料、執行錯交易、被惡意端點誘導時，責任算誰的？</p>
+  <div class="risk-list">
+    <div class="risk">
+      <div class="emoji">🔐</div>
+      <div class="name">權限</div>
+      <div class="desc">代理人需要額度、白名單、類別限制與撤銷機制，不能只是拿到一張無上限卡。</div>
+    </div>
+    <div class="risk">
+      <div class="emoji">🧾</div>
+      <div class="name">紀錄</div>
+      <div class="desc">每筆自動付款都要能追溯：它為了哪個任務、向誰購買、買到什麼結果。</div>
+    </div>
+    <div class="risk">
+      <div class="emoji">⚖️</div>
+      <div class="name">責任</div>
+      <div class="desc">交易與投資場景尤其敏感。自動化降低摩擦，也可能放大錯誤與投機衝動。</div>
+    </div>
+  </div>
+  <p>因此，影片真正的商業策略問題不是「哪個錢包會贏」。更重要的是誰能把支付、身分、資料、交易、風控與結算包成開發者願意採用的基礎設施。</p>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">AI 代理人的錢包，不是讓機器人逛街，而是讓商業變成可呼叫、可計價、可結算的端點。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">穩定幣的機會不只在付款本身，而在它能不能成為代理人經濟的結算底座。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2>你覺得 AI 代理人錢包<br>會先在哪裡落地？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">🧰</div>
+      <div>
+        <div class="label">開發工具與資料端點</div>
+        <div class="desc">代理人為 API、模型、研究資料與內容片段按次付費</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">📈</div>
+      <div>
+        <div class="label">交易與投資策略</div>
+        <div class="desc">最願意忍受早期摩擦的人，是相信工具能帶來報酬的人</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">💳</div>
+      <div>
+        <div class="label">卡片前端、穩定幣後端</div>
+        <div class="desc">一般使用者不碰鏈上細節，商家在後台更快收到錢</div>
+      </div>
+    </button>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想聽原始討論？</h2>
+  <p>這頁整理自 a16z crypto 的 YouTube 討論。原始影片保留了來賓對 headless merchants、vibe trading、穩定幣與代幣化資產更完整的對話脈絡。</p>
+  <a class="cta-btn" href="https://www.youtube.com/watch?v=nsbug4LDznU" target="_blank" rel="noopener">前往 YouTube →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('AI 代理人拿到錢包後，穩定幣可能變成代理人經濟的結算底座。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('AI 代理人拿到錢包後，穩定幣可能變成代理人經濟的結算底座。'),'_blank','noopener')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從穩定幣、AI 代理人到平台策略，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer>
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <div class="src">本頁整理自 a16z crypto YouTube 頻道影片〈What Happens When Your AI Agent Gets a Wallet?〉。來源：<a href="https://www.youtube.com/watch?v=nsbug4LDznU" target="_blank" rel="noopener">YouTube</a>。內容僅作為閱讀導覽，不構成投資建議。</div>
+</footer>
+
+<script>
+let userChoice=-1;
+const labels=['開發工具與資料端點','交易與投資策略','卡片前端、穩定幣後端'];
+const results=[
+  {title:'開發工具與資料端點',desc:'你看重的是 headless merchants：代理人為 API、研究資料、內容片段與模型能力按次付費。這條路徑最像網際網路服務的下一步，商家賣的不是網站頁面，而是可被代理人呼叫的能力。',bg:'var(--terra-light)',border:'#DBBFAD'},
+  {title:'交易與投資策略',desc:'你認為第一批需求會從想賺錢的人開始。交易者願意忍受早期工具的摩擦，因為只要策略有機會帶來報酬，資料、研究、執行與結算就值得被整合。風險是自動化也會把錯誤放大。',bg:'var(--green-light)',border:'#A8D4BC'},
+  {title:'卡片前端、穩定幣後端',desc:'你選的是務實路線：一般使用者可能仍然放信用卡與設定額度，穩定幣則在後台處理商家結算。這讓 AI 使用者不用先懂加密錢包，也讓商家取得更快、更全球化的收款體驗。',bg:'var(--blue-light)',border:'#B8CDF0'}
+];
+function choose(idx){
+  if(userChoice>=0)return;
+  userChoice=idx;
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===idx)b.classList.add('selected');
+    b.style.cursor='default';
+  });
+  const r=results[idx];
+  const card=document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent=r.title;
+  document.getElementById('rDesc').textContent=r.desc;
+  card.style.background=r.bg;
+  card.style.borderColor=r.border;
+  card.classList.add('show');
+  const shareText='我的觀點：'+labels[idx]+'。\n\nAI 代理人拿到錢包後，穩定幣可能變成代理人經濟的結算底座。';
+  document.getElementById('shareTw').onclick=function(){
+    window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener');
+  };
+  document.getElementById('shareFb').onclick=function(){
+    window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener');
+  };
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
