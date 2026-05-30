@@ -12,6 +12,7 @@ const transcriptDir = path.join(homedir(), 'youtube-transcripts/Money Stuff');
 const logDir = path.join(homedir(), 'Library/Logs/mnhsu-money-stuff');
 const codexBin = process.env.CODEX_BIN || '/Applications/Codex.app/Contents/Resources/codex';
 const defaultModel = process.env.CODEX_MODEL || '';
+const codexTimeoutMs = Number(process.env.CODEX_TIMEOUT_MS || 1000 * 60 * 10);
 
 const rawArgs = process.argv.slice(2);
 const args = new Set(rawArgs);
@@ -55,7 +56,11 @@ function runChecked(command, commandArgs, options = {}) {
     encoding: 'utf8',
     stdio: options.stdio || 'pipe',
     maxBuffer: options.maxBuffer || 1024 * 1024 * 80,
+    timeout: options.timeout,
   });
+  if (result.error?.code === 'ETIMEDOUT') {
+    throw new Error(`${command} timed out after ${options.timeout}ms`);
+  }
   if (result.status !== 0) {
     const detail = [result.stdout, result.stderr].filter(Boolean).join('\n');
     throw new Error(`${command} failed with ${result.status}\n${detail}`);
@@ -248,8 +253,9 @@ function runCodex(video, transcriptPath, slug) {
 
   runChecked(codexBin, commandArgs, {
     cwd: repoRoot,
-    stdio: 'inherit',
+    stdio: ['ignore', 'inherit', 'inherit'],
     maxBuffer: 1024 * 1024 * 120,
+    timeout: codexTimeoutMs,
   });
 }
 
