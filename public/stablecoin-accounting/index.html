@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:title" content="同一顆 USDC，三種命運">
+<meta property="og:description" content="台灣首份穩定幣會計指引告訴上市公司：你手上的穩定幣到底算什麼，取決於你跟誰買的、法律管不管得到">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://mnhsu.xyz/stablecoin-accounting/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="同一顆 USDC，三種命運">
+<meta name="twitter:description" content="台灣首份穩定幣會計指引告訴上市公司：你手上的穩定幣到底算什麼，取決於你跟誰買的、法律管不管得到">
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
+  --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
+  --blue:#2563EB;--blue-light:#EFF4FF;
+  --yellow:#8B6914;--yellow-light:#FDF8EC;
+  --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
+  --gold:#8B7340;--gold-light:#F9F3E6;
+}
+html{font-size:18px;scroll-behavior:smooth}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;margin:0;overflow-x:hidden}
+section{max-width:720px;margin:0 auto;padding:3rem 1.5rem}
+.wide{max-width:900px}
+h2{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.5;margin-bottom:1.2rem;letter-spacing:0.02em}
+p{margin-bottom:1.2rem}
+.hl{background:linear-gradient(180deg,transparent 60%,rgba(192,106,58,0.18) 60%);padding:0 2px}
+.part-tag{display:inline-block;font-size:0.7rem;font-weight:600;letter-spacing:0.2em;color:var(--terra);border:1px solid var(--terra);border-radius:2rem;padding:0.2rem 0.8rem;margin-bottom:1rem}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:3rem 2rem;background:linear-gradient(180deg,var(--warm),var(--cream))}
+.hero img{height:48px;margin-bottom:2rem;opacity:0.7}
+.hero h1{font-family:'Noto Serif TC',serif;font-size:clamp(2rem,5vw,3rem);font-weight:900;line-height:1.3;margin-bottom:1rem;letter-spacing:0.02em}
+.hero .sub{font-size:1rem;color:var(--text-secondary);max-width:500px;line-height:1.8}
+.scroll-hint{position:absolute;bottom:2rem;font-size:0.75rem;letter-spacing:0.15em;color:var(--text-muted);animation:breathe 2.5s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0)}50%{opacity:1;transform:translateY(-6px)}}
+
+/* Decision tree cards */
+.tree-card{background:#fff;border-radius:12px;border:1px solid #E8E3D8;padding:1.5rem;margin-bottom:1.2rem}
+.tree-card h3{font-family:'Noto Serif TC',serif;font-size:1.05rem;font-weight:700;margin-bottom:0.6rem;display:flex;align-items:center;gap:0.5rem}
+.tree-card .badge{display:inline-block;font-size:0.7rem;font-weight:600;padding:0.15rem 0.6rem;border-radius:1rem;color:#fff}
+.badge-green{background:var(--green)}
+.badge-yellow{background:var(--yellow)}
+.badge-red{background:#B44A3A}
+
+/* Timeline */
+.timeline{position:relative;padding-left:2rem;margin:1.5rem 0}
+.timeline::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:2px;background:var(--cream)}
+.timeline-item{position:relative;margin-bottom:1.5rem}
+.timeline-item::before{content:'';position:absolute;left:-2rem;top:8px;width:14px;height:14px;border-radius:50%;background:var(--terra);border:3px solid var(--warm)}
+.timeline-item .date{font-size:0.75rem;font-weight:600;color:var(--terra);letter-spacing:0.05em}
+.timeline-item .title{font-family:'Noto Serif TC',serif;font-weight:600;font-size:0.95rem;margin:0.2rem 0}
+.timeline-item .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.7}
+
+/* Fullwidth sections */
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light))}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:500px;margin:0 auto;letter-spacing:0.03em}
+
+/* Choice */
+.choice-section{text-align:center;padding:4rem 2rem;background:var(--warm)}
+.choice-section h2{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;margin-bottom:0.5rem}
+.choice-sub{font-size:0.9rem;color:var(--text-secondary);margin-bottom:2rem}
+.choice-options{display:flex;flex-direction:column;gap:0.8rem;max-width:520px;margin:0 auto}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:#fff;border:2px solid #E8E3D8;border-radius:12px;padding:1.2rem 1.5rem;cursor:pointer;text-align:left;transition:all 0.2s;font-family:'Noto Sans TC',sans-serif}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.06)}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light)}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0}
+.choice-btn .label{font-weight:600;font-size:0.95rem;margin-bottom:0.2rem}
+.choice-btn .desc{font-size:0.8rem;color:var(--text-secondary);line-height:1.5}
+.result-card{display:none;max-width:520px;margin:1.5rem auto 0;padding:1.5rem;border-radius:12px;border:2px solid #E8E3D8;text-align:left}
+.result-card.show{display:block}
+.r-badge{font-size:0.7rem;font-weight:600;letter-spacing:0.15em;color:var(--terra);margin-bottom:0.5rem}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.05rem;margin-bottom:0.5rem}
+.r-desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.7}
+
+/* Share */
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s}
+.share-btn:hover{transform:scale(1.03)}
+.share-btn.tw{background:#0f1419;color:#fff}
+.share-btn.fb{background:#1877f2;color:#fff}
+
+/* CTA */
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream))}
+.cta h2{font-family:'Noto Serif TC',serif;font-size:clamp(1.2rem,3vw,1.5rem);font-weight:700;margin-bottom:0.8rem}
+.cta p{font-size:0.95rem;color:var(--text-secondary);max-width:420px;margin:0 auto 1.5rem}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px)}
+
+/* Subscribe CTA */
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep)}
+.subscribe-inner{max-width:520px;margin:0 auto}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px)}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem}
+
+footer{text-align:center;padding:3rem 2rem}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>同一顆 USDC<br>三種命運</h1>
+  <p class="sub">台灣首份穩定幣會計指引出爐。你手上的穩定幣到底算「金融資產」還是「無形資產」，取決於一個你可能沒想過的問題。</p>
+  <div class="scroll-hint">▼ SCROLL</div>
+</div>
+
+<section>
+  <div class="part-tag fade-in">PART 1</div>
+  <h2 class="fade-in">2026 年 5 月最後一週，台灣發生了三件事</h2>
+  <div class="timeline fade-in">
+    <div class="timeline-item">
+      <div class="date">5/27</div>
+      <div class="title">會計研究發展基金會發布「穩定幣交易會計處理之指引」</div>
+      <div class="desc">67 頁，四個案例，一棵決策樹。台灣史上第一份告訴上市公司「穩定幣怎麼入帳」的官方文件。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="date">5/29</div>
+      <div class="title">證交所發布「持有加密貨幣內部控制制度指引」</div>
+      <div class="desc">從錢包管理、私鑰保管到交易授權，證交所第一次對上市公司說：你們可以持有加密貨幣，但要這樣管。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="date">5/29</div>
+      <div class="title">證交所「國內業務宣導」網站同步更新</div>
+      <div class="desc">把加密貨幣相關的業務規範整合到統一入口，讓上市公司知道該看哪些文件。</div>
+    </div>
+  </div>
+  <p class="fade-in">三份文件同一週密集出爐，代表台灣的監管機關已經認定：上市公司持有穩定幣不再是邊緣行為，而是需要正式納管的企業活動。</p>
+</section>
+
+<section>
+  <div class="part-tag fade-in">PART 2</div>
+  <h2 class="fade-in">穩定幣是現金嗎？不是。<br>是金融資產嗎？要看情況。</h2>
+  <p class="fade-in">會計指引花了 10 頁回答一個問題：穩定幣到底該歸在財務報表的哪一欄？</p>
+  <p class="fade-in">直覺上，USDC 錨定 1 美元，應該就是現金或約當現金。但會計準則不這樣看。IAS 7 對「現金」的定義是「交換媒介，且為所有交易於財務報表衡量及認列之基礎」。穩定幣雖然可以拿來付錢，但沒有任何國家把它當成記帳的基礎貨幣。所以穩定幣不是現金。</p>
+  <p class="fade-in">那是金融資產嗎？IAS 32 說，金融資產的核心是「自另一個體收取現金的合約權利」。你持有 USDC，能不能要求 Circle 把它換回美元？這個問題的答案，取決於兩件事：法律有沒有規定 Circle 必須換，以及你有沒有通過 Circle 的 KYC。</p>
+  <p class="fade-in">這就是整份指引最精彩的地方：<span class="hl">同一顆 USDC，在三種不同的監管情境下，會被歸類成完全不同的會計科目。</span></p>
+</section>
+
+<section class="wide">
+  <div class="part-tag fade-in">PART 3</div>
+  <h2 class="fade-in">三種情境，三種命運</h2>
+
+  <div class="tree-card fade-in">
+    <h3><span class="badge badge-green">情境一</span> 穩定幣已經立法監管</h3>
+    <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:0.8rem">假設美國 GENIUS Act 生效，發行商依法必須讓任何持有者按面額隨時贖回。</p>
+    <p style="font-size:0.9rem"><strong>會計分類：金融資產</strong>（透過損益按公允價值衡量，FVTPL）</p>
+    <p style="font-size:0.85rem;color:var(--text-secondary)">因為法律保障了你的贖回權，Circle 不能拒絕你。你持有的 USDC 就是一份「可以隨時換回美元的合約權利」，符合金融資產的定義。後續衡量用公允價值，匯率變動直接進損益。</p>
+  </div>
+
+  <div class="tree-card fade-in">
+    <h3><span class="badge badge-yellow">情境二</span> 未立法監管，但你通過了 KYC</h3>
+    <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:0.8rem">GENIUS Act 還沒生效。你是 Circle 的認證使用者，理論上可以贖回。</p>
+    <p style="font-size:0.9rem"><strong>會計分類：無形資產</strong>（非確定耐用年限，成本模式）</p>
+    <p style="font-size:0.85rem;color:var(--text-secondary)">Circle 的使用者條款寫了兩個條件：它可以不經你同意自行修改條款，也可以在某些情況下暫停或拒絕你的贖回請求。這兩個條件讓你的「贖回權」變得不確定，不符合金融資產的「合約權利」要件。穩定幣因此被歸為無形資產，只能做減損測試，不能往上重估。</p>
+  </div>
+
+  <div class="tree-card fade-in">
+    <h3><span class="badge badge-red">情境三</span> 未立法監管，你也沒通過 KYC</h3>
+    <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:0.8rem">你在第三方交易所買的 USDC，從來沒在 Circle 官網註冊過。</p>
+    <p style="font-size:0.9rem"><strong>會計分類：無形資產</strong>（非確定耐用年限，成本模式）</p>
+    <p style="font-size:0.85rem;color:var(--text-secondary)">你根本不是 Circle 的使用者，沒有任何合約權利可以要求贖回。你只能在第三方交易所出售 USDC，拿回的是新台幣而不是美元。會計處理跟情境二一樣是無形資產，但出售時的損益計算基礎不同：情境二用取得日匯率，情境三用實際成交價。</p>
+  </div>
+
+  <p class="fade-in">換句話說，一家台灣上市公司持有 100 萬顆 USDC，如果 GENIUS Act 生效，報表上會顯示為「金融資產」3,100 萬元（假設匯率 31），匯率漲跌直接反映在損益表。但如果 GENIUS Act 還沒生效，同樣的 100 萬顆 USDC 會顯示為「無形資產」，只能減損、不能增值。</p>
+</section>
+
+<section>
+  <div class="part-tag fade-in">PART 4</div>
+  <h2 class="fade-in">為什麼這很重要</h2>
+  <p class="fade-in">對上市公司的財務長來說，穩定幣被分類為「金融資產」還是「無形資產」，差別非常大。金融資產可以按公允價值衡量，漲了就認列利益，跌了就認列損失，反映的是市場現實。無形資產用成本模式，只能往下減損、不能往上重估。同樣的資產，同樣的市場行情，帳上的數字卻完全不同。</p>
+  <p class="fade-in">更微妙的是，分類的關鍵不在穩定幣本身的性質（USDC 就是 USDC），而在外部條件：法律有沒有規定發行商必須贖回，以及你有沒有跟發行商建立直接的合約關係。這等於告訴上市公司：如果你要持有穩定幣，先去 Circle 或 Tether 做 KYC。如果你希望穩定幣被當成金融資產入帳，去遊說立法。</p>
+  <p class="fade-in">而美國的 GENIUS Act 已經在 2025 年 7 月簽署，最遲 2027 年 1 月生效。台灣的會計指引等於是在為這個時間點做準備：一旦 GENIUS Act 生效，USDC 和 USDT 從「無形資產」變成「金融資產」的那一天，每一家持有穩定幣的上市公司的資產負債表都會重新排列。</p>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">同一顆穩定幣值多少錢，不取決於市場價格，而取決於你跟發行商之間的法律關係。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0">會計準則不看技術，看合約權利。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2 class="fade-in">你覺得穩定幣應該被歸類為什麼？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">💰</div>
+      <div>
+        <div class="label">金融資產</div>
+        <div class="desc">它錨定美元、可以贖回，本質上就是一張存款收據。應該跟外幣存款一樣入帳。</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">🧩</div>
+      <div>
+        <div class="label">無形資產</div>
+        <div class="desc">發行商隨時可以改條款、拒絕贖回。在法律沒保障之前，它就是一個不確定的數位權利。</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">⚖️</div>
+      <div>
+        <div class="label">看情境而定</div>
+        <div class="desc">會計指引說得對：關鍵不在穩定幣本身，而在法律環境和合約關係。不同情境就該有不同分類。</div>
+      </div>
+    </button>
+  </div>
+
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想看更深入的分析？</h2>
+  <p>Substack 文章包含更多脈絡、案例與細節，幫你把這個論點讀得更透。</p>
+  <a class="cta-btn" href="https://www.blocktrend.today/" target="_blank" rel="noopener">閱讀完整文章 →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('同一顆 USDC，在三種不同的監管情境下，會被歸類成完全不同的會計科目。台灣首份穩定幣會計指引，拆解給你看。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('同一顆 USDC，在三種不同的監管情境下，會被歸類成完全不同的會計科目。'),'_blank','noopener')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從穩定幣會計、AI 代理人到平台策略，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer><img src="https://i.urusai.cc/yaku8.png" alt="區塊勢" style="height:44px;opacity:0.5"></footer>
+
+<script>
+// Fade-in observer
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+
+// Choice interaction
+let userChoice=-1;
+const labels=['金融資產','無形資產','看情境而定'];
+const results=[
+  {title:'你認為穩定幣就是金融資產',desc:'你的觀點跟 GENIUS Act 生效後的會計分類一致。如果法律保障了持有者的贖回權，穩定幣確實更像一張可以隨時兌現的存款收據。問題在於：在法律保障到來之前，這個「隨時兌現」的承諾只寫在發行商的使用者條款裡，而那份條款可以被單方面修改。',bg:'var(--green-light)',border:'#A8D4BC'},
+  {title:'你認為現階段穩定幣是無形資產',desc:'你的觀點跟目前（GENIUS Act 生效前）的會計分類一致。在發行商可以單方面修改條款、暫停贖回的現實下，持有者的「贖回權」確實不夠穩固，不符合金融資產對「合約權利」的要求。這個分類的代價是：穩定幣只能減損、不能重估，即使市場價格穩定在 1 美元。',bg:'var(--yellow-light)',border:'#E4D5B8'},
+  {title:'你認為分類應該因情境而異',desc:'這正是台灣這份會計指引的核心設計。它沒有說「穩定幣就是 X」，而是畫了一棵決策樹，讓企業根據法律環境和合約關係自行判斷。這種做法比起一刀切的分類更務實，但也代表同一種資產在不同公司的報表上可能長得完全不同。',bg:'var(--terra-light)',border:'#DBBFAD'}
+];
+
+function choose(idx){
+  if(userChoice>=0)return;
+  userChoice=idx;
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{if(i===idx)b.classList.add('selected');b.style.cursor='default'});
+  const r=results[idx];
+  const card=document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent=r.title;
+  document.getElementById('rDesc').textContent=r.desc;
+  card.style.background=r.bg;
+  card.style.borderColor=r.border;
+  card.classList.add('show');
+  const shareText=`我認為穩定幣應該被歸類為「${labels[idx]}」。\n\n同一顆 USDC，在三種不同的監管情境下，會被歸類成完全不同的會計科目。`;
+  document.getElementById('shareTw').onclick=function(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')};
+  document.getElementById('shareFb').onclick=function(){window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener')};
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+</script>
+</body>
+</html>
