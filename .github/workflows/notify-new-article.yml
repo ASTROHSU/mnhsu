@@ -1,18 +1,15 @@
-name: Notify new article
+name: Daily article digest
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'public/**/index.html'
-      - 'scripts/notify-new-article.mjs'
-      - '.github/workflows/notify-new-article.yml'
+  schedule:
+    # 07:00 Asia/Taipei. GitHub cron uses UTC.
+    - cron: '0 23 * * *'
   workflow_dispatch:
     inputs:
-      article_path:
-        description: 'Optional article file path, for example public/example/index.html'
+      lookback_hours:
+        description: 'How many hours of newly published pages to include'
         required: false
+        default: '24'
         type: string
 
 jobs:
@@ -29,14 +26,11 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Send Resend notification
+      - name: Send daily digest
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           RESEND_FROM: ${{ vars.RESEND_FROM }}
           RESEND_TO: mnhsu@pm.me
           SITE_ORIGIN: https://www.mnhsu.xyz
-          GITHUB_EVENT_NAME: ${{ github.event_name }}
-          GITHUB_BEFORE: ${{ github.event.before }}
-          GITHUB_SHA: ${{ github.sha }}
-          ARTICLE_PATH: ${{ inputs.article_path }}
+          LOOKBACK_HOURS: ${{ inputs.lookback_hours || '24' }}
         run: node scripts/notify-new-article.mjs
