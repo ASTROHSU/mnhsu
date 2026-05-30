@@ -6,7 +6,7 @@ import path from 'node:path';
 const siteOrigin = process.env.SITE_ORIGIN || 'https://www.mnhsu.xyz';
 const resendApiKey = process.env.RESEND_API_KEY || '';
 const resendFrom = process.env.RESEND_FROM || 'mnhsu <notify@mnhsu.xyz>';
-const resendTo = process.env.RESEND_TO || 'mn@mnhsu.xyz';
+const resendTo = process.env.RESEND_TO || 'mnhsu@pm.me';
 const before = process.env.GITHUB_BEFORE || '';
 const sha = process.env.GITHUB_SHA || 'HEAD';
 const forcedPath = process.env.ARTICLE_PATH || '';
