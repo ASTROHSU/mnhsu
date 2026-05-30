@@ -59,6 +59,26 @@ p{margin-bottom:1.4rem;font-size:1.05rem;}
 .compare-head .label{background:var(--green-deep);color:#fff;}
 .compare-head .v1{background:#1A4030;color:#fff;font-weight:700;}
 .compare-head .v2{background:#7A3A1C;color:#fff;font-weight:700;}
+.identity-mini{background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.5rem;margin:2rem 0;}
+.identity-mini-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.05rem;text-align:center;margin-bottom:1.1rem;}
+.identity-stage{display:grid;grid-template-columns:130px 1fr;gap:0.8rem;align-items:stretch;margin-bottom:0.8rem;}
+.identity-stage:last-child{margin-bottom:0;}
+.identity-time{background:var(--green-deep);color:#fff;border-radius:10px;padding:0.9rem 0.8rem;display:flex;flex-direction:column;justify-content:center;}
+.identity-time .y{font-family:'Noto Serif TC',serif;font-size:0.95rem;font-weight:700;line-height:1.4;}
+.identity-time .d{font-size:0.74rem;color:rgba(255,255,255,0.72);line-height:1.45;margin-top:0.25rem;}
+.identity-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0.55rem;}
+.identity-card{border:1px solid #E8E3D8;border-radius:10px;padding:0.85rem;background:#FAFAF7;opacity:0.42;}
+.identity-card.active{opacity:1;background:#fff;border-width:2px;}
+.identity-card.intangible.active{border-color:var(--terra);background:linear-gradient(180deg,#fff,var(--terra-light));}
+.identity-card.financial.active{border-color:var(--blue);background:linear-gradient(180deg,#fff,var(--blue-light));}
+.identity-card.cash.active{border-color:var(--green);background:linear-gradient(180deg,#fff,var(--green-light));}
+.identity-card .kind{font-family:'Noto Serif TC',serif;font-size:0.9rem;font-weight:700;margin-bottom:0.35rem;}
+.identity-card .state{display:inline-block;font-size:0.66rem;font-weight:700;letter-spacing:0.08em;color:#fff;background:var(--green);border-radius:999px;padding:0.12rem 0.45rem;margin-bottom:0.5rem;}
+.identity-card:not(.active) .state{background:#d8d4cb;color:#777;}
+.identity-card .txt{font-size:0.76rem;color:var(--text-secondary);line-height:1.55;}
+.chart-link{text-align:center;margin-top:1rem;}
+.chart-link a{color:var(--terra);font-weight:700;text-decoration:none;font-size:0.9rem;}
+.chart-link a:hover{text-decoration:underline;text-underline-offset:4px;}
 .ctrl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.9rem;margin:2rem 0;}
 .ctrl-card{background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.3rem 1.1rem;}
 .ctrl-card .ic{font-size:1.6rem;margin-bottom:0.6rem;}
@@ -102,6 +122,13 @@ footer img{height:44px;opacity:0.5;}
 .big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
 .fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
 .fade-in.visible{opacity:1;transform:translateY(0);}
+@media (max-width:720px){
+  .identity-stage{grid-template-columns:1fr;gap:0.55rem;margin-bottom:1rem;}
+  .identity-cards{grid-template-columns:1fr;}
+  .identity-card{display:none;}
+  .identity-card.active{display:block;}
+  .identity-card .txt{font-size:0.9rem;}
+}
 </style>
 </head>
 <body>
@@ -169,6 +196,79 @@ footer img{height:44px;opacity:0.5;}
       <div class="v1">金融資產，逐日按公允價值評價</div>
       <div class="v2">無形資產，做減損測試</div>
     </div>
+  </div>
+  <div class="identity-mini">
+    <div class="identity-mini-title">同一枚穩定幣，三種帳上身份</div>
+    <div class="identity-stage">
+      <div class="identity-time">
+        <div class="y">2026 現在</div>
+        <div class="d">GENIUS Act 尚未生效</div>
+      </div>
+      <div class="identity-cards">
+        <div class="identity-card intangible active">
+          <div class="kind">無形資產</div>
+          <div class="state">適用中</div>
+          <div class="txt">成本入帳，只減損不增值；處分時才認列損益。</div>
+        </div>
+        <div class="identity-card">
+          <div class="kind">金融資產</div>
+          <div class="state">尚未解鎖</div>
+          <div class="txt">還缺法律保障的贖回權。</div>
+        </div>
+        <div class="identity-card">
+          <div class="kind">現金</div>
+          <div class="state">尚未解鎖</div>
+          <div class="txt">還不是任何國家的法定貨幣。</div>
+        </div>
+      </div>
+    </div>
+    <div class="identity-stage">
+      <div class="identity-time">
+        <div class="y">2027 年初</div>
+        <div class="d">GENIUS Act 生效後</div>
+      </div>
+      <div class="identity-cards">
+        <div class="identity-card">
+          <div class="kind">無形資產</div>
+          <div class="state">不再適用</div>
+          <div class="txt">法律保障贖回權後，分類會往金融資產移動。</div>
+        </div>
+        <div class="identity-card financial active">
+          <div class="kind">金融資產</div>
+          <div class="state">適用中</div>
+          <div class="txt">公允價值入帳，漲跌反映損益；仍不是現金。</div>
+        </div>
+        <div class="identity-card">
+          <div class="kind">現金</div>
+          <div class="state">尚未解鎖</div>
+          <div class="txt">還缺法定貨幣地位。</div>
+        </div>
+      </div>
+    </div>
+    <div class="identity-stage">
+      <div class="identity-time">
+        <div class="y">未來？</div>
+        <div class="d">法定貨幣地位確立</div>
+      </div>
+      <div class="identity-cards">
+        <div class="identity-card">
+          <div class="kind">無形資產</div>
+          <div class="state">不適用</div>
+          <div class="txt">身份退場。</div>
+        </div>
+        <div class="identity-card">
+          <div class="kind">金融資產</div>
+          <div class="state">不適用</div>
+          <div class="txt">身份退場。</div>
+        </div>
+        <div class="identity-card cash active">
+          <div class="kind">現金</div>
+          <div class="state">完全解鎖</div>
+          <div class="txt">收到即進現金流量表，匯兌處理不再是資產處分。</div>
+        </div>
+      </div>
+    </div>
+    <div class="chart-link"><a href="/stablecoin-chart/">打開完整圖表 →</a></div>
   </div>
   <p>截至二〇二六年五月，USDC 與 USDT 的發行商都還沒依美國《GENIUS 法案》取得發行許可。也就是說，今天你在台灣收一筆 USDC 貨款，帳上多半是把它記成無形資產，跟收到一項商品、一個專利同一類。</p>
 </section>
