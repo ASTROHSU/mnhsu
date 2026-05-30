@@ -143,7 +143,7 @@ function downloadTranscript(video) {
       '--write-subs',
       '--write-auto-subs',
       '--sub-langs',
-      'en-orig,en,zh-Hant',
+      'en-orig,en',
       '--sub-format',
       'vtt',
       '-o',
