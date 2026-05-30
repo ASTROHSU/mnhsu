@@ -115,5 +115,18 @@
     "titleCleanupPattern": "\\|?\\s*All-In Podcast.*$",
     "footerSource": "All-In Podcast YouTube 頻道",
     "promptContext": "這是 All-In Podcast 的影片。請把節目核心轉成一篇完整但精簡的互動式閱讀頁，重點放在科技、創投、市場、政治經濟與主持人之間真正有資訊量的分歧。"
+  },
+  {
+    "id": "diary-of-a-ceo",
+    "name": "The Diary Of A CEO",
+    "url": "https://www.youtube.com/@TheDiaryOfACEO/videos",
+    "slugPrefix": "diary-of-a-ceo",
+    "transcriptDir": "The Diary Of A CEO",
+    "stateDir": "mnhsu-diary-of-a-ceo",
+    "homepageTags": ["The Diary Of A CEO", "Podcast", "Business"],
+    "homepageEnPrefix": "The Diary Of A CEO:",
+    "titleCleanupPattern": "\\|?\\s*The Diary Of A CEO.*$",
+    "footerSource": "The Diary Of A CEO YouTube 頻道",
+    "promptContext": "這是 The Diary Of A CEO 的長訪談。請把訪談核心轉成一篇完整但精簡的互動式閱讀頁，重點放在受訪者的核心主張、商業判斷、科技趨勢、健康科學或個人成長觀點；避免心靈雞湯，保留可驗證的事實與有資訊量的分歧。"
   }
 ]
