@@ -33,7 +33,7 @@ jobs:
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           RESEND_FROM: ${{ vars.RESEND_FROM }}
-          RESEND_TO: mn@mnhsu.xyz
+          RESEND_TO: mnhsu@pm.me
           SITE_ORIGIN: https://www.mnhsu.xyz
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           GITHUB_BEFORE: ${{ github.event.before }}
