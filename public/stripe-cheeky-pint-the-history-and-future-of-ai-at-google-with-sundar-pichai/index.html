@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google AI 曲線</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta name="description" content="Stripe Cheeky Pint 訪問 Google 執行長 Sundar Pichai：從 Transformer、TPU、搜尋、Gemini 到 Waymo，看 Google 如何在 AI 曲線上重新配置產品與資本。">
+<meta property="og:title" content="Google AI 曲線">
+<meta property="og:description" content="Sundar Pichai 談 Google 的 AI 歷史、搜尋未來、算力限制、長期投注與 2027 年企業工作流轉折。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.mnhsu.xyz/stripe-cheeky-pint-the-history-and-future-of-ai-at-google-with-sundar-pichai/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Google AI 曲線">
+<meta name="twitter:description" content="從 Transformer 到 agentic search，讀懂 Sundar Pichai 如何看 Google 的 AI 策略與資本配置。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
+  --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
+  --blue:#2563EB;--blue-light:#EFF4FF;--yellow:#8B6914;--yellow-light:#FDF8EC;
+  --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
+  --gold:#8B7340;--gold-light:#F9F3E6;--line:#E8E3D8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{color:inherit;text-underline-offset:3px;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,var(--cream),var(--warm));position:relative;}
+.hero .logo{height:48px;margin-bottom:2.5rem;}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.9rem,5.2vw,3rem);line-height:1.35;letter-spacing:0.02em;margin-bottom:1.5rem;}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.18rem);color:var(--text-secondary);max-width:700px;line-height:1.8;}
+.scroll-hint{position:absolute;bottom:2.5rem;font-size:0.8rem;letter-spacing:0.3em;color:var(--text-muted);animation:breathe 2.4s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(6px);}}
+section{max-width:720px;margin:0 auto;padding:3.5rem 1.6rem;}
+section.wide{max-width:940px;}
+.part-label{font-size:0.78rem;font-weight:700;letter-spacing:0.25em;color:var(--terra);margin-bottom:1rem;}
+h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2rem);line-height:1.5;margin-bottom:1.5rem;letter-spacing:0.01em;}
+p{margin-bottom:1.4rem;font-size:1.05rem;}
+.hl{background:linear-gradient(transparent 60%,var(--gold-light) 60%);padding:0 0.1em;font-weight:500;}
+.callout{background:var(--terra-light);border-left:4px solid var(--terra);border-radius:0 10px 10px 0;padding:1.4rem 1.6rem;margin:2rem 0;}
+.callout p{margin:0;font-size:1rem;color:var(--text);}
+.moment-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.85rem;margin:2rem 0;}
+.moment{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.15rem;}
+.moment .num{font-family:'Noto Serif TC',serif;font-size:1.45rem;font-weight:900;color:var(--terra);line-height:1;margin-bottom:0.65rem;}
+.moment .name{font-weight:700;font-size:0.95rem;line-height:1.45;margin-bottom:0.35rem;}
+.moment .desc{font-size:0.84rem;color:var(--text-secondary);line-height:1.65;}
+.compare{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:2rem 0;}
+.compare-row{display:grid;grid-template-columns:0.78fr 1fr 1fr;border-bottom:1px solid #EFEAE0;}
+.compare-row:last-child{border-bottom:none;}
+.compare-row div{padding:0.9rem;font-size:0.86rem;line-height:1.6;}
+.compare-row .head{background:var(--green-deep);color:#fff;font-weight:700;}
+.compare-row .label{background:#F6F2EA;font-weight:700;color:var(--text-secondary);}
+.stack-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.5rem;margin:2rem 0;}
+.stack-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.12rem;text-align:center;margin-bottom:1.25rem;}
+.stack-line{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0.55rem;}
+.stack-node{background:var(--warm);border:1px solid var(--line);border-radius:12px;padding:0.9rem;text-align:center;}
+.stack-node strong{display:block;font-size:0.84rem;color:var(--green-deep);line-height:1.35;margin-bottom:0.35rem;}
+.stack-node span{display:block;font-size:0.76rem;color:var(--text-secondary);line-height:1.45;}
+.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.9rem;margin:2rem 0;}
+.idea-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.2rem;}
+.idea-card .tag{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;color:var(--terra);background:var(--terra-light);border-radius:2rem;padding:0.2rem 0.7rem;margin-bottom:0.8rem;}
+.idea-card .name{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.05rem;line-height:1.5;margin-bottom:0.5rem;}
+.idea-card .desc{font-size:0.88rem;color:var(--text-secondary);line-height:1.7;}
+.principle-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0.85rem;margin:2rem 0;}
+.principle{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.15rem;}
+.principle .emoji{font-size:1.55rem;margin-bottom:0.45rem;}
+.principle .name{font-weight:700;font-size:0.96rem;margin-bottom:0.4rem;}
+.principle .desc{font-size:0.84rem;color:var(--text-secondary);line-height:1.65;}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light));}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:620px;margin:0 auto;letter-spacing:0.03em;}
+.choice-section{padding:4rem 1.6rem;background:#fff;text-align:center;}
+.choice-section h2{margin-bottom:0.8rem;}
+.choice-sub{color:var(--text-secondary);font-size:0.95rem;margin-bottom:2.5rem;}
+.choice-options{display:flex;flex-direction:column;gap:1rem;max-width:560px;margin:0 auto;}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:var(--warm);border:2px solid #E8E3D8;border-radius:14px;padding:1.2rem 1.4rem;cursor:pointer;text-align:left;transition:all 0.25s;font-family:'Noto Sans TC',sans-serif;width:100%;}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light);}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0;}
+.choice-btn .label{font-weight:700;font-size:1rem;margin-bottom:0.2rem;}
+.choice-btn .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+.result-card{max-width:560px;margin:2rem auto 0;border:2px solid #DBBFAD;border-radius:14px;padding:1.8rem;background:var(--terra-light);opacity:0;transform:translateY(20px);transition:all 0.5s;display:none;}
+.result-card.show{opacity:1;transform:translateY(0);display:block;}
+.r-badge{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;color:var(--terra);background:#fff;padding:0.3rem 0.9rem;border-radius:2rem;margin-bottom:1rem;}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;}
+.r-desc{font-size:0.95rem;color:var(--text);line-height:1.8;}
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap;}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s;}
+.share-btn:hover{transform:scale(1.03);}
+.share-btn.tw{background:#0f1419;color:#fff;}
+.share-btn.fb{background:#1877f2;color:#fff;}
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream));}
+.cta h2{margin-bottom:1rem;}
+.cta p{max-width:560px;margin:0 auto 2rem;color:var(--text-secondary);font-size:1rem;}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.95rem 2.4rem;border-radius:2rem;font-weight:500;font-size:1.05rem;transition:all 0.3s;}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep);}
+.subscribe-inner{max-width:520px;margin:0 auto;}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem;}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem;}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif;}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem;}
+footer{text-align:center;padding:3rem 2rem;}
+footer img{height:44px;opacity:0.5;}
+footer .src{font-size:0.78rem;color:var(--text-muted);margin:1rem auto 0;line-height:1.7;max-width:660px;}
+footer .src a{color:var(--text-secondary);}
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:760px){
+  html{font-size:17px;}
+  section{padding:3rem 1.25rem;}
+  .moment-grid,.card-grid,.principle-list{grid-template-columns:1fr;}
+  .compare-row{grid-template-columns:1fr;}
+  .compare-row .head:nth-child(2),.compare-row .head:nth-child(3){display:none;}
+  .stack-line{grid-template-columns:1fr;}
+  .choice-btn{align-items:flex-start;padding:1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>Google 的 AI，<br>不是突然醒來</h1>
+  <p class="sub">Sundar Pichai 在 Stripe Cheeky Pint 裡回看 Transformer、TPU、搜尋、Gemini、Waymo 與雲端。他講的不是單一模型追趕，而是一家公司如何把同一條 AI 曲線接到產品、基礎設施、資本配置與組織工作流。</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<section class="fade-in">
+  <div class="part-label">PART 1 ｜ Google 真的錯過 Transformer 嗎</div>
+  <h2>Transformer 不是被放在研究架上，<br>而是先被拿去改進搜尋</h2>
+  <p>John Collison 一開始問 Pichai：Transformer 在 Google 發明，卻由外部公司用聊天產品引爆，Google 怎麼看這件事？Pichai 的回應是，外界常把「沒有第一個推出 ChatGPT 形態產品」誤解成「沒有產品化」。</p>
+  <p>他的說法很明確。Transformer、TPU 與早期 AI 研究，原本就常被產品問題牽引。翻譯要變好、語音辨識要服務十億等級使用者、搜尋要理解網頁與查詢，這些需求把研究推向可部署的模型。BERT 和 MUM 帶來搜尋品質的大跳升，Google 也在內部做過 LaMDA，甚至在 AI Test Kitchen 裡用受限版本對外測試。</p>
+  <div class="callout">
+    <p>Google 的失誤不在於「完全沒想到聊天產品」，而在於安全標準、搜尋品質習慣與產品判斷讓它沒有先把端到端聊天體驗推到市場。</p>
+  </div>
+  <p>Pichai 也把這件事放回消費網路的規律。YouTube 出現在 Google Video 之外，Instagram 出現在 Facebook 之外。只要是消費網路，少數人就可能用原型打開新介面。大公司的功課不是假裝意外不會發生，而是把意外吸收進自己的產品速度。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 2 ｜ 速度</div>
+  <h2>Google 把速度當產品特徵，<br>也當技術能力的檢驗</h2>
+  <p>Collison 提到 Google 早期搜尋會顯示查詢耗時，Gmail 搜尋、Chrome 與今天的 Gemini 都把速度做成差異。Pichai 說，他把 latency 視為好產品的核心特徵，也視為底層工程是否扎實的訊號。</p>
+  <p>這不是口號。搜尋團隊會用毫秒等級的 latency budget 管理新功能。若某個團隊省下 3 毫秒，可能只能拿 1.5 毫秒回去增加功能，另外 1.5 毫秒要還給使用者。Google 過去 5 年把搜尋延遲改善約 30%，同時產品功能比以前更複雜。</p>
+  <div class="compare">
+    <div class="compare-row">
+      <div class="head">速度類型</div>
+      <div class="head">Pichai 重視什麼</div>
+      <div class="head">對 AI 產品的含義</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">使用者延遲</div>
+      <div>回應要快到人不覺得被打斷，且快通常代表架構做對。</div>
+      <div>Flash 模型要接近 Pro 模型能力，同時更快、更便宜、更容易服務。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">發布速度</div>
+      <div>模型能力曲線很陡，公司要更快測試、推出、修正。</div>
+      <div>Google 不能只靠研究累積，還要讓 Gemini、搜尋、雲端與內部工具快速迭代。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">吸收速度</div>
+      <div>新介面出現時，既有產品要把能力吃進來。</div>
+      <div>搜尋不只回傳連結，也會做深度研究、長任務與代理人管理。</div>
+    </div>
+  </div>
+  <p>這也是 Google 垂直整合的價值。模型、TPU、資料中心、搜尋產品和雲端平台都在同一家公司內，速度不只是前端回應時間，也包括把新能力推到十億使用者面前的供應鏈。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 3 ｜ 搜尋會不會被代理人取代</div>
+  <h2>搜尋不會停在一行查詢，<br>它會變成代理人管理器</h2>
+  <p>當 Collison 問搜尋的未來，Pichai 不把問題定義成「聊天介面取代搜尋框」。他的看法是，每一次技術轉移都讓搜尋能做更多事。行動網路讓搜尋從找網頁變成找路、找店、找當下可做的事；AI 讓搜尋從找資訊變成完成任務。</p>
+  <p>他預期很多資訊查詢會變成 agentic flow。使用者可能同時跑多個任務，搜尋在其中扮演代理人管理器。今天 AI Mode 裡已經有人做 deep research，不符合「一行 prompt 回傳十個藍色連結」的舊定義。</p>
+  <div class="stack-card">
+    <div class="stack-title">搜尋介面的三次擴張</div>
+    <div class="stack-line">
+      <div class="stack-node"><strong>網頁排序</strong><span>把使用者帶到相關頁面</span></div>
+      <div class="stack-node"><strong>行動情境</strong><span>位置、地圖、店家與即時需求</span></div>
+      <div class="stack-node"><strong>答案生成</strong><span>把資訊整理成可讀結果</span></div>
+      <div class="stack-node"><strong>深度研究</strong><span>長問題、多來源、可追問</span></div>
+      <div class="stack-node"><strong>代理人管理</strong><span>多個任務並行完成</span></div>
+    </div>
+  </div>
+  <p>Pichai 反覆說這不是零和遊戲。搜尋與 Gemini 會在某些地方重疊，也會在某些地方分開。Google 要同時擁抱兩者，因為 AI 讓可完成的工作總量變大。若產品停止進化，才會被新介面吃掉。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 4 ｜ 全堆疊</div>
+  <h2>投資人曾低估的，<br>是 Google 把 AI 接到整家公司</h2>
+  <p>Collison 提到 2025 年市場曾很悲觀，認為搜尋商業模式受到攻擊。Pichai 說，從內部看，Google 早已把公司建成 AI-first。2016 年 Google I/O 宣布 TPU 時，公司就在思考 AI 資料中心；到今天，TPU 已經演進多代。</p>
+  <p>Google 當時落後在 frontier LLM，但公司有研究團隊、基礎設施、產品平台與多個長期業務。AI 變成共同技術後，搜尋、YouTube、Cloud、Waymo 都能被同一波模型進步推動。這讓 Google 的優勢不是單點模型，而是整家公司每個大型業務都能吃到同一條曲線。</p>
+  <div class="moment-grid">
+    <div class="moment">
+      <div class="num">175B-185B</div>
+      <div class="name">2026 年資本支出區間</div>
+      <div class="desc">Pichai 說 Alphabet 對 2026 年 capex 的規劃約在 1,750 億到 1,850 億美元。</div>
+    </div>
+    <div class="moment">
+      <div class="num">7</div>
+      <div class="name">TPU 世代</div>
+      <div class="desc">他提到公司已在 TPU 第七版附近，這不是臨時補課，而是多年垂直整合。</div>
+    </div>
+    <div class="moment">
+      <div class="num">30%</div>
+      <div class="name">搜尋延遲改善</div>
+      <div class="desc">過去 5 年搜尋更快，同時承載更複雜的功能與 AI 能力。</div>
+    </div>
+    <div class="moment">
+      <div class="num">2027</div>
+      <div class="name">企業工作流轉折</div>
+      <div class="desc">Pichai 預期 2027 年會看到更多非工程流程開始被 AI 深度改寫。</div>
+    </div>
+  </div>
+  <p>他也拒絕把 Google 描述成不相信 AGI。理由很直接：若不相信模型曲線，沒有人會把資本支出從數百億美元拉到接近 1,800 億美元。Google 的語言可能不像新創公司那樣激進，因為它有很多產品、很多使用者與更高的安全責任。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 5 ｜ 算力限制</div>
+  <h2>AI 競賽不只看誰願意花錢，<br>還看誰能拿到真實世界的零件</h2>
+  <p>談到資料中心建設，Pichai 把限制拆成幾層。最底層是晶圓產能，其次是電力、許可流程、法規環境、記憶體與供應鏈關鍵元件。Google 不能只因為想花更多，就立刻把 capex 加到 4,000 億美元。</p>
+  <p>記憶體是短期最關鍵的限制之一。領先廠商無法在 2026 或 2027 年突然大幅增加產能，因此有人會拿不到想要的供應。Pichai 同時認為，限制會逼出更高效率。模型與推論系統會被迫變得更省，整個產業也會更重視怎麼把同樣算力用得更好。</p>
+  <div class="card-grid">
+    <div class="idea-card">
+      <div class="tag">晶圓</div>
+      <div class="name">最底層的產能</div>
+      <div class="desc">資料中心的計畫最後會回到晶圓開工量。沒有足夠晶片，上層需求無法兌現。</div>
+    </div>
+    <div class="idea-card">
+      <div class="tag">能源</div>
+      <div class="name">可解但要建設速度</div>
+      <div class="desc">Pichai 認為電力比較可解，但美國需要學會更快建設資料中心與相關基礎設施。</div>
+    </div>
+    <div class="idea-card">
+      <div class="tag">記憶體</div>
+      <div class="name">短期最吃緊</div>
+      <div class="desc">記憶體產能需要時間增加，高價格不能立刻變出 2026 年需要的供應。</div>
+    </div>
+    <div class="idea-card">
+      <div class="tag">安全</div>
+      <div class="name">模型也會放大攻擊能力</div>
+      <div class="desc">Pichai 提到 AI 可能讓零日漏洞供給增加，安全協調會成為社會擴散速度的一部分。</div>
+    </div>
+  </div>
+  <p>這段對創業者的提醒是：AI 不是純軟體曲線。模型權重可以是一個檔案，但生成那個檔案需要資料中心、晶圓、記憶體、電力、工程團隊與長期資本。限制本身會影響誰能領先，也會逼出下一輪效率創新。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 6 ｜ 長期投注與企業工作流</div>
+  <h2>Google 的資本配置，<br>看的是技術曲線有沒有真的往前</h2>
+  <p>Collison 問 Google 怎麼比較 YouTube、Waymo、量子、TPU、雲端與新 AI 方法這些完全不同的投注。Pichai 說，越早期的技術投注，初始資金可以小，但公司要用深層技術指標追蹤進展。量子看錯誤校正與邏輯量子位元，Waymo 看駕駛系統的安全與可靠度曲線。</p>
+  <p>Waymo 是他反覆提到的例子。外界悲觀時，Google 反而在兩三年前增加投資。原因不是 demo 好看，而是底層技術曲線仍在進步。自駕是高度整合系統，資料、硬體、軟體、安全、法規與營運都要一起成熟。Pichai 也把機器人視為下一個相似領域，AI 可能補上 10 年前缺少的那塊能力。</p>
+  <div class="principle-list">
+    <div class="principle">
+      <div class="emoji">🧪</div>
+      <div class="name">從小團隊開始</div>
+      <div class="desc">資料中心上太空、量子、後訓練方法，都可以先用小團隊測第一個里程碑。</div>
+    </div>
+    <div class="principle">
+      <div class="emoji">📈</div>
+      <div class="name">追蹤底層曲線</div>
+      <div class="desc">不是看短期聲量，而是看技術指標是否穩定接近可用產品。</div>
+    </div>
+    <div class="principle">
+      <div class="emoji">🧭</div>
+      <div class="name">保留第一方回饋</div>
+      <div class="desc">在安全與法規密集的領域，自己接近產品回饋週期會很重要。</div>
+    </div>
+  </div>
+  <p>最後一段回到組織。Pichai 說，Google 內部已經有團隊用 AntiGravity 這類代理人工作流，工程團隊改變最明顯。真正難的是把能力擴散到大型組織：提示習慣、公司內部工具、資料權限、身分控管、技能共享與安全責任都要重做。</p>
+  <p>他預期 2027 年會是許多非工程流程的轉折點。預測、規劃、資料查詢與跨系統操作，會先由人檢查 AI 產出，再逐步把流程切換過去。新創公司的優勢是可以一開始就用 AI-native 團隊運作；大型公司則要付出訓練、轉型與治理成本。</p>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">Google 的 AI 策略不是押一個聊天框，而是把同一條模型曲線接到搜尋、雲端、自駕、硬體、資本配置與內部工作流。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">Pichai 的判斷是：AI 會把可完成的工作總量放大，輸家不是既有產品，而是停止沿著曲線進化的產品。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2>如果你是創業者，<br>會先押 AI 的哪一層？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">⚡</div>
+      <div>
+        <div class="label">速度與使用體驗</div>
+        <div class="desc">用更低延遲、更快迭代，把模型能力變成好產品</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">🏗️</div>
+      <div>
+        <div class="label">基礎設施與效率</div>
+        <div class="desc">在算力、記憶體、推論成本與部署工具上找槓桿</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">🧩</div>
+      <div>
+        <div class="label">企業工作流重組</div>
+        <div class="desc">把代理人接進資料、權限、流程與角色分工</div>
+      </div>
+    </button>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想聽原始訪談？</h2>
+  <p>這頁整理自 Stripe 的 Cheeky Pint 系列。原始影片保留了 John Collison 與 Sundar Pichai 對 Transformer、搜尋、Gemini、TPU、Waymo、量子、雲端與企業 AI 工作流的完整對話。</p>
+  <a class="cta-btn" href="https://www.youtube.com/watch?v=bTA8sjgvA4c" target="_blank" rel="noopener">前往 YouTube →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Google 的 AI 策略不是押一個聊天框，而是把同一條模型曲線接到整家公司。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('Google 的 AI 策略不是押一個聊天框，而是把同一條模型曲線接到整家公司。'),'_blank','noopener')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從 AI 代理人、平台策略到科技公司的商業模式，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer>
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <div class="src">本頁整理自 Stripe 的 Cheeky Pint 系列影片〈The history and future of AI at Google, with Sundar Pichai〉。來源：<a href="https://www.youtube.com/watch?v=bTA8sjgvA4c" target="_blank" rel="noopener">YouTube</a>。</div>
+</footer>
+
+<script>
+let userChoice=-1;
+const labels=['速度與使用體驗','基礎設施與效率','企業工作流重組'];
+const results=[
+  {title:'速度與使用體驗',desc:'你看重的是把模型能力翻成產品感。延遲、回應品質、發布速度和使用者回饋會決定 AI 是 demo，還是每天被打開的工具。',bg:'var(--terra-light)',border:'#DBBFAD'},
+  {title:'基礎設施與效率',desc:'你看重的是 AI 曲線背後的稀缺資源。算力、記憶體、推論成本、資料中心與部署工具會決定誰能在限制中跑得更遠。',bg:'var(--green-light)',border:'#A8D4BC'},
+  {title:'企業工作流重組',desc:'你看重的是 2027 之後的擴散。真正的大市場不只在工程師寫程式，而在代理人能安全讀資料、守權限、跑流程，並改變每個團隊的工作方式。',bg:'var(--blue-light)',border:'#B8CDF0'}
+];
+function choose(idx){
+  if(userChoice>=0)return;
+  userChoice=idx;
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===idx)b.classList.add('selected');
+    b.style.cursor='default';
+  });
+  const r=results[idx];
+  const card=document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent=r.title;
+  document.getElementById('rDesc').textContent=r.desc;
+  card.style.background=r.bg;
+  card.style.borderColor=r.border;
+  card.classList.add('show');
+  const shareText='我的觀點：'+labels[idx]+'。\n\nGoogle 的 AI 策略不是押一個聊天框，而是把同一條模型曲線接到整家公司。';
+  document.getElementById('shareTw').onclick=function(){
+    window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener');
+  };
+  document.getElementById('shareFb').onclick=function(){
+    window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener');
+  };
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
