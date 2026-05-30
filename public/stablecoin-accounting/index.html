@@ -1,224 +1,248 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:title" content="同一顆 USDC，三種命運">
-<meta property="og:description" content="台灣首份穩定幣會計指引告訴上市公司：你手上的穩定幣到底算什麼，取決於你跟誰買的、法律管不管得到">
+<title>在台灣收一筆 USDC 貨款，帳上你其實沒收到錢</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta property="og:title" content="在台灣收一筆 USDC 貨款，帳上你其實沒收到錢">
+<meta property="og:description" content="台灣的證交所與會計研究發展基金會同一週發布兩份指引，正面回答了一個問題：公司能不能用穩定幣收付貨款？答案是可以，但會計準則把你收到的 USDC 當成以物易物的對價，不是現金。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://mnhsu.xyz/stablecoin-accounting/">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="同一顆 USDC，三種命運">
-<meta name="twitter:description" content="台灣首份穩定幣會計指引告訴上市公司：你手上的穩定幣到底算什麼，取決於你跟誰買的、法律管不管得到">
-<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta name="twitter:title" content="在台灣收一筆 USDC 貨款，帳上你其實沒收到錢">
+<meta name="twitter:description" content="公司能不能用穩定幣收付貨款？可以，但會計準則把你收到的 USDC 當成以物易物的對價，不是現金。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
   --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
-  --blue:#2563EB;--blue-light:#EFF4FF;
-  --yellow:#8B6914;--yellow-light:#FDF8EC;
+  --blue:#2563EB;--blue-light:#EFF4FF;--yellow:#8B6914;--yellow-light:#FDF8EC;
   --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
   --gold:#8B7340;--gold-light:#F9F3E6;
 }
-html{font-size:18px;scroll-behavior:smooth}
-body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;margin:0;overflow-x:hidden}
-section{max-width:720px;margin:0 auto;padding:3rem 1.5rem}
-.wide{max-width:900px}
-h2{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.5;margin-bottom:1.2rem;letter-spacing:0.02em}
-p{margin-bottom:1.2rem}
-.hl{background:linear-gradient(180deg,transparent 60%,rgba(192,106,58,0.18) 60%);padding:0 2px}
-.part-tag{display:inline-block;font-size:0.7rem;font-weight:600;letter-spacing:0.2em;color:var(--terra);border:1px solid var(--terra);border-radius:2rem;padding:0.2rem 0.8rem;margin-bottom:1rem}
-
-/* Hero */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:3rem 2rem;background:linear-gradient(180deg,var(--warm),var(--cream))}
-.hero img{height:48px;margin-bottom:2rem;opacity:0.7}
-.hero h1{font-family:'Noto Serif TC',serif;font-size:clamp(2rem,5vw,3rem);font-weight:900;line-height:1.3;margin-bottom:1rem;letter-spacing:0.02em}
-.hero .sub{font-size:1rem;color:var(--text-secondary);max-width:500px;line-height:1.8}
-.scroll-hint{position:absolute;bottom:2rem;font-size:0.75rem;letter-spacing:0.15em;color:var(--text-muted);animation:breathe 2.5s ease-in-out infinite}
-@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0)}50%{opacity:1;transform:translateY(-6px)}}
-
-/* Decision tree cards */
-.tree-card{background:#fff;border-radius:12px;border:1px solid #E8E3D8;padding:1.5rem;margin-bottom:1.2rem}
-.tree-card h3{font-family:'Noto Serif TC',serif;font-size:1.05rem;font-weight:700;margin-bottom:0.6rem;display:flex;align-items:center;gap:0.5rem}
-.tree-card .badge{display:inline-block;font-size:0.7rem;font-weight:600;padding:0.15rem 0.6rem;border-radius:1rem;color:#fff}
-.badge-green{background:var(--green)}
-.badge-yellow{background:var(--yellow)}
-.badge-red{background:#B44A3A}
-
-/* Timeline */
-.timeline{position:relative;padding-left:2rem;margin:1.5rem 0}
-.timeline::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:2px;background:var(--cream)}
-.timeline-item{position:relative;margin-bottom:1.5rem}
-.timeline-item::before{content:'';position:absolute;left:-2rem;top:8px;width:14px;height:14px;border-radius:50%;background:var(--terra);border:3px solid var(--warm)}
-.timeline-item .date{font-size:0.75rem;font-weight:600;color:var(--terra);letter-spacing:0.05em}
-.timeline-item .title{font-family:'Noto Serif TC',serif;font-weight:600;font-size:0.95rem;margin:0.2rem 0}
-.timeline-item .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.7}
-
-/* Fullwidth sections */
-.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box}
-.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light))}
-.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:500px;margin:0 auto;letter-spacing:0.03em}
-
-/* Choice */
-.choice-section{text-align:center;padding:4rem 2rem;background:var(--warm)}
-.choice-section h2{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;margin-bottom:0.5rem}
-.choice-sub{font-size:0.9rem;color:var(--text-secondary);margin-bottom:2rem}
-.choice-options{display:flex;flex-direction:column;gap:0.8rem;max-width:520px;margin:0 auto}
-.choice-btn{display:flex;align-items:center;gap:1rem;background:#fff;border:2px solid #E8E3D8;border-radius:12px;padding:1.2rem 1.5rem;cursor:pointer;text-align:left;transition:all 0.2s;font-family:'Noto Sans TC',sans-serif}
-.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.06)}
-.choice-btn.selected{border-color:var(--terra);background:var(--terra-light)}
-.choice-btn .emoji{font-size:1.8rem;flex-shrink:0}
-.choice-btn .label{font-weight:600;font-size:0.95rem;margin-bottom:0.2rem}
-.choice-btn .desc{font-size:0.8rem;color:var(--text-secondary);line-height:1.5}
-.result-card{display:none;max-width:520px;margin:1.5rem auto 0;padding:1.5rem;border-radius:12px;border:2px solid #E8E3D8;text-align:left}
-.result-card.show{display:block}
-.r-badge{font-size:0.7rem;font-weight:600;letter-spacing:0.15em;color:var(--terra);margin-bottom:0.5rem}
-.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.05rem;margin-bottom:0.5rem}
-.r-desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.7}
-
-/* Share */
-.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap}
-.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s}
-.share-btn:hover{transform:scale(1.03)}
-.share-btn.tw{background:#0f1419;color:#fff}
-.share-btn.fb{background:#1877f2;color:#fff}
-
-/* CTA */
-.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream))}
-.cta h2{font-family:'Noto Serif TC',serif;font-size:clamp(1.2rem,3vw,1.5rem);font-weight:700;margin-bottom:0.8rem}
-.cta p{font-size:0.95rem;color:var(--text-secondary);max-width:420px;margin:0 auto 1.5rem}
-.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif}
-.cta-btn:hover{background:#A8572E;transform:translateY(-1px)}
-
-/* Subscribe CTA */
-.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep)}
-.subscribe-inner{max-width:520px;margin:0 auto}
-.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem}
-.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem}
-.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem}
-.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif}
-.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px)}
-.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem}
-
-footer{text-align:center;padding:3rem 2rem}
-.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
-.fade-in.visible{opacity:1;transform:translateY(0)}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,var(--cream),var(--warm));position:relative;}
+.hero .logo{height:48px;margin-bottom:2.5rem;}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.85rem,5.2vw,2.9rem);line-height:1.35;letter-spacing:0.02em;margin-bottom:1.5rem;}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.2rem);color:var(--text-secondary);max-width:560px;line-height:1.8;}
+.scroll-hint{position:absolute;bottom:2.5rem;font-size:0.8rem;letter-spacing:0.3em;color:var(--text-muted);animation:breathe 2.4s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(6px);}}
+section{max-width:720px;margin:0 auto;padding:3.5rem 1.6rem;}
+section.wide{max-width:900px;}
+.part-label{font-size:0.78rem;font-weight:700;letter-spacing:0.25em;color:var(--terra);margin-bottom:1rem;}
+h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2rem);line-height:1.5;margin-bottom:1.5rem;letter-spacing:0.01em;}
+p{margin-bottom:1.4rem;font-size:1.05rem;}
+.hl{background:linear-gradient(transparent 60%,var(--gold-light) 60%);padding:0 0.1em;font-weight:500;}
+.callout{background:var(--terra-light);border-left:4px solid var(--terra);border-radius:0 10px 10px 0;padding:1.4rem 1.6rem;margin:2rem 0;}
+.callout p{margin:0;font-size:1rem;color:var(--text);}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light));}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:560px;margin:0 auto;letter-spacing:0.03em;}
+.ledger{background:#fff;border:1px solid #E8E3D8;border-radius:12px;overflow:hidden;margin:2rem 0;}
+.ledger-head{background:var(--green-deep);color:#fff;padding:0.9rem 1.2rem;font-family:'Noto Serif TC',serif;font-weight:700;font-size:0.95rem;}
+.ledger-row{display:flex;border-bottom:1px solid #EFEAE0;}
+.ledger-row:last-child{border-bottom:none;}
+.ledger-row .when{flex:0 0 30%;background:#F6F2EA;padding:0.85rem 0.9rem;font-size:0.82rem;font-weight:700;color:var(--text-secondary);}
+.ledger-row .what{flex:1;padding:0.85rem 0.9rem;font-size:0.88rem;line-height:1.6;}
+.num{font-family:'Noto Serif TC',serif;font-weight:700;color:var(--terra);}
+.numred{font-family:'Noto Serif TC',serif;font-weight:700;color:#B23B2E;}
+.compare{background:#fff;border:1px solid #E8E3D8;border-radius:12px;overflow:hidden;margin:2rem 0;}
+.compare-row{display:flex;border-bottom:1px solid #EFEAE0;}
+.compare-row:last-child{border-bottom:none;}
+.compare-row .label{flex:0 0 28%;background:#F6F2EA;padding:0.9rem;font-size:0.82rem;font-weight:700;color:var(--text-secondary);display:flex;align-items:center;}
+.compare-row .v1,.compare-row .v2{flex:1;padding:0.9rem;font-size:0.86rem;line-height:1.6;}
+.compare-row .v1{border-right:1px solid #EFEAE0;}
+.compare-head .label{background:var(--green-deep);color:#fff;}
+.compare-head .v1{background:#1A4030;color:#fff;font-weight:700;}
+.compare-head .v2{background:#7A3A1C;color:#fff;font-weight:700;}
+.ctrl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.9rem;margin:2rem 0;}
+.ctrl-card{background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.3rem 1.1rem;}
+.ctrl-card .ic{font-size:1.6rem;margin-bottom:0.6rem;}
+.ctrl-card .t{font-weight:700;font-size:0.95rem;margin-bottom:0.4rem;color:var(--terra);}
+.ctrl-card .d{font-size:0.84rem;color:var(--text-secondary);line-height:1.6;}
+.choice-section{padding:4rem 1.6rem;background:#fff;text-align:center;}
+.choice-section h2{margin-bottom:0.8rem;}
+.choice-sub{color:var(--text-secondary);font-size:0.95rem;margin-bottom:2.5rem;}
+.choice-options{display:flex;flex-direction:column;gap:1rem;max-width:560px;margin:0 auto;}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:var(--warm);border:2px solid #E8E3D8;border-radius:14px;padding:1.2rem 1.4rem;cursor:pointer;text-align:left;transition:all 0.25s;font-family:'Noto Sans TC',sans-serif;}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light);}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0;}
+.choice-btn .label{font-weight:700;font-size:1rem;margin-bottom:0.2rem;}
+.choice-btn .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+.result-card{max-width:560px;margin:2rem auto 0;border:2px solid #DBBFAD;border-radius:14px;padding:1.8rem;background:var(--terra-light);opacity:0;transform:translateY(20px);transition:all 0.5s;display:none;}
+.result-card.show{opacity:1;transform:translateY(0);display:block;}
+.r-badge{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;color:var(--terra);background:#fff;padding:0.3rem 0.9rem;border-radius:2rem;margin-bottom:1rem;}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;}
+.r-desc{font-size:0.95rem;color:var(--text);line-height:1.8;}
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap;}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s;}
+.share-btn:hover{transform:scale(1.03);}
+.share-btn.tw{background:#0f1419;color:#fff;}
+.share-btn.fb{background:#1877f2;color:#fff;}
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream));}
+.cta h2{margin-bottom:1rem;}
+.cta p{max-width:520px;margin:0 auto 2rem;color:var(--text-secondary);font-size:1rem;}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.95rem 2.4rem;border-radius:2rem;font-weight:500;font-size:1.05rem;transition:all 0.3s;}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep);}
+.subscribe-inner{max-width:520px;margin:0 auto;}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem;}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem;}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif;}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem;}
+footer{text-align:center;padding:3rem 2rem;}
+footer img{height:44px;opacity:0.5;}
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
 </style>
 </head>
 <body>
 
 <div class="hero">
-  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
-  <h1>同一顆 USDC<br>三種命運</h1>
-  <p class="sub">台灣首份穩定幣會計指引出爐。你手上的穩定幣到底算「金融資產」還是「無形資產」，取決於一個你可能沒想過的問題。</p>
-  <div class="scroll-hint">▼ SCROLL</div>
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>在台灣收一筆 USDC 貨款，<br>帳上你其實沒收到錢</h1>
+  <p class="sub">台灣的證交所與會計研究發展基金會，同一週發布兩份指引，正面回答了一個很實際的問題：公司能不能用穩定幣收付貨款？答案是可以，但你收到的那枚 USDC，在帳上不是現金。</p>
+  <div class="scroll-hint">SCROLL</div>
 </div>
 
-<section>
-  <div class="part-tag fade-in">PART 1</div>
-  <h2 class="fade-in">2026 年 5 月最後一週，台灣發生了三件事</h2>
-  <div class="timeline fade-in">
-    <div class="timeline-item">
-      <div class="date">5/27</div>
-      <div class="title">會計研究發展基金會發布「穩定幣交易會計處理之指引」</div>
-      <div class="desc">67 頁，四個案例，一棵決策樹。台灣史上第一份告訴上市公司「穩定幣怎麼入帳」的官方文件。</div>
-    </div>
-    <div class="timeline-item">
-      <div class="date">5/29</div>
-      <div class="title">證交所發布「持有加密貨幣內部控制制度指引」</div>
-      <div class="desc">從錢包管理、私鑰保管到交易授權，證交所第一次對上市公司說：你們可以持有加密貨幣，但要這樣管。</div>
-    </div>
-    <div class="timeline-item">
-      <div class="date">5/29</div>
-      <div class="title">證交所「國內業務宣導」網站同步更新</div>
-      <div class="desc">把加密貨幣相關的業務規範整合到統一入口，讓上市公司知道該看哪些文件。</div>
-    </div>
-  </div>
-  <p class="fade-in">三份文件同一週密集出爐，代表台灣的監管機關已經認定：上市公司持有穩定幣不再是邊緣行為，而是需要正式納管的企業活動。</p>
+<section class="fade-in">
+  <div class="part-label">PART 1 ｜ 一個很實際的問題</div>
+  <h2>台灣公司能不能<br>用穩定幣收付貨款？</h2>
+  <p>這個問題現在有了官方答案。二〇二六年五月底，中華民國會計研究發展基金會發布《穩定幣交易會計處理之指引》，裡面舉的第一個案例，就是一家叫「臺北公司」的筆電零售商，為了提升跨境支付效率，開始接受客戶用 USDC、USDT 付貨款，自己也不定期向發行商申購穩定幣來營運。</p>
+  <p>同一週，臺灣證券交易所發布《持有加密貨幣內部控制制度指引》，把「以加密貨幣作為收取或支付價款工具」明白列為一種需要專門程序控管的<span class="hl">特殊交易</span>。</p>
+  <p>兩份文件擺在一起，等於官方點頭：台灣公司可以用穩定幣收付。但會計指引同時給了一個容易被忽略的提醒。你收到的這筆 USDC，會計準則不把它當成你收到了一筆錢。</p>
 </section>
 
-<section>
-  <div class="part-tag fade-in">PART 2</div>
-  <h2 class="fade-in">穩定幣是現金嗎？不是。<br>是金融資產嗎？要看情況。</h2>
-  <p class="fade-in">會計指引花了 10 頁回答一個問題：穩定幣到底該歸在財務報表的哪一欄？</p>
-  <p class="fade-in">直覺上，USDC 錨定 1 美元，應該就是現金或約當現金。但會計準則不這樣看。IAS 7 對「現金」的定義是「交換媒介，且為所有交易於財務報表衡量及認列之基礎」。穩定幣雖然可以拿來付錢，但沒有任何國家把它當成記帳的基礎貨幣。所以穩定幣不是現金。</p>
-  <p class="fade-in">那是金融資產嗎？IAS 32 說，金融資產的核心是「自另一個體收取現金的合約權利」。你持有 USDC，能不能要求 Circle 把它換回美元？這個問題的答案，取決於兩件事：法律有沒有規定 Circle 必須換，以及你有沒有通過 Circle 的 KYC。</p>
-  <p class="fade-in">這就是整份指引最精彩的地方：<span class="hl">同一顆 USDC，在三種不同的監管情境下，會被歸類成完全不同的會計科目。</span></p>
+<section class="fade-in">
+  <div class="part-label">PART 2 ｜ 你收到的不是錢</div>
+  <h2>會計準則把那枚 USDC，<br>當成以物易物的對價</h2>
+  <p>當臺北公司賣出筆電、收下 USDC，會計指引援引 IFRS 15 的規定，把這筆 USDC 認定為「非現金對價」。這跟客戶拿一台機器、一批原物料來抵貨款是同一種邏輯，你收到的是一項資產，只是它剛好叫 USDC。</p>
+  <p>非現金對價有一條關鍵規則：<span class="hl">營收的金額，鎖定在你收款當天那枚幣的公允價值。</span>收款之後幣價再怎麼漲跌，都跟這筆已認列的營收無關了。那枚 USDC 從此變成你資產負債表上一項獨立的資產，後續的價值變動由你自己承擔。</p>
+  <div class="callout">
+    <p>換成現金的世界：你賣東西收到新台幣，收到的金額就是營收，現金放在帳上不會再變動。但收到穩定幣，營收先被鎖定，幣卻還活著，它會隨匯率、隨幣價在你帳上繼續浮動。</p>
+  </div>
+  <p>所以「收 USDC」這個動作，其實同時做了兩件事：完成一筆銷售，以及在帳上開立一個外幣資產部位。你以為自己收了款，會計上你是收了一項待處置的資產。</p>
 </section>
 
-<section class="wide">
-  <div class="part-tag fade-in">PART 3</div>
-  <h2 class="fade-in">三種情境，三種命運</h2>
-
-  <div class="tree-card fade-in">
-    <h3><span class="badge badge-green">情境一</span> 穩定幣已經立法監管</h3>
-    <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:0.8rem">假設美國 GENIUS Act 生效，發行商依法必須讓任何持有者按面額隨時贖回。</p>
-    <p style="font-size:0.9rem"><strong>會計分類：金融資產</strong>（透過損益按公允價值衡量，FVTPL）</p>
-    <p style="font-size:0.85rem;color:var(--text-secondary)">因為法律保障了你的贖回權，Circle 不能拒絕你。你持有的 USDC 就是一份「可以隨時換回美元的合約權利」，符合金融資產的定義。後續衡量用公允價值，匯率變動直接進損益。</p>
+<section class="fade-in wide">
+  <div class="part-label">PART 3 ｜ 收完之後，幣開始咬你</div>
+  <h2>帳上認列 372 萬營收，<br>最後換回現金只剩 360 萬</h2>
+  <p>會計指引把臺北公司的數字算得很清楚。二〇二五年八月十五日，它賣出一批帳面成本 9 萬美元的筆電，售價 12 萬美元，收下 <span class="num">120,000</span> 枚 USDC，當天美元兌新台幣匯率 31。</p>
+  <div class="ledger">
+    <div class="ledger-head">臺北公司收 USDC 貨款的帳上歷程</div>
+    <div class="ledger-row">
+      <div class="when">2025／8／15 收款</div>
+      <div class="what">以收款日 USDC 公允價值認列銷貨收入 <span class="num">372 萬</span>新台幣（120,000 × 1 × 31）。錢沒進銀行，120,000 枚 USDC 進了錢包。</div>
+    </div>
+    <div class="ledger-row">
+      <div class="when">2025／12／31 年底</div>
+      <div class="what">USDC 對美元還是 1：1，但新台幣升值，匯率掉到 29。這批 USDC 在帳上認列 <span class="numred">24 萬</span>損失。</div>
+    </div>
+    <div class="ledger-row">
+      <div class="when">2026／1／15 換回現金</div>
+      <div class="what">把 USDC 全數兌回美金，當天匯率 30，實際入帳銀行存款 <span class="num">360 萬</span>新台幣。</div>
+    </div>
   </div>
-
-  <div class="tree-card fade-in">
-    <h3><span class="badge badge-yellow">情境二</span> 未立法監管，但你通過了 KYC</h3>
-    <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:0.8rem">GENIUS Act 還沒生效。你是 Circle 的認證使用者，理論上可以贖回。</p>
-    <p style="font-size:0.9rem"><strong>會計分類：無形資產</strong>（非確定耐用年限，成本模式）</p>
-    <p style="font-size:0.85rem;color:var(--text-secondary)">Circle 的使用者條款寫了兩個條件：它可以不經你同意自行修改條款，也可以在某些情況下暫停或拒絕你的贖回請求。這兩個條件讓你的「贖回權」變得不確定，不符合金融資產的「合約權利」要件。穩定幣因此被歸為無形資產，只能做減損測試，不能往上重估。</p>
+  <p>對齊一下這筆生意：臺北公司認列了 372 萬營收，最後真正落袋的現金是 360 萬，<span class="hl">中間 12 萬的差距，全來自 USDC 在錢包裡躺著時匯率的變動。</span>銷售那一刻就完成了，但只要你還沒把幣換回法幣，這筆貨款的價值就一直在動。</p>
+  <p>更麻煩的是，這枚 USDC 在帳上到底算「金融資產」還是「無形資產」，又會改變它後續怎麼被衡量。分水嶺在一個問題：你有沒有法律上能強制發行商贖回、把幣換回現金的權利。</p>
+  <div class="compare">
+    <div class="compare-row compare-head">
+      <div class="label">情境</div>
+      <div class="v1">穩定幣已立法監管</div>
+      <div class="v2">未立法監管（現況）</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">贖回權</div>
+      <div class="v1">法律強制發行商隨時按面額贖回</div>
+      <div class="v2">發行商保留延遲、拒絕贖回與單方改條款的權利</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">帳上分類</div>
+      <div class="v1">金融資產，逐日按公允價值評價</div>
+      <div class="v2">無形資產，做減損測試</div>
+    </div>
   </div>
-
-  <div class="tree-card fade-in">
-    <h3><span class="badge badge-red">情境三</span> 未立法監管，你也沒通過 KYC</h3>
-    <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:0.8rem">你在第三方交易所買的 USDC，從來沒在 Circle 官網註冊過。</p>
-    <p style="font-size:0.9rem"><strong>會計分類：無形資產</strong>（非確定耐用年限，成本模式）</p>
-    <p style="font-size:0.85rem;color:var(--text-secondary)">你根本不是 Circle 的使用者，沒有任何合約權利可以要求贖回。你只能在第三方交易所出售 USDC，拿回的是新台幣而不是美元。會計處理跟情境二一樣是無形資產，但出售時的損益計算基礎不同：情境二用取得日匯率，情境三用實際成交價。</p>
-  </div>
-
-  <p class="fade-in">換句話說，一家台灣上市公司持有 100 萬顆 USDC，如果 GENIUS Act 生效，報表上會顯示為「金融資產」3,100 萬元（假設匯率 31），匯率漲跌直接反映在損益表。但如果 GENIUS Act 還沒生效，同樣的 100 萬顆 USDC 會顯示為「無形資產」，只能減損、不能增值。</p>
+  <p>截至二〇二六年五月，USDC 與 USDT 的發行商都還沒依美國《GENIUS 法案》取得發行許可。也就是說，今天你在台灣收一筆 USDC 貨款，帳上多半是把它記成無形資產，跟收到一項商品、一個專利同一類。</p>
 </section>
 
-<section>
-  <div class="part-tag fade-in">PART 4</div>
-  <h2 class="fade-in">為什麼這很重要</h2>
-  <p class="fade-in">對上市公司的財務長來說，穩定幣被分類為「金融資產」還是「無形資產」，差別非常大。金融資產可以按公允價值衡量，漲了就認列利益，跌了就認列損失，反映的是市場現實。無形資產用成本模式，只能往下減損、不能往上重估。同樣的資產，同樣的市場行情，帳上的數字卻完全不同。</p>
-  <p class="fade-in">更微妙的是，分類的關鍵不在穩定幣本身的性質（USDC 就是 USDC），而在外部條件：法律有沒有規定發行商必須贖回，以及你有沒有跟發行商建立直接的合約關係。這等於告訴上市公司：如果你要持有穩定幣，先去 Circle 或 Tether 做 KYC。如果你希望穩定幣被當成金融資產入帳，去遊說立法。</p>
-  <p class="fade-in">而美國的 GENIUS Act 已經在 2025 年 7 月簽署，最遲 2027 年 1 月生效。台灣的會計指引等於是在為這個時間點做準備：一旦 GENIUS Act 生效，USDC 和 USDT 從「無形資產」變成「金融資產」的那一天，每一家持有穩定幣的上市公司的資產負債表都會重新排列。</p>
+<section class="fade-in wide">
+  <div class="part-label">PART 4 ｜ 而且不是收了就好</div>
+  <h2>想合規地收付穩定幣，<br>先過一道對手白名單</h2>
+  <p>如果是上市櫃公司，內控指引把收付穩定幣的門檻訂得很具體。它不是「掃個 QR code 收幣」這麼簡單，而是要先建好一整套控管，才能動。下面這些都是指引裡的要求。</p>
+  <div class="ctrl-grid">
+    <div class="ctrl-card">
+      <div class="ic">🧾</div>
+      <div class="t">列為特殊交易</div>
+      <div class="d">以加密貨幣收付價款屬特殊交易，須另依「收、付款交易作業程序」辦理，與一般買賣分開控管。</div>
+    </div>
+    <div class="ctrl-card">
+      <div class="ic">📇</div>
+      <div class="t">對手地址要白名單</div>
+      <div class="d">交易對手的錢包地址須先核可並列入白名單，新增、修改地址要經總經理核准，不能隨意收任何錢包來的幣。</div>
+    </div>
+    <div class="ctrl-card">
+      <div class="ic">🔎</div>
+      <div class="t">先查交易對手</div>
+      <div class="d">交易前要充分瞭解交易對手、確認交易合法性，並只能依核准後的地址執行。</div>
+    </div>
+    <div class="ctrl-card">
+      <div class="ic">🏢</div>
+      <div class="t">專責管理單位</div>
+      <div class="d">須成立加密貨幣管理單位，發起與核准交易由不同人負責，簽章採多重簽名。</div>
+    </div>
+    <div class="ctrl-card">
+      <div class="ic">📊</div>
+      <div class="t">每季報董事會</div>
+      <div class="d">收付情形登載備查簿、每月更新，至少每季向董事會彙報，文件保存五年。</div>
+    </div>
+    <div class="ctrl-card">
+      <div class="ic">🔗</div>
+      <div class="t">每月對鏈上紀錄</div>
+      <div class="d">會計每月核對帳載、託管資料與區塊鏈公開紀錄一致，差異重大要立即報董事會。</div>
+    </div>
+  </div>
+  <p>把這些擺在一起，畫面就清楚了。穩定幣收付在跨境場景確實快又省手續費，這是它最實際的吸引力。但對一家想合規操作的公司來說，省下的電匯成本，要拿來換一套錢包控管、對手盡職調查與每月對帳的營運負擔。值不值得，是每家公司自己要算的帳。</p>
 </section>
 
 <div class="big-quote">
-  <p class="fade-in"><span class="hl">同一顆穩定幣值多少錢，不取決於市場價格，而取決於你跟發行商之間的法律關係。</span></p>
-  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0">會計準則不看技術，看合約權利。</p>
+  <p class="fade-in"><span class="hl">用穩定幣收貨款，你完成的是一筆銷售，同時也接下了一個還沒結清的部位。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">在你把幣換回法幣之前，這筆貨款的價值一直在動。</p>
 </div>
 
 <div class="choice-section" id="choice">
-  <h2 class="fade-in">你覺得穩定幣應該被歸類為什麼？</h2>
+  <h2>如果你是老闆，<br>你會用穩定幣收付貨款嗎？</h2>
   <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
-
   <div class="choice-options fade-in">
     <button class="choice-btn" onclick="choose(0)">
-      <div class="emoji">💰</div>
+      <div class="emoji">🌏</div>
       <div>
-        <div class="label">金融資產</div>
-        <div class="desc">它錨定美元、可以贖回，本質上就是一張存款收據。應該跟外幣存款一樣入帳。</div>
+        <div class="label">會，為了跨境效率</div>
+        <div class="desc">比電匯快又便宜，匯率與幣價風險我自己對沖</div>
       </div>
     </button>
     <button class="choice-btn" onclick="choose(1)">
-      <div class="emoji">🧩</div>
+      <div class="emoji">🔁</div>
       <div>
-        <div class="label">無形資產</div>
-        <div class="desc">發行商隨時可以改條款、拒絕贖回。在法律沒保障之前，它就是一個不確定的數位權利。</div>
+        <div class="label">會，但收了立刻換回法幣</div>
+        <div class="desc">只把穩定幣當支付管道，不在帳上留部位</div>
       </div>
     </button>
     <button class="choice-btn" onclick="choose(2)">
-      <div class="emoji">⚖️</div>
+      <div class="emoji">🛑</div>
       <div>
-        <div class="label">看情境而定</div>
-        <div class="desc">會計指引說得對：關鍵不在穩定幣本身，而在法律環境和合約關係。不同情境就該有不同分類。</div>
+        <div class="label">不會，負擔大於效益</div>
+        <div class="desc">帳上變無形資產、還要建白名單與內控，划不來</div>
       </div>
     </button>
   </div>
-
   <div class="result-card" id="resultCard">
     <div class="r-badge">你的觀點</div>
     <div class="r-title" id="rTitle"></div>
@@ -232,11 +256,11 @@ footer{text-align:center;padding:3rem 2rem}
 
 <div class="cta">
   <h2>想看更深入的分析？</h2>
-  <p>Substack 文章包含更多脈絡、案例與細節，幫你把這個論點讀得更透。</p>
-  <a class="cta-btn" href="https://www.blocktrend.today/" target="_blank" rel="noopener">閱讀完整文章 →</a>
+  <p>區塊勢的完整文章包含更多脈絡、案例與細節，幫你把這個論點讀得更透。</p>
+  <a class="cta-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">閱讀完整文章 →</a>
   <div class="share-row" style="margin-top:1.5rem">
-    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('同一顆 USDC，在三種不同的監管情境下，會被歸類成完全不同的會計科目。台灣首份穩定幣會計指引，拆解給你看。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
-    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('同一顆 USDC，在三種不同的監管情境下，會被歸類成完全不同的會計科目。'),'_blank','noopener')">分享到 Facebook</button>
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('在台灣收一筆 USDC 貨款，帳上你其實沒收到錢，它是以物易物的對價，不是現金。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('在台灣收一筆 USDC 貨款，帳上你其實沒收到錢。'),'_blank','noopener')">分享到 Facebook</button>
   </div>
 </div>
 
@@ -244,32 +268,29 @@ footer{text-align:center;padding:3rem 2rem}
   <div class="subscribe-inner fade-in">
     <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
     <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
-    <p class="subscribe-desc">從穩定幣會計、AI 代理人到平台策略，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <p class="subscribe-desc">從穩定幣、AI 代理人到平台策略，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
     <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
     <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
   </div>
 </div>
 
-<footer><img src="https://i.urusai.cc/yaku8.png" alt="區塊勢" style="height:44px;opacity:0.5"></footer>
+<footer><img src="https://i.urusai.cc/yaku8.png" alt="區塊勢"></footer>
 
 <script>
-// Fade-in observer
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})},{threshold:0.12});
-document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
-
-// Choice interaction
 let userChoice=-1;
-const labels=['金融資產','無形資產','看情境而定'];
+const labels=['會，為了跨境效率','會，但收了立刻換回法幣','不會，負擔大於效益'];
 const results=[
-  {title:'你認為穩定幣就是金融資產',desc:'你的觀點跟 GENIUS Act 生效後的會計分類一致。如果法律保障了持有者的贖回權，穩定幣確實更像一張可以隨時兌現的存款收據。問題在於：在法律保障到來之前，這個「隨時兌現」的承諾只寫在發行商的使用者條款裡，而那份條款可以被單方面修改。',bg:'var(--green-light)',border:'#A8D4BC'},
-  {title:'你認為現階段穩定幣是無形資產',desc:'你的觀點跟目前（GENIUS Act 生效前）的會計分類一致。在發行商可以單方面修改條款、暫停贖回的現實下，持有者的「贖回權」確實不夠穩固，不符合金融資產對「合約權利」的要求。這個分類的代價是：穩定幣只能減損、不能重估，即使市場價格穩定在 1 美元。',bg:'var(--yellow-light)',border:'#E4D5B8'},
-  {title:'你認為分類應該因情境而異',desc:'這正是台灣這份會計指引的核心設計。它沒有說「穩定幣就是 X」，而是畫了一棵決策樹，讓企業根據法律環境和合約關係自行判斷。這種做法比起一刀切的分類更務實，但也代表同一種資產在不同公司的報表上可能長得完全不同。',bg:'var(--terra-light)',border:'#DBBFAD'}
+  {title:'會，為了跨境效率',desc:'跨境收款省下的電匯時間與手續費，是穩定幣最實際的賣點。代價是你得自己管理那個外幣資產部位：認列營收後，幣價與匯率仍在帳上浮動，直到你換回法幣為止。願意自己對沖，這筆帳就划得來。',bg:'var(--terra-light)',border:'#DBBFAD'},
+  {title:'收了立刻換回法幣',desc:'把穩定幣純當成一條更快的支付管道，收到馬上兌回法幣，部位停留時間壓到最短。這樣帳上的價值變動風險最小，但你仍要承擔兌換時點的匯率，以及處分時的損益認列。',bg:'var(--green-light)',border:'#A8D4BC'},
+  {title:'不會，負擔大於效益',desc:'對許多公司來說，收一筆穩定幣換來的是：帳上多一項要做減損測試的無形資產、一套對手白名單與每月對帳的內控、還有每季向董事會報告的義務。省下的跨境成本，未必補得回這些營運負擔。',bg:'var(--blue-light)',border:'#B8CDF0'}
 ];
-
 function choose(idx){
   if(userChoice>=0)return;
   userChoice=idx;
-  document.querySelectorAll('.choice-btn').forEach((b,i)=>{if(i===idx)b.classList.add('selected');b.style.cursor='default'});
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===idx)b.classList.add('selected');
+    b.style.cursor='default';
+  });
   const r=results[idx];
   const card=document.getElementById('resultCard');
   document.getElementById('rTitle').textContent=r.title;
@@ -277,11 +298,24 @@ function choose(idx){
   card.style.background=r.bg;
   card.style.borderColor=r.border;
   card.classList.add('show');
-  const shareText=`我認為穩定幣應該被歸類為「${labels[idx]}」。\n\n同一顆 USDC，在三種不同的監管情境下，會被歸類成完全不同的會計科目。`;
-  document.getElementById('shareTw').onclick=function(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')};
-  document.getElementById('shareFb').onclick=function(){window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener')};
+  const shareText='我的觀點：'+labels[idx]+'。\n\n在台灣收一筆 USDC 貨款，帳上你其實沒收到錢。';
+  document.getElementById('shareTw').onclick=function(){
+    window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener');
+  };
+  document.getElementById('shareFb').onclick=function(){
+    window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener');
+  };
   setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
 }
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
 </script>
 </body>
 </html>
