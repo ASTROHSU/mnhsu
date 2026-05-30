@@ -1,0 +1,28 @@
+[
+  {
+    "id": "money-stuff",
+    "name": "Money Stuff",
+    "url": "https://youtube.com/playlist?list=PLe4PRejZgr0Mxz914cYuVpTiUuqiF3U0x",
+    "slugPrefix": "money-stuff",
+    "transcriptDir": "Money Stuff",
+    "stateDir": "mnhsu-money-stuff",
+    "homepageTags": ["Money Stuff", "Bloomberg", "Podcast"],
+    "homepageEnPrefix": "Money Stuff:",
+    "titleCleanupPattern": "\\|?\\s*Money Stuff:\\s*The Podcast",
+    "footerSource": "Bloomberg Podcasts 的 Money Stuff: The Podcast",
+    "promptContext": "這是 Bloomberg Podcasts 的 Money Stuff: The Podcast。請保留 Matt Levine 式的金融直覺拆解，但用台灣讀者容易理解的中文寫成互動式閱讀頁。"
+  },
+  {
+    "id": "a16z-crypto",
+    "name": "a16z crypto",
+    "url": "https://www.youtube.com/@a16zcrypto/videos",
+    "slugPrefix": "a16z-crypto",
+    "transcriptDir": "a16z crypto",
+    "stateDir": "mnhsu-a16z-crypto",
+    "homepageTags": ["a16z crypto", "AI", "Crypto"],
+    "homepageEnPrefix": "a16z crypto:",
+    "titleCleanupPattern": "\\|?\\s*a16z crypto.*$",
+    "footerSource": "a16z crypto YouTube 頻道",
+    "promptContext": "這是 a16z crypto 的 YouTube 影片。請把影片主張轉成一篇完整但精簡的互動式閱讀頁，重點放在 crypto、AI、穩定幣、基礎設施與商業策略的關係。"
+  }
+]
