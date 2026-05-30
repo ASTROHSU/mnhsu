@@ -35,6 +35,7 @@ jobs:
           RESEND_FROM: ${{ vars.RESEND_FROM }}
           RESEND_TO: mn@mnhsu.xyz
           SITE_ORIGIN: https://www.mnhsu.xyz
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
           GITHUB_BEFORE: ${{ github.event.before }}
           GITHUB_SHA: ${{ github.sha }}
           ARTICLE_PATH: ${{ inputs.article_path }}
