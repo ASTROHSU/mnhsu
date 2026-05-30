@@ -217,6 +217,11 @@ async function sendEmail(articles) {
     return;
   }
 
+  console.log(`Sending email via Resend`);
+  console.log(`From: ${resendFrom}`);
+  console.log(`To: ${resendTo}`);
+  console.log(`Subject: ${subject}`);
+
   if (!resendApiKey) {
     throw new Error('RESEND_API_KEY is missing. Add it to GitHub Actions secrets.');
   }
@@ -232,7 +237,7 @@ async function sendEmail(articles) {
 
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(`Resend API failed: ${response.status} ${body}`);
+    throw new Error(`Resend API failed: ${response.status} ${response.statusText}\n${body}`);
   }
 
   const result = await response.json();
@@ -241,10 +246,11 @@ async function sendEmail(articles) {
 
 const files = listNewArticleFiles();
 if (files.length === 0) {
-  console.log('No new article pages found.');
+  console.log('No new article pages found. For manual runs, leave article_path empty to use the latest homepage article, or pass public/<slug>/index.html.');
   process.exit(0);
 }
 
+console.log(`Article files: ${files.join(', ')}`);
 const articles = files.map(readArticle);
 for (const article of articles) {
   console.log(`Waiting for ${article.url}`);
