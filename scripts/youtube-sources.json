@@ -37,5 +37,83 @@
     "titleCleanupPattern": "\\|?\\s*Cheeky Pint.*$",
     "footerSource": "Stripe 的 Cheeky Pint 系列",
     "promptContext": "這是 Stripe 的 Cheeky Pint 系列，由 John Collison 與創辦人、科技公司高階主管或產業人物對談。請把訪談核心轉成一篇完整但精簡的互動式閱讀頁，重點放在公司策略、科技趨勢、商業模式與創業者判斷。"
+  },
+  {
+    "id": "lex-fridman",
+    "name": "Lex Fridman",
+    "url": "https://www.youtube.com/@lexfridman/videos",
+    "slugPrefix": "lex-fridman",
+    "transcriptDir": "Lex Fridman",
+    "stateDir": "mnhsu-lex-fridman",
+    "homepageTags": ["Lex Fridman", "Podcast", "Technology"],
+    "homepageEnPrefix": "Lex Fridman:",
+    "titleCleanupPattern": "\\|?\\s*Lex Fridman Podcast.*$",
+    "footerSource": "Lex Fridman YouTube 頻道",
+    "promptContext": "這是 Lex Fridman 的長訪談。請把訪談核心轉成一篇完整但精簡的互動式閱讀頁，重點放在科技、科學、AI、商業策略與受訪者的核心判斷。"
+  },
+  {
+    "id": "tokenized-podcast",
+    "name": "Tokenized Podcast",
+    "url": "https://www.youtube.com/@TokenizedPodcast/videos",
+    "slugPrefix": "tokenized-podcast",
+    "transcriptDir": "Tokenized Podcast",
+    "stateDir": "mnhsu-tokenized-podcast",
+    "homepageTags": ["Tokenized", "Podcast", "Crypto"],
+    "homepageEnPrefix": "Tokenized Podcast:",
+    "titleCleanupPattern": "\\|?\\s*Tokenized Podcast.*$",
+    "footerSource": "Tokenized Podcast YouTube 頻道",
+    "promptContext": "這是 Tokenized Podcast 的影片。請把影片核心轉成一篇完整但精簡的互動式閱讀頁，重點放在代幣化、crypto、金融基礎設施、商業模式與監管脈絡。"
+  },
+  {
+    "id": "lennys-podcast",
+    "name": "Lenny's Podcast",
+    "url": "https://www.youtube.com/@LennysPodcast/videos",
+    "slugPrefix": "lennys-podcast",
+    "transcriptDir": "Lenny's Podcast",
+    "stateDir": "mnhsu-lennys-podcast",
+    "homepageTags": ["Lenny's Podcast", "Product", "Startups"],
+    "homepageEnPrefix": "Lenny's Podcast:",
+    "titleCleanupPattern": "\\|?\\s*Lenny'?s Podcast.*$",
+    "footerSource": "Lenny's Podcast YouTube 頻道",
+    "promptContext": "這是 Lenny's Podcast 的產品與創業訪談。請把訪談核心轉成一篇完整但精簡的互動式閱讀頁，重點放在產品策略、成長、組織、創業者判斷與可操作的商業洞察。"
+  },
+  {
+    "id": "acquired",
+    "name": "Acquired",
+    "url": "https://www.youtube.com/@AcquiredFM/videos",
+    "slugPrefix": "acquired",
+    "transcriptDir": "Acquired",
+    "stateDir": "mnhsu-acquired",
+    "homepageTags": ["Acquired", "Business", "Technology"],
+    "homepageEnPrefix": "Acquired:",
+    "titleCleanupPattern": "\\|?\\s*Acquired.*$",
+    "footerSource": "Acquired YouTube 頻道",
+    "promptContext": "這是 Acquired 的企業與科技商業史訪談。請把內容轉成一篇完整但精簡的互動式閱讀頁，重點放在公司如何取得優勢、商業模式、產業變遷與策略轉折。"
+  },
+  {
+    "id": "a16z",
+    "name": "a16z",
+    "url": "https://www.youtube.com/@a16z/videos",
+    "slugPrefix": "a16z",
+    "transcriptDir": "a16z",
+    "stateDir": "mnhsu-a16z",
+    "homepageTags": ["a16z", "Technology", "Startups"],
+    "homepageEnPrefix": "a16z:",
+    "titleCleanupPattern": "\\|?\\s*a16z.*$",
+    "footerSource": "a16z YouTube 頻道",
+    "promptContext": "這是 a16z 的科技與創業內容。請把影片核心轉成一篇完整但精簡的互動式閱讀頁，重點放在科技趨勢、創業、投資論點、商業模式與平台策略。"
+  },
+  {
+    "id": "all-in",
+    "name": "All-In Podcast",
+    "url": "https://www.youtube.com/@allin/videos",
+    "slugPrefix": "all-in",
+    "transcriptDir": "All-In Podcast",
+    "stateDir": "mnhsu-all-in",
+    "homepageTags": ["All-In", "Podcast", "Technology"],
+    "homepageEnPrefix": "All-In:",
+    "titleCleanupPattern": "\\|?\\s*All-In Podcast.*$",
+    "footerSource": "All-In Podcast YouTube 頻道",
+    "promptContext": "這是 All-In Podcast 的影片。請把節目核心轉成一篇完整但精簡的互動式閱讀頁，重點放在科技、創投、市場、政治經濟與主持人之間真正有資訊量的分歧。"
   }
 ]
