@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>手機之後，Snap 押什麼？</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta name="description" content="Stripe Cheeky Pint 訪問 Snap 執行長 Evan Spiegel：Specs 不是要消滅手機，而是把運算帶回現實世界，讓 AI、硬體、分發與親密社交重新接在一起。">
+<meta property="og:title" content="手機之後，Snap 押什麼？">
+<meta property="og:description" content="Snap 的 2026 拐點：接近十億月活躍使用者、Specs 走向消費者、AI 改寫軟體開發，也讓分發與親密社交變得更值錢。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.mnhsu.xyz/stripe-cheeky-pint-what-comes-after-smartphones-with-evan-spiegel-of-snap/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="手機之後，Snap 押什麼？">
+<meta name="twitter:description" content="Evan Spiegel 解釋 Snap 為什麼押注 AR 眼鏡、AI 寫程式與親密社交，而不是另一個公開動態牆。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
+  --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
+  --blue:#2563EB;--blue-light:#EFF4FF;--yellow:#8B6914;--yellow-light:#FDF8EC;
+  --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
+  --gold:#8B7340;--gold-light:#F9F3E6;--line:#E8E3D8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{color:inherit;text-underline-offset:3px;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,var(--cream),var(--warm));position:relative;}
+.hero .logo{height:48px;margin-bottom:2.5rem;}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.9rem,5.2vw,3rem);line-height:1.35;letter-spacing:0.02em;margin-bottom:1.5rem;}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.18rem);color:var(--text-secondary);max-width:660px;line-height:1.8;}
+.scroll-hint{position:absolute;bottom:2.5rem;font-size:0.8rem;letter-spacing:0.3em;color:var(--text-muted);animation:breathe 2.4s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(6px);}}
+section{max-width:720px;margin:0 auto;padding:3.5rem 1.6rem;}
+section.wide{max-width:940px;}
+.part-label{font-size:0.78rem;font-weight:700;letter-spacing:0.25em;color:var(--terra);margin-bottom:1rem;}
+h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2rem);line-height:1.5;margin-bottom:1.5rem;letter-spacing:0.01em;}
+p{margin-bottom:1.4rem;font-size:1.05rem;}
+.hl{background:linear-gradient(transparent 60%,var(--gold-light) 60%);padding:0 0.1em;font-weight:500;}
+.callout{background:var(--terra-light);border-left:4px solid var(--terra);border-radius:0 10px 10px 0;padding:1.4rem 1.6rem;margin:2rem 0;}
+.callout p{margin:0;font-size:1rem;color:var(--text);}
+.moment-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.85rem;margin:2rem 0;}
+.moment{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.15rem;}
+.moment .num{font-family:'Noto Serif TC',serif;font-size:1.45rem;font-weight:900;color:var(--terra);line-height:1;margin-bottom:0.65rem;}
+.moment .name{font-weight:700;font-size:0.95rem;line-height:1.45;margin-bottom:0.35rem;}
+.moment .desc{font-size:0.84rem;color:var(--text-secondary);line-height:1.65;}
+.compare{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:2rem 0;}
+.compare-row{display:grid;grid-template-columns:0.7fr 1fr 1fr;border-bottom:1px solid #EFEAE0;}
+.compare-row:last-child{border-bottom:none;}
+.compare-row div{padding:0.9rem;font-size:0.86rem;line-height:1.6;}
+.compare-row .head{background:var(--green-deep);color:#fff;font-weight:700;}
+.compare-row .label{background:#F6F2EA;font-weight:700;color:var(--text-secondary);}
+.stack-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.5rem;margin:2rem 0;}
+.stack-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.12rem;text-align:center;margin-bottom:1.25rem;}
+.stack-line{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0.55rem;}
+.stack-node{background:var(--warm);border:1px solid var(--line);border-radius:12px;padding:0.9rem;text-align:center;}
+.stack-node strong{display:block;font-size:0.84rem;color:var(--green-deep);line-height:1.35;margin-bottom:0.35rem;}
+.stack-node span{display:block;font-size:0.76rem;color:var(--text-secondary);line-height:1.45;}
+.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.9rem;margin:2rem 0;}
+.idea-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.2rem;}
+.idea-card .tag{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;color:var(--terra);background:var(--terra-light);border-radius:2rem;padding:0.2rem 0.7rem;margin-bottom:0.8rem;}
+.idea-card .name{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.05rem;line-height:1.5;margin-bottom:0.5rem;}
+.idea-card .desc{font-size:0.88rem;color:var(--text-secondary);line-height:1.7;}
+.principle-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0.85rem;margin:2rem 0;}
+.principle{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.15rem;}
+.principle .emoji{font-size:1.55rem;margin-bottom:0.45rem;}
+.principle .name{font-weight:700;font-size:0.96rem;margin-bottom:0.4rem;}
+.principle .desc{font-size:0.84rem;color:var(--text-secondary);line-height:1.65;}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light));}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:560px;margin:0 auto;letter-spacing:0.03em;}
+.choice-section{padding:4rem 1.6rem;background:#fff;text-align:center;}
+.choice-section h2{margin-bottom:0.8rem;}
+.choice-sub{color:var(--text-secondary);font-size:0.95rem;margin-bottom:2.5rem;}
+.choice-options{display:flex;flex-direction:column;gap:1rem;max-width:560px;margin:0 auto;}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:var(--warm);border:2px solid #E8E3D8;border-radius:14px;padding:1.2rem 1.4rem;cursor:pointer;text-align:left;transition:all 0.25s;font-family:'Noto Sans TC',sans-serif;width:100%;}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light);}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0;}
+.choice-btn .label{font-weight:700;font-size:1rem;margin-bottom:0.2rem;}
+.choice-btn .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+.result-card{max-width:560px;margin:2rem auto 0;border:2px solid #DBBFAD;border-radius:14px;padding:1.8rem;background:var(--terra-light);opacity:0;transform:translateY(20px);transition:all 0.5s;display:none;}
+.result-card.show{opacity:1;transform:translateY(0);display:block;}
+.r-badge{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;color:var(--terra);background:#fff;padding:0.3rem 0.9rem;border-radius:2rem;margin-bottom:1rem;}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;}
+.r-desc{font-size:0.95rem;color:var(--text);line-height:1.8;}
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap;}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s;}
+.share-btn:hover{transform:scale(1.03);}
+.share-btn.tw{background:#0f1419;color:#fff;}
+.share-btn.fb{background:#1877f2;color:#fff;}
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream));}
+.cta h2{margin-bottom:1rem;}
+.cta p{max-width:540px;margin:0 auto 2rem;color:var(--text-secondary);font-size:1rem;}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.95rem 2.4rem;border-radius:2rem;font-weight:500;font-size:1.05rem;transition:all 0.3s;}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep);}
+.subscribe-inner{max-width:520px;margin:0 auto;}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem;}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem;}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif;}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem;}
+footer{text-align:center;padding:3rem 2rem;}
+footer img{height:44px;opacity:0.5;}
+footer .src{font-size:0.78rem;color:var(--text-muted);margin:1rem auto 0;line-height:1.7;max-width:600px;}
+footer .src a{color:var(--text-secondary);}
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:760px){
+  html{font-size:17px;}
+  section{padding:3rem 1.25rem;}
+  .moment-grid,.card-grid,.principle-list{grid-template-columns:1fr;}
+  .compare-row{grid-template-columns:1fr;}
+  .compare-row .head:nth-child(2),.compare-row .head:nth-child(3){display:none;}
+  .stack-line{grid-template-columns:1fr;}
+  .choice-btn{align-items:flex-start;padding:1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>手機之後，<br>Snap 押什麼？</h1>
+  <p class="sub">Evan Spiegel 在 Stripe Cheeky Pint 裡談的不是「手機會不會消失」。Snap 真正在押的是：運算會從低頭看螢幕，走向抬頭看世界；AI 會讓軟體更容易做，也讓分發與親密關係更值錢。</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<section class="fade-in">
+  <div class="part-label">PART 1 ｜ 拐點</div>
+  <h2>Snap 的 2026，<br>不是只多一副眼鏡</h2>
+  <p>John Collison 一開始問 Evan Spiegel：Snap 目前產品與生意的更新是什麼？Spiegel 的答案是「crucible moment」。Snap 接近十億月活躍使用者，也接近淨利轉正，同時準備讓 Specs 在今年稍晚第一次面向消費者。</p>
+  <p>這不是單一產品發布。Snap 正在同時處理四件事：核心 Snapchat 成長、直接收入變大、AR 眼鏡走向消費市場，以及 AI 改寫公司內部寫軟體的方式。</p>
+  <div class="moment-grid">
+    <div class="moment">
+      <div class="num">01</div>
+      <div class="name">接近十億月活躍使用者</div>
+      <div class="desc">核心 Snapchat 還在成長，Snap 不是小眾硬體公司，而是有大量分發的消費服務。</div>
+    </div>
+    <div class="moment">
+      <div class="num">02</div>
+      <div class="name">接近淨利轉正</div>
+      <div class="desc">在投入硬體與 AI 的同時，廣告與直接收入必須撐起更大的投資週期。</div>
+    </div>
+    <div class="moment">
+      <div class="num">03</div>
+      <div class="name">Specs 面向消費者</div>
+      <div class="desc">Snap 從 2014 年左右開始投入眼鏡，目標是做出可穿戴的空間運算裝置。</div>
+    </div>
+    <div class="moment">
+      <div class="num">04</div>
+      <div class="name">AI 改變公司運作</div>
+      <div class="desc">Spiegel 說 Snap 目前超過三分之二的新程式碼由 AI 寫成，設計師也開始直接送出 PR。</div>
+    </div>
+  </div>
+  <p>這讓 Specs 的策略更有意思。若軟體變得便宜，單靠應用程式數量建立護城河就變弱；若分發變得稀缺，Snap 擁有的社交入口反而更重要。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 2 ｜ 眼鏡為什麼難</div>
+  <h2>Specs 想站在兩種產品中間：<br>普通眼鏡的輕，Vision Pro 的能力</h2>
+  <p>Spiegel 把今天的市場分成兩端。一端是很輕的智慧眼鏡，像「有相機的耳機」，能力有限；另一端是 Vision Pro 這類高能力 VR 裝置，但會把使用者包在螢幕裡。Specs 想填的空位，是透明眼鏡的外型，加上真正空間電腦的能力。</p>
+  <p>他的判斷不是「手機會被眼鏡取代」。手機仍會留下來，而且可能扮演重要的舊平台角色。最先移動的，可能是大螢幕用途：旅途中工作、看巨大螢幕、臨時展開桌面。但 Snap 更在意的是原本不存在的體驗，例如在戶外跟孩子玩 AR 雷射槍、把恐龍放進後院、一起做樂高。</p>
+  <div class="compare">
+    <div class="compare-row">
+      <div class="head">裝置</div>
+      <div class="head">優點</div>
+      <div class="head">限制</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">手機</div>
+      <div>每個人都有，適合通訊、拍照、隨身處理事情。</div>
+      <div>把人拉進小螢幕，很多使用情境變成低頭和抽離。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">VR 頭戴裝置</div>
+      <div>能力高，適合沉浸式訓練、遊戲或專業模擬。</div>
+      <div>身體上把人隔開，Spiegel 不相信大多數人想透過螢幕看世界。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">Specs</div>
+      <div>眼睛和耳朵的位置讓電腦更理解周遭，也讓雙手保持自由。</div>
+      <div>要把作業系統、光學、散熱、電池與應用平台塞進一副眼鏡。</div>
+    </div>
+  </div>
+  <p>這裡的策略重點是「heads up」。Snap 不只想做另一片螢幕，而是讓電腦回到人與人共享的空間裡。這也解釋為什麼 Spiegel 一直強調 humanity，而不是先談規格表。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 3 ｜ 防禦性</div>
+  <h2>最難的地方，<br>是 Snap 必須自己做整套堆疊</h2>
+  <p>Specs 的技術困難不只是電池或螢幕。Spiegel 說 Snap 幾乎擁有整個堆疊：開發工具 Lens Studio、渲染引擎 Lens Core、自己的作業系統、光學引擎、波導片、投影器，還有尚未公開的元件。</p>
+  <p>他們沒有把 Android 重新包一層，因為 Android 對眼鏡太重。Snap 選擇以 Linux 為基礎做自己的作業系統。這個決定很辛苦，但在小裝置的效能、功耗和散熱上更有控制權。</p>
+  <div class="stack-card">
+    <div class="stack-title">Specs 的五層堆疊</div>
+    <div class="stack-line">
+      <div class="stack-node"><strong>Lens Studio</strong><span>讓開發者做出 AR 體驗</span></div>
+      <div class="stack-node"><strong>Lens Core</strong><span>多年在手機上打磨的渲染引擎</span></div>
+      <div class="stack-node"><strong>作業系統</strong><span>為眼鏡重新設計的 Linux 基礎</span></div>
+      <div class="stack-node"><strong>光學引擎</strong><span>波導片與投影器決定顯示品質</span></div>
+      <div class="stack-node"><strong>硬體製造</strong><span>關鍵元件靠近研發團隊快速迭代</span></div>
+    </div>
+  </div>
+  <p>這也是 Spiegel 認為硬體比軟體更容易保護創新的原因。AI 讓軟體更容易複製，硬體的專利、製程與供應鏈反而能形成較清楚的邊界。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 4 ｜ 沒有單一殺手級應用</div>
+  <h2>Specs 不靠一個 app 爆紅，<br>而靠每個人做自己的軟體</h2>
+  <p>Collison 用個人電腦早期的試算表做比喻：新平台常常先靠一個 killer app 建立裝機量。Spiegel 反而說，2026 年再談單一殺手級應用有點像幻影。因為 AI 讓做軟體太容易，平台應該讓人快速做出對自己有價值的客製工具。</p>
+  <p>Snap 的想像是：Lens Studio 會變得更像代理人。使用者想到一個眼鏡體驗，就能很快做出來，放到現實世界裡試。這會降低新平台最難跨過的問題：怎麼跟 iOS 和 Android 上百萬個既有應用程式競爭。</p>
+  <div class="card-grid">
+    <div class="idea-card">
+      <div class="tag">產品規則</div>
+      <div class="name">不是十倍好，就不值得做</div>
+      <div class="desc">Snap 做過相機眼鏡，也學到單純 hands-free 拍攝不夠。若只是比手機方便一點，市場小、願付價格低，最後很容易被低價競品壓縮。</div>
+    </div>
+    <div class="idea-card">
+      <div class="tag">平台規則</div>
+      <div class="name">讓很多小用途快速出現</div>
+      <div class="desc">從手勢飛機遊戲，到監看 AI 代理人工作進度，這些體驗未必能單獨變成大公司，卻能讓平台變得貼近個人情境。</div>
+    </div>
+    <div class="idea-card">
+      <div class="tag">AI 影響</div>
+      <div class="name">軟體供給暴增</div>
+      <div class="desc">Spiegel 提到 iOS app 提交量快速上升。當做軟體變簡單，誰能把新服務送到使用者面前，誰就拿到更稀缺的資產。</div>
+    </div>
+    <div class="idea-card">
+      <div class="tag">Snap 優勢</div>
+      <div class="name">分發變得更值錢</div>
+      <div class="desc">Snap 未來可以用半個人的時間做新服務，再透過 Snapchat 分發。AI 省下的工程資源，會被轉去成長與分發。</div>
+    </div>
+  </div>
+  <p>這段是整場訪談最像商業策略的地方。AI 讓寫程式變便宜，不代表所有公司都變強。它可能讓有分發、有社群關係、有硬體堆疊的公司更強。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 5 ｜ Snapchat 不是公開動態牆</div>
+  <h2>Snap 的核心競爭，<br>不是朋友越多越好</h2>
+  <p>談到核心業務時，Spiegel 說 Snap 主要競爭對手是通訊服務，其次才是相機或其他娛樂形式。Snapchat 一開始幾乎沒有社群功能，成長來自訊息和相機。</p>
+  <p>他的社交網路理論很清楚：產品價值不是來自你能聯絡多少人，而是你真的會跟誰說話。多數人的日常對話集中在很小的一群人身上。Facebook 與 Instagram 早期把朋友、動態牆、廣告放在同一個迴路裡，結果讓人不斷加更多朋友，最後不知道誰會看到自己發布的內容。</p>
+  <div class="principle-list">
+    <div class="principle">
+      <div class="emoji">💬</div>
+      <div class="name">小圈子才是核心</div>
+      <div class="desc">Snapchat 讓你跟最重要的幾個人保持聯絡，而不是追求最大公開關係網。</div>
+    </div>
+    <div class="principle">
+      <div class="emoji">🧭</div>
+      <div class="name">社交和媒體分開</div>
+      <div class="desc">朋友內容用來溝通；創作者與出版者內容放在另一個區域，避免逼人加朋友填滿動態牆。</div>
+    </div>
+    <div class="principle">
+      <div class="emoji">🫥</div>
+      <div class="name">大多數生活會消失</div>
+      <div class="desc">Spiegel 認為科技會回到人類原本的習慣：大部分對話不保存，重要回憶才留下。</div>
+    </div>
+  </div>
+  <p>這也解釋了 Snapchat Plus 的直接收入。付費者不是要把產品變成另一個大型公開平台，而是想要更客製、更貼近自己使用習慣的功能。Snap 以前沒資源做給小群高熱情使用者的需求，訂閱收入讓這些功能有了生意理由。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 6 ｜ 政策與產品責任</div>
+  <h2>Spiegel 不否認風險，<br>但反對把所有 app 混成一類</h2>
+  <p>訪談後段談到青少年、螢幕時間和澳洲對未滿 16 歲的社群媒體禁令。Spiegel 的立場不是「完全放任」。他認為家長需要依照孩子狀況取得平衡，也需要知道 iOS 和 Android 本來就有作業系統層級的家長控制工具。</p>
+  <p>他反對的是只針對少數 app 的禁令。使用者可以轉到其他服務，政策也很難覆蓋 App Store 裡的大量替代品。若真要限制，作業系統層級比 app 層級更穩。</p>
+  <div class="callout">
+    <p>Snap 的防守說法是：不要把通訊服務、公開動態牆、短影音推薦全部叫做「社群媒體」。產品怎麼設計，會改變使用者是在連結朋友，還是在被無止境內容吸住。</p>
+  </div>
+  <p>內容治理上，Spiegel 也把重點放在內容本身，而不只放在演算法。他認為公開出現在 Snapchat 的內容需要被審核，平台要有清楚且一致的規則。這跟 Snap 一開始把社交和媒體分開，是同一套產品判斷。</p>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">下一個平台不只是少看手機，而是把運算從螢幕拉回你面前的世界。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">Snap 的賭注，是硬體讓電腦更貼近人，AI 讓軟體更容易出現，而分發與親密關係決定誰能把這些體驗送到使用者手上。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2>Snap 最有價值的押注<br>是哪一個？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">🥽</div>
+      <div>
+        <div class="label">Specs 成為新平台</div>
+        <div class="desc">透明眼鏡把運算帶回現實世界，創造手機沒有的新體驗</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">💬</div>
+      <div>
+        <div class="label">親密社交比大網路重要</div>
+        <div class="desc">Snapchat 的價值在少數重要關係，不在最大公開朋友數</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">🚚</div>
+      <div>
+        <div class="label">AI 讓分發更稀缺</div>
+        <div class="desc">軟體變容易做，能把產品送到使用者面前的平台更有價值</div>
+      </div>
+    </button>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想聽原始訪談？</h2>
+  <p>這頁整理自 Stripe 的 Cheeky Pint 系列。原始影片保留了 John Collison 與 Evan Spiegel 對 Specs、Snapchat、AI、青少年政策與硬體製造的完整對話。</p>
+  <a class="cta-btn" href="https://www.youtube.com/watch?v=8fZNK-M-77I" target="_blank" rel="noopener">前往 YouTube →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Snap 的賭注不是手機消失，而是運算從螢幕回到現實世界。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('Snap 的賭注不是手機消失，而是運算從螢幕回到現實世界。'),'_blank','noopener')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從平台策略、AI 代理人到新一代硬體，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer>
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <div class="src">本頁整理自 Stripe 的 Cheeky Pint 系列影片〈What comes after smartphones, with Evan Spiegel of Snap〉。來源：<a href="https://www.youtube.com/watch?v=8fZNK-M-77I" target="_blank" rel="noopener">YouTube</a>。</div>
+</footer>
+
+<script>
+let userChoice=-1;
+const labels=['Specs 成為新平台','親密社交比大網路重要','AI 讓分發更稀缺'];
+const results=[
+  {title:'Specs 成為新平台',desc:'你看重的是硬體平台的轉移。Specs 的價值不只是把手機畫面搬到眼前，而是讓人和朋友在同一個現實空間裡一起玩、看、做與創作。難點在於 Snap 必須把作業系統、光學、渲染與開發工具全部做好。',bg:'var(--terra-light)',border:'#DBBFAD'},
+  {title:'親密社交比大網路重要',desc:'你看重的是 Snapchat 的核心差異：使用者不需要跟最多人互動，而是需要跟最重要的人保持聯絡。社交和媒體分開，讓 Snap 避免把朋友關係變成公開動態牆的燃料。',bg:'var(--green-light)',border:'#A8D4BC'},
+  {title:'AI 讓分發更稀缺',desc:'你看重的是商業模式的變化。AI 讓做軟體更快、更便宜，也讓新產品更多。當供給爆炸，能把產品送到正確使用者面前的平台，會比單純會寫程式更有價值。',bg:'var(--blue-light)',border:'#B8CDF0'}
+];
+function choose(idx){
+  if(userChoice>=0)return;
+  userChoice=idx;
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===idx)b.classList.add('selected');
+    b.style.cursor='default';
+  });
+  const r=results[idx];
+  const card=document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent=r.title;
+  document.getElementById('rDesc').textContent=r.desc;
+  card.style.background=r.bg;
+  card.style.borderColor=r.border;
+  card.classList.add('show');
+  const shareText='我的觀點：'+labels[idx]+'。\n\nSnap 的賭注不是手機消失，而是運算從螢幕回到現實世界。';
+  document.getElementById('shareTw').onclick=function(){
+    window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener');
+  };
+  document.getElementById('shareFb').onclick=function(){
+    window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener');
+  };
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
