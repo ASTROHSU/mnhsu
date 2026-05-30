@@ -11,6 +11,7 @@ const before = process.env.GITHUB_BEFORE || '';
 const sha = process.env.GITHUB_SHA || 'HEAD';
 const forcedPath = process.env.ARTICLE_PATH || '';
 const dryRun = process.env.DRY_RUN === '1';
+const eventName = process.env.GITHUB_EVENT_NAME || '';
 
 function run(command, args) {
   return execFileSync(command, args, {
@@ -48,6 +49,10 @@ function articleUrl(filePath) {
 
 function listNewArticleFiles() {
   if (forcedPath) return [forcedPath];
+  if (eventName === 'workflow_dispatch') {
+    const latest = latestArticlePathFromIndex();
+    return latest ? [latest] : [];
+  }
   if (!before || /^0+$/.test(before)) {
     return [];
   }
@@ -60,6 +65,12 @@ function listNewArticleFiles() {
     .filter(([status]) => status === 'A')
     .map(([, filePath]) => filePath)
     .filter((filePath) => /^public\/[^/]+\/index\.html$/.test(filePath));
+}
+
+function latestArticlePathFromIndex() {
+  const source = readFileSync('src/pages/index.astro', 'utf8');
+  const href = source.match(/href:\s*'\/([^']+)\/'/)?.[1];
+  return href ? `public/${href}/index.html` : '';
 }
 
 async function waitForLive(url, expectedTitle) {
