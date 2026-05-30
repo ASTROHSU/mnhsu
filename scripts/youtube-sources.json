@@ -24,5 +24,18 @@
     "titleCleanupPattern": "\\|?\\s*a16z crypto.*$",
     "footerSource": "a16z crypto YouTube 頻道",
     "promptContext": "這是 a16z crypto 的 YouTube 影片。請把影片主張轉成一篇完整但精簡的互動式閱讀頁，重點放在 crypto、AI、穩定幣、基礎設施與商業策略的關係。"
+  },
+  {
+    "id": "stripe-cheeky-pint",
+    "name": "Stripe Cheeky Pint",
+    "url": "https://www.youtube.com/playlist?list=PLcoWp8pBTM3BxiPMHCj0YJ4wvGbUOYZIG",
+    "slugPrefix": "stripe-cheeky-pint",
+    "transcriptDir": "Stripe Cheeky Pint",
+    "stateDir": "mnhsu-stripe-cheeky-pint",
+    "homepageTags": ["Stripe", "Cheeky Pint", "Podcast"],
+    "homepageEnPrefix": "Stripe Cheeky Pint:",
+    "titleCleanupPattern": "\\|?\\s*Cheeky Pint.*$",
+    "footerSource": "Stripe 的 Cheeky Pint 系列",
+    "promptContext": "這是 Stripe 的 Cheeky Pint 系列，由 John Collison 與創辦人、科技公司高階主管或產業人物對談。請把訪談核心轉成一篇完整但精簡的互動式閱讀頁，重點放在公司策略、科技趨勢、商業模式與創業者判斷。"
   }
 ]
