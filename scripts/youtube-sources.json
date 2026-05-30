@@ -141,5 +141,18 @@
     "titleCleanupPattern": "\\|?\\s*Every.*$",
     "footerSource": "Every YouTube 頻道",
     "promptContext": "這是 Every 的 YouTube 影片。請把影片核心轉成一篇完整但精簡的互動式閱讀頁，重點放在 AI、軟體、創業、知識工作、產品策略與科技公司如何改變工作方式。"
+  },
+  {
+    "id": "y-combinator",
+    "name": "Y Combinator",
+    "url": "https://www.youtube.com/@ycombinator/videos",
+    "slugPrefix": "y-combinator",
+    "transcriptDir": "Y Combinator",
+    "stateDir": "mnhsu-y-combinator",
+    "homepageTags": ["Y Combinator", "Startups", "Technology"],
+    "homepageEnPrefix": "Y Combinator:",
+    "titleCleanupPattern": "\\|?\\s*Y Combinator.*$",
+    "footerSource": "Y Combinator YouTube 頻道",
+    "promptContext": "這是 Y Combinator 的創業與科技內容。請把影片核心轉成一篇完整但精簡的互動式閱讀頁，重點放在創業者判斷、產品、市場、募資、AI 與早期公司如何找到成長路徑。"
   }
 ]
