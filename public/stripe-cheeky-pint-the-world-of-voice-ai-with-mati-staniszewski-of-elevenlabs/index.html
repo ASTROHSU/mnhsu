@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>語音 AI 生意</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta name="description" content="Stripe Cheeky Pint 訪問 ElevenLabs 共同創辦人 Mati Staniszewski：語音 AI 的難題不只在聲音像不像人，而在情境、部署、商業模式與 AI 原生組織。">
+<meta property="og:title" content="語音 AI 生意">
+<meta property="og:description" content="從聲音模型、語音代理人到 ElevenLabs 的平台策略，看懂語音 AI 為什麼終於走進企業工作流。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.mnhsu.xyz/stripe-cheeky-pint-the-world-of-voice-ai-with-mati-staniszewski-of-elevenlabs/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="語音 AI 生意">
+<meta name="twitter:description" content="ElevenLabs 的 Mati Staniszewski 解釋語音 AI 的技術、部署、定價與組織判斷。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
+  --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
+  --blue:#2563EB;--blue-light:#EFF4FF;--yellow:#8B6914;--yellow-light:#FDF8EC;
+  --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
+  --gold:#8B7340;--gold-light:#F9F3E6;--line:#E8E3D8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{color:inherit;text-underline-offset:3px;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,var(--cream),var(--warm));position:relative;}
+.hero .logo{height:48px;margin-bottom:2.5rem;}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.9rem,5.2vw,3rem);line-height:1.35;letter-spacing:0.02em;margin-bottom:1.5rem;}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.18rem);color:var(--text-secondary);max-width:680px;line-height:1.8;}
+.scroll-hint{position:absolute;bottom:2.5rem;font-size:0.8rem;letter-spacing:0.3em;color:var(--text-muted);animation:breathe 2.4s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(6px);}}
+section{max-width:720px;margin:0 auto;padding:3.5rem 1.6rem;}
+section.wide{max-width:940px;}
+.part-label{font-size:0.78rem;font-weight:700;letter-spacing:0.25em;color:var(--terra);margin-bottom:1rem;}
+h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2rem);line-height:1.5;margin-bottom:1.5rem;letter-spacing:0.01em;}
+p{margin-bottom:1.4rem;font-size:1.05rem;}
+.hl{background:linear-gradient(transparent 60%,var(--gold-light) 60%);padding:0 0.1em;font-weight:500;}
+.callout{background:var(--terra-light);border-left:4px solid var(--terra);border-radius:0 10px 10px 0;padding:1.4rem 1.6rem;margin:2rem 0;}
+.callout p{margin:0;font-size:1rem;color:var(--text);}
+.flow-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.5rem;margin:2rem 0;}
+.flow-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.12rem;text-align:center;margin-bottom:1.25rem;}
+.flow-line{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0.55rem;}
+.flow-node{background:var(--warm);border:1px solid var(--line);border-radius:12px;padding:0.9rem;text-align:center;}
+.flow-node strong{display:block;font-size:0.84rem;color:var(--green-deep);line-height:1.35;margin-bottom:0.35rem;}
+.flow-node span{display:block;font-size:0.76rem;color:var(--text-secondary);line-height:1.45;}
+.moment-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.85rem;margin:2rem 0;}
+.moment{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.15rem;}
+.moment .num{font-family:'Noto Serif TC',serif;font-size:1.45rem;font-weight:900;color:var(--terra);line-height:1;margin-bottom:0.65rem;}
+.moment .name{font-weight:700;font-size:0.95rem;line-height:1.45;margin-bottom:0.35rem;}
+.moment .desc{font-size:0.84rem;color:var(--text-secondary);line-height:1.65;}
+.compare{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:2rem 0;}
+.compare-row{display:grid;grid-template-columns:0.78fr 1fr 1fr;border-bottom:1px solid #EFEAE0;}
+.compare-row:last-child{border-bottom:none;}
+.compare-row div{padding:0.9rem;font-size:0.86rem;line-height:1.6;}
+.compare-row .head{background:var(--green-deep);color:#fff;font-weight:700;}
+.compare-row .label{background:#F6F2EA;font-weight:700;color:var(--text-secondary);}
+.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.9rem;margin:2rem 0;}
+.idea-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.2rem;}
+.idea-card .tag{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;color:var(--terra);background:var(--terra-light);border-radius:2rem;padding:0.2rem 0.7rem;margin-bottom:0.8rem;}
+.idea-card .name{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.05rem;line-height:1.5;margin-bottom:0.5rem;}
+.idea-card .desc{font-size:0.88rem;color:var(--text-secondary);line-height:1.7;}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light));}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:600px;margin:0 auto;letter-spacing:0.03em;}
+.choice-section{padding:4rem 1.6rem;background:#fff;text-align:center;}
+.choice-section h2{margin-bottom:0.8rem;}
+.choice-sub{color:var(--text-secondary);font-size:0.95rem;margin-bottom:2.5rem;}
+.choice-options{display:flex;flex-direction:column;gap:1rem;max-width:560px;margin:0 auto;}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:var(--warm);border:2px solid #E8E3D8;border-radius:14px;padding:1.2rem 1.4rem;cursor:pointer;text-align:left;transition:all 0.25s;font-family:'Noto Sans TC',sans-serif;width:100%;}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light);}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0;}
+.choice-btn .label{font-weight:700;font-size:1rem;margin-bottom:0.2rem;}
+.choice-btn .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+.result-card{max-width:560px;margin:2rem auto 0;border:2px solid #DBBFAD;border-radius:14px;padding:1.8rem;background:var(--terra-light);opacity:0;transform:translateY(20px);transition:all 0.5s;display:none;}
+.result-card.show{opacity:1;transform:translateY(0);display:block;}
+.r-badge{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;color:var(--terra);background:#fff;padding:0.3rem 0.9rem;border-radius:2rem;margin-bottom:1rem;}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;}
+.r-desc{font-size:0.95rem;color:var(--text);line-height:1.8;}
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap;}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s;}
+.share-btn:hover{transform:scale(1.03);}
+.share-btn.tw{background:#0f1419;color:#fff;}
+.share-btn.fb{background:#1877f2;color:#fff;}
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream));}
+.cta h2{margin-bottom:1rem;}
+.cta p{max-width:540px;margin:0 auto 2rem;color:var(--text-secondary);font-size:1rem;}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.95rem 2.4rem;border-radius:2rem;font-weight:500;font-size:1.05rem;transition:all 0.3s;}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep);}
+.subscribe-inner{max-width:520px;margin:0 auto;}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem;}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem;}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif;}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem;}
+footer{text-align:center;padding:3rem 2rem;}
+footer img{height:44px;opacity:0.5;}
+footer .src{font-size:0.78rem;color:var(--text-muted);margin:1rem auto 0;line-height:1.7;max-width:620px;}
+footer .src a{color:var(--text-secondary);}
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:760px){
+  html{font-size:17px;}
+  section{padding:3rem 1.25rem;}
+  .moment-grid,.card-grid{grid-template-columns:1fr;}
+  .compare-row{grid-template-columns:1fr;}
+  .compare-row .head:nth-child(2),.compare-row .head:nth-child(3){display:none;}
+  .flow-line{grid-template-columns:1fr;}
+  .choice-btn{align-items:flex-start;padding:1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>語音 AI，<br>終於要進公司了</h1>
+  <p class="sub">Mati Staniszewski 在 Stripe Cheeky Pint 裡談的不是「聲音像不像真人」。ElevenLabs 真正在解的問題是：模型如何理解情境、企業如何放心部署、使用量如何變成生意，以及 AI 原生公司該怎麼運作。</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<section class="fade-in">
+  <div class="part-label">PART 1 ｜ 模型</div>
+  <h2>語音模型不是把文字念出來，<br>而是把「怎麼說」一起生成</h2>
+  <p>訪談一開始，John Collison 問 Mati：如果用 Karpathy 風格從零做一個玩具版語音模型，它怎麼運作？Mati 從早期模擬人類聲道的機器講起，再到用音素拼接聲音、把文字轉成梅爾頻譜圖，最後才進入今天的神經網路語音模型。</p>
+  <p>ElevenLabs 的突破不只在「下一個聲音」預測。模型要同時處理文字、音素、聲音波形、說話者參考，還要理解前後文。快樂句子、對話場景、英國口音、波蘭口音、停頓、緊張或安撫語氣，過去常被工程師寫成硬編碼參數；現在模型可以從資料裡自己推斷。</p>
+  <div class="flow-card">
+    <div class="flow-title">一句話變成聲音，中間有五個判斷</div>
+    <div class="flow-line">
+      <div class="flow-node"><strong>文字</strong><span>使用者要說的內容</span></div>
+      <div class="flow-node"><strong>情境</strong><span>前後文決定語氣</span></div>
+      <div class="flow-node"><strong>音素</strong><span>拆到更小的聲音單位</span></div>
+      <div class="flow-node"><strong>聲紋</strong><span>說話者的口音與韻律</span></div>
+      <div class="flow-node"><strong>波形</strong><span>最後輸出的聲音</span></div>
+    </div>
+  </div>
+  <p>這也是為什麼「人味」不是單一功能。它來自架構、算力與資料一起工作。Mati 說，很多音訊資料只標了「說了什麼」，沒有標「怎麼說」。ElevenLabs 因此建立自己的標註流程，訓練團隊理解情緒、口音、韻律與說話者切換。後來推出的 speech-to-text，也是一開始為了幫自己標資料才做出來的模型。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 2 ｜ 落差</div>
+  <h2>模型已經很強，<br>但日常語音體驗還像十年前</h2>
+  <p>Collison 舉了兩個很直覺的例子：開車時想讓手機完整讀一份 PDF，很難；車上的語音控制，多數也不好用。Mati 同意，使用者每天感受到的語音體驗落後於前沿模型。原因不是只有模型品質，而是部署速度、裝置限制與產品整合都還沒跟上。</p>
+  <p>真正的語音代理人還要解一個難題：什麼時候該等你講完，什麼時候該插話確認，什麼時候該去查資料，什麼時候該執行動作。沉默長短、句子脈絡、工具呼叫、身分驗證、資料庫查詢，每一步都會影響使用者覺得它像不像一個能一起工作的對象。</p>
+  <div class="compare">
+    <div class="compare-row">
+      <div class="head">場景</div>
+      <div class="head">看起來像語音問題</div>
+      <div class="head">實際卡住的地方</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">車內助理</div>
+      <div>聽懂導航、音樂、空調與開車中的自然說法。</div>
+      <div>車廠導入週期長，離線運算、雲端連線與車內系統整合都要到位。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">讀 PDF</div>
+      <div>把文件完整念出來，不是摘要，也不要中途卡住。</div>
+      <div>閱讀器、檔案格式、語音播放與使用者偏好的串接不完整。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">客服代理人</div>
+      <div>自然對話、確認問題、必要時安撫使用者。</div>
+      <div>要接知識庫、電話系統、內部工具、監控、評估與安全護欄。</div>
+    </div>
+  </div>
+  <p>這段讓語音 AI 的產品路線更清楚。單純的「會講話」已經不夠，企業要的是一套可控、可監測、能連到既有系統的工作流。這也是 ElevenLabs 把重心放在 voice agents 的原因。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 3 ｜ 平台邊界</div>
+  <h2>ElevenLabs 不只賣模型，<br>也賣把模型放進生意裡的管線</h2>
+  <p>Mati 對 ElevenLabs 的定義是「研究與產品部署公司」。它先做 foundational audio and voice models，再把模型包成企業可以用的平台。產品線包括 text-to-speech、speech-to-text、對話模型、音樂與其他音訊模型；落地時，還要接知識庫、電話、系統整合、評估、監控與安全措施。</p>
+  <p>平台邊界的判斷也很明確。若是企業裡的水平用途，ElevenLabs 想自己提供完整能力；若需要很深的產業知識，則留給垂直應用公司。語音模型更新很快，Mati 也不希望客戶被卡在兩個版本前的模型上。當技術變化太快，模型公司有理由更直接碰到使用者與企業流程。</p>
+  <div class="card-grid">
+    <div class="idea-card">
+      <div class="tag">模型層</div>
+      <div class="name">聲音生成與辨識</div>
+      <div class="desc">產生自然語音、轉錄超過 100 種語言、辨識說話者，並逐步加入個人化聽力、關鍵字與降噪能力。</div>
+    </div>
+    <div class="idea-card">
+      <div class="tag">代理人層</div>
+      <div class="name">等待、查詢、回應、執行</div>
+      <div class="desc">企業場景需要可解釋的串接。ElevenLabs 目前偏好 cascaded approach，透過文字層保留可靠度與可見性。</div>
+    </div>
+    <div class="idea-card">
+      <div class="tag">企業層</div>
+      <div class="name">從客服延伸到銷售</div>
+      <div class="desc">客服最成熟，但語音也能用在主動回撥、AI SDR、招募、訓練、行銷素材與品牌聲音。</div>
+    </div>
+    <div class="idea-card">
+      <div class="tag">創作層</div>
+      <div class="name">從配音到語言橋接</div>
+      <div class="desc">低成本高品質配音會改變小語種內容分發，也能讓失去聲音的人重新用自己的聲音說話。</div>
+    </div>
+  </div>
+  <p>語音的商業價值來自雙向互動。Mati 提到 ElevenLabs 在自己的表單後面加上語音代理人後，使用者更願意留下資訊，也會用更開放的方式描述需求。文字表單像填欄位，語音互動比較像把情境說清楚。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 4 ｜ 商業模式</div>
+  <h2>語音模型比較小，<br>但成長靠的是用量與企業擴張</h2>
+  <p>和大型語言模型相比，語音模型通常小很多。Mati 說前沿語音模型大約是數十億到低數百億參數，訓練成本低於大型語言模型、影像模型與影片模型。但這不代表它是輕資本生意。ElevenLabs 仍然需要研究人才、算力、資料管線，以及足夠快的產品部署。</p>
+  <p>定價也跟使用量綁在一起。text-to-speech 多半按文字 token 計費，voice agents 與轉錄常按分鐘計費；大型企業則會簽年度合約、承諾用量，再換取折扣。新模型剛出來時，ElevenLabs 會盡量用有吸引力的價格推給客戶，讓更多人測出新用途，也讓公司更快知道模型要修哪裡。</p>
+  <div class="moment-grid">
+    <div class="moment">
+      <div class="num">350M</div>
+      <div class="name">訪談中提到的最近公告 ARR</div>
+      <div class="desc">Mati 說 2025 年底公告的年化經常性收入為 3.5 億美元。</div>
+    </div>
+    <div class="moment">
+      <div class="num">100M</div>
+      <div class="name">單季新增 ARR</div>
+      <div class="desc">他提到最近一季新增 ARR 達到 1 億美元，企業成長是主要動能。</div>
+    </div>
+    <div class="moment">
+      <div class="num">50%+</div>
+      <div class="name">sales-led 佔比</div>
+      <div class="desc">超過一半營收已由企業銷售帶動，但自助式使用仍負責分發與回饋。</div>
+    </div>
+    <div class="moment">
+      <div class="num">470</div>
+      <div class="name">公司人數</div>
+      <div class="desc">快速成長後，ElevenLabs 仍強調小團隊、平坦組織與高自主性。</div>
+    </div>
+  </div>
+  <p>自助式產品是 ElevenLabs 商業策略的重要部分。Mati 說，讓任何人直接試用，可以立刻知道技術好不好，也讓開發者與中小企業展示未來用途。Enterprise 需要可靠度、合規與規模；自助式使用者則提供早期回饋、社群分發與新場景。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 5 ｜ 技術取捨</div>
+  <h2>速度、可靠度、可控制性，<br>不能同時只靠一條路解</h2>
+  <p>Collison 問到 speech-to-speech，也就是不經過文字中介，直接從語音輸入產生語音輸出。Mati 的答案很務實：speech-to-speech 速度快，適合低延遲、陪伴型、幻覺風險沒那麼嚴重的場景；但企業需要知道每一步發生什麼，需要接工具、查資料、做驗證，所以 ElevenLabs 目前重押 speech-to-text、LLM、text-to-speech 串起來的 cascaded approach。</p>
+  <p>語音生成也在變得更可控。以前模型會自己決定怎麼演出，使用者頂多重新生成。ElevenLabs 的 V3 開始加入 expressive mode，讓開發者可以要求說慢一點、停頓久一點、語氣更安撫。若另一端的使用者緊張，代理人不只要選對文字，也要用合適的情緒說出來。</p>
+  <div class="compare">
+    <div class="compare-row">
+      <div class="head">路線</div>
+      <div class="head">適合場景</div>
+      <div class="head">代價</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">Cascaded</div>
+      <div>客服、銷售、醫療、金融、企業內部流程。</div>
+      <div>延遲較高，但可監控、可串接、可控性較強。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">Speech-to-speech</div>
+      <div>陪伴、遊戲、低風險聊天與即時互動。</div>
+      <div>速度快，但可靠度、可見性與工具整合較弱。</div>
+    </div>
+  </div>
+  <p>個人化轉錄也是下一步。Mati 說，模型若知道某個人的口音、常用詞與場景，就不必每次都用全球平均模型猜。手術室裡要聽懂醫師、家中裝置要分辨主人與家人、吵雜場域要找對說話者，這些都是語音 AI 從玩具走向工具時必須解的問題。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 6 ｜ 組織</div>
+  <h2>AI 原生公司不是人比較少，<br>而是每個團隊都更會動手</h2>
+  <p>訪談最後談到組織。ElevenLabs 成立於 2022 年，剛好在 AI 浪潮中長大。Mati 說公司保持小團隊與平坦組織，產品與研究專案常用不到 10 人的團隊推進。他和共同創辦人 Piotr 都有超過 15 位直屬同事，這不是每家公司都該照抄，但反映了他們對高自主性團隊的偏好。</p>
+  <p>更關鍵的是非工程團隊也要有技術資源。招募、營運、銷售與財務不只是買現成 SaaS，而是把資料變成可詢問的系統，讓代理人準備客戶會議、整理候選人、產生客製簡報、回收線索。Mati 在烏克蘭政府的數位服務團隊也看到類似做法：每個部會都有技術人員，再由中央數位轉型團隊整合。</p>
+  <div class="callout">
+    <p>Collison 把這段收成一句話：高自主性的人會是 AI 進步的贏家。Mati 同意。AI 不只放大資深或年輕，而是放大願意探索、願意把工具接進工作的人。</p>
+  </div>
+  <p>這讓 ElevenLabs 的故事不只是「語音模型變好」。它同時是一家模型公司、企業平台、自助式開發者工具、用量計費生意，也是一個剛在 AI 時代成長起來的組織實驗。</p>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">語音 AI 的關鍵不是會說話，而是在對的情境裡聽懂、等待、查資料、執行，再用人願意信任的聲音回應。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">ElevenLabs 的策略，是把模型能力、部署管線、使用量定價與企業工作流接成同一個平台。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2>如果你要押語音 AI，<br>會先押哪一層？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">🎙️</div>
+      <div>
+        <div class="label">模型與聲音品質</div>
+        <div class="desc">更自然的語氣、更準的轉錄、更懂口音與情緒</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">🔌</div>
+      <div>
+        <div class="label">企業部署管線</div>
+        <div class="desc">接知識庫、電話、工具、監控與安全護欄</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">📈</div>
+      <div>
+        <div class="label">自助式分發與用量</div>
+        <div class="desc">讓開發者先試出新用途，再靠企業用量擴張</div>
+      </div>
+    </button>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想聽原始訪談？</h2>
+  <p>這頁整理自 Stripe 的 Cheeky Pint 系列。原始影片保留了 John Collison 與 Mati Staniszewski 對聲音模型、語音代理人、企業銷售、自助式產品與 AI 原生組織的完整對話。</p>
+  <a class="cta-btn" href="https://www.youtube.com/watch?v=zA1zdqIYER4" target="_blank" rel="noopener">前往 YouTube →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('語音 AI 的關鍵不只是會說話，而是把模型接進真正的企業工作流。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('語音 AI 的關鍵不只是會說話，而是把模型接進真正的企業工作流。'),'_blank','noopener')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從 AI 代理人、平台策略到科技公司的商業模式，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer>
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <div class="src">本頁整理自 Stripe 的 Cheeky Pint 系列影片〈The world of voice AI, with Mati Staniszewski of ElevenLabs〉。來源：<a href="https://www.youtube.com/watch?v=zA1zdqIYER4" target="_blank" rel="noopener">YouTube</a>。</div>
+</footer>
+
+<script>
+let userChoice=-1;
+const labels=['模型與聲音品質','企業部署管線','自助式分發與用量'];
+const results=[
+  {title:'模型與聲音品質',desc:'你看重的是語音 AI 的底層能力。聲音要像人，不只靠好聽的音色，還要理解情境、口音、情緒、停頓與說話者差異。這一層會決定使用者願不願意信任它。',bg:'var(--terra-light)',border:'#DBBFAD'},
+  {title:'企業部署管線',desc:'你看重的是從 demo 到 production 的距離。企業要的不只是模型，而是知識庫、電話、工具呼叫、監控、評估與安全護欄。這一層會決定語音代理人能不能變成日常工作流。',bg:'var(--green-light)',border:'#A8D4BC'},
+  {title:'自助式分發與用量',desc:'你看重的是商業模式。自助式產品讓開發者快速試用、回饋新用途；企業合約與用量計費則把成功場景放大。語音 AI 的收入，最後會跟真實使用時間綁在一起。',bg:'var(--blue-light)',border:'#B8CDF0'}
+];
+function choose(idx){
+  if(userChoice>=0)return;
+  userChoice=idx;
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===idx)b.classList.add('selected');
+    b.style.cursor='default';
+  });
+  const r=results[idx];
+  const card=document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent=r.title;
+  document.getElementById('rDesc').textContent=r.desc;
+  card.style.background=r.bg;
+  card.style.borderColor=r.border;
+  card.classList.add('show');
+  const shareText='我的觀點：'+labels[idx]+'。\n\n語音 AI 的關鍵不只是會說話，而是把模型接進真正的企業工作流。';
+  document.getElementById('shareTw').onclick=function(){
+    window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener');
+  };
+  document.getElementById('shareFb').onclick=function(){
+    window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener');
+  };
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
