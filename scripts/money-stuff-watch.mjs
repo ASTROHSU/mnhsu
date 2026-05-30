@@ -290,7 +290,7 @@ async function main() {
     state.lastSeenId = latest.id;
     state.lastSeenTitle = latest.title;
     state.lastCheckedAt = new Date().toISOString();
-    saveState(state);
+    if (!dryRun) saveState(state);
     log(`Initialized watcher at latest video ${latest.id}. Use --process-latest to publish it now.`);
     return;
   }
@@ -307,9 +307,9 @@ async function main() {
   state.lastSeenTitle = latest.title;
   state.lastCheckedAt = new Date().toISOString();
   normalizePending(state);
-  saveState(state);
 
   if (state.pending.length === 0) {
+    if (!dryRun) saveState(state);
     log('No new Money Stuff episode to process.');
     return;
   }
@@ -320,8 +320,11 @@ async function main() {
 
   if (dryRun) {
     log(`Dry run only. Would publish /${slug}/`);
+    log('Dry run did not update state or publish changes.');
     return;
   }
+
+  saveState(state);
 
   try {
     const transcriptPath = downloadTranscript(video);
