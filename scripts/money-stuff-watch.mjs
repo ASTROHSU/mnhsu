@@ -240,8 +240,6 @@ function runCodex(video, transcriptPath, slug) {
   const commandArgs = [
     'exec',
     '--dangerously-bypass-approvals-and-sandbox',
-    '-a',
-    'never',
     '-C',
     repoRoot,
   ];
