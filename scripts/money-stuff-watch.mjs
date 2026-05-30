@@ -180,6 +180,7 @@ function downloadTranscript(video) {
 function makePrompt(video, transcriptPath, slug) {
   return `
 你現在在 mnhsu.xyz 的 Astro repo。請把這集 YouTube Podcast 逐字稿轉成一個可分享的互動式單頁，並保持跟現有頁面一致。
+請使用本機已安裝的 article-experience skill 作為頁面結構、互動區塊、CTA、手機版檢查與品質 checklist 的依據。
 
 來源已驗證：
 - Playlist: ${playlistUrl}
