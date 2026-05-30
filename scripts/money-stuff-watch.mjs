@@ -13,9 +13,13 @@ const logDir = path.join(homedir(), 'Library/Logs/mnhsu-money-stuff');
 const codexBin = process.env.CODEX_BIN || '/Applications/Codex.app/Contents/Resources/codex';
 const defaultModel = process.env.CODEX_MODEL || '';
 
-const args = new Set(process.argv.slice(2));
+const rawArgs = process.argv.slice(2);
+const args = new Set(rawArgs);
 const dryRun = args.has('--dry-run');
 const processLatest = args.has('--process-latest');
+const force = args.has('--force');
+const targetVideoId = argValue('--video-id');
+const targetPlaylistIndex = argValue('--playlist-index');
 
 mkdirSync(stateDir, { recursive: true });
 mkdirSync(transcriptDir, { recursive: true });
@@ -24,6 +28,14 @@ mkdirSync(logDir, { recursive: true });
 function log(message) {
   const line = `[${new Date().toISOString()}] ${message}`;
   console.log(line);
+}
+
+function argValue(flag) {
+  const inline = rawArgs.find((arg) => arg.startsWith(`${flag}=`));
+  if (inline) return inline.slice(flag.length + 1);
+  const index = rawArgs.indexOf(flag);
+  if (index >= 0) return rawArgs[index + 1] || '';
+  return '';
 }
 
 function run(command, commandArgs, options = {}) {
@@ -268,10 +280,11 @@ function markFailure(state, video, error) {
   saveState(state);
 }
 
-function normalizePending(state) {
+function normalizePending(state, options = {}) {
   const seen = new Set();
   state.pending = (state.pending || []).filter((video) => {
-    if (!video?.id || seen.has(video.id) || state.processed?.[video.id]) return false;
+    if (!video?.id || seen.has(video.id)) return false;
+    if (!options.force && state.processed?.[video.id]) return false;
     seen.add(video.id);
     return true;
   });
@@ -285,8 +298,17 @@ async function main() {
   const entries = fetchPlaylist();
   if (entries.length === 0) throw new Error('Playlist returned no entries.');
   const latest = entries[0];
+  const manualTarget = targetVideoId
+    ? entries.find((entry) => entry.id === targetVideoId)
+    : targetPlaylistIndex
+      ? entries[Number(targetPlaylistIndex) - 1]
+      : null;
 
-  if (!state.lastSeenId && !processLatest) {
+  if ((targetVideoId || targetPlaylistIndex) && !manualTarget) {
+    throw new Error(`Could not find requested video in the latest playlist entries.`);
+  }
+
+  if (!state.lastSeenId && !processLatest && !manualTarget) {
     state.lastSeenId = latest.id;
     state.lastSeenTitle = latest.title;
     state.lastCheckedAt = new Date().toISOString();
@@ -295,7 +317,9 @@ async function main() {
     return;
   }
 
-  if (processLatest && !state.processed?.[latest.id]) {
+  if (manualTarget) {
+    state.pending = [manualTarget, ...(state.pending || [])];
+  } else if (processLatest && !state.processed?.[latest.id]) {
     state.pending = [latest, ...(state.pending || [])];
   } else if (state.lastSeenId && latest.id !== state.lastSeenId) {
     const lastSeenIndex = entries.findIndex((entry) => entry.id === state.lastSeenId);
@@ -306,7 +330,7 @@ async function main() {
   state.lastSeenId = latest.id;
   state.lastSeenTitle = latest.title;
   state.lastCheckedAt = new Date().toISOString();
-  normalizePending(state);
+  normalizePending(state, { force: Boolean(manualTarget && force) });
 
   if (state.pending.length === 0) {
     if (!dryRun) saveState(state);
