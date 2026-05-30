@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ETH 跌成這樣，前貝萊德高管卻說你們看錯了重點</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta property="og:title" content="ETH 跌成這樣，前貝萊德高管卻說你們看錯了重點">
+<meta property="og:description" content="以太坊基金會內鬨、ETH 價格低迷的此刻，前貝萊德高管、現任 Sharplink 負責人 Joseph Chalom 端出一套多頭論點：你們都在看損益表，卻錯過了整個全球金融體系這個 TAM。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://mnhsu.xyz/ethereum-on-offense/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ETH 跌成這樣，前貝萊德高管卻說你們看錯了重點">
+<meta name="twitter:description" content="以太坊基金會內鬨、ETH 價格低迷的此刻，前貝萊德高管端出一套多頭論點：你們都在看損益表，卻錯過了整個全球金融體系這個 TAM。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
+  --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
+  --blue:#2563EB;--blue-light:#EFF4FF;--yellow:#8B6914;--yellow-light:#FDF8EC;
+  --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
+  --gold:#8B7340;--gold-light:#F9F3E6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,var(--cream),var(--warm));position:relative;}
+.hero .logo{height:48px;margin-bottom:2.5rem;}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.85rem,5.2vw,2.9rem);line-height:1.35;letter-spacing:0.02em;margin-bottom:1.5rem;}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.2rem);color:var(--text-secondary);max-width:560px;line-height:1.8;}
+.scroll-hint{position:absolute;bottom:2.5rem;font-size:0.8rem;letter-spacing:0.3em;color:var(--text-muted);animation:breathe 2.4s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(6px);}}
+section{max-width:720px;margin:0 auto;padding:3.5rem 1.6rem;}
+section.wide{max-width:900px;}
+.part-label{font-size:0.78rem;font-weight:700;letter-spacing:0.25em;color:var(--terra);margin-bottom:1rem;}
+h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2rem);line-height:1.5;margin-bottom:1.5rem;letter-spacing:0.01em;}
+p{margin-bottom:1.4rem;font-size:1.05rem;}
+.hl{background:linear-gradient(transparent 60%,var(--gold-light) 60%);padding:0 0.1em;font-weight:500;}
+.callout{background:var(--terra-light);border-left:4px solid var(--terra);border-radius:0 10px 10px 0;padding:1.4rem 1.6rem;margin:2rem 0;}
+.callout p{margin:0;font-size:1rem;color:var(--text);}
+.who{background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.4rem 1.5rem;margin:2rem 0;display:flex;gap:1rem;align-items:flex-start;}
+.who .av{flex-shrink:0;width:3rem;height:3rem;border-radius:50%;background:var(--green-deep);color:#fff;font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.1rem;display:flex;align-items:center;justify-content:center;}
+.who .info .n{font-weight:700;font-size:1rem;}
+.who .info .r{font-size:0.85rem;color:var(--text-secondary);line-height:1.6;margin-top:0.2rem;}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light));}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:560px;margin:0 auto;letter-spacing:0.03em;}
+.score{background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.6rem 1.4rem;margin:2rem 0;}
+.score-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.05rem;margin-bottom:1.2rem;text-align:center;}
+.score-row{display:flex;align-items:center;gap:0.9rem;padding:0.7rem 0;border-bottom:1px dashed #EAE4D8;}
+.score-row:last-child{border-bottom:none;}
+.score-row .k{flex:1;font-size:0.92rem;}
+.score-row .v{flex-shrink:0;font-family:'Noto Serif TC',serif;font-weight:700;font-size:0.85rem;color:#fff;background:var(--green);padding:0.25rem 0.8rem;border-radius:2rem;}
+.roadmap{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1.2rem;justify-content:center;}
+.roadmap .step{font-size:0.78rem;font-weight:500;padding:0.3rem 0.75rem;border-radius:2rem;background:var(--terra-light);color:#8A4220;}
+.roadmap .step.next{background:var(--green-deep);color:#fff;}
+.parallel{display:flex;gap:0.9rem;margin:2rem 0;flex-wrap:wrap;}
+.par-card{flex:1;min-width:230px;background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.4rem 1.3rem;}
+.par-card .tag{font-size:0.75rem;font-weight:700;letter-spacing:0.1em;color:var(--terra);margin-bottom:0.8rem;}
+.par-card .bear{font-size:0.88rem;color:var(--text-secondary);line-height:1.6;padding-bottom:0.8rem;margin-bottom:0.8rem;border-bottom:1px solid #EFEAE0;}
+.par-card .bear b,.par-card .bull b{color:var(--text);}
+.par-card .bull{font-size:0.92rem;line-height:1.7;}
+.choice-section{padding:4rem 1.6rem;background:#fff;text-align:center;}
+.choice-section h2{margin-bottom:0.8rem;}
+.choice-sub{color:var(--text-secondary);font-size:0.95rem;margin-bottom:2.5rem;}
+.choice-options{display:flex;flex-direction:column;gap:1rem;max-width:560px;margin:0 auto;}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:var(--warm);border:2px solid #E8E3D8;border-radius:14px;padding:1.2rem 1.4rem;cursor:pointer;text-align:left;transition:all 0.25s;font-family:'Noto Sans TC',sans-serif;}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light);}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0;}
+.choice-btn .label{font-weight:700;font-size:1rem;margin-bottom:0.2rem;}
+.choice-btn .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+.result-card{max-width:560px;margin:2rem auto 0;border:2px solid #DBBFAD;border-radius:14px;padding:1.8rem;background:var(--terra-light);opacity:0;transform:translateY(20px);transition:all 0.5s;display:none;}
+.result-card.show{opacity:1;transform:translateY(0);display:block;}
+.r-badge{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;color:var(--terra);background:#fff;padding:0.3rem 0.9rem;border-radius:2rem;margin-bottom:1rem;}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;}
+.r-desc{font-size:0.95rem;color:var(--text);line-height:1.8;}
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap;}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s;}
+.share-btn:hover{transform:scale(1.03);}
+.share-btn.tw{background:#0f1419;color:#fff;}
+.share-btn.fb{background:#1877f2;color:#fff;}
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream));}
+.cta h2{margin-bottom:1rem;}
+.cta p{max-width:520px;margin:0 auto 2rem;color:var(--text-secondary);font-size:1rem;}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.95rem 2.4rem;border-radius:2rem;font-weight:500;font-size:1.05rem;transition:all 0.3s;}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep);}
+.subscribe-inner{max-width:520px;margin:0 auto;}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem;}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem;}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif;}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem;}
+footer{text-align:center;padding:3rem 2rem;}
+footer img{height:44px;opacity:0.5;}
+footer .src{font-size:0.78rem;color:var(--text-muted);margin-top:1rem;line-height:1.7;max-width:520px;margin-left:auto;margin-right:auto;}
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>ETH 跌成這樣，<br>前貝萊德高管卻說<br>你們看錯了重點</h1>
+  <p class="sub">以太坊基金會內鬨、ETH 價格低迷的此刻，一位在貝萊德待了二十年的高管端出一套多頭論點：你們都盯著損益表，卻錯過了整個全球金融體系這個市場。</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<section class="fade-in">
+  <div class="part-label">PART 1 ｜ 噪音與大局</div>
+  <h2>他說，這場吵架<br>不會決定誰主導下個十年</h2>
+  <p>最近以太坊圈子很吵。以太坊基金會（EF）的人事與方向爭議、ETH 價格的疲軟，佔滿了討論版。但 Joseph Chalom 認為，這些噪音都搞錯了重點：吵架與幣價，都不會決定誰來主導下一個十年的金融基礎設施。</p>
+  <div class="who">
+    <div class="av">JC</div>
+    <div class="info">
+      <div class="n">Joseph Chalom</div>
+      <div class="r">現任 Sharplink 負責人，曾在貝萊德擔任二十年高管，主導金融科技與數位資產策略。他的這篇文章開頭就坦言：這是「一位利害關係人的意見」，而 Sharplink 本身持有數十億美元的 ETH。</div>
+    </div>
+  </div>
+  <p>換句話說，這是一份立場鮮明的多頭論述，作者本人就重押 ETH。但他的視角，正好來自「機構在投入資金到新基礎設施之前，到底要看什麼」這個位置。接下來幾頁，是他攤開的整套論點。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 2 ｜ 先看計分板</div>
+  <h2>基金會的核心工作，<br>其實一直做得很好</h2>
+  <p>Chalom 的第一個主張是：別管吵架，看計分板。在機構最在意的三件事（信任、安全、流動性）上，以太坊已經贏得入場資格，而且贏得不小。</p>
+  <div class="score">
+    <div class="score-title">以太坊在機構關鍵指標上的位置</div>
+    <div class="score-row"><div class="k">全球穩定幣價值的結算</div><div class="v">過半在此</div></div>
+    <div class="score-row"><div class="k">代幣化真實世界資產（RWA）</div><div class="v">各鏈之冠</div></div>
+    <div class="score-row"><div class="k">高價值 DeFi 交易</div><div class="v">預設場所</div></div>
+    <div class="roadmap">
+      <span class="step">The Merge</span>
+      <span class="step">EIP-1559</span>
+      <span class="step">Dencun</span>
+      <span class="step">Pectra</span>
+      <span class="step">Fusaka</span>
+      <span class="step next">Glamsterdam</span>
+      <span class="step next">抗量子</span>
+    </div>
+  </div>
+  <p>他強調，這不是運氣。以太坊是唯一一條有十年紀錄、能持續在底層交付重大升級的鏈。從合併、EIP-1559、到 Dencun、Pectra、Fusaka，再到即將帶來規模躍升的 Glamsterdam，以及領先業界的抗量子佈局。在他眼中，這是整個產業最有野心的技術路線圖。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 3 ｜ 去中心化是特色</div>
+  <h2>那些罵基金會的人，<br>把機構的邏輯搞反了</h2>
+  <p>有一派批評，把 EF 的去中心化、把它「沒有強力主導」當成弱點。Chalom 說這完全搞反了機構的邏輯。以太坊生態有全鏈最多的開發者，而絕大多數都不在基金會裡工作。</p>
+  <p>他的理由很直接：<span class="hl">機構不會為了離開一套專有軌道，又把自己鎖進另一套專有軌道。</span>它們需要確信，自己建構在上面的那些特性，不會被少數集中的擁有者任意更改。沒有任何一條區塊鏈，應該依賴單一一方。</p>
+  <div class="callout">
+    <p>他說，如果要在「一個專注於安全、隱私、抗量子與核心協定的基金會」和「一個為短期行銷最佳化的基金會」之間二選一，他每次都選前者。</p>
+  </div>
+  <p>於是，那些被當成缺點的東西（可信的中立性、去中心化），在他看來，正是讓以太坊有資格成為未來金融結算層的原因。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 4 ｜ 亞馬遜的類比</div>
+  <h2>當年看衰亞馬遜的人，<br>都只盯著損益表</h2>
+  <p>這是整篇論述的核心。Chalom 搬出亞馬遜當例子：早期市場共識認為它只是一家靠網路泡沫撐著、不斷燒錢的線上書店。空頭盯著損益表，卻錯過了貝佐斯的長期野心。</p>
+  <div class="parallel">
+    <div class="par-card">
+      <div class="tag">當年的亞馬遜</div>
+      <div class="bear"><b>空頭看到的：</b>一家燒錢的網路書店，靠泡沫撐著。</div>
+      <div class="bull"><b>真正的市場：</b>不是賣書，而是整個零售經濟，後來再擴張到雲端與媒體。</div>
+    </div>
+    <div class="par-card">
+      <div class="tag">今天的以太坊</div>
+      <div class="bear"><b>空頭看到的：</b>一個幣價疲軟、內部在吵架的加密交易場所。</div>
+      <div class="bull"><b>真正的市場：</b>不是加密交易，而是整個全球金融體系。</div>
+    </div>
+  </div>
+  <p>在他的框架裡，ETH 的內在價值綁定於網路的擴張。而這個網路，正站在交易量階梯式成長的臨界點上：穩定幣、代幣化真實世界資產、DeFi，加上正在興起的代理人金融（agentic finance）。要保護這個量級的交易，ETH 會是被需要的激勵層，是最終的「信任載體」，這會推升它的貨幣溢價。</p>
+  <p>所以他下了一個強烈的結論：<span class="hl">沒有 ETH，就沒有以太坊。</span>資產與網路，密不可分。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 5 ｜ 別人投降時</div>
+  <h2>最聰明的錢，<br>在市場最恐懼時進場</h2>
+  <p>最後他談時機。幾乎每個市場循環裡，散戶投降、情緒最低落的那一刻，正是有紀律的資金進場的時候。他舉巴菲特為例：從一九七〇年代的 GEICO，到二〇〇八年金融海嘯時買進美國銀行與高盛，都是在情緒最差時買進優質資產。</p>
+  <p>他說，過去一年的恐懼貪婪指數大多停在「極度恐懼」。而最聰明的投資人，會在市場最恐懼時買進品質，逆著循環走，而不是順著走。</p>
+  <p>他拿自己的經歷收尾：FTX 崩盤後的加密寒冬，多數機構逃離比特幣與 ETH、把產品計畫束之高閣。他說在貝萊德時，他們做了相反的事：加倉、投資基礎設施、建立生態夥伴、推出橋接傳統金融與加密的產品。如今 Sharplink 也率先質押了數十億美元的 ETH，並與 Galaxy Digital 合作，準備推出一檔 1.25 億美元的 DeFi 收益基金。</p>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">真正的市場不是加密交易，而是整個全球金融體系。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">這是 Chalom 的判斷。當然，他自己重押 ETH，這套故事該打幾分，由你決定。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2>這套以太坊多頭論點，<br>你買單嗎？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">📈</div>
+      <div>
+        <div class="label">買單，這是被低估的基礎設施</div>
+        <div class="desc">結算層地位是真的，現在的恐懼正是進場時機</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">🤨</div>
+      <div>
+        <div class="label">半信半疑，他在喊自己的書</div>
+        <div class="desc">技術與地位我認同，但別忘了他重押 ETH</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">📉</div>
+      <div>
+        <div class="label">不買單，TAM 故事每輪都有</div>
+        <div class="desc">網路擴張不等於幣價，價值與價格的連結沒那麼直接</div>
+      </div>
+    </button>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想看更深入的分析？</h2>
+  <p>區塊勢的完整文章包含更多脈絡、案例與細節，幫你把這個論點讀得更透。</p>
+  <a class="cta-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">閱讀完整文章 →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('前貝萊德高管的以太坊多頭論點：真正的市場不是加密交易，而是整個全球金融體系。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('前貝萊德高管的以太坊多頭論點：真正的市場不是加密交易，而是整個全球金融體系。'),'_blank','noopener')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從穩定幣、AI 代理人到平台策略，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer>
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <div class="src">本頁整理自 Joseph Chalom（Sharplink）公開發表的文章〈Ethereum Going Back on Offense〉，內容為其個人多頭觀點，不構成投資建議。</div>
+</footer>
+
+<script>
+let userChoice=-1;
+const labels=['買單，這是被低估的基礎設施','半信半疑，他在喊自己的書','不買單，TAM 故事每輪都有'];
+const results=[
+  {title:'買單，這是被低估的基礎設施',desc:'你認同他的核心判斷：在穩定幣結算、RWA 與高價值 DeFi 上，以太坊的領先是實打實的，可信中立性又讓它有資格當金融結算層。當市場停在極度恐懼，正是有紀律的資金進場的時刻。風險是這套論述把網路成長與 ETH 價格綁得很緊，這個連結未必如他說的那麼直接。',bg:'var(--green-light)',border:'#A8D4BC'},
+  {title:'半信半疑，他在喊自己的書',desc:'技術路線圖與機構地位你不否認，但你記得一件事：Chalom 本人與 Sharplink 重押了數十億美元的 ETH，他連文章開頭都坦承這是「一位利害關係人的意見」。論點可能是對的，立場也擺在明面上，兩件事可以同時成立。讀的時候，把這層利益關係放進腦海。',bg:'var(--terra-light)',border:'#DBBFAD'},
+  {title:'不買單，TAM 故事每輪都有',desc:'你對「真正的市場是整個全球金融體系」這種超大 TAM 敘事保持警覺。每一輪牛市都有人用亞馬遜做類比，但網路使用量成長，不必然等於原生代幣價格上漲，兩者中間還隔著很多假設。地位是一回事，估值是另一回事。',bg:'var(--blue-light)',border:'#B8CDF0'}
+];
+function choose(idx){
+  if(userChoice>=0)return;
+  userChoice=idx;
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===idx)b.classList.add('selected');
+    b.style.cursor='default';
+  });
+  const r=results[idx];
+  const card=document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent=r.title;
+  document.getElementById('rDesc').textContent=r.desc;
+  card.style.background=r.bg;
+  card.style.borderColor=r.border;
+  card.classList.add('show');
+  const shareText='我的觀點：'+labels[idx]+'。\n\n前貝萊德高管的以太坊多頭論點：真正的市場不是加密交易，而是整個全球金融體系。';
+  document.getElementById('shareTw').onclick=function(){
+    window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener');
+  };
+  document.getElementById('shareFb').onclick=function(){
+    window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener');
+  };
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
