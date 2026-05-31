@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>外送平台經濟</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta name="description" content="Stripe Cheeky Pint 訪問 DoorDash 共同創辦人 Tony Xu：外送平台的競爭不只是折扣，而是餐廳經濟、三方市場、城市資料、可靠度系統與自動化配送。">
+<meta property="og:title" content="外送平台經濟">
+<meta property="og:description" content="從 DoorDash 為什麼贏、餐廳為什麼難做，到 Dot、自動配送與 AI 介面，看 Tony Xu 如何判斷餐飲業與城市商務的下一步。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.mnhsu.xyz/stripe-cheeky-pint-the-economics-and-trends-of-the-restaurant-industry-with-tony-xu-of-doordash/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="外送平台經濟">
+<meta name="twitter:description" content="Tony Xu 解釋 DoorDash 的平台策略：留存率、餐廳常客、城市庫存、可靠度系統與新配送載具。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
+  --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
+  --blue:#2563EB;--blue-light:#EFF4FF;--yellow:#8B6914;--yellow-light:#FDF8EC;
+  --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
+  --gold:#8B7340;--gold-light:#F9F3E6;--line:#E8E3D8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{color:inherit;text-underline-offset:3px;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,var(--cream),var(--warm));position:relative;}
+.hero .logo{height:48px;margin-bottom:2.5rem;}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.9rem,5.2vw,3rem);line-height:1.35;letter-spacing:0.02em;margin-bottom:1.5rem;}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.18rem);color:var(--text-secondary);max-width:700px;line-height:1.8;}
+.scroll-hint{position:absolute;bottom:2.5rem;font-size:0.8rem;letter-spacing:0.3em;color:var(--text-muted);animation:breathe 2.4s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(6px);}}
+section{max-width:720px;margin:0 auto;padding:3.5rem 1.6rem;}
+section.wide{max-width:940px;}
+.part-label{font-size:0.78rem;font-weight:700;letter-spacing:0.25em;color:var(--terra);margin-bottom:1rem;}
+h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2rem);line-height:1.5;margin-bottom:1.5rem;letter-spacing:0.01em;}
+p{margin-bottom:1.4rem;font-size:1.05rem;}
+.hl{background:linear-gradient(transparent 60%,var(--gold-light) 60%);padding:0 0.1em;font-weight:500;}
+.callout{background:var(--terra-light);border-left:4px solid var(--terra);border-radius:0 10px 10px 0;padding:1.4rem 1.6rem;margin:2rem 0;}
+.callout p{margin:0;font-size:1rem;color:var(--text);}
+.moment-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.85rem;margin:2rem 0;}
+.moment{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.15rem;}
+.moment .num{font-family:'Noto Serif TC',serif;font-size:1.45rem;font-weight:900;color:var(--terra);line-height:1;margin-bottom:0.65rem;}
+.moment .name{font-weight:700;font-size:0.95rem;line-height:1.45;margin-bottom:0.35rem;}
+.moment .desc{font-size:0.84rem;color:var(--text-secondary);line-height:1.65;}
+.compare{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:2rem 0;}
+.compare-row{display:grid;grid-template-columns:0.78fr 1fr 1fr;border-bottom:1px solid #EFEAE0;}
+.compare-row:last-child{border-bottom:none;}
+.compare-row div{padding:0.9rem;font-size:0.86rem;line-height:1.6;}
+.compare-row .head{background:var(--green-deep);color:#fff;font-weight:700;}
+.compare-row .label{background:#F6F2EA;font-weight:700;color:var(--text-secondary);}
+.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.9rem;margin:2rem 0;}
+.idea-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.2rem;}
+.idea-card .tag{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;color:var(--terra);background:var(--terra-light);border-radius:2rem;padding:0.2rem 0.7rem;margin-bottom:0.8rem;}
+.idea-card .name{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.05rem;line-height:1.5;margin-bottom:0.5rem;}
+.idea-card .desc{font-size:0.88rem;color:var(--text-secondary);line-height:1.7;}
+.flow-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.5rem;margin:2rem 0;}
+.flow-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.12rem;text-align:center;margin-bottom:1.25rem;}
+.flow-line{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0.55rem;}
+.flow-node{background:var(--warm);border:1px solid var(--line);border-radius:12px;padding:0.9rem;text-align:center;}
+.flow-node strong{display:block;font-size:0.84rem;color:var(--green-deep);line-height:1.35;margin-bottom:0.35rem;}
+.flow-node span{display:block;font-size:0.76rem;color:var(--text-secondary);line-height:1.45;}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light));}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:620px;margin:0 auto;letter-spacing:0.03em;}
+.choice-section{padding:4rem 1.6rem;background:#fff;text-align:center;}
+.choice-section h2{margin-bottom:0.8rem;}
+.choice-sub{color:var(--text-secondary);font-size:0.95rem;margin-bottom:2.5rem;}
+.choice-options{display:flex;flex-direction:column;gap:1rem;max-width:560px;margin:0 auto;}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:var(--warm);border:2px solid #E8E3D8;border-radius:14px;padding:1.2rem 1.4rem;cursor:pointer;text-align:left;transition:all 0.25s;font-family:'Noto Sans TC',sans-serif;width:100%;}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light);}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0;}
+.choice-btn .label{font-weight:700;font-size:1rem;margin-bottom:0.2rem;}
+.choice-btn .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+.result-card{max-width:560px;margin:2rem auto 0;border:2px solid #DBBFAD;border-radius:14px;padding:1.8rem;background:var(--terra-light);opacity:0;transform:translateY(20px);transition:all 0.5s;display:none;}
+.result-card.show{opacity:1;transform:translateY(0);display:block;}
+.r-badge{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;color:var(--terra);background:#fff;padding:0.3rem 0.9rem;border-radius:2rem;margin-bottom:1rem;}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;}
+.r-desc{font-size:0.95rem;color:var(--text);line-height:1.8;}
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap;}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s;}
+.share-btn:hover{transform:scale(1.03);}
+.share-btn.tw{background:#0f1419;color:#fff;}
+.share-btn.fb{background:#1877f2;color:#fff;}
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream));}
+.cta h2{margin-bottom:1rem;}
+.cta p{max-width:540px;margin:0 auto 2rem;color:var(--text-secondary);font-size:1rem;}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.95rem 2.4rem;border-radius:2rem;font-weight:500;font-size:1.05rem;transition:all 0.3s;}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep);}
+.subscribe-inner{max-width:520px;margin:0 auto;}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem;}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem;}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif;}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem;}
+footer{text-align:center;padding:3rem 2rem;}
+footer img{height:44px;opacity:0.5;}
+footer .src{font-size:0.78rem;color:var(--text-muted);margin:1rem auto 0;line-height:1.7;max-width:640px;}
+footer .src a{color:var(--text-secondary);}
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:760px){
+  html{font-size:17px;}
+  section{padding:3rem 1.25rem;}
+  .moment-grid,.card-grid{grid-template-columns:1fr;}
+  .compare-row{grid-template-columns:1fr;}
+  .compare-row .head:nth-child(2),.compare-row .head:nth-child(3){display:none;}
+  .flow-line{grid-template-columns:1fr;}
+  .choice-btn{align-items:flex-start;padding:1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>DoorDash 贏的，<br>不只是外送</h1>
+  <p class="sub">Tony Xu 在 Stripe Cheeky Pint 裡談的不是「誰的 app 比較好看」。DoorDash 的核心，是把餐廳、消費者、外送夥伴和城市庫存接成一套可靠系統，並把這套能力延伸到訂位、零售、自動化配送與 AI 介面。</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<section class="fade-in">
+  <div class="part-label">PART 1 ｜ 為什麼贏</div>
+  <h2>外送平台的競爭，<br>不是單一指標能解釋</h2>
+  <p>John Collison 問 Tony Xu：2013 年手機 app 浪潮裡，很多公司都做食物外送，為什麼最後 DoorDash 贏？Tony 的短答案是「拿到更多顧客」。但真正原因，是 DoorDash 很早就把外送看成多變數服務，而不是一個漂亮下單按鈕。</p>
+  <p>使用者會同時評估餐廳選擇、準時率、食物狀態、價格，以及出錯後平台怎麼處理。任何一項掉下來，留存率和使用頻率就會反映出來。Tony 因此把「留存」當成產品有沒有差異化的最終檢查。</p>
+  <div class="moment-grid">
+    <div class="moment">
+      <div class="num">01</div>
+      <div class="name">選擇夠不夠多</div>
+      <div class="desc">平台要讓使用者看到想吃的餐廳，也要讓餐廳相信平台能帶來需求。</div>
+    </div>
+    <div class="moment">
+      <div class="num">02</div>
+      <div class="name">訂單能不能準時</div>
+      <div class="desc">餐點準備、外送路線、等待時間和交付位置都會影響體驗。</div>
+    </div>
+    <div class="moment">
+      <div class="num">03</div>
+      <div class="name">成本能不能成立</div>
+      <div class="desc">消費者願意付費，餐廳願意付佣金，外送夥伴願意接單，三邊都要成立。</div>
+    </div>
+    <div class="moment">
+      <div class="num">04</div>
+      <div class="name">出錯時怎麼補救</div>
+      <div class="desc">早期 DoorDash 曾在現金快用完時退款給所有受影響顧客，還親自送餅乾道歉。</div>
+    </div>
+  </div>
+  <p>資金不足反而讓 DoorDash 不能靠折扣硬買成長。2016 到 2018 年募資困難時，公司被迫用產品和服務品質撐起自然成長。等留存率和使用頻率證明有效，才加速買顧客。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 2 ｜ 三方市場</div>
+  <h2>YC 時期的問題很簡單：<br>三邊到底願不願意付出？</h2>
+  <p>Tony 回憶 DoorDash 參加 Y Combinator 時，很多團隊把 Demo Day 的目標放在最高估值。DoorDash 當時更在意三個問題：消費者願不願意為外送多付錢？商家願不願意合作並付佣金？外送夥伴願不願意以平台能負擔的收入接單？</p>
+  <p>這三個問題看起來粗糙，卻比「外送市場大不大」更有用。外送不是只有需求端，也不是只有供給端，而是三邊同時成立才會變成可擴張的公司。</p>
+  <div class="compare">
+    <div class="compare-row">
+      <div class="head">角色</div>
+      <div class="head">他們要什麼</div>
+      <div class="head">DoorDash 必須證明什麼</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">消費者</div>
+      <div>方便、選擇、準時、價格合理，出錯時有人負責。</div>
+      <div>外送的便利足以讓人多付一筆費用，而且會重複使用。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">餐廳</div>
+      <div>多接訂單、維持毛利、不要被平台打亂現場營運。</div>
+      <div>佣金換到的是增量收入，不只是把原本會來店裡的人搬到線上。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">外送夥伴</div>
+      <div>收入可預期、路線合理、遇到問題能被支援。</div>
+      <div>平台能用可負擔的成本取得足夠供給，並在油價、風險和安全上支援他們。</div>
+    </div>
+  </div>
+  <p>這也是 Tony 對投資人 Michael Abramson 判斷 DoorDash 的描述：只要單位經濟能成立、外送夥伴供給能取得、團隊能持續執行，市場機會就值得押。外送看似是消費 app，其實一開始就是經濟模型。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 3 ｜ 餐廳經濟</div>
+  <h2>餐廳最難的，不是做菜，<br>而是人、坪效與規模</h2>
+  <p>談餐飲業趨勢時，Tony 沒先講熱門菜色，而是先講人。餐廳最長期的困難是招募與排班。租金、工資和現場服務壓力讓很多餐廳被迫選邊站：要更像高接觸的 hospitality，還是更像高效率的 production。</p>
+  <p>外送會改變餐廳的邊際經濟。Tony 用粗略數字拆一美元店內消費：食材與包材約三成、租金約三成、人力約三成，剩下約一成淨利。外帶或外送訂單仍有食材與包材成本，但多半使用同一個廚房、同一份租金和部分既有人力，增量毛利可能高出許多。</p>
+  <div class="flow-card">
+    <div class="flow-title">餐廳的一筆訂單，卡在五個環節</div>
+    <div class="flow-line">
+      <div class="flow-node"><strong>需求</strong><span>顧客為什麼會選這家店</span></div>
+      <div class="flow-node"><strong>產能</strong><span>廚房能否穩定出餐</span></div>
+      <div class="flow-node"><strong>人力</strong><span>排班與訓練能否跟上</span></div>
+      <div class="flow-node"><strong>坪效</strong><span>座位、租金與外帶動線</span></div>
+      <div class="flow-node"><strong>回訪</strong><span>能否把一次客變常客</span></div>
+    </div>
+  </div>
+  <p>這解釋了為什麼雲端廚房沒有像幾年前想像那樣全面取代餐廳。小品牌缺乏低成本獲客能力，大連鎖則要計算機會成本：同一個地點若能開店，同時承接內用、外帶與外送，為什麼只做一間外送廚房？</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 4 ｜ 產業趨勢</div>
+  <h2>餐飲業一直難做，<br>但消費者一直把更多錢花在外食</h2>
+  <p>Tony 提到美國餐飲支出的大方向：從 1950 年代大多數食物支出花在雜貨，到今天外食與外帶占比已經接近反轉。即使單一家餐廳很難經營，整個產業仍然長期成長，餐廳數量也多數年份持續增加。</p>
+  <p>中國市場則把外送放大到另一個等級。原因不是單一科技差距，而是外食本來就便宜且普遍、勞動供給與成本不同、城市密度高，還有大量餐廳與商家願意快速嘗試新營收方式。Tony 的重點不是複製中國模式，而是提醒每個市場的成本結構、城市形狀與消費習慣都不同。</p>
+  <div class="card-grid">
+    <div class="idea-card">
+      <div class="tag">長期趨勢</div>
+      <div class="name">餐廳數量持續增加</div>
+      <div class="desc">餐廳難做，但人們對食物、社交與外出用餐的需求沒有消失。這讓餐飲業成為少數長期創造工作機會的產業。</div>
+    </div>
+    <div class="idea-card">
+      <div class="tag">最大痛點</div>
+      <div class="name">開第二家店很難</div>
+      <div class="desc">就算是熱門餐廳或名廚，也可能卡在資金、許可、施工與人力。DoorDash 因此把許可改革視為小商家的重要議題。</div>
+    </div>
+    <div class="idea-card">
+      <div class="tag">技術機會</div>
+      <div class="name">把常客制度化</div>
+      <div class="desc">餐廳很需要知道誰是常客、他喜歡什麼、該如何招待。但員工流動高，記憶常留在店主腦中，缺少穩定的 CRM。</div>
+    </div>
+    <div class="idea-card">
+      <div class="tag">DoorDash 延伸</div>
+      <div class="name">SevenRooms 與訂位</div>
+      <div class="desc">DoorDash 想把線上訂單、店內訂位與顧客資料接起來，讓餐廳不只得到流量，也能經營自己的全通路生意。</div>
+    </div>
+  </div>
+  <p>這段讓 DoorDash 的邊界變寬。它不只想送餐，也想幫餐廳建立軟體、辨識常客、帶人進店、處理訂位，最後成為餐廳理解顧客與分配產能的系統。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 5 ｜ 可靠度</div>
+  <h2>平台越大，<br>越像一台城市狀態機</h2>
+  <p>訪談中段談到詐欺與安全，Tony 把 DoorDash 形容成一台大型 state machine。每天有大量訂單、商家、外送夥伴與顧客互動，系統必須知道什麼狀態是綠燈，什麼狀態正在變黃，什麼狀態需要立刻介入。</p>
+  <p>線上詐欺可以靠支付資料與風控模型協助，但 DoorDash 還有大量線下訊號：餐點到底有沒有送到、商品是否真的缺貨、收據照片是否可信、外送位置是否精準、對話是否正在升高成安全風險。這些都沒有現成資料集，平台得自己建立訊號。</p>
+  <div class="compare">
+    <div class="compare-row">
+      <div class="head">問題</div>
+      <div class="head">表面看起來</div>
+      <div class="head">真正要做的事</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">餐點沒收到</div>
+      <div>顧客說沒拿到，外送夥伴說已送達。</div>
+      <div>結合照片、定位、歷史行為與最後幾公尺的地圖精度。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">商品缺貨</div>
+      <div>商店、外送夥伴與顧客看到的庫存不一致。</div>
+      <div>建立更好的城市商品目錄，並讓現場任務回補資料。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">安全事件</div>
+      <div>一開始可能只是對話不舒服或現場出現異常。</div>
+      <div>及早偵測升高訊號，在必要時通知附近使用者、商家與執法單位。</div>
+    </div>
+  </div>
+  <p>DoorDash 自建地圖也是同一個邏輯。一般地圖知道地址，外送平台需要知道公寓門口、收貨點、停車位置和最後幾公尺。可靠度不是單一模型，而是把事前準備、即時偵測與例外處理接起來。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 6 ｜ 下一步</div>
+  <h2>AI 和自動配送都重要，<br>但前提是端到端工作要成立</h2>
+  <p>Tony 談未來配送時，先問的不是「用無人機還是機器車」，而是「到底要送什麼」。一座城市裡有數千萬種商品，很多沒有完整目錄，也不一定離顧客夠近。若不知道商品在哪裡、是否有貨、怎麼取貨，再好的載具也只是漂亮展示。</p>
+  <p>Dot 是 DoorDash 自己做的小型自動配送車，原因是市場上現有選項沒有剛好解決它的問題。人類很會外送，門檻其實很高。Dot 必須足夠快、能在道路與人行道等不同環境移動、容易裝卸、能處理冷熱保存，也要跟人類外送夥伴合作接力。</p>
+  <div class="card-grid">
+    <div class="idea-card">
+      <div class="tag">城市資料</div>
+      <div class="name">先知道商品在哪裡</div>
+      <div class="desc">DoorDash Tasks 從自家需求長出來：讓外送夥伴協助收集線下商品、貨架與商店資訊，也讓他們多一種接任務收入。</div>
+    </div>
+    <div class="idea-card">
+      <div class="tag">配送載具</div>
+      <div class="name">不同距離需要不同工具</div>
+      <div class="desc">無人機適合較長距離；Dot 適合短程、停車困難或郊區環境；人類仍會負責很多高彈性的情境。</div>
+    </div>
+    <div class="idea-card">
+      <div class="tag">AI 介面</div>
+      <div class="name">聊天不是全部答案</div>
+      <div class="desc">AI 可以成為新的需求入口，但餐點缺貨、外送找不到人、訂單延遲時，平台仍要能端到端處理。</div>
+    </div>
+    <div class="idea-card">
+      <div class="tag">產品原則</div>
+      <div class="name">先問解決什麼問題</div>
+      <div class="desc">Tony 對 Dot、AR、AI 訂餐與 Stripe 產品建議都回到同一句：不要先賣產品線，先確認替顧客解掉哪個痛點。</div>
+    </div>
+  </div>
+  <p>這也是他對 AI 訂餐的保留。自然語言下單聽起來很順，但過去 Google Food Ordering 這類低摩擦入口沒有留下高留存，因為下單後的問題仍然要有人處理。DoorDash 可以接 AI 的需求入口，但必須掌握結帳後的所有例外。</p>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">外送平台真正賣的不是按鈕，而是讓城市裡很難協調的事準時發生。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">DoorDash 的策略，是把餐廳經濟、顧客留存、城市庫存、風控安全與配送載具，全部收進同一套可靠度系統。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2>你覺得 DoorDash 最強的護城河<br>是哪一個？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">⚙️</div>
+      <div>
+        <div class="label">可靠度系統</div>
+        <div class="desc">把準時、補救、風控、安全與最後幾公尺都變成可管理流程</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">🏪</div>
+      <div>
+        <div class="label">餐廳軟體</div>
+        <div class="desc">從外送流量延伸到訂位、常客、CRM 與店內生意</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">📦</div>
+      <div>
+        <div class="label">城市物流</div>
+        <div class="desc">掌握商品目錄、庫存位置、任務網路與不同配送載具</div>
+      </div>
+    </button>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想聽原始訪談？</h2>
+  <p>這頁整理自 Stripe 的 Cheeky Pint 系列。原始影片保留了 John Collison 與 Tony Xu 對 DoorDash、餐飲業、自動配送、AI 介面與城市商務的完整對話。</p>
+  <a class="cta-btn" href="https://www.youtube.com/watch?v=VwvrZphtg2I" target="_blank" rel="noopener">前往 YouTube →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('DoorDash 贏的不是外送按鈕，而是讓城市裡很難協調的事準時發生。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('DoorDash 贏的不是外送按鈕，而是讓城市裡很難協調的事準時發生。'),'_blank','noopener')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從平台策略、AI 代理人到科技公司的商業模式，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer>
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <div class="src">本頁整理自 Stripe 的 Cheeky Pint 系列影片〈The economics and trends of the restaurant industry, with Tony Xu of DoorDash〉。來源：<a href="https://www.youtube.com/watch?v=VwvrZphtg2I" target="_blank" rel="noopener">YouTube</a>。</div>
+</footer>
+
+<script>
+let userChoice=-1;
+const labels=['可靠度系統','餐廳軟體','城市物流'];
+const results=[
+  {title:'可靠度系統',desc:'你看重的是 DoorDash 最難被看見的一層。平台要在餐點、路線、補救、詐欺與安全事件之間即時判斷狀態，並讓大多數訂單像水電一樣穩定。這不是一個功能，而是一整套營運與資料系統。',bg:'var(--terra-light)',border:'#DBBFAD'},
+  {title:'餐廳軟體',desc:'你看重的是 DoorDash 從流量平台變成商家系統的路線。外送帶來訂單，但訂位、常客、CRM 與店內生意，才可能讓餐廳把一次客變成長期關係。',bg:'var(--green-light)',border:'#A8D4BC'},
+  {title:'城市物流',desc:'你看重的是更大的市場邊界。若 DoorDash 知道城市裡有哪些商品、在哪裡、如何取貨，並能用人類、Dot 或無人機分工，它就不只是送餐，而是城市商務的執行層。',bg:'var(--blue-light)',border:'#B8CDF0'}
+];
+function choose(idx){
+  if(userChoice>=0)return;
+  userChoice=idx;
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===idx)b.classList.add('selected');
+    b.style.cursor='default';
+  });
+  const r=results[idx];
+  const card=document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent=r.title;
+  document.getElementById('rDesc').textContent=r.desc;
+  card.style.background=r.bg;
+  card.style.borderColor=r.border;
+  card.classList.add('show');
+  const shareText='我的觀點：'+labels[idx]+'。\n\nDoorDash 贏的不是外送按鈕，而是讓城市裡很難協調的事準時發生。';
+  document.getElementById('shareTw').onclick=function(){
+    window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener');
+  };
+  document.getElementById('shareFb').onclick=function(){
+    window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener');
+  };
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
