@@ -1,6 +1,13 @@
 ---
 const projects = [
   {
+    href: '/lennys-podcast-benedict-evans-on-ai-jobs-and-why-it-s-probably-going-to-be-okay/',
+    zh: 'AI 工作不末日',
+    en: "Lenny's Podcast: Benedict Evans on AI, jobs, and why it’s probably going to be okay",
+    date: '2026.06.01',
+    tags: ["Lenny's Podcast", 'Product', 'Startups'],
+  },
+  {
     href: '/mnnews-score-chain/',
     zh: '新鮮勢去偏誤排序',
     en: 'Counterfactual attention ranking for MNnews',
@@ -204,6 +211,7 @@ const links = [
 ];
 
 const sourceFilters = [
+  { id: 'lennys-podcast', label: "Lenny's Podcast", tags: ["Lenny's Podcast"] },
   { id: 'money-stuff', label: 'Money Stuff', tags: ['Money Stuff', 'Bloomberg'] },
   { id: 'stripe', label: 'Stripe', tags: ['Stripe', 'Cheeky Pint'] },
   { id: 'y-combinator', label: 'Y Combinator', tags: ['Y Combinator', 'YC'] },
@@ -215,6 +223,7 @@ const sourceFilters = [
 
 const topicFilters = [
   { id: 'ai', label: 'AI', tags: ['AI', 'Technology', 'Attention API'] },
+  { id: 'product', label: 'Product', tags: ['Product'] },
   { id: 'crypto', label: 'Crypto', tags: ['Crypto', 'Ethereum', 'ETH', '穩定幣', 'RWA', 'Ondo', '代幣化', '股票代幣'] },
   { id: 'startups', label: 'Startups', tags: ['Startups', 'YC', 'Y Combinator', '創業'] },
   { id: 'finance', label: 'Finance', tags: ['Money Stuff', 'Bloomberg', 'BlackRock', '貨幣市場基金', '會計', '金融科技'] },

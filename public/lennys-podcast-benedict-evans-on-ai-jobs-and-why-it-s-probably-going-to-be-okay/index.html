@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 工作不末日</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta name="description" content="Lenny's Podcast 訪問 Benedict Evans：AI 會像網路與手機一樣大，但工作、模型價值、組織導入與創業機會，不能只用末日或泡沫兩種說法理解。">
+<meta property="og:title" content="AI 工作不末日">
+<meta property="og:description" content="從 1997 年網路時刻、任務與工作的差別、企業導入、模型價值，到創業者該問的問題，讀懂 Benedict Evans 對 AI 的商業判斷。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.mnhsu.xyz/lennys-podcast-benedict-evans-on-ai-jobs-and-why-it-s-probably-going-to-be-okay/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI 工作不末日">
+<meta name="twitter:description" content="Benedict Evans 談 AI、工作、價值捕捉與創業判斷：重點不是預言末日，而是看懂任務、工作、導入與應用層。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
+  --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
+  --blue:#2563EB;--blue-light:#EFF4FF;--yellow:#8B6914;--yellow-light:#FDF8EC;
+  --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
+  --gold:#8B7340;--gold-light:#F9F3E6;--line:#E8E3D8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{color:inherit;text-underline-offset:3px;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,var(--cream),var(--warm));position:relative;}
+.hero .logo{height:48px;margin-bottom:2.5rem;}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(2rem,5.6vw,3.2rem);line-height:1.32;letter-spacing:0.02em;margin-bottom:1.5rem;}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.18rem);color:var(--text-secondary);max-width:720px;line-height:1.85;}
+.scroll-hint{position:absolute;bottom:2.5rem;font-size:0.8rem;letter-spacing:0.3em;color:var(--text-muted);animation:breathe 2.4s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(6px);}}
+section{max-width:720px;margin:0 auto;padding:3.5rem 1.6rem;}
+section.wide{max-width:940px;}
+.part-label{font-size:0.78rem;font-weight:700;letter-spacing:0.25em;color:var(--terra);margin-bottom:1rem;}
+h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2rem);line-height:1.5;margin-bottom:1.5rem;letter-spacing:0.01em;}
+p{margin-bottom:1.4rem;font-size:1.05rem;}
+.hl{background:linear-gradient(transparent 60%,var(--gold-light) 60%);padding:0 0.1em;font-weight:500;}
+.signal-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0.9rem;margin:2rem 0;}
+.signal-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.2rem;}
+.signal-card .tag{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;color:var(--terra);background:var(--terra-light);border-radius:2rem;padding:0.2rem 0.7rem;display:inline-block;margin-bottom:0.85rem;}
+.signal-card .name{font-family:'Noto Serif TC',serif;font-size:1.05rem;font-weight:700;line-height:1.5;margin-bottom:0.5rem;}
+.signal-card .desc{font-size:0.86rem;color:var(--text-secondary);line-height:1.7;}
+.compare{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:2rem 0;}
+.compare-row{display:grid;grid-template-columns:0.78fr 1fr 1fr;border-bottom:1px solid #EFEAE0;}
+.compare-row:last-child{border-bottom:none;}
+.compare-row div{padding:0.9rem;font-size:0.86rem;line-height:1.6;}
+.compare-row .head{background:var(--green-deep);color:#fff;font-weight:700;}
+.compare-row .label{background:#F6F2EA;font-weight:700;color:var(--text-secondary);}
+.callout{background:var(--terra-light);border-left:4px solid var(--terra);border-radius:0 10px 10px 0;padding:1.4rem 1.6rem;margin:2rem 0;}
+.callout p{margin:0;font-size:1rem;color:var(--text);}
+.flow-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.5rem;margin:2rem 0;}
+.flow-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.12rem;text-align:center;margin-bottom:1.25rem;}
+.flow-line{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0.65rem;}
+.flow-node{background:var(--warm);border:1px solid var(--line);border-radius:12px;padding:0.9rem;text-align:center;}
+.flow-node strong{display:block;font-size:0.84rem;color:var(--green-deep);line-height:1.35;margin-bottom:0.35rem;}
+.flow-node span{display:block;font-size:0.76rem;color:var(--text-secondary);line-height:1.45;}
+.split-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.9rem;margin:2rem 0;}
+.split-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.25rem;}
+.split-card.good{background:var(--green-light);border-color:#C5E1D0;}
+.split-card.warn{background:var(--yellow-light);border-color:#E8D9B7;}
+.split-card .name{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.08rem;line-height:1.5;margin-bottom:0.55rem;}
+.split-card .desc{font-size:0.9rem;color:var(--text-secondary);line-height:1.75;}
+.stack{background:#fff;border:1px solid var(--line);border-radius:12px;margin:2rem 0;overflow:hidden;}
+.stack-row{display:grid;grid-template-columns:0.9fr 1.3fr 1.1fr;border-bottom:1px solid #EFEAE0;}
+.stack-row:last-child{border-bottom:none;}
+.stack-row div{padding:1rem;font-size:0.88rem;line-height:1.65;}
+.stack-row .level{font-weight:700;color:var(--green-deep);background:#F6F2EA;}
+.stack-row .focus{color:var(--text-secondary);}
+.question-list{background:#fff;border:1px solid var(--line);border-radius:12px;margin:2rem 0;padding:1.5rem;}
+.question-list ol{padding-left:1.4rem;}
+.question-list li{margin-bottom:0.7rem;font-size:0.95rem;line-height:1.75;}
+.question-list li:last-child{margin-bottom:0;}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light));}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:620px;margin:0 auto;letter-spacing:0.03em;}
+.choice-section{padding:4rem 1.6rem;background:#fff;text-align:center;}
+.choice-section h2{margin-bottom:0.8rem;}
+.choice-sub{color:var(--text-secondary);font-size:0.95rem;margin-bottom:2.5rem;}
+.choice-options{display:flex;flex-direction:column;gap:1rem;max-width:560px;margin:0 auto;}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:var(--warm);border:2px solid #E8E3D8;border-radius:14px;padding:1.2rem 1.4rem;cursor:pointer;text-align:left;transition:all 0.25s;font-family:'Noto Sans TC',sans-serif;width:100%;}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light);}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0;}
+.choice-btn .label{font-weight:700;font-size:1rem;margin-bottom:0.2rem;}
+.choice-btn .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+.result-card{max-width:560px;margin:2rem auto 0;border:2px solid #DBBFAD;border-radius:14px;padding:1.8rem;background:var(--terra-light);opacity:0;transform:translateY(20px);transition:all 0.5s;display:none;}
+.result-card.show{opacity:1;transform:translateY(0);display:block;}
+.r-badge{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;color:var(--terra);background:#fff;padding:0.3rem 0.9rem;border-radius:2rem;margin-bottom:1rem;}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;}
+.r-desc{font-size:0.95rem;color:var(--text);line-height:1.8;}
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap;}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s;}
+.share-btn:hover{transform:scale(1.03);}
+.share-btn.tw{background:#0f1419;color:#fff;}
+.share-btn.fb{background:#1877f2;color:#fff;}
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream));}
+.cta h2{margin-bottom:1rem;}
+.cta p{max-width:560px;margin:0 auto 2rem;color:var(--text-secondary);font-size:1rem;}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.95rem 2.4rem;border-radius:2rem;font-weight:500;font-size:1.05rem;transition:all 0.3s;}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep);}
+.subscribe-inner{max-width:520px;margin:0 auto;}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem;}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem;}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif;}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem;}
+footer{text-align:center;padding:3rem 2rem;}
+footer img{height:44px;opacity:0.5;}
+footer .src{font-size:0.78rem;color:var(--text-muted);margin:1rem auto 0;line-height:1.7;max-width:660px;}
+footer .src a{color:var(--text-secondary);}
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:760px){
+  html{font-size:17px;}
+  section{padding:3rem 1.25rem;}
+  .signal-grid,.split-grid{grid-template-columns:1fr;}
+  .compare-row,.stack-row{grid-template-columns:1fr;}
+  .compare-row .head:nth-child(2),.compare-row .head:nth-child(3){display:none;}
+  .flow-line{grid-template-columns:1fr;}
+  .choice-btn{align-items:flex-start;padding:1rem;}
+  .hero{padding:2rem 1.25rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>AI 工作不末日</h1>
+  <p class="sub">Benedict Evans 在 Lenny's Podcast 的重點不是「AI 沒什麼」。他的判斷更難：AI 會像網路與手機一樣大，但商業價值、工作變化與創業機會，都要回到具體任務、組織導入與應用層來看。</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<section class="fade-in">
+  <div class="part-label">PART 1 ｜ 先把尺度放對</div>
+  <h2>AI 很大，<br>但不是所有答案都已經出現</h2>
+  <p>Benedict Evans 的開場很像一句冷靜提醒：AI 和網路、手機一樣大，也只和網路、手機一樣大。這不是看衰 AI，而是把它放回平台轉換的尺度。網路和手機都重寫了產業、工作與公司價值，但當時沒有人能在第一天就看清最後贏家。</p>
+  <p>他把現在的 AI 比成 1997 年的網路。氣氛很興奮，很多東西還不好用，大多數重要產品還沒被做出來，商業模式也沒有定型。科技圈裡有人每天用 AI 寫程式、做研究、整理工作；科技圈外，很多人可能每週或每兩週才打開一次。</p>
+  <div class="signal-grid">
+    <div class="signal-card">
+      <div class="tag">尺度</div>
+      <div class="name">像網路與手機</div>
+      <div class="desc">足以改變工作與產業，但不必把每個問題都說成工業革命或世界末日。</div>
+    </div>
+    <div class="signal-card">
+      <div class="tag">時間</div>
+      <div class="name">像 1997 年</div>
+      <div class="desc">早期使用者很懂，但主流市場仍在試探。真正的大公司與新習慣還在形成。</div>
+    </div>
+    <div class="signal-card">
+      <div class="tag">邊界</div>
+      <div class="name">鋸齒狀能力</div>
+      <div class="desc">同一個模型可能在某件事上驚人好用，在另一件事上完全不可靠。</div>
+    </div>
+  </div>
+  <p>這種不均勻，是產品策略的起點。不要假設每個使用者都已經「懂 AI」，也不要把展示影片當成完整工作流程。真正的機會，通常在把一段可重複的工作包好，讓人知道什麼時候能信、什麼時候要驗。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 2 ｜ 任務不是工作</div>
+  <h2>AI 能寫程式，<br>不代表它知道該做什麼產品</h2>
+  <p>Evans 反覆問同一件事：被自動化的是任務，還是整份工作？有些工作確實接近單一任務，像電梯操作員按下樓層。按鈕出現後，工作就消失。但更多時候，任務只是被雇用的表面理由。</p>
+  <p>Claude Code 可以寫程式，問題是你要寫什麼程式。AI 可以產生簡報，問題是顧問被雇用不是為了交一份投影片，而是為了走進公司，弄清楚客戶、政治、流程、權責與真正卡住的地方。</p>
+  <div class="compare">
+    <div class="compare-row">
+      <div class="head">場景</div>
+      <div class="head">AI 容易吃掉的任務</div>
+      <div class="head">人們真正付費買的能力</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">軟體開發</div>
+      <div>產生程式碼、補測試、重構小段功能。</div>
+      <div>判斷客戶是誰、產品該長什麼樣、怎麼上市、哪個取捨值得做。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">管理顧問</div>
+      <div>整理訪談、做投影片、產生初版分析。</div>
+      <div>進入組織現場，找出為什麼公司原本做不到，以及誰需要改變。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">電商購物</div>
+      <div>快速買到指定 SKU，完成搜尋與結帳。</div>
+      <div>在不知道該買哪個時，幫你理解選項、限制、風險與使用情境。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">法律與會計</div>
+      <div>草擬文件、比對條文、摘要資料。</div>
+      <div>承擔專業判斷、風險責任、客戶溝通與例外狀況。</div>
+    </div>
+  </div>
+  <p>這對產品團隊很重要。若只把 AI 當成「產生更多文字或程式碼」的機器，很容易做出看起來厲害、卻沒有人長期使用的工具。更好的問題是：這個任務前後還有哪些判斷、資料、權限、責任與協作？</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 3 ｜ 導入是一個組織專案</div>
+  <h2>為什麼最懂 AI 的公司，<br>反而在增加人手？</h2>
+  <p>訪談裡一個反直覺現象是，OpenAI、Anthropic 這類 AI 公司沒有讓顧問與前線工程師消失，反而投入更多人去做導入。原因很直白：企業沒有一群閒著的人，可以突然重寫所有內部流程。</p>
+  <p>一家公司要把 AI 接進工作，不是買一個帳號就結束。它要找出哪些流程值得改、哪些系統要串接、誰有權做決策、員工怎麼訓練、錯誤怎麼驗收。這些都是專案，而且通常需要跨部門協調。</p>
+  <div class="flow-card">
+    <div class="flow-title">企業導入 AI，通常卡在四個環節</div>
+    <div class="flow-line">
+      <div class="flow-node"><strong>找流程</strong><span>哪段工作真的重複且值得改</span></div>
+      <div class="flow-node"><strong>接系統</strong><span>資料、權限與既有軟體能否串起來</span></div>
+      <div class="flow-node"><strong>改權責</strong><span>誰負責審核、例外與錯誤後果</span></div>
+      <div class="flow-node"><strong>做驗收</strong><span>何時可自動，何時必須交回人類</span></div>
+    </div>
+  </div>
+  <div class="callout">
+    <p>這也是 AI 產品的機會。空白聊天框讓使用者自己猜哪裡能用，真正的產品要把模型包進明確工作流，讓使用者不用理解所有模型限制，也能把事情做完。</p>
+  </div>
+  <p>Evans 對「企業明天買 AI，兩週後開除所有員工」很不以為然。大型企業軟體銷售與導入本來就很慢，尤其是醫療、航太、金融、法律這類高風險產業。三年、五年、十年後，很多工作會長得不同，但不會像按開關一樣瞬間完成。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 4 ｜ 工作會變，但不是單線預言</div>
+  <h2>每次新技術都會消滅工作，<br>也會打開新工作</h2>
+  <p>Evans 對「工作末日」的回答不是安慰，而是歷史感。從農業機械、打字機、電話交換、試算表、PC、網路到雲端，每一波技術都自動化一批工作，也創造一批原本不存在的工作。問題是，消失的工作比較容易看見，新工作在出現前通常聽起來很奇怪。</p>
+  <p>他沒有否認痛苦。轉換過程會有人失業，有些城鎮或職業會受傷，專業服務的金字塔也可能改變。尤其是剛進入職場的人，會比資深工作者更直接遇到招募縮水與工作內容重組。</p>
+  <div class="split-grid">
+    <div class="split-card warn">
+      <div class="name">不要做的推論</div>
+      <div class="desc">AI 可以完成某些任務，所以整個職稱會照比例消失。這種推論忽略了工作裡的判斷、責任、協作與客戶信任。</div>
+    </div>
+    <div class="split-card good">
+      <div class="name">應該做的推論</div>
+      <div class="desc">AI 會改變工作分工。你需要知道哪些部分會變便宜、哪些部分會更重要，以及新能力會讓需求增加還是減少。</div>
+    </div>
+  </div>
+  <p>他用試算表說明這件事。試算表讓很多計算瞬間完成，但會計、投資銀行與分析工作沒有因此消失，反而做了更多模型、更多交易、更多分析。便宜化不只帶來裁員，也可能帶來需求擴張。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 5 ｜ 價值不一定在模型公司</div>
+  <h2>模型可能是基礎設施，<br>真正的利潤在上層</h2>
+  <p>訪談最適合創業者的一段，是 Evans 對模型公司的懷疑。他不是說基礎模型不重要，而是問：如果模型沒有明顯網路效應，長期又有多家競爭者、開放模型與本機模型，為什麼一定能保有定價能力？</p>
+  <p>他用電信和電力比喻。行動網路是高度複雜的全球基礎設施，資料流量多年來暴增，但電信商股票長期表現平平，因為它們賣的是低毛利基礎設施。真正酷的服務在上層，由其他公司做出來。</p>
+  <div class="stack">
+    <div class="stack-row">
+      <div class="level">基礎模型</div>
+      <div>算力、資料、研究與推論成本很高，短期很稀缺。</div>
+      <div class="focus">問題是長期是否有足夠差異化與定價能力。</div>
+    </div>
+    <div class="stack-row">
+      <div class="level">應用層</div>
+      <div>把模型接進法律、醫療、教育、銷售、客服、設計、開發等具體流程。</div>
+      <div class="focus">價值來自理解場景、資料、責任與使用者工作方式。</div>
+    </div>
+    <div class="stack-row">
+      <div class="level">通路與預設</div>
+      <div>Google、Meta、Apple 可以把夠好的 AI 灑到既有入口。</div>
+      <div class="focus">當產品差異變小，通路、品牌與預設選項會變得更重。</div>
+    </div>
+  </div>
+  <p>這裡的創業判斷很直接。不要只問「哪個模型最好」，也要問「誰擁有使用者入口」「誰理解工作流」「誰能把模型變成可交付結果」。如果模型變成商品化原料，包裝它的人反而更有機會拿走利潤。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 6 ｜ 創業者該問的問題</div>
+  <h2>不要預測哪個職業被消滅，<br>要找哪些新行為會出現</h2>
+  <p>Evans 反對把每個職業拆成「多少百分比會被 AI 取代」。他認為那像早期專家系統，試圖用一堆規則描述真實世界，最後忽略了工作如何在現場發生。1997 年看網路，你很難預測 Uber 會改變計程車市場，也很難預測 Airbnb 對商務飯店的影響其實有限。</p>
+  <p>新技術剛開始常常只是「把舊事做更多」。把郵件印出來、把相片網站搬上手機、把 CD 變成線上購買。真正的大產品會改變問題本身。Spotify 不是線上唱片行，而是每月付一筆錢就能聽幾乎所有音樂。</p>
+  <div class="question-list">
+    <ol>
+      <li>這裡被自動化的是單一任務，還是客戶真正雇用你完成的工作？</li>
+      <li>成本下降後，客戶會少花錢，還是用同樣預算做更多事？</li>
+      <li>導入卡在模型能力、資料權限、內部政治，還是責任歸屬？</li>
+      <li>空白聊天框能解決問題嗎，還是需要包成明確工作流？</li>
+      <li>如果模型變成商品化原料，你的通路、資料、品牌或工作流優勢在哪裡？</li>
+    </ol>
+  </div>
+  <p>給個人的建議也一樣務實。不要把頭埋進沙裡，靠討厭 AI 取得道德優越感。真正有用的是把自己浸進去，理解它今天能做什麼、不能做什麼、會怎麼改變你的工作，然後讓自己成為更值得雇用的人。</p>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">AI 會把很多任務變成按鈕，但真正的問題是：人們到底雇用你做什麼？</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">看懂任務與工作的差別，才看得懂工作會怎麼變、產品該怎麼做、價值會落在哪一層。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2>你現在最該補上的 AI 判斷<br>是哪一層？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">🧭</div>
+      <div>
+        <div class="label">分清任務與工作</div>
+        <div class="desc">先知道 AI 吃掉的是表面產出，還是客戶真正付費的價值</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">🛠️</div>
+      <div>
+        <div class="label">把模型接進流程</div>
+        <div class="desc">從空白聊天框走向可驗收、可交付、能被組織採用的產品</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">📣</div>
+      <div>
+        <div class="label">建立通路與預設</div>
+        <div class="desc">當模型變得相近，使用者入口、品牌與工作流會更重要</div>
+      </div>
+    </button>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想聽原始訪談？</h2>
+  <p>這頁整理自 Lenny's Podcast 訪問 Benedict Evans 的內容。原始影片保留了他對 AI、工作、模型公司、企業導入、反 AI 情緒與個人策略的完整回答。</p>
+  <a class="cta-btn" href="https://www.youtube.com/watch?v=BD3vLtWhT5A" target="_blank" rel="noopener">前往 YouTube →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('AI 的商業機會，不只在模型本身，而在誰能把模型接進真實工作。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('AI 的商業機會，不只在模型本身，而在誰能把模型接進真實工作。'),'_blank','noopener')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從 AI、平台策略到科技公司的商業模式，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer>
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <div class="src">本頁整理自 Lenny's Podcast YouTube 頻道影片〈Benedict Evans on AI, jobs, and why it’s probably going to be okay〉。來源：<a href="https://www.youtube.com/watch?v=BD3vLtWhT5A" target="_blank" rel="noopener">YouTube</a>。</div>
+</footer>
+
+<script>
+let userChoice=-1;
+const labels=['分清任務與工作','把模型接進流程','建立通路與預設'];
+const results=[
+  {title:'先分清任務與工作',desc:'你看重的是最容易被忽略的問題。AI 能讓某些任務變便宜，但客戶付費買的可能是判斷、責任、協作與可信結果。先拆清楚，才不會把展示效果誤認成產品機會。',bg:'var(--terra-light)',border:'#DBBFAD'},
+  {title:'把模型接進流程',desc:'你看重的是導入難題。真正能被組織採用的 AI 產品，要處理資料、權限、驗收、例外與責任，而不是只留下空白聊天框讓使用者自己摸索。',bg:'var(--green-light)',border:'#A8D4BC'},
+  {title:'建立通路與預設',desc:'你看重的是長期競爭。當模型能力逐漸接近，使用者入口、品牌信任、既有工作流與預設選項，可能比模型本身更能決定誰拿走價值。',bg:'var(--blue-light)',border:'#B8CDF0'}
+];
+function choose(idx){
+  if(userChoice>=0)return;
+  userChoice=idx;
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===idx)b.classList.add('selected');
+    b.style.cursor='default';
+  });
+  const r=results[idx];
+  const card=document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent=r.title;
+  document.getElementById('rDesc').textContent=r.desc;
+  card.style.background=r.bg;
+  card.style.borderColor=r.border;
+  card.classList.add('show');
+  const shareText='我的觀點：'+labels[idx]+'。\n\nAI 的商業機會，不只在模型本身，而在誰能把模型接進真實工作。';
+  document.getElementById('shareTw').onclick=function(){
+    window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener');
+  };
+  document.getElementById('shareFb').onclick=function(){
+    window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener');
+  };
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
