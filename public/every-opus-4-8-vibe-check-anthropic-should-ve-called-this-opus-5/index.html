@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opus 回到前排</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta name="description" content="Every 對 Anthropic Opus 4.8 的 day zero vibe check：程式、寫作與知識工作都明顯進步，但模型能力還要看推理設定與使用環境。">
+<meta property="og:title" content="Opus 回到前排">
+<meta property="og:description" content="Every 認為 Opus 4.8 幾乎可以叫 Opus 5。它讓 Anthropic 重回前排，也提醒科技公司：模型之外，使用環境正在變得同樣重要。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.mnhsu.xyz/every-opus-4-8-vibe-check-anthropic-should-ve-called-this-opus-5/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Opus 回到前排">
+<meta name="twitter:description" content="把 Every 的 Opus 4.8 vibe check，整理成給台灣讀者的 AI 產品與知識工作閱讀版。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
+  --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
+  --blue:#2563EB;--blue-light:#EFF4FF;--yellow:#8B6914;--yellow-light:#FDF8EC;
+  --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
+  --gold:#8B7340;--gold-light:#F9F3E6;--line:#E8E3D8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{color:inherit;text-underline-offset:3px;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,var(--cream),var(--warm));position:relative;}
+.hero .logo{height:48px;margin-bottom:2.5rem;}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(2rem,5.2vw,3.15rem);line-height:1.32;letter-spacing:0.02em;margin-bottom:1.5rem;width:100%;max-width:820px;overflow-wrap:anywhere;}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.18rem);color:var(--text-secondary);width:100%;max-width:720px;line-height:1.8;overflow-wrap:anywhere;word-break:break-word;}
+.hero .source-tag{font-size:0.82rem;color:var(--text-muted);letter-spacing:0.08em;margin-top:1rem;}
+.scroll-hint{position:absolute;bottom:2.5rem;font-size:0.8rem;letter-spacing:0.3em;color:var(--text-muted);animation:breathe 2.4s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(6px);}}
+section{max-width:720px;margin:0 auto;padding:3.5rem 1.6rem;}
+section.wide{max-width:940px;}
+.part-label{font-size:0.78rem;font-weight:700;letter-spacing:0.25em;color:var(--terra);margin-bottom:1rem;}
+h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2rem);line-height:1.5;margin-bottom:1.5rem;letter-spacing:0.01em;}
+p{margin-bottom:1.4rem;font-size:1.05rem;}
+.hl{background:linear-gradient(transparent 60%,var(--gold-light) 60%);padding:0 0.1em;font-weight:500;}
+.callout{background:var(--terra-light);border-left:4px solid var(--terra);border-radius:0 10px 10px 0;padding:1.4rem 1.6rem;margin:2rem 0;}
+.callout p{margin:0;font-size:1rem;color:var(--text);}
+.score-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0.85rem;margin:2rem 0;}
+.score-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.15rem;text-align:center;}
+.score-card .num{font-family:'Noto Serif TC',serif;font-size:1.65rem;font-weight:900;color:var(--terra);line-height:1;margin-bottom:0.65rem;}
+.score-card .name{font-weight:700;font-size:0.9rem;line-height:1.45;margin-bottom:0.35rem;}
+.score-card .desc{font-size:0.78rem;color:var(--text-secondary);line-height:1.6;}
+.compare{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:2rem 0;}
+.compare-row{display:grid;grid-template-columns:0.85fr 1fr 1.1fr;border-bottom:1px solid #EFEAE0;}
+.compare-row:last-child{border-bottom:none;}
+.compare-row div{padding:0.95rem;font-size:0.86rem;line-height:1.6;}
+.compare-row .head{background:var(--green-deep);color:#fff;font-weight:700;}
+.compare-row .label{background:#F6F2EA;font-weight:700;color:var(--text-secondary);}
+.signal-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0.85rem;margin:2rem 0;}
+.signal{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.15rem;}
+.signal .emoji{font-size:1.55rem;margin-bottom:0.45rem;}
+.signal .name{font-weight:700;font-size:0.96rem;margin-bottom:0.4rem;}
+.signal .desc{font-size:0.84rem;color:var(--text-secondary);line-height:1.65;}
+.stack-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.5rem;margin:2rem 0;}
+.stack-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.12rem;text-align:center;margin-bottom:1.25rem;}
+.stack-line{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0.55rem;}
+.stack-node{background:var(--warm);border:1px solid var(--line);border-radius:12px;padding:0.9rem;text-align:center;}
+.stack-node strong{display:block;font-size:0.84rem;color:var(--green-deep);line-height:1.35;margin-bottom:0.35rem;}
+.stack-node span{display:block;font-size:0.76rem;color:var(--text-secondary);line-height:1.45;}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light));}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:650px;margin:0 auto;letter-spacing:0.03em;}
+.choice-section{padding:4rem 1.6rem;background:#fff;text-align:center;}
+.choice-section h2{margin-bottom:0.8rem;}
+.choice-sub{color:var(--text-secondary);font-size:0.95rem;margin-bottom:2.5rem;}
+.choice-options{display:flex;flex-direction:column;gap:1rem;max-width:580px;margin:0 auto;}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:var(--warm);border:2px solid #E8E3D8;border-radius:14px;padding:1.2rem 1.4rem;cursor:pointer;text-align:left;transition:all 0.25s;font-family:'Noto Sans TC',sans-serif;width:100%;}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light);}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0;}
+.choice-btn .label{font-weight:700;font-size:1rem;margin-bottom:0.2rem;}
+.choice-btn .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+.result-card{max-width:580px;margin:2rem auto 0;border:2px solid #DBBFAD;border-radius:14px;padding:1.8rem;background:var(--terra-light);opacity:0;transform:translateY(20px);transition:all 0.5s;display:none;text-align:left;}
+.result-card.show{opacity:1;transform:translateY(0);display:block;}
+.r-badge{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;color:var(--terra);background:#fff;padding:0.3rem 0.9rem;border-radius:2rem;margin-bottom:1rem;}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;}
+.r-desc{font-size:0.95rem;color:var(--text);line-height:1.8;}
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap;}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s;}
+.share-btn:hover{transform:scale(1.03);}
+.share-btn.tw{background:#0f1419;color:#fff;}
+.share-btn.fb{background:#1877f2;color:#fff;}
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream));}
+.cta h2{margin-bottom:1rem;}
+.cta p{max-width:560px;margin:0 auto 2rem;color:var(--text-secondary);font-size:1rem;}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.95rem 2.4rem;border-radius:2rem;font-weight:500;font-size:1.05rem;transition:all 0.3s;}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep);}
+.subscribe-inner{max-width:520px;margin:0 auto;}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem;}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem;}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif;}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem;}
+footer{text-align:center;padding:3rem 2rem;}
+footer img{height:44px;opacity:0.5;}
+footer .src{font-size:0.78rem;color:var(--text-muted);margin:1rem auto 0;line-height:1.7;max-width:660px;letter-spacing:0;}
+footer .src a{color:var(--text-secondary);}
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:760px){
+  html{font-size:17px;}
+  section{padding:3rem 1.25rem;}
+  .score-grid,.signal-grid{grid-template-columns:1fr;}
+  .compare-row{grid-template-columns:1fr;}
+  .compare-row .head:nth-child(2),.compare-row .head:nth-child(3){display:none;}
+  .stack-line{grid-template-columns:1fr;}
+  .choice-btn{align-items:flex-start;padding:1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>Anthropic 回來了，<br>但贏的不只模型</h1>
+  <p class="sub">Every 對 Opus 4.8 的 day zero vibe check 很直接：Anthropic 應該可以把它叫 Opus 5。它在程式、寫作與知識工作都變強，卻也暴露下一場競賽的重點：模型之外，使用環境正在決定誰會成為 daily driver。</p>
+  <p class="source-tag">來源：Every YouTube 頻道</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<section class="fade-in">
+  <div class="part-label">PART 1 ｜ 這不是小更新</div>
+  <h2>Every 的判斷：<br>Opus 4.8 讓 Anthropic 回到前排</h2>
+  <p>影片一開始的結論很清楚。Every 團隊測了一週後，認為 Opus 4.8 不是普通的版本更新。主持人說 Anthropic 可以把它叫 Opus 5，因為這次不是只有 benchmark 變好，而是使用感回來了。</p>
+  <p>這個背景很重要。Opus 4.7 在 Every 的感受並不好：有分數進步，但速度慢、不好愛，很多人開始轉向 Codex 和 GPT 5.5。Every 內部原本有許多重度 Claude 使用者，過去一年很依賴 Claude，但最近連這些人都開始承認 Codex 夠快、夠順，GPT 5.5 也開始接手寫作與程式工作。</p>
+  <div class="callout">
+    <p>Opus 4.8 的意義不是 Anthropic 又出了一個模型，而是它把「我會想主動打開 Claude」這件事重新帶回來。</p>
+  </div>
+  <p>Every 用一個簡單標準測模型：reach test。問題不是你能不能在測試裡跑贏，而是人在真實工作中會不會伸手去用它。Opus 4.8 在這個測試裡拿到很高評價，甚至有人給出少見的 paradigm shift 等級。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 2 ｜ 三組分數</div>
+  <h2>它強在同時跨過三種工作，<br>不是只會單點爆發</h2>
+  <p>Every 的測試把 Opus 4.8 放進三個工作場景：資深工程師等級的程式重寫、寫作任務、以及簡報這類知識工作。重點不只是分數，而是它同時改善很多維度。過去模型常在不同版本之間擺盪：有時太保守，有時又過度行動。這次 Every 的感覺是，Anthropic 把平衡抓對了。</p>
+  <div class="score-grid">
+    <div class="score-card">
+      <div class="num">63</div>
+      <div class="name">資深工程師 benchmark</div>
+      <div class="desc">比 Opus 4.7 高約 30 分，也略高於 GPT 5.5 的 62。</div>
+    </div>
+    <div class="score-card">
+      <div class="num">79.6</div>
+      <div class="name">寫作 benchmark</div>
+      <div class="desc">Every 內部測到目前最佳，能延續作者語氣。</div>
+    </div>
+    <div class="score-card">
+      <div class="num">S</div>
+      <div class="name">reach test</div>
+      <div class="desc">對部分使用者是 paradigm shift 等級，尤其是 Claude 重度用戶。</div>
+    </div>
+    <div class="score-card">
+      <div class="num">高</div>
+      <div class="name">推理設定</div>
+      <div class="desc">high 和 extra high 表現明顯較好，medium 會掉一些。</div>
+    </div>
+  </div>
+  <p>程式測試裡，Every 把 vibe-coded codebase 丟給模型，要求從第一原理重寫。人類資深工程師通常落在 80 到 90 分，Opus 4.8 拿到 63，雖然還沒到人類水準，但已經接近 GPT 5.5，且比前一版大幅前進。</p>
+  <p>寫作測試裡，它會寫文章開頭、宣傳信、文章中段，也比較少露出常見的 AI 痕跡。主持人特別提到，若給它一段自己的文字再請它延續，它會抓到聲音和節奏。這對知識工作者的意義很大，因為模型不只是幫你填字，而是更接近能在同一套語氣裡共同工作。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 3 ｜ 程式能力</div>
+  <h2>好的 coding model，<br>開始不只是把任務做完</h2>
+  <p>Every 說 Opus 4.8 在 extra high reasoning 下是 coding powerhouse。Kieran Klassen 的 LFG bench 測了比較真實的程式任務，例如 SaaS、電商網站、3D 遊戲場景。結果不是只有可執行，而是程式可讀，輸出在工程能力與創造力之間取得平衡。</p>
+  <p>影片裡提到一個 cozy island benchmark：請模型做一個 3D 溫暖小島場景。Opus 4.8 的結果比較豐富、有層次、有角色感；GPT 5.5 也有很多細節，但比較像直接完成任務。這個差異對軟體產品很有意思。當 AI 開始參與前端、互動、遊戲和品牌體驗，模型不只要正確，還要能做出有質感的第一版。</p>
+  <div class="compare">
+    <div class="compare-row">
+      <div class="head">工作類型</div>
+      <div class="head">Every 看到的 Opus 4.8</div>
+      <div class="head">對產品團隊的含義</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">重寫程式碼</div>
+      <div>能處理 vibe-coded codebase，分數逼近 GPT 5.5。</div>
+      <div>AI 更適合接手真實專案裡的清理、重構與補強。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">建立介面</div>
+      <div>輸出不只功能完整，也比較有視覺深度和細節。</div>
+      <div>第一版產品原型可以更接近可展示、可討論的狀態。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">長任務代理人</div>
+      <div>在高推理設定下更可靠，但設定會大幅影響成果。</div>
+      <div>團隊需要把推理預算視為產品設定，而不是隱藏參數。</div>
+    </div>
+  </div>
+  <p>這讓「工程師怎麼用 AI」的問題往前推了一步。早期大家問模型能不能寫出正確程式。現在更重要的是，模型能不能理解一個混亂專案、做出可維護的改動、在多輪工作中保留品質。Opus 4.8 的進步，剛好落在這個方向。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 4 ｜ 寫作與知識工作</div>
+  <h2>模型開始像共同工作者，<br>不是只像內容產生器</h2>
+  <p>Every 對 Opus 4.8 的寫作評價很高。它在 high reasoning 下比較少有 AI tells，能從上下文判斷作者聲音，也能用比較自然的方式延續段落。對寫作者來說，這代表模型不只是產生文案，而是能進入你的風格、幫你推進還沒完全成形的想法。</p>
+  <p>主持人還提到一個比較私人但重要的用途：人際、管理、心理上的思考。Opus 4.8 不是單純附和，而是會從多個角度推開使用者原本的框架。這種能力對 CEO、主管、創辦人很實用，因為很多知識工作不是找正確答案，而是看見自己漏掉的假設。</p>
+  <div class="signal-grid">
+    <div class="signal">
+      <div class="emoji">✍️</div>
+      <div class="name">寫出像人的段落</div>
+      <div class="desc">高推理設定下，語氣更自然，較少出現一眼看穿的 AI 痕跡。</div>
+    </div>
+    <div class="signal">
+      <div class="emoji">🧭</div>
+      <div class="name">推開原本框架</div>
+      <div class="desc">它不一定反對你，但會展開不同情境，幫你重新看待管理與人際問題。</div>
+    </div>
+    <div class="signal">
+      <div class="emoji">📊</div>
+      <div class="name">做出有深度的簡報</div>
+      <div class="desc">Every 測到它能產生一份初學者簡報，不只是薄薄的自動生成內容。</div>
+    </div>
+  </div>
+  <p>知識工作測試裡，Every 讓模型做一份介紹 component engineering 的簡報。主持人說，這是他第一次看到自動生成簡報有足夠深度、樣式也能接受，像是一份很好的 first pass。這件事對公司內部工作流很關鍵，因為簡報、備忘錄、研究整理、決策草稿，都是白領工作每天花時間的地方。</p>
+  <p>當模型能在同一個 thread 裡從程式切到寫作，再切到簡報和策略討論，AI 工具就不再只是單點助理，而是工作桌面的一部分。這也是為什麼 Every 會用 daily driver 來描述它。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 5 ｜ 兩個限制</div>
+  <h2>模型變強之後，<br>瓶頸轉向設定與使用環境</h2>
+  <p>Every 給 Opus 4.8 的稱讚很高，但不是無條件。第一個限制是它很吃 reasoning 設定。hard coding challenge、重要寫作任務，都建議用 high 或 extra high。medium 的成果會差一些。這代表使用者不能只問「哪個模型最好」，還要知道要用哪個設定跑哪種工作。</p>
+  <p>第二個限制更像產品策略問題。主持人仍然把 Codex 當成 daily driver，不是因為模型一定更強，而是 Codex app 快、乾淨、簡單，還有好用的 in-app browser。相對地，Claude desktop app 有 chat、code、co-work 等不同 tab，感覺像把組織分工直接搬進產品裡，使用者進去反而要先想該去哪裡。</p>
+  <div class="stack-card">
+    <div class="stack-title">下一場 AI 競賽的四層</div>
+    <div class="stack-line">
+      <div class="stack-node"><strong>模型能力</strong><span>會寫、會改、會推理</span></div>
+      <div class="stack-node"><strong>推理預算</strong><span>何時用 high 或 extra high</span></div>
+      <div class="stack-node"><strong>工具環境</strong><span>瀏覽器、檔案、程式、終端機</span></div>
+      <div class="stack-node"><strong>日常習慣</strong><span>使用者每天自然打開哪個工具</span></div>
+    </div>
+  </div>
+  <p>這是這支影片最值得產品團隊注意的地方。當 frontier models 越來越接近，使用環境會放大或浪費模型能力。模型本身可能很強，但如果入口混亂、流程慢、工具接不上，使用者不一定會把它放進每天的工作裡。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 6 ｜ 對創業者與科技公司的提醒</div>
+  <h2>AI 產品的勝負，<br>會從模型分數走向工作方式</h2>
+  <p>Opus 4.8 的故事不是「Anthropic 又追上來了」這麼簡單。它說明模型公司仍能用一次好更新改變市場情緒，也說明使用者的忠誠度很薄。前一兩個月覺得 Claude 慢的人，會轉向 Codex；今天 Opus 4.8 變好，又會開始兩邊切換。</p>
+  <p>對創業者來說，這代表 AI 產品不能只押模型品牌。你要思考的是，使用者在什麼情境會伸手拿起你的工具：寫程式、寫文章、做簡報、做管理判斷、跑多個代理人，還是把這些工作串在一起。reach test 其實是一個很好的產品問題：你的工具在哪些時刻會被主動打開？</p>
+  <div class="compare">
+    <div class="compare-row">
+      <div class="head">如果你在做 AI 產品</div>
+      <div class="head">不要只問</div>
+      <div class="head">更該問</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">模型選型</div>
+      <div>哪個模型分數最高？</div>
+      <div>哪個模型在我的核心任務和推理設定下最穩？</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">工作流</div>
+      <div>能不能把任務做完？</div>
+      <div>使用者會不會每天自然把它放進工作節奏？</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">產品設計</div>
+      <div>功能是不是很多？</div>
+      <div>入口是否清楚、切換是否快、工具是否真的接到現場？</div>
+    </div>
+  </div>
+  <p>Every 這支 vibe check 的價值，在於它不是只看榜單。它看模型在公司內部實際怎麼被拿來寫程式、寫文章、做簡報、跑代理人、做管理思考。這也比較接近 AI 產品會改變工作的方式：不是一個模型打敗另一個模型，而是哪個組合讓人願意改變每天的工作習慣。</p>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">Opus 4.8 讓 Anthropic 重新有了模型優勢，但下一場勝負會落在誰能把模型變成每天自然打開的工作環境。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">Every 的 day zero vibe check 提醒我們：模型分數會吸引注意，reach test 才會改變工作。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2 class="fade-in">如果你要導入 Opus 4.8，<br>會先拿來做什麼？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">💻</div>
+      <div>
+        <div class="label">重構與產品原型</div>
+        <div class="desc">把混亂 codebase 整理乾淨，或快速做出有質感的第一版介面。</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">✍️</div>
+      <div>
+        <div class="label">寫作與簡報</div>
+        <div class="desc">讓模型學會你的語氣，幫你把想法整理成文章、信件或簡報草稿。</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">🧠</div>
+      <div>
+        <div class="label">管理與決策思考</div>
+        <div class="desc">用它拆解人際、組織與策略問題，檢查自己原本沒看到的角度。</div>
+      </div>
+    </button>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想看原始 vibe check？</h2>
+  <p>這頁整理自 Every YouTube 頻道。原始影片保留了團隊對 Opus 4.8 在程式、寫作、知識工作、推理設定與 Claude app 使用體驗上的完整評估。</p>
+  <a class="cta-btn" href="https://www.youtube.com/watch?v=kXYDUozZAhk" target="_blank" rel="noopener">前往 YouTube →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Opus 4.8 讓 Anthropic 重新有了模型優勢，但下一場勝負會落在誰能把模型變成每天自然打開的工作環境。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('Opus 4.8 讓 Anthropic 重新有了模型優勢，但下一場勝負會落在誰能把模型變成每天自然打開的工作環境。'),'_blank','noopener')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從 AI 代理人、軟體產品到平台策略，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer>
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <div class="src">本頁整理自 Every YouTube 頻道影片〈Opus 4.8 Vibe Check: Anthropic Should've Called This Opus 5〉。來源：<a href="https://www.youtube.com/watch?v=kXYDUozZAhk" target="_blank" rel="noopener">YouTube</a>。</div>
+</footer>
+
+<script>
+let userChoice=-1;
+const labels=['重構與產品原型','寫作與簡報','管理與決策思考'];
+const results=[
+  {title:'你押的是軟體交付速度',desc:'這條路徑把 Opus 4.8 當成工程共同工作者。重點不是讓它寫更多程式，而是讓它理解混亂專案、做出可維護改動，並把第一版產品做得更接近可展示狀態。',bg:'var(--terra-light)',border:'#DBBFAD'},
+  {title:'你押的是知識工作的 first pass',desc:'這條路徑看重它抓語氣、整理想法、生成簡報的能力。當模型能產出有深度的草稿，人類可以把時間放在判斷、取捨與最後品質。',bg:'var(--green-light)',border:'#A8D4BC'},
+  {title:'你押的是主管腦內的第二視角',desc:'這條路徑把 Opus 4.8 當成思考夥伴。它的價值不是替你下決定，而是把人際、組織與策略問題拆開，讓你看到原本沒檢查的假設。',bg:'var(--blue-light)',border:'#B8CDF0'}
+];
+function choose(idx){
+  if(userChoice>=0)return;
+  userChoice=idx;
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===idx)b.classList.add('selected');
+    b.style.cursor='default';
+  });
+  const r=results[idx];
+  const card=document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent=r.title;
+  document.getElementById('rDesc').textContent=r.desc;
+  card.style.background=r.bg;
+  card.style.borderColor=r.border;
+  card.classList.add('show');
+  const shareText='我的觀點：'+labels[idx]+'。\n\nOpus 4.8 的重點不只是模型變強，而是 AI 工作環境正在決定 daily driver。';
+  document.getElementById('shareTw').onclick=function(){
+    window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener');
+  };
+  document.getElementById('shareFb').onclick=function(){
+    window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener');
+  };
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
