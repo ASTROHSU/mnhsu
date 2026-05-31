@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>新鮮勢分數與事件鏈</title>
-<meta name="description" content="新鮮勢過去怎麼計算分數、怎麼決定 Parent / Child，以及這次修改後的新機制。">
-<meta property="og:title" content="新鮮勢分數與事件鏈">
-<meta property="og:description" content="把舊分數機制、新分數機制，以及 Parent / Child 的判斷邏輯說清楚。">
+<title>新鮮勢去偏誤排序</title>
+<meta name="description" content="把新鮮勢目前的手寫分數機制，對照去偏誤隱式回饋排序，說明下一版首頁排序應該怎麼做。">
+<meta property="og:title" content="新鮮勢去偏誤排序">
+<meta property="og:description" content="來源數與討論數只該當起點。下一步是記錄展示位置、校正位置偏誤，讓首頁排序從手寫公式走向可校正的方法。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.mnhsu.xyz/mnnews-score-chain/">
 <meta property="og:image" content="https://www.mnhsu.xyz/mnnews-score-chain/cover.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="新鮮勢分數與事件鏈">
-<meta name="twitter:description" content="把舊分數機制、新分數機制，以及 Parent / Child 的判斷邏輯說清楚。">
+<meta name="twitter:title" content="新鮮勢去偏誤排序">
+<meta name="twitter:description" content="來源數與討論數只該當起點。下一步是記錄展示位置、校正位置偏誤，讓首頁排序從手寫公式走向可校正的方法。">
 <meta name="twitter:image" content="https://www.mnhsu.xyz/mnnews-score-chain/cover.png">
 <link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,15 +64,15 @@ body{
 .hero img{height:48px;margin-bottom:2rem;opacity:.88}
 h1{
   font-family:'Noto Serif TC',serif;
-  font-size:clamp(2.15rem,6vw,4rem);
+  font-size:clamp(2.1rem,6vw,4rem);
   font-weight:900;
   line-height:1.25;
   letter-spacing:.02em;
-  max-width:780px;
+  max-width:820px;
   margin-bottom:1.2rem;
 }
 .hero p{
-  max-width:680px;
+  max-width:720px;
   color:var(--text-secondary);
   font-size:clamp(1rem,2.4vw,1.18rem);
 }
@@ -138,7 +138,7 @@ p{font-size:1.03rem;margin-bottom:1.25rem}
 }
 .formula-row{
   display:grid;
-  grid-template-columns:150px 1fr;
+  grid-template-columns:160px 1fr;
   gap:1rem;
   align-items:start;
   padding:.75rem 0;
@@ -230,7 +230,7 @@ p{font-size:1.03rem;margin-bottom:1.25rem}
   font-size:clamp(1.4rem,4vw,2rem);
   font-weight:700;
   line-height:1.6;
-  max-width:620px;
+  max-width:660px;
   margin:0 auto;
   letter-spacing:.03em;
 }
@@ -420,165 +420,163 @@ footer{
 <body>
 <div class="hero">
   <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
-  <h1>新鮮勢不是新聞分數表，是首頁排序器</h1>
-  <p>它要決定哪幾件事現在該浮上來，也要讓讀者看懂一則新聞跟過去事件的關係。</p>
+  <h1>新鮮勢要從手寫分數，走向去偏誤排序</h1>
+  <p>來源多、討論多仍然有用。但它們只該當首頁排序的起點，不該被當成「重要」本身。</p>
   <div class="scroll-hint">SCROLL</div>
 </div>
 
 <section>
-  <div class="part-label fade-in">PART 1 ｜ 舊分數怎麼算</div>
-  <h2 class="fade-in">過去的分數很直覺，也太容易把事情壓扁</h2>
-  <p class="fade-in">舊版有兩層分數。第一層是事件本身的重要度，公式很簡單：一個來源 2 分，一則社群討論 1 分。這讓分數很好懂，但也讓第 3 篇報導和第 30 篇報導有同樣重量。</p>
-  <p class="fade-in">第二層是首頁排序用的 display_score。它會把重要度扣掉時間衰減，再乘上群體閱讀行為。舊版每天扣 3 分，今天發生的新聞加 2 分。30 分的事件，10 天後就會歸零。</p>
+  <div class="part-label fade-in">PART 1 ｜ 目前做法</div>
+  <h2 class="fade-in">現在的分數機制，是一個手寫 prior ranker</h2>
+  <p class="fade-in">目前新鮮勢先用來源數和討論數估計事件的重要度。來源 1 到 8 個加分最高，後面逐段變低；討論數也一樣有上限。這比線性加總好，因為第 30 篇報導不該和第 3 篇報導一樣有重量。</p>
+  <p class="fade-in">首頁排序再把這個重要度套上時間衰減、新鮮度加成、人工 boost，以及閱讀疲勞係數。讀者重複看過之後，事件會往下掉；但最低保留 60%，避免重要事件因為幾次曝光就消失。</p>
   <div class="diagram fade-in">
-    <h3>舊版分數管線</h3>
+    <h3>目前的排序管線</h3>
     <div class="formula">
-      <div class="formula-row"><span>事件重要度</span><span>source_count × 2 + discussion_count</span></div>
-      <div class="formula-row"><span>時間衰減</span><span>每天扣 3 分，只有當天加 2 分</span></div>
-      <div class="formula-row"><span>閱讀行為</span><span>glance、repeat、click、discuss、dwell 用原始次數線性扣分，最低可以壓到 10%</span></div>
-      <div class="formula-row"><span>Parent 分數</span><span>Parent 會加總 direct children 各自衰減後的重要度</span></div>
+      <div class="formula-row"><span>來源與討論</span><span>用遞減收益計算 importance_score</span></div>
+      <div class="formula-row"><span>時間與新鮮度</span><span>第 2 天起每天扣 1.5 分；最近 4 天有 freshness bonus</span></div>
+      <div class="formula-row"><span>閱讀疲勞</span><span>用 glance、repeat、click、discuss、dwell 做 log1p 衰減</span></div>
+      <div class="formula-row"><span>最後排序</span><span>前端主要依 display_score 排列首頁</span></div>
     </div>
-    <p>這套做法的問題不是「會衰減」，而是衰減太急。讀者看過幾次之後，重要事件也可能很快被打到低分區。</p>
+    <p>這套做法已經比單純「來源數 × 2」更穩，但它仍然是人手寫出來的假設。</p>
   </div>
-  <p class="fade-in">Clarity Act 這種兩週前的新聞，如果沒有新進展，本來就應該往下走。問題在於：舊版一方面會把近期重要事件扣太快，另一方面又可能讓長事件靠來源累積撐太久。首頁看起來就會失去層次。</p>
+  <p class="fade-in">真正的問題是：這些訊號只能說「我們猜它重要」。它還沒有處理一件事：讀者在看到某個位置之後，是否真的用行為證明它值得被放更上面。</p>
+</section>
+
+<section>
+  <div class="part-label fade-in">PART 2 ｜ 方法論</div>
+  <h2 class="fade-in">成熟方法不是人工標記，而是去偏誤的隱式回饋排序</h2>
+  <p class="fade-in">如果不想每天人工標記新聞，適合新鮮勢的成熟方法是 Counterfactual Learning to Rank from Implicit Feedback。白話說，就是用讀者實際行為調整排序，但先校正首頁位置造成的偏誤。</p>
+  <p class="fade-in">第 1 名本來就比較容易被點。第 12 名如果仍然被點，反而可能代表它被低估。成熟的排序方法不會直接把「點擊多」當作重要，而會先估計每個位置的被看見機率，再把行為訊號做校正。</p>
+  <div class="diagram fade-in">
+    <h3>去偏誤排序回答的問題</h3>
+    <div class="formula">
+      <div class="formula-row"><span>不是</span><span>哪一則新聞點擊最多</span></div>
+      <div class="formula-row"><span>而是</span><span>校正排名位置之後，哪一則新聞仍然拿到有效注意力</span></div>
+      <div class="formula-row"><span>所以</span><span>來源數與討論數是初始排序，讀者行為負責修正排序</span></div>
+    </div>
+    <p>這讓新鮮勢不需要人工標記，也不需要假裝手寫公式就是真理。</p>
+  </div>
 </section>
 
 <section class="wide">
-  <div class="part-label fade-in">PART 2 ｜ 新分數怎麼改</div>
-  <h2 class="fade-in">新機制把「重要」和「現在該不該看見」分開</h2>
+  <div class="part-label fade-in">PART 3 ｜ 對照</div>
+  <h2 class="fade-in">兩套做法最大的差別，是有沒有校正「它被放在哪裡」</h2>
   <div class="split fade-in">
     <div class="box old">
-      <h3>舊版像加總表</h3>
-      <p>來源越多，分數一路往上。時間越久，分數一路往下。讀者看過越多，分數線性下降。</p>
+      <h3>目前做法</h3>
+      <p>來源、討論、時間、閱讀疲勞直接進公式。它能讓首頁換血，但讀者行為主要用來扣分，不太能讓被低估的事件浮上來。</p>
     </div>
     <div class="box new">
-      <h3>新版像排序器</h3>
-      <p>先算事件本身的重要度，再用時間、新鮮度、人工 boost 與閱讀疲勞決定它現在的位置。</p>
+      <h3>去偏誤排序</h3>
+      <p>先記錄每則新聞被放在第幾名，再校正不同位置的曝光差異。讀者行為不只是疲勞訊號，也是修正排序的訊號。</p>
     </div>
   </div>
   <div class="diagram fade-in">
-    <h3>新版 importance_score：遞減收益</h3>
+    <h3>目前做法 vs 下一版</h3>
     <div class="formula">
-      <div class="formula-row"><span>來源 1 到 8</span><span>每個 2 分</span></div>
-      <div class="formula-row"><span>來源 9 到 16</span><span>每個 1 分</span></div>
-      <div class="formula-row"><span>來源 17 到 36</span><span>每個 0.5 分</span></div>
-      <div class="formula-row"><span>來源 37 之後</span><span>不再加分</span></div>
-      <div class="formula-row"><span>討論 1 到 10</span><span>每則 1 分</span></div>
-      <div class="formula-row"><span>討論 11 到 20</span><span>每則 0.5 分，之後不再加分</span></div>
+      <div class="formula-row"><span>分數來源</span><span>目前：手寫權重。下一版：手寫權重先當 prior，再用校正後行為調整。</span></div>
+      <div class="formula-row"><span>讀者行為</span><span>目前：主要是 attention decay。下一版：同時有正向 reward 與負向疲勞。</span></div>
+      <div class="formula-row"><span>位置偏誤</span><span>目前：沒有完整處理。下一版：每個 impression 都記 rank，用 propensity 校正。</span></div>
+      <div class="formula-row"><span>冷門好新聞</span><span>目前：排太低就很難被看見。下一版：保留探索位置，讓不確定事件有被驗證的機會。</span></div>
     </div>
-    <p>這保留交叉報導的價值，但不讓長事件靠第 37 篇來源繼續往前擠。</p>
-  </div>
-  <div class="diagram fade-in">
-    <h3>新版 display_score：慢一點、穩一點</h3>
-    <div class="formula">
-      <div class="formula-row"><span>時間</span><span>前 1 天不扣分，之後每天扣 1.5 分</span></div>
-      <div class="formula-row"><span>新鮮度</span><span>今天加 4 分，昨天加 3 分，前天加 2 分，第 3 天加 1 分</span></div>
-      <div class="formula-row"><span>閱讀疲勞</span><span>行為訊號改用 log1p，越後面的曝光邊際影響越小，最低保留 60%</span></div>
-      <div class="formula-row"><span>Parent</span><span>只加 direct children 各自衰減後的分數，老 child 歸零後不再拖累也不再貢獻</span></div>
-    </div>
-    <p>新版不是讓舊聞不衰減，而是讓衰減更像「換位」而不是「消失」。首頁會換血，但不會把大家一起打成低分。</p>
+    <p>這不是把現在的公式推翻，而是把它降級成初始排序。最後排序要讓實際閱讀行為參與修正。</p>
   </div>
 </section>
 
 <section>
-  <div class="part-label fade-in">PART 3 ｜ 舊 Parent / Child 怎麼判斷</div>
-  <h2 class="fade-in">舊機制把「像」看得太重</h2>
-  <p class="fade-in">過去的 YouTube 候選流程會把影片標題、候選 tags、來源 topics、逐字稿，跟既有事件的標題、tags、summary、sources 做 weighted token overlap。最接近的事件分數超過 8，就建議當 child。超過 4.5，也會建議可能掛在某個 parent 底下。</p>
-  <p class="fade-in">這解決了召回問題，卻沒有解決關係問題。它能找出「看起來相關」的事件，但不能回答「是不是同一件事的下一階段」。</p>
+  <div class="part-label fade-in">PART 4 ｜ 實作骨架</div>
+  <h2 class="fade-in">第一版不用上機器學習，先把資料記對</h2>
+  <p class="fade-in">去偏誤排序的第一步不是模型，而是 impression log。每則新聞被展示時，要記下 request_id、session_id、item_id、rank、display_score、shown_at、viewport_ms。後續點開來源、點開討論、停留時間，都要帶回同一個 request_id 和 rank。</p>
   <div class="diagram fade-in">
-    <h3>舊版判斷的盲點</h3>
+    <h3>第一版資料流</h3>
     <div class="flow">
-      <div class="step"><div class="n">1</div><h3>詞彙重疊</h3><p>同一個公司名、tag 或主題字會推高分數。</p></div>
-      <div class="step"><div class="n">2</div><h3>分數過線</h3><p>高於門檻就建議放進既有 parent。</p></div>
-      <div class="step"><div class="n">3</div><h3>人工確認</h3><p>審稿者再判斷主軸是不是獨立事件。</p></div>
-      <div class="step"><div class="n">4</div><h3>容易變桶</h3><p>同主題事件被塞在一起，看起來像一條故事。</p></div>
+      <div class="step"><div class="n">1</div><h3>展示</h3><p>記錄每則新聞當時排第幾。</p></div>
+      <div class="step"><div class="n">2</div><h3>行為</h3><p>記錄點開事件、來源、討論、停留與分享。</p></div>
+      <div class="step"><div class="n">3</div><h3>校正</h3><p>用 rank propensity 修正位置偏誤。</p></div>
+      <div class="step"><div class="n">4</div><h3>回寫</h3><p>把 adjustment 加回 display_score。</p></div>
     </div>
-    <p>預測市場就是典型例子。HIP-4、內線交易、氣象站操縱、CFTC 管轄權都會碰到「預測市場」，但讀者需要的脈絡不是同一種。</p>
+  </div>
+  <div class="diagram fade-in">
+    <h3>reward 不等於點擊</h3>
+    <div class="formula">
+      <div class="formula-row"><span>低強度</span><span>曝光後沒有互動，先當 0；快速返回可小幅扣分</span></div>
+      <div class="formula-row"><span>中強度</span><span>點開事件頁、來源、社群討論，代表讀者願意多看一層</span></div>
+      <div class="formula-row"><span>高強度</span><span>停留超過 30 秒、回訪、分享，代表這則新聞真的抓住注意力</span></div>
+    </div>
+    <p>接著把 reward 除以該 rank 的 propensity。排在後面仍然被認真點開，才有機會得到更高的 counterfactual reward。</p>
   </div>
 </section>
 
 <section>
-  <div class="part-label fade-in">PART 4 ｜ 新 Parent / Child 怎麼判斷</div>
-  <h2 class="fade-in">新版把相似主題和同一故事拆開</h2>
-  <p class="fade-in">這次調整採用三個方法論：TDT 把新事件偵測、後續追蹤、相似內容連結拆成不同任務；story chain 研究區分「同一事件鏈」與「相似主題」；event coreference 要看 who、what、where、when 與事件實體。</p>
-  <p class="fade-in">落到新鮮勢，意思很簡單：文字相似只用來找候選，不直接決定 parent_id。真正判斷 child 時，要看事件框架。</p>
+  <div class="part-label fade-in">PART 5 ｜ 排序公式的新角色</div>
+  <h2 class="fade-in">公式還在，但不再裝成最後答案</h2>
+  <p class="fade-in">下一版仍然保留來源數、討論數、時間衰減與新鮮度。只是它們的角色變了：它們負責冷啟動，讓剛進來、還沒有讀者行為的事件可以先被合理排序。</p>
+  <p class="fade-in">等資料進來之後，系統再用去偏誤後的有效注意力做微調。這個調整要有上限，例如最多加 8 分、最多扣 6 分，並且需要最低曝光量，避免少數行為把排序推歪。</p>
   <div class="diagram fade-in">
-    <h3>新版事件框架</h3>
+    <h3>下一版 display_score</h3>
     <div class="formula">
-      <div class="formula-row"><span>actor</span><span>誰做了事</span></div>
-      <div class="formula-row"><span>action</span><span>做了什麼動作</span></div>
-      <div class="formula-row"><span>object</span><span>動作指向哪個法案、產品、漏洞、案件、提案或交易</span></div>
-      <div class="formula-row"><span>venue</span><span>在哪個市場、法院、管轄區或鏈上環境</span></div>
-      <div class="formula-row"><span>mechanism</span><span>事情怎麼發生</span></div>
-      <div class="formula-row"><span>phase</span><span>是不是同一件事的下一階段</span></div>
+      <div class="formula-row"><span>base score</span><span>來源、討論、新鮮度、時間衰減、parent fresh child</span></div>
+      <div class="formula-row"><span>cf reward</span><span>校正 rank 之後的有效注意力</span></div>
+      <div class="formula-row"><span>adjustment</span><span>log1p(cf_reward_7d) 並設定上下限</span></div>
+      <div class="formula-row"><span>final score</span><span>base score + attention adjustment</span></div>
     </div>
-    <p>child 必須共享同一個 object、case、product、proposal、exploit 或 investigation，且 action 或 phase 能接成一條故事。</p>
-  </div>
-  <div class="diagram fade-in">
-    <h3>四種關係各自有位置</h3>
-    <div class="formula">
-      <div class="formula-row"><span>同一事件新增來源</span><span>併入 sources[]，不建立 child</span></div>
-      <div class="formula-row"><span>同一故事下一階段</span><span>使用 parent_id</span></div>
-      <div class="formula-row"><span>有背景價值</span><span>使用 context_links[]</span></div>
-      <div class="formula-row"><span>只是主題相似</span><span>保留 parent_id: null</span></div>
-    </div>
-    <p>Parent / Child 不再承擔「背景脈絡」和「主題分類」。它只表示同一件事接著發展。</p>
+    <p>這樣 Clarity Act 這類舊事件會自然下滑；但如果它在低位置仍被認真點開，或今天真的有新進展，系統會有方法把它拉回來。</p>
   </div>
 </section>
 
 <section>
-  <div class="part-label fade-in">PART 5 ｜ 三個例子</div>
-  <h2 class="fade-in">改動後，讀者看到的關係會更窄，也更準</h2>
+  <div class="part-label fade-in">PART 6 ｜ 探索位置</div>
+  <h2 class="fade-in">首頁要留一格給系統學習</h2>
+  <p class="fade-in">如果首頁永遠只展示高分事件，系統只會知道高分事件的表現，永遠不知道低分事件是不是被低估。這是排序系統常見的自我強化。</p>
+  <p class="fade-in">所以第一版可以保留一個很小的 exploration slot，例如第 8 名。它不是亂放，而是從「不確定但有潛力」的事件裡抽一則：來源少但權威高、剛進來還沒曝光、有討論但媒體來源少、或是重要 parent 的 fresh child。</p>
   <div class="diagram fade-in">
-    <h3>CoinOne 與 Upbit 母公司股權</h3>
-    <p>OKX 與 Korea Investment 投資 CoinOne，三星旗下公司投資 Upbit 母公司，兩者都指向韓國交易所股權與傳統金融入場。但 actor、object、交易標的不同。新版會把它們當成 context_links 或各自 top-level，不會硬接 Parent / Child。</p>
-  </div>
-  <div class="diagram fade-in">
-    <h3>HIP-4 與預測市場操縱</h3>
-    <p>HIP-4 是 Hyperliquid 的產品與治理線。內線交易、氣象站操縱、預言機資料問題是風險與執法線。它們共享「預測市場」這個主題，但 object、mechanism、phase 都不同。</p>
-  </div>
-  <div class="diagram fade-in">
-    <h3>同一法案提出、通過、簽署</h3>
-    <p>同一法案從提出、排審、表決到簽署，是同一個 object 的階段推進。這才是 Parent / Child 該承接的故事線。</p>
+    <h3>探索位置的邊界</h3>
+    <div class="formula">
+      <div class="formula-row"><span>不改前排</span><span>前 7 名仍照分數，避免首頁主體變亂</span></div>
+      <div class="formula-row"><span>只試一格</span><span>第 8 名放高不確定性事件，用來收集校正後回饋</span></div>
+      <div class="formula-row"><span>可回收</span><span>表現不好就下去；表現好才進入正常排序</span></div>
+    </div>
+    <p>這個位置是讓系統學習，而不是讓演算法賭博。</p>
   </div>
 </section>
 
 <div class="big-quote">
-  <p class="fade-in"><span class="hl">parent_id 只代表同一件事接著發展，不代表同一個主題。</span></p>
+  <p class="fade-in"><span class="hl">來源與討論只給排序的起點；校正後的閱讀行為，才負責修正答案。</span></p>
   <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">
-    主題分類交給 tags；背景脈絡交給 context_links；故事鏈才交給 parent_id。</p>
+    新鮮勢不需要你每天標記新聞。它需要先知道每則新聞被放在哪裡，再判斷讀者是否仍然願意停下來。</p>
 </div>
 
 <div class="choice-section" id="choice">
-  <h2 class="fade-in">你最在意這次改動<br>解決哪一件事？</h2>
+  <h2 class="fade-in">如果要開始實作<br>第一步該先做什麼？</h2>
   <p class="choice-sub fade-in">選完之後，分享你的判斷</p>
 
   <div class="choice-options fade-in">
     <button class="choice-btn" onclick="choose(0)">
-      <div class="emoji">📉</div>
+      <div class="emoji">🧾</div>
       <div>
-        <div class="label">分數不要掉太快</div>
-        <div class="desc">重要事件會退場，但不會因為幾次曝光就被打到底。</div>
+        <div class="label">先補 impression log</div>
+        <div class="desc">沒有 rank 與 request_id，就無法校正位置偏誤。</div>
       </div>
     </button>
     <button class="choice-btn" onclick="choose(1)">
-      <div class="emoji">🧭</div>
+      <div class="emoji">⚖️</div>
       <div>
-        <div class="label">事件鏈不要變主題桶</div>
-        <div class="desc">同主題可以有脈絡，但不代表它們是同一條故事。</div>
+        <div class="label">先做去偏誤彙總</div>
+        <div class="desc">把 click、dwell、share 轉成校正後 reward。</div>
       </div>
     </button>
     <button class="choice-btn" onclick="choose(2)">
-      <div class="emoji">✍️</div>
+      <div class="emoji">🔍</div>
       <div>
-        <div class="label">保留人工審稿空間</div>
-        <div class="desc">程式先找候選，最後仍要看事件框架和讀者理解。</div>
+        <div class="label">先留探索位置</div>
+        <div class="desc">讓被低估的事件有機會被讀者驗證。</div>
       </div>
     </button>
   </div>
 
   <div class="result-card" id="resultCard">
-    <div class="r-badge">你的觀點</div>
+    <div class="r-badge">你的判斷</div>
     <div class="r-title" id="rTitle"></div>
     <div class="r-desc" id="rDesc"></div>
     <div class="share-row">
@@ -590,11 +588,11 @@ footer{
 
 <div class="cta">
   <h2>想看更深入的分析？</h2>
-  <p>這份互動頁已經把核心改動說完。後續可以把更多實例、審稿規則與 feed 清理紀錄補成正式文章。</p>
+  <p>這份互動頁把方法論和落地順序先說清楚。下一步可以把它拆成實作規格：事件紀錄、彙總腳本、display_score 接口和探索位置。</p>
   <a class="cta-btn" href="https://www.mnhsu.xyz/mnnews-score-chain/" target="_blank">閱讀完整文章 →</a>
   <div class="share-row" style="margin-top:1.5rem">
-    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('新鮮勢這次把分數和事件鏈拆開處理：分數回答現在該不該浮上來，parent_id 只代表同一件事接著發展。\\n\\n')+'&url='+encodeURIComponent(location.href),'_blank')">分享到 𝕏</button>
-    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('新鮮勢這次把分數和事件鏈拆開處理：分數回答現在該不該浮上來，parent_id 只代表同一件事接著發展。'),'_blank')">分享到 Facebook</button>
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('新鮮勢下一版排序，不該只靠來源和討論手寫分數，而要記錄展示位置、校正位置偏誤，再用讀者行為修正首頁排序。\\n\\n')+'&url='+encodeURIComponent(location.href),'_blank')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('新鮮勢下一版排序，不該只靠來源和討論手寫分數，而要記錄展示位置、校正位置偏誤，再用讀者行為修正首頁排序。'),'_blank')">分享到 Facebook</button>
   </div>
 </div>
 
@@ -612,23 +610,23 @@ footer{
 
 <script>
 let userChoice = -1;
-const labels = ['分數不要掉太快', '事件鏈不要變主題桶', '保留人工審稿空間'];
+const labels = ['先補 impression log', '先做去偏誤彙總', '先留探索位置'];
 const results = [
   {
-    title: '你在意的是首頁排序的穩定度',
-    desc: '新版把時間衰減放慢，並把閱讀行為改成疲勞係數。重要事件還是會讓位，但不會因為被看過幾次就失去存在感。',
+    title: '你選的是資料地基',
+    desc: '這是最穩的第一步。沒有展示位置、request_id 和 session_id，後面的 reward 都會混在一起，無法知道讀者是在第 1 名看到它，還是在第 12 名仍然願意點它。',
     bg: 'var(--terra-light)',
     border: '#DBBFAD'
   },
   {
-    title: '你在意的是脈絡不要失真',
-    desc: '新版把 story chain、context link 和 topic 分開。讀者看到 child 時，應該知道它是同一件事的下一階段。',
+    title: '你選的是排序校正層',
+    desc: '這一步會讓讀者行為不只用來扣分，也能讓被低估的事件往上修正。重點是先做 propensity，不能直接把點擊量拿來加分。',
     bg: 'var(--yellow-light)',
     border: '#E4D5B8'
   },
   {
-    title: '你在意的是程式不要假裝懂脈絡',
-    desc: '新版讓 lexical overlap 只做候選召回。真正的 child 判斷要看 actor、action、object、venue、mechanism 和 phase。',
+    title: '你選的是學習能力',
+    desc: '探索位置能打破自我強化，但應該放在資料紀錄之後。否則試了也不知道效果，最後只是把首頁變得比較隨機。',
     bg: 'var(--green-light)',
     border: '#A8D4BC'
   }
@@ -649,7 +647,7 @@ window.choose = function choose(idx){
   card.style.borderColor = r.border;
   card.classList.add('show');
 
-  const shareText = `我的觀點：${labels[idx]}。\n\n新鮮勢這次把分數和事件鏈拆開處理：分數回答現在該不該浮上來，parent_id 只代表同一件事接著發展。`;
+  const shareText = `我的判斷：${labels[idx]}。\n\n新鮮勢下一版排序應該從手寫分數走向去偏誤隱式回饋：先記錄展示位置，再用校正後的閱讀行為修正排序。`;
   document.getElementById('shareTw').onclick = function(){
     window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText + '\n\n') + '&url=' + encodeURIComponent(location.href), '_blank');
   };
