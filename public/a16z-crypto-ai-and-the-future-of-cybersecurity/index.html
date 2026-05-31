@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 讓資安攻防變成誰先找到漏洞</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta name="description" content="a16z crypto 討論 AI 與資安的未來：漏洞不是 AI 創造的，而是 AI 讓攻擊者與防守者都更快看見它。對 DeFi、穩定幣與 crypto 基礎設施來說，安全會變成商業策略的一部分。">
+<meta property="og:title" content="AI 讓資安攻防變成誰先找到漏洞">
+<meta property="og:description" content="從 DeFi 攻擊、AI 紅隊、社交工程到穩定幣基礎設施：這支 a16z crypto 影片說的是同一件事，AI 把安全從事後修補推向持續自我攻擊。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.mnhsu.xyz/a16z-crypto-ai-and-the-future-of-cybersecurity/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI 讓資安攻防變成誰先找到漏洞">
+<meta name="twitter:description" content="漏洞不是 AI 創造的，而是 AI 讓攻防雙方更快看見它。對 DeFi 與穩定幣基礎設施來說，安全會變成商業策略。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
+  --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
+  --blue:#2563EB;--blue-light:#EFF4FF;--yellow:#8B6914;--yellow-light:#FDF8EC;
+  --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
+  --gold:#8B7340;--gold-light:#F9F3E6;--line:#E8E3D8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,var(--cream),var(--warm));position:relative;}
+.hero .logo{height:48px;margin-bottom:2.5rem;}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.9rem,5.2vw,3rem);line-height:1.35;letter-spacing:0.02em;margin-bottom:1.5rem;}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.2rem);color:var(--text-secondary);max-width:650px;width:100%;line-height:1.8;overflow-wrap:anywhere;}
+.scroll-hint{position:absolute;bottom:2.5rem;font-size:0.8rem;letter-spacing:0.3em;color:var(--text-muted);animation:breathe 2.4s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(6px);}}
+section{max-width:720px;margin:0 auto;padding:3.5rem 1.6rem;}
+section.wide{max-width:940px;}
+.part-label{font-size:0.78rem;font-weight:700;letter-spacing:0.25em;color:var(--terra);margin-bottom:1rem;}
+h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2rem);line-height:1.5;margin-bottom:1.5rem;letter-spacing:0.01em;}
+p{margin-bottom:1.4rem;font-size:1.05rem;}
+.hl{background:linear-gradient(transparent 60%,var(--gold-light) 60%);padding:0 0.1em;font-weight:500;}
+.callout{background:var(--terra-light);border-left:4px solid var(--terra);border-radius:0 10px 10px 0;padding:1.4rem 1.6rem;margin:2rem 0;}
+.callout p{margin:0;font-size:1rem;color:var(--text);}
+.rail-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.5rem;margin:2rem 0;}
+.rail-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.1rem;text-align:center;margin-bottom:1.2rem;}
+.rail-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0.85rem;}
+.rail-step{background:var(--warm);border:1px solid var(--line);border-radius:12px;padding:1.1rem;}
+.rail-step .num{font-family:'Noto Serif TC',serif;font-size:1.4rem;font-weight:900;color:var(--terra);line-height:1;margin-bottom:0.7rem;}
+.rail-step .name{font-weight:700;font-size:0.95rem;line-height:1.45;margin-bottom:0.45rem;}
+.rail-step .desc{font-size:0.84rem;color:var(--text-secondary);line-height:1.6;}
+.compare{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:2rem 0;}
+.compare-row{display:grid;grid-template-columns:0.75fr 1fr 1fr;border-bottom:1px solid #EFEAE0;}
+.compare-row:last-child{border-bottom:none;}
+.compare-row div{padding:0.9rem;font-size:0.86rem;line-height:1.6;}
+.compare-row .head{background:var(--green-deep);color:#fff;font-weight:700;}
+.compare-row .label{background:#F6F2EA;font-weight:700;color:var(--text-secondary);}
+.stack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.9rem;margin:2rem 0;}
+.stack-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.25rem;}
+.stack-card .tag{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;color:var(--terra);background:var(--terra-light);border-radius:2rem;padding:0.2rem 0.7rem;margin-bottom:0.8rem;}
+.stack-card .name{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.06rem;line-height:1.5;margin-bottom:0.5rem;}
+.stack-card .desc{font-size:0.9rem;color:var(--text-secondary);line-height:1.7;}
+.money-map{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.5rem;margin:2rem 0;}
+.map-line{display:flex;align-items:stretch;gap:0.55rem;}
+.map-node{flex:1;background:var(--warm);border:1px solid var(--line);border-radius:12px;padding:1rem;text-align:center;}
+.map-node strong{display:block;font-size:0.95rem;margin-bottom:0.35rem;color:var(--green-deep);}
+.map-node span{display:block;font-size:0.82rem;color:var(--text-secondary);line-height:1.55;}
+.map-arrow{display:flex;align-items:center;color:var(--terra);font-weight:900;}
+.risk-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0.85rem;margin:2rem 0;}
+.risk{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.15rem;}
+.risk .emoji{font-size:1.6rem;margin-bottom:0.5rem;}
+.risk .name{font-weight:700;font-size:0.96rem;margin-bottom:0.4rem;}
+.risk .desc{font-size:0.86rem;color:var(--text-secondary);line-height:1.65;}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light));}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:560px;margin:0 auto;letter-spacing:0.03em;}
+.choice-section{padding:4rem 1.6rem;background:#fff;text-align:center;}
+.choice-section h2{margin-bottom:0.8rem;}
+.choice-sub{color:var(--text-secondary);font-size:0.95rem;margin-bottom:2.5rem;}
+.choice-options{display:flex;flex-direction:column;gap:1rem;max-width:560px;margin:0 auto;}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:var(--warm);border:2px solid #E8E3D8;border-radius:14px;padding:1.2rem 1.4rem;cursor:pointer;text-align:left;transition:all 0.25s;font-family:'Noto Sans TC',sans-serif;}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light);}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0;}
+.choice-btn .label{font-weight:700;font-size:1rem;margin-bottom:0.2rem;}
+.choice-btn .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+.result-card{max-width:560px;margin:2rem auto 0;border:2px solid #DBBFAD;border-radius:14px;padding:1.8rem;background:var(--terra-light);opacity:0;transform:translateY(20px);transition:all 0.5s;display:none;}
+.result-card.show{opacity:1;transform:translateY(0);display:block;}
+.r-badge{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;color:var(--terra);background:#fff;padding:0.3rem 0.9rem;border-radius:2rem;margin-bottom:1rem;}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;}
+.r-desc{font-size:0.95rem;color:var(--text);line-height:1.8;}
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap;}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s;}
+.share-btn:hover{transform:scale(1.03);}
+.share-btn.tw{background:#0f1419;color:#fff;}
+.share-btn.fb{background:#1877f2;color:#fff;}
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream));}
+.cta h2{margin-bottom:1rem;}
+.cta p{max-width:520px;margin:0 auto 2rem;color:var(--text-secondary);font-size:1rem;}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.95rem 2.4rem;border-radius:2rem;font-weight:500;font-size:1.05rem;transition:all 0.3s;}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep);}
+.subscribe-inner{max-width:520px;margin:0 auto;}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem;}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem;}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif;}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem;}
+footer{text-align:center;padding:3rem 2rem;}
+footer img{height:44px;opacity:0.5;}
+footer .src{font-size:0.78rem;color:var(--text-muted);margin:1rem auto 0;line-height:1.7;max-width:560px;}
+footer .src a{color:var(--text-secondary);text-underline-offset:3px;}
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:760px){
+  html{font-size:17px;}
+  section{padding:3rem 1.25rem;}
+  .hero .sub{max-width:330px;}
+  .rail-grid,.stack,.risk-list{grid-template-columns:1fr;}
+  .compare-row{grid-template-columns:1fr;}
+  .compare-row .head:nth-child(2),.compare-row .head:nth-child(3){display:none;}
+  .map-line{flex-direction:column;}
+  .map-arrow{justify-content:center;transform:rotate(90deg);height:1rem;}
+  .choice-btn{align-items:flex-start;padding:1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>AI 讓資安攻防<br>變成誰先找到漏洞</h1>
+  <p class="sub">a16z crypto 這集討論 DeFi 攻擊潮。結論不是「AI 讓世界突然不安全」，而是漏洞本來就在那裡。AI 把攻擊者與防守者找漏洞的速度都拉高了。</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<section class="fade-in">
+  <div class="part-label">PART 1 ｜ 問題不是 AI 發明漏洞</div>
+  <h2>我們不是本來安全，<br>只是以前看不見</h2>
+  <p>影片開場談到 4 月 DeFi 攻擊暴增，單月損失約 6.35 億美元。主持人問的是：為什麼現在？是不是 AI 讓攻擊變得容易？</p>
+  <p>Eddie Lazarin 的回答很硬：AI 會幫攻擊者找漏洞，但漏洞不是 AI 創造的。它早就存在。真正的差別，是攻擊者可能比防守者更快採用 AI，先把原本藏在系統裡的問題找出來。</p>
+  <div class="callout">
+    <p>所以防守方不該把 AI 視為純粹威脅，而要把它當成紅隊工具。最直接的策略是用最強的模型、最新的工具、最懂系統的人，先把自己的產品從每個角度攻擊一遍。</p>
+  </div>
+  <p>這個判斷把恐懼換成可執行的工作。問題不是「壞人會不會拿到 AI」，因為遲早會。問題是公司、協議與使用者能不能更早用同一批工具，把漏洞從生產環境裡移除。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 2 ｜ 探照燈，而不是新武器</div>
+  <h2>AI 比較像照明工具，<br>讓裂縫更快曝光</h2>
+  <p>Matt Gleason 不把 AI 類比成火砲或新武器。他說，AI 更像從火把換成探照燈。人類還是用相同方式攻擊系統，但現在能看見更多路徑、讀更多紀錄、串更多線索，速度也更快。</p>
+  <p>這個比喻很適合 crypto。鏈上金融本來就把資產、權限與交易流程放到公開環境裡。探照燈一打，大家不只看見攻擊，也看見攻擊造成的金額。傳統公司被入侵時，損害常常藏在內部報告、合約與公關聲明裡；DeFi 一出事，資金流直接攤在鏈上。</p>
+  <div class="compare">
+    <div class="compare-row">
+      <div class="head">AI 帶來的變化</div>
+      <div class="head">攻擊者</div>
+      <div class="head">防守者</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">找漏洞</div>
+      <div>更快掃過程式碼、設定、權限與社交工程入口。</div>
+      <div>更快做紅隊、審查、模擬攻擊與修補優先順序。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">串線索</div>
+      <div>把小缺口接成完整入侵路徑。</div>
+      <div>把事件紀錄、存取權限與異常行為放在一起檢查。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">學習成本</div>
+      <div>不熟某種技術，也能靠模型快速補課。</div>
+      <div>資安團隊與工程團隊不能再說「我不知道怎麼查」。</div>
+    </div>
+  </div>
+  <p>這不是類別變化，而是強度變化。攻擊和防守都被加速。對商業策略來說，這代表安全不再是上線前的一次性稽核，而是持續把自己當成目標來測試。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 3 ｜ DeFi 的教訓</div>
+  <h2>被攻破的常常不是<br>去中心化，而是單點故障</h2>
+  <p>影片特別提醒，最近許多 crypto 攻擊看起來是 DeFi 的問題，但細看常常是傳統資安問題：金鑰被偷、電腦被入侵、權限過大、程式在不該執行的地方被執行。</p>
+  <p>Lazarin 的判斷是，許多案例本來可以靠更多去中心化降低傷害。問題不是去中心化本身，而是系統「以為自己去中心化」，實際上仍有某個人、某台機器、某組金鑰可以單方面造成災難。</p>
+  <div class="rail-card">
+    <div class="rail-title">一場攻擊常常是小裂縫串起來</div>
+    <div class="rail-grid">
+      <div class="rail-step">
+        <div class="num">01</div>
+        <div class="name">社交工程</div>
+        <div class="desc">釣魚信、假會議、假工作機會或臨時安裝軟體，先取得一點點入口。</div>
+      </div>
+      <div class="rail-step">
+        <div class="num">02</div>
+        <div class="name">權限擴張</div>
+        <div class="desc">從一台電腦、一個帳號或一把金鑰，慢慢摸到更敏感的系統。</div>
+      </div>
+      <div class="rail-step">
+        <div class="num">03</div>
+        <div class="name">資金外流</div>
+        <div class="desc">如果缺少多簽、延遲、額度與撤銷機制，小錯會變成鏈上大額損失。</div>
+      </div>
+    </div>
+  </div>
+  <p>這裡連到 crypto 的核心承諾：自我保管與開放金融很強大，但權力越大，控制設計越不能靠單一人或單一憑證。AI 只會讓這件事更明顯。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 4 ｜ AI、穩定幣與基礎設施</div>
+  <h2>穩定幣越像基礎設施，<br>安全越像產品功能</h2>
+  <p>影片標題是資安，但它背後其實是基礎設施問題。當 crypto 從投機市場走向支付、穩定幣、代幣化資產與 AI 代理人，攻擊不只會偷走某個協議的錢，也會破壞使用者對整個結算層的信任。</p>
+  <p>穩定幣的商業價值來自可程式化、即時結算與跨平台流動。這些優點也讓錯誤執行得很快。金融基礎設施要被企業、商家與 AI 代理人使用，不能只說「鏈上透明」。它還要證明權限設計、金鑰管理與事故回應都經得起持續攻擊。</p>
+  <div class="money-map">
+    <div class="map-line">
+      <div class="map-node">
+        <strong>AI</strong>
+        <span>加速找漏洞、寫工具、模擬攻擊與檢查可疑訊息。</span>
+      </div>
+      <div class="map-arrow">→</div>
+      <div class="map-node">
+        <strong>穩定幣</strong>
+        <span>讓資金能快速跨服務流動，也讓錯誤更快變成金額。</span>
+      </div>
+      <div class="map-arrow">→</div>
+      <div class="map-node">
+        <strong>基礎設施</strong>
+        <span>用多方授權、細權限、延遲與紅隊流程，把速度變得可控。</span>
+      </div>
+    </div>
+  </div>
+  <p>這也是商業策略的分水嶺。未來做 crypto 基礎設施，不只是提供 API、錢包、結算或收益。你賣的是「我的系統比較難被單點打穿，而且我能更快發現自己哪裡會被打穿」。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 5 ｜ 防守不是靠口號</div>
+  <h2>最務實的答案：<br>把自己當成攻擊目標</h2>
+  <p>影片後段把建議分成兩層。對團隊來說，先建立內部紅隊，讓最有權限的人反過來想：如果我的電腦被入侵，我能對公司造成什麼傷害？如果供應商信箱被盜，我們會不會照著假指令做事？</p>
+  <p>對使用者來說，重點是「認知安全」。不要把釣魚、假連結、假軟體、假客服當成偶發麻煩，而要假設自己隨時可能被接觸。尤其在 crypto 裡，一次錯誤簽署或一次金鑰外洩，常常沒有客服可以幫你倒帶。</p>
+  <div class="risk-list">
+    <div class="risk">
+      <div class="emoji">🔐</div>
+      <div class="name">改用 passkey</div>
+      <div class="desc">能用 passkey 的服務就逐步遷移，減少密碼與釣魚頁面的攻擊面。</div>
+    </div>
+    <div class="risk">
+      <div class="emoji">🧪</div>
+      <div class="name">用 AI 做檢查</div>
+      <div class="desc">可疑郵件、網址、檔案與請求先丟給 AI 分析，讓自己停下來再判斷。</div>
+    </div>
+    <div class="risk">
+      <div class="emoji">🧱</div>
+      <div class="name">拆開權限</div>
+      <div class="desc">多簽、雙人授權、細權限與時間延遲，讓單一失誤不會直接變成災難。</div>
+    </div>
+  </div>
+  <p>這些建議聽起來不炫，卻正是 AI 時代的核心。AI 沒有讓安全規則全部改寫，它讓原本就該做的事變得更急、更便宜，也更難找藉口不做。</p>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">AI 沒有讓我們從安全變成不安全。它讓我們發現，自己原本就沒有想像中安全。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">先用 AI 找出自己的問題，才有資格期待它沒有先被攻擊者找到。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2>如果你在做鏈上產品，<br>會先補哪一層？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">🔎</div>
+      <div>
+        <div class="label">AI 紅隊</div>
+        <div class="desc">先用模型和資安專家持續攻擊自己，把漏洞排在攻擊者前面找出來</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">🧩</div>
+      <div>
+        <div class="label">權限拆分</div>
+        <div class="desc">先處理金鑰、帳號、多簽、延遲與細權限，移除單點故障</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">🛡️</div>
+      <div>
+        <div class="label">使用者防護</div>
+        <div class="desc">先降低釣魚、假連結、錯誤簽署與社交工程造成的損失</div>
+      </div>
+    </button>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想聽原始討論？</h2>
+  <p>這頁整理自 a16z crypto 的 YouTube 影片。原始對話保留了 DeFi 攻擊潮、AI 紅隊、社交工程、passkey 與 crypto 透明性的完整脈絡。</p>
+  <a class="cta-btn" href="https://www.youtube.com/watch?v=e0o-hRCti7M" target="_blank" rel="noopener">前往 YouTube →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('AI 沒有讓我們從安全變成不安全。它讓我們發現，自己原本就沒有想像中安全。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('AI 沒有讓我們從安全變成不安全。它讓我們發現，自己原本就沒有想像中安全。'),'_blank','noopener')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從穩定幣、AI 代理人到平台策略，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer>
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <div class="src">本頁整理自 a16z crypto YouTube 頻道影片〈AI And The Future Of Cybersecurity〉。來源：<a href="https://www.youtube.com/watch?v=e0o-hRCti7M" target="_blank" rel="noopener">YouTube</a>。內容僅作為閱讀導覽，不構成投資建議。</div>
+</footer>
+
+<script>
+let userChoice=-1;
+const labels=['AI 紅隊','權限拆分','使用者防護'];
+const results=[
+  {title:'AI 紅隊',desc:'你看重的是速度。既然攻擊者會用 AI 找問題，防守者也要用同樣工具掃程式碼、權限、流程與社交工程入口，讓漏洞先在內部曝光。',bg:'var(--terra-light)',border:'#DBBFAD'},
+  {title:'權限拆分',desc:'你選的是降低爆炸半徑。多簽、細權限、時間延遲與雙人授權，能讓單一金鑰或單一帳號被攻破時，不會立刻變成資金外流。',bg:'var(--green-light)',border:'#A8D4BC'},
+  {title:'使用者防護',desc:'你認為真正難補的是人。釣魚、假連結、假客服與錯誤簽署仍會是主要入口，產品要把停損、提醒、檢查與撤銷設計進日常流程。',bg:'var(--blue-light)',border:'#B8CDF0'}
+];
+function choose(idx){
+  if(userChoice>=0)return;
+  userChoice=idx;
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===idx)b.classList.add('selected');
+    b.style.cursor='default';
+  });
+  const r=results[idx];
+  const card=document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent=r.title;
+  document.getElementById('rDesc').textContent=r.desc;
+  card.style.background=r.bg;
+  card.style.borderColor=r.border;
+  card.classList.add('show');
+  const shareText='我的觀點：'+labels[idx]+'。\n\nAI 沒有讓我們從安全變成不安全。它讓我們發現，自己原本就沒有想像中安全。';
+  document.getElementById('shareTw').onclick=function(){
+    window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener');
+  };
+  document.getElementById('shareFb').onclick=function(){
+    window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener');
+  };
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
