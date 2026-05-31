@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>牙醫買 AI 股</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta name="description" content="Money Stuff 這集從 GameStop 想買 eBay、Apollo 把私募信貸做成 CLO、AI 新創限制股票轉讓，到投銀工作被自動化，拆出四個金融直覺。">
+<meta property="og:title" content="牙醫買 AI 股">
+<meta property="og:description" content="Money Stuff 這集把迷因股收購、私募信貸證券化、AI 新創二級市場與投銀自動化，拆成台灣讀者看得懂的金融直覺。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.mnhsu.xyz/money-stuff-frisky-dentists/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="牙醫買 AI 股">
+<meta name="twitter:description" content="GameStop 的收購像求職信，Apollo 的私募信貸想變可交易，AI 新創不想讓牙醫繞路買股。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
+  --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
+  --blue:#2563EB;--blue-light:#EFF4FF;--yellow:#8B6914;--yellow-light:#FDF8EC;
+  --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
+  --gold:#8B7340;--gold-light:#F9F3E6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,var(--cream),var(--warm));position:relative;}
+.hero .logo{height:48px;margin-bottom:2.5rem;}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.95rem,5.4vw,3.1rem);line-height:1.35;letter-spacing:0.02em;margin-bottom:1.5rem;}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.2rem);color:var(--text-secondary);width:100%;max-width:640px;line-height:1.8;overflow-wrap:anywhere;}
+.scroll-hint{position:absolute;bottom:2.5rem;font-size:0.8rem;letter-spacing:0.3em;color:var(--text-muted);animation:breathe 2.4s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(6px);}}
+section{max-width:720px;margin:0 auto;padding:3.5rem 1.6rem;}
+section.wide{max-width:900px;}
+.part-label{font-size:0.78rem;font-weight:700;letter-spacing:0.25em;color:var(--terra);margin-bottom:1rem;}
+h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2rem);line-height:1.5;margin-bottom:1.5rem;letter-spacing:0.01em;}
+p{margin-bottom:1.4rem;font-size:1.05rem;}
+.hl{background:linear-gradient(transparent 60%,var(--gold-light) 60%);padding:0 0.1em;font-weight:500;}
+.callout{background:var(--terra-light);border-left:4px solid var(--terra);border-radius:0 10px 10px 0;padding:1.4rem 1.6rem;margin:2rem 0;}
+.callout p{margin:0;font-size:1rem;color:var(--text);}
+.deal-card{background:#fff;border:1px solid #E8E3D8;border-radius:12px;overflow:hidden;margin:2rem 0;}
+.deal-row{display:grid;grid-template-columns:0.72fr 1fr 1fr;border-bottom:1px solid #EFEAE0;}
+.deal-row:last-child{border-bottom:none;}
+.deal-row div{padding:0.9rem;font-size:0.86rem;line-height:1.65;}
+.deal-row .head{background:var(--green-deep);color:#fff;font-weight:700;}
+.deal-row .label{background:#F6F2EA;font-weight:700;color:var(--text-secondary);}
+.logic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:0.85rem;margin:2rem 0;}
+.logic-card{background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.2rem;}
+.logic-card .tag{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;color:var(--terra);background:var(--terra-light);border-radius:2rem;padding:0.2rem 0.65rem;margin-bottom:0.8rem;}
+.logic-card .name{font-weight:700;color:var(--green-deep);font-size:1rem;margin-bottom:0.5rem;}
+.logic-card .idea{font-size:0.86rem;color:var(--text-secondary);line-height:1.7;}
+.flow-card{background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.4rem;margin:2rem 0;}
+.flow-title{font-weight:700;color:var(--green-deep);margin-bottom:1rem;}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0.55rem;align-items:stretch;}
+.flow-step{background:var(--warm);border:1px solid #E8E3D8;border-radius:10px;padding:0.8rem;text-align:center;display:flex;flex-direction:column;justify-content:center;min-height:90px;}
+.flow-step .n{font-family:'Noto Serif TC',serif;font-weight:900;font-size:1.25rem;color:var(--terra);line-height:1;}
+.flow-step .t{font-size:0.82rem;font-weight:700;line-height:1.45;margin-top:0.45rem;}
+.flow-note{font-size:0.82rem;color:var(--text-secondary);line-height:1.7;margin-top:1rem;margin-bottom:0;}
+.warning-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.85rem;margin:2rem 0;}
+.warning-list div{background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.1rem;}
+.warning-list .k{font-weight:700;color:var(--terra);margin-bottom:0.45rem;}
+.warning-list .v{font-size:0.86rem;color:var(--text-secondary);line-height:1.7;}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light));}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:620px;margin:0 auto;letter-spacing:0.03em;}
+.choice-section{padding:4rem 1.6rem;background:#fff;text-align:center;}
+.choice-section h2{margin-bottom:0.8rem;}
+.choice-sub{color:var(--text-secondary);font-size:0.95rem;margin-bottom:2.5rem;}
+.choice-options{display:flex;flex-direction:column;gap:1rem;max-width:580px;margin:0 auto;}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:var(--warm);border:2px solid #E8E3D8;border-radius:14px;padding:1.2rem 1.4rem;cursor:pointer;text-align:left;transition:all 0.25s;font-family:'Noto Sans TC',sans-serif;}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light);}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0;}
+.choice-btn .label{font-weight:700;font-size:1rem;margin-bottom:0.2rem;}
+.choice-btn .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+.result-card{max-width:580px;margin:2rem auto 0;border:2px solid #DBBFAD;border-radius:14px;padding:1.8rem;background:var(--terra-light);opacity:0;transform:translateY(20px);transition:all 0.5s;display:none;}
+.result-card.show{opacity:1;transform:translateY(0);display:block;}
+.r-badge{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;color:var(--terra);background:#fff;padding:0.3rem 0.9rem;border-radius:2rem;margin-bottom:1rem;}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;}
+.r-desc{font-size:0.95rem;color:var(--text);line-height:1.8;}
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap;}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s;}
+.share-btn:hover{transform:scale(1.03);}
+.share-btn.tw{background:#0f1419;color:#fff;}
+.share-btn.fb{background:#1877f2;color:#fff;}
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream));}
+.cta h2{margin-bottom:1rem;}
+.cta p{max-width:540px;margin:0 auto 2rem;color:var(--text-secondary);font-size:1rem;}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.95rem 2.4rem;border-radius:2rem;font-weight:500;font-size:1.05rem;transition:all 0.3s;}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep);}
+.subscribe-inner{max-width:520px;margin:0 auto;}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem;}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem;}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif;}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem;}
+footer{text-align:center;padding:3rem 2rem;}
+footer img{height:44px;opacity:0.5;}
+footer .src{font-size:0.78rem;color:var(--text-muted);margin:1rem auto 0;line-height:1.7;max-width:620px;overflow-wrap:anywhere;}
+footer .src a{color:var(--text-muted);text-underline-offset:0.18em;}
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:720px){
+  html{font-size:17px;}
+  section{padding:3rem 1.25rem;}
+  .deal-row{grid-template-columns:1fr;}
+  .deal-row .head:nth-child(2),.deal-row .head:nth-child(3){display:none;}
+  .flow{grid-template-columns:1fr;}
+  .flow-step{min-height:auto;padding:0.95rem;text-align:left;flex-direction:row;align-items:center;justify-content:flex-start;gap:0.85rem;}
+  .flow-step .t{margin-top:0;}
+  .choice-btn{align-items:flex-start;padding:1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>牙醫買 AI 股，<br>為什麼會讓新創緊張？</h1>
+  <p class="sub">Money Stuff 這集從 GameStop 想買 eBay、Apollo 的私募信貸證券化，到 Anthropic 和 OpenAI 的股票轉讓警告，示範 Matt Levine 怎麼把金融新聞拆成幾個簡單問題。</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<section class="fade-in">
+  <div class="part-label">PART 1 ｜ GAMESTOP 與 EBAY</div>
+  <h2>一個收購案，<br>也可能是求職信</h2>
+  <p>GameStop 提出想買 eBay，一半現金、一半股票。表面上是收購案，細看卻很奇怪。GameStop 沒有足夠現金，只拿到銀行說「大概能募到錢」的 highly confident letter；它也沒有足夠授權股數，可以直接發出收購需要的股票。</p>
+  <p>Matt Levine 的拆法不是停在「這很荒謬」。他問的是：如果 eBay 股東拿到的是合併後公司的股票，那他們真正該判斷什麼？答案不是 GameStop 今天值多少，而是 Ryan Cohen 來經營 eBay 之後，合併公司會不會更值錢。</p>
+  <div class="deal-card">
+    <div class="deal-row">
+      <div class="head">表面形式</div>
+      <div class="head">實際問題</div>
+      <div class="head">股東要看</div>
+    </div>
+    <div class="deal-row">
+      <div class="label">現金收購</div>
+      <div>買方付錢，賣方股東拿錢離場。</div>
+      <div>價格夠不夠高。</div>
+    </div>
+    <div class="deal-row">
+      <div class="label">股票收購</div>
+      <div>賣方股東變成新公司的股東。</div>
+      <div>新管理層能不能把公司經營得更好。</div>
+    </div>
+    <div class="deal-row">
+      <div class="label">GameStop 版本</div>
+      <div>錢和股票安排都不完整，還錯過董事提名時程。</div>
+      <div>這比較像「讓我當 eBay 執行長」。</div>
+    </div>
+  </div>
+  <p>收購案的法律文件、融資承諾、授權股數都可以很技術。但這裡的核心直覺很直白：如果你用股票買一間比自己大的公司，對方股東買的是你的未來經營能力，不是你今天帳上的現金。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 2 ｜ APOLLO 與 PRIVATE CREDIT</div>
+  <h2>私募信貸說自己私密，<br>但正在學會交易</h2>
+  <p>Apollo 推出一種叫 AMAPS 的工具，把私募信貸放進資產池，再發行不同順位的證券。外界有人問：這是不是金融海嘯前 CDO 的回魂？Matt 的反應是：比較像 CLO，只是底層資產不是大型銀行聯貸，而是 private credit。</p>
+  <p>CLO 的直覺不難。很多公司貸款被放進同一個池子，池子上面切出不同風險等級的證券。最上層拿比較低的利息，但評等高、比較安全；最下層承擔更多損失，也拿更多上漲空間。</p>
+  <div class="flow-card">
+    <div class="flow-title">Apollo 版本的路徑</div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="n">1</div>
+        <div class="t">企業向 Apollo 借錢</div>
+      </div>
+      <div class="flow-step">
+        <div class="n">2</div>
+        <div class="t">貸款進入資產池</div>
+      </div>
+      <div class="flow-step">
+        <div class="n">3</div>
+        <div class="t">切成不同順位</div>
+      </div>
+      <div class="flow-step">
+        <div class="n">4</div>
+        <div class="t">高評等部分賣給保險公司</div>
+      </div>
+      <div class="flow-step">
+        <div class="n">5</div>
+        <div class="t">市場開始需要每日價格</div>
+      </div>
+    </div>
+    <p class="flow-note">Apollo 旗下有保險公司 Athene。高評等、有利差、資本要求友善的證券，對保險資金特別有吸引力。</p>
+  </div>
+  <p>私募信貸原本的賣點，是借款人面對少數長期貸款人，不用天天被市場報價影響。但 Apollo 要交易桌、每日定價、更多二級市場流動性。這條路走下去，private credit 會越來越像現在的銀行聯貸市場：更可交易、更分散，也更不像過去說的「一對一關係」。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 3 ｜ AI 新創與二級市場</div>
+  <h2>牙醫想買 AI 股，<br>公司不一定承認那是股票</h2>
+  <p>Anthropic 和 OpenAI 都提醒投資人：公司股票有轉讓限制。有人說自己能透過 SPV 或 forward contract 賣你公司股票曝險，這不代表公司會承認那筆交易有效。</p>
+  <p>這就是標題裡「frisky dentists」的場景。熱門 AI 公司遲遲不上市，外面有很多有錢人想提早上車。牙醫、家族辦公室、私人銀行客戶，可能透過特殊目的公司買到「好像連到 Anthropic 或 OpenAI」的權益。</p>
+  <div class="warning-list">
+    <div>
+      <div class="k">第一層風險</div>
+      <div class="v">賣方可能真的有股票，但合約禁止他轉讓或用遠期契約繞過限制。</div>
+    </div>
+    <div>
+      <div class="k">第二層風險</div>
+      <div class="v">賣方可能根本沒有股票，只是在賣一個聽起來很像熱門 AI 股的包裝。</div>
+    </div>
+    <div>
+      <div class="k">第三層風險</div>
+      <div class="v">公司可能現在只是嚇阻市場，未來卻仍保留追回或否認交易的空間。</div>
+    </div>
+  </div>
+  <p>公司為什麼這麼在意？未上市公司想控制股東名冊、估值、員工流動性和監管風險。二級市場越熱，外部投資人越會發明繞路工具。公司網站上那些嚴厲警告，目的就是讓買方知道：你買到的可能不是公司願意承認的東西。</p>
+  <div class="callout">
+    <p>熱門公司越晚上市，外面的金融工程就越忙。想買的人不會消失，只會從股票變成 SPV、遠期契約和各種「經濟曝險」。</p>
+  </div>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 4 ｜ GOLDMAN 與 AI</div>
+  <h2>投銀是人力產線，<br>AI 可能先接手無聊的那段</h2>
+  <p>Goldman Sachs 營運長 John Waldron 說，銀行像 human assembly line，人力產線。這句話聽起來很冷，但也精準。投資銀行很多工作，是聰明新人把簡報、模型、資料表和交易流程一段一段組起來。</p>
+  <p>AI 會怎麼改變這條產線？一種答案是少雇一些人。另一種答案是同樣的人能處理更多交易，就像 Excel 沒有消滅投銀，反而讓投銀可以做更多分析、更多簡報、更多案子。</p>
+  <div class="logic-grid">
+    <div class="logic-card">
+      <div class="tag">迷因股</div>
+      <div class="name">收購案也能像職缺申請</div>
+      <div class="idea">GameStop 買 eBay 的故事，重點不是今天有沒有足夠股票，而是對方股東要不要讓你經營未來。</div>
+    </div>
+    <div class="logic-card">
+      <div class="tag">信貸</div>
+      <div class="name">私募不是永遠不交易</div>
+      <div class="idea">每日定價如果要有意義，最後就會需要交易。私募信貸正在往二級市場走。</div>
+    </div>
+    <div class="logic-card">
+      <div class="tag">AI 股</div>
+      <div class="name">曝險不等於股票</div>
+      <div class="idea">你買到的是合約、SPV 或承諾，不一定是公司願意登記在股東名冊上的股份。</div>
+    </div>
+    <div class="logic-card">
+      <div class="tag">工作</div>
+      <div class="name">自動化不只會裁員</div>
+      <div class="idea">它也可能讓同一家公司做更多案子。問題是新人訓練和工作入口會被改寫。</div>
+    </div>
+  </div>
+  <p>這集 Money Stuff 的共通點，是每個新聞都先把名字拆掉。高度自信函不是融資承諾，private credit CLO 仍然是證券化，SPV 曝險不是公司承認的股票，AI 產線也不自動等於全員失業。名字常常是行銷，現金流、權利和風險才是金融。</p>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">金融工具常常不是為了回答「可不可以」，而是為了把「誰來承擔風險」藏得漂亮一點。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">Matt Levine 的直覺，是先問誰拿到權利、誰付出現金、誰最後要吞下不確定性。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2>這集你最想帶走哪一個金融直覺？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">🧾</div>
+      <div>
+        <div class="label">先看權利，不看名字</div>
+        <div class="desc">收購、CLO、SPV 的名字都會包裝，合約權利才是重點</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">🏦</div>
+      <div>
+        <div class="label">私募市場也會想交易</div>
+        <div class="desc">只要資金想流動，每日定價和二級市場就會跟著出現</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">🦷</div>
+      <div>
+        <div class="label">熱門 AI 股不等於真的買得到</div>
+        <div class="desc">SPV 和遠期契約可能只是曝險，不是公司承認的股東身分</div>
+      </div>
+    </button>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想聽原始對話？</h2>
+  <p>這頁整理自 Bloomberg Podcasts 的 Money Stuff: The Podcast。原始節目保留 Matt Levine 和 Katie Greifeld 對 GameStop、Apollo、AI 股權與投銀自動化的完整對話節奏。</p>
+  <a class="cta-btn" href="https://www.youtube.com/watch?v=nmHNVtMM2mU" target="_blank" rel="noopener">前往 YouTube →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Money Stuff 這集從 GameStop、Apollo、AI 新創股票轉讓與投銀自動化，拆出四個金融直覺。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('Money Stuff 這集拆出四個金融直覺：名字是包裝，權利和風險才是金融。'),'_blank','noopener')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從 AI、金融市場到平台策略，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer>
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <div class="src">來源：Bloomberg Podcasts 的 Money Stuff: The Podcast〈Frisky Dentists〉。YouTube：<a href="https://www.youtube.com/watch?v=nmHNVtMM2mU" target="_blank" rel="noopener">https://www.youtube.com/watch?v=nmHNVtMM2mU</a></div>
+</footer>
+
+<script>
+let userChoice=-1;
+const labels=['先看權利，不看名字','私募市場也會想交易','熱門 AI 股不等於真的買得到'];
+const results=[
+  {title:'先看權利，不看名字',desc:'你帶走的是 Matt Levine 最常用的拆法：不要先相信「收購」「CLO」「曝險」這些名稱。先問誰拿到權利、誰付出現金、誰最後承擔風險。',bg:'var(--terra-light)',border:'#DBBFAD'},
+  {title:'私募市場也會想交易',desc:'你看見的是 private credit 的下一步。只要資金想要流動、保險公司想要高評等利差，私募信貸就會慢慢長出價格、交易桌和二級市場。',bg:'var(--green-light)',border:'#A8D4BC'},
+  {title:'熱門 AI 股不等於真的買得到',desc:'你盯上的是這集標題的牙醫問題。越多人想在上市前買到 AI 新創，越多 SPV 和遠期契約會出現；但曝險不是股東名冊，繞路也可能被公司否認。',bg:'var(--blue-light)',border:'#B8CDF0'}
+];
+function choose(idx){
+  if(userChoice>=0)return;
+  userChoice=idx;
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===idx)b.classList.add('selected');
+    b.style.cursor='default';
+  });
+  const r=results[idx];
+  const card=document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent=r.title;
+  document.getElementById('rDesc').textContent=r.desc;
+  card.style.background=r.bg;
+  card.style.borderColor=r.border;
+  card.classList.add('show');
+  const shareText='我的觀點：'+labels[idx]+'。\n\nMoney Stuff 這集提醒我：名字是包裝，權利和風險才是金融。';
+  document.getElementById('shareTw').onclick=function(){
+    window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener');
+  };
+  document.getElementById('shareFb').onclick=function(){
+    window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener');
+  };
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
