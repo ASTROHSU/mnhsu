@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoFarm Pipeline 重構圖解</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F1EA;
+    --paper:#FBF9F4;
+    --ink:#2A2723;
+    --muted:#746D5E;
+    --line:#DCD5C6;
+    --accent:#C06A3A;
+    --accent-soft:#F1E2D5;
+    --bad:#B23A48;
+    --bad-soft:#F3E0E1;
+    --good:#3F7E6E;
+    --good-soft:#DDEAE4;
+    --code-bg:#ECE7DB;
+    --shadow:0 1px 2px rgba(42,39,35,.05),0 6px 22px rgba(42,39,35,.06);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Noto Sans TC",sans-serif;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    padding:clamp(20px,5vw,64px) clamp(16px,4vw,40px) 96px;
+    background-image:radial-gradient(circle at 1px 1px,rgba(42,39,35,.04) 1px,transparent 0);
+    background-size:26px 26px;
+  }
+  .wrap{max-width:1080px;margin:0 auto}
+  code,.mono{font-family:"JetBrains Mono",monospace;font-size:.86em}
+
+  header{margin-bottom:clamp(36px,6vw,64px)}
+  .kicker{
+    font-family:"JetBrains Mono",monospace;
+    font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin-bottom:14px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .kicker::before{content:"";width:28px;height:2px;background:var(--accent)}
+  h1{
+    font-family:"Noto Serif TC",serif;font-weight:900;
+    font-size:clamp(30px,5.4vw,52px);line-height:1.18;letter-spacing:-.01em;
+    margin-bottom:20px;
+  }
+  .lede{font-size:clamp(16px,2.2vw,19px);color:var(--muted);max-width:62ch}
+
+  .contrast{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:36px}
+  .contrast .card{
+    background:var(--paper);border:1px solid var(--line);border-radius:16px;
+    padding:24px 26px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  .contrast .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px}
+  .card.before::before{background:var(--bad)}
+  .card.after::before{background:var(--good)}
+  .card .lbl{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+  .card.before .lbl{color:var(--bad)}
+  .card.after .lbl{color:var(--good)}
+  .card p{font-size:16px;font-weight:500}
+
+  section{margin-top:clamp(48px,8vw,88px)}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px;flex-wrap:wrap}
+  .sec-num{font-family:"JetBrains Mono",monospace;font-size:14px;color:var(--accent);font-weight:700}
+  h2{font-family:"Noto Serif TC",serif;font-weight:700;font-size:clamp(22px,3.4vw,30px);letter-spacing:-.01em}
+  .sec-sub{color:var(--muted);font-size:15px;margin-bottom:28px;max-width:64ch}
+
+  .flows{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+  .flowpanel{
+    background:var(--paper);border:1px solid var(--line);border-radius:18px;
+    padding:24px 20px 28px;box-shadow:var(--shadow);
+  }
+  .flowpanel .panel-tag{
+    font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;
+    letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px;
+    display:inline-flex;align-items:center;gap:8px;padding:5px 11px;border-radius:999px;
+  }
+  .panel-tag.bad{color:var(--bad);background:var(--bad-soft)}
+  .panel-tag.good{color:var(--good);background:var(--good-soft)}
+
+  .flow{display:flex;flex-direction:column;align-items:stretch}
+  .node{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:11px 14px;display:flex;gap:11px;align-items:flex-start;
+    font-size:14.5px;font-weight:500;position:relative;
+  }
+  .node .tag{
+    flex-shrink:0;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;
+    width:22px;height:22px;border-radius:6px;display:grid;place-items:center;
+    background:var(--code-bg);color:var(--muted);margin-top:1px;
+  }
+  .node small{display:block;color:var(--muted);font-weight:400;font-size:12.5px;font-family:"JetBrains Mono",monospace}
+  .node.llm{border-color:#9fb6c4;background:#eef3f6}
+  .node.llm .tag{background:#d3e0e7;color:#3d6275}
+  .node.bad-node{border-color:#dca9af;background:var(--bad-soft)}
+  .node.bad-node .tag{background:#e6c1c5;color:var(--bad)}
+  .node.good-node{border-color:#a6c7bc;background:var(--good-soft)}
+  .node.good-node .tag{background:#bcd6cd;color:var(--good)}
+  .node.artifact{border-style:dashed;background:#fff}
+  .node.gate{
+    border:2px solid var(--accent);background:var(--accent-soft);font-weight:700;
+    border-radius:14px;justify-content:center;text-align:center;
+  }
+  .node.gate .gq{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--accent);display:block;font-weight:700}
+
+  .conn{height:18px;width:2px;background:var(--line);margin:0 auto;position:relative}
+  .conn::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+    border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid var(--line)}
+  .conn.short{height:12px}
+
+  .branch{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
+  .branch-col{display:flex;flex-direction:column}
+  .branch-label{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;text-align:center;margin-bottom:8px;padding:3px;border-radius:6px}
+  .branch-label.no{color:var(--bad);background:var(--bad-soft)}
+  .branch-label.yes{color:var(--good);background:var(--good-soft)}
+
+  .loop-note{
+    margin-top:14px;font-size:12.5px;color:var(--bad);font-weight:500;
+    background:var(--bad-soft);border-radius:8px;padding:8px 12px;border:1px dashed #dca9af;
+  }
+  .gate-note{
+    margin-top:14px;font-size:12.5px;color:var(--good);font-weight:500;
+    background:var(--good-soft);border-radius:8px;padding:8px 12px;border:1px dashed #a6c7bc;
+  }
+  .multi{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+  .lanes{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;counter-reset:lane}
+  .lane{
+    background:var(--paper);border:1px solid var(--line);border-radius:16px;
+    padding:20px 18px;box-shadow:var(--shadow);position:relative;display:flex;flex-direction:column;gap:10px;
+  }
+  .lane .who{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:14px;color:var(--ink)}
+  .lane .job{font-size:14px;color:var(--muted)}
+  .lane .out{
+    margin-top:auto;font-family:"JetBrains Mono",monospace;font-size:12px;
+    background:var(--code-bg);border-radius:8px;padding:7px 10px;color:var(--ink);
+  }
+  .lane .dot{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-weight:700;font-family:"JetBrains Mono",monospace;color:#fff;font-size:15px}
+  .lane:nth-child(1) .dot{background:#5a7d90}
+  .lane:nth-child(2) .dot{background:var(--accent)}
+  .lane:nth-child(3) .dot{background:var(--good)}
+  .lane:nth-child(4) .dot{background:#7a6a52}
+  .lane-arrow{display:none}
+
+  .tbl{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+  .trow{display:grid;grid-template-columns:1fr 1.25fr;border-bottom:1px solid var(--line)}
+  .trow:last-child{border-bottom:none}
+  .trow.head{background:var(--code-bg);font-weight:700}
+  .tcell{padding:14px 18px;font-size:14.5px}
+  .trow.head .tcell{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .trow:not(.head) .tcell:first-child{color:var(--bad);font-weight:500;border-right:1px solid var(--line)}
+  .trow:not(.head) .tcell:last-child{color:var(--ink)}
+  .trow:not(.head):nth-child(even){background:rgba(236,231,219,.35)}
+
+  .value{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:clamp(24px,4vw,38px);box-shadow:var(--shadow)}
+  .value ul{list-style:none;display:grid;gap:14px}
+  .value li{display:flex;gap:12px;font-size:15.5px}
+  .value li .mk{flex-shrink:0;color:var(--good);font-family:"JetBrains Mono",monospace;font-weight:700}
+  .punch{
+    margin-top:28px;padding-top:24px;border-top:1px dashed var(--line);
+    display:grid;gap:14px;
+  }
+  .punch .row{display:flex;gap:12px;align-items:flex-start;font-size:16px;font-weight:500}
+  .punch .row .badge{flex-shrink:0;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;margin-top:3px}
+  .punch .row.old .badge{color:var(--bad);background:var(--bad-soft)}
+  .punch .row.new .badge{color:var(--good);background:var(--good-soft)}
+  .commit{margin-top:24px;font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--muted);display:inline-flex;align-items:center;gap:8px;background:var(--code-bg);padding:8px 14px;border-radius:8px}
+  .commit b{color:var(--accent)}
+
+  footer{margin-top:48px;text-align:center;color:var(--muted);font-size:13px;font-family:"JetBrains Mono",monospace}
+
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:860px){
+    .contrast,.flows{grid-template-columns:1fr}
+    .lanes{grid-template-columns:1fr 1fr}
+    .trow{grid-template-columns:1fr}
+    .trow.head{display:none}
+    .trow:not(.head) .tcell:first-child{border-right:none;border-bottom:1px solid var(--line)}
+    .trow:not(.head) .tcell:first-child::before{content:"原本問題 — ";color:var(--muted);font-size:12px;font-family:"JetBrains Mono",monospace}
+    .trow:not(.head) .tcell:last-child::before{content:"新流程 — ";color:var(--muted);font-size:12px;font-family:"JetBrains Mono",monospace;display:block}
+  }
+  @media(max-width:520px){
+    .lanes{grid-template-columns:1fr}
+    .multi{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="reveal">
+    <div class="kicker">MNnews · AutoFarm</div>
+    <h1>把最容易失控的「後半段」<br>收成固定流程</h1>
+    <p class="lede">這次改動不是重寫整個 AutoFarm，而是把選題之後那段最混亂的環節——cluster 判斷、寫入 <code>feed.json</code>、驗證——拆成各司其職、有紀錄、出事會停下來的管線。</p>
+
+    <div class="contrast">
+      <div class="card before">
+        <div class="lbl">改之前</div>
+        <p>LLM 寫完直接上車，出事再補救。</p>
+      </div>
+      <div class="card after">
+        <div class="lbl">改之後</div>
+        <p>LLM 交稿，程式判斷、驗證、留紀錄，再決定能不能上車。</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="reveal">
+    <div class="sec-head"><span class="sec-num">01</span><h2>流程對照</h2></div>
+    <p class="sec-sub">左邊是一條從頭混到尾的單線，錯誤要等寫進 <code>feed.json</code> 才浮現；右邊在 publish 之前多了一道閘門。</p>
+
+    <div class="flows">
+      <div class="flowpanel">
+        <span class="panel-tag bad">改之前</span>
+        <div class="flow">
+          <div class="node llm"><span class="tag">A</span><div>Cowork / LLM 掃新聞</div></div>
+          <div class="conn"></div>
+          <div class="node llm"><span class="tag">B</span><div>LLM 判斷要新開或更新 cluster</div></div>
+          <div class="conn"></div>
+          <div class="node bad-node"><span class="tag">C</span><div>LLM 臨時寫 <small>_update_feed_日期.py</small></div></div>
+          <div class="conn"></div>
+          <div class="node bad-node"><span class="tag">D</span><div>直接修改 <small>docs/feed.json</small></div></div>
+          <div class="conn"></div>
+          <div class="node"><span class="tag">E</span><div>MNnews watcher 接手同步</div></div>
+          <div class="conn"></div>
+          <div class="node gate" style="border-color:var(--bad);background:var(--bad-soft)"><div><span class="gq" style="color:var(--bad)">驗證</span>有沒有擋下？</div></div>
+          <div class="conn"></div>
+          <div class="branch">
+            <div class="branch-col">
+              <div class="branch-label yes">通過</div>
+              <div class="node good-node"><span class="tag">G</span><div>commit + push 到 production</div></div>
+            </div>
+            <div class="branch-col">
+              <div class="branch-label no">失敗</div>
+              <div class="node bad-node"><span class="tag">H</span><div>人工補救 / 臨時修腳本 / 重跑</div></div>
+            </div>
+          </div>
+          <div class="loop-note">錯誤常常等到 <code>feed.json</code> 寫完後才被發現，只能往回補。</div>
+        </div>
+      </div>
+
+      <div class="flowpanel">
+        <span class="panel-tag good">改之後</span>
+        <div class="flow">
+          <div class="node llm"><span class="tag">A</span><div>Cowork / LLM 掃新聞與寫摘要</div></div>
+          <div class="conn"></div>
+          <div class="node artifact"><span class="tag">B</span><div>產出 <small>draft-日期.json</small></div></div>
+          <div class="conn"></div>
+          <div class="node good-node"><span class="tag">C</span><div><small>cluster_decider.py</small></div></div>
+          <div class="conn short"></div>
+          <div class="multi">
+            <div class="node artifact"><span class="tag">D</span><div><small>candidate-日期.json</small></div></div>
+            <div class="node artifact"><span class="tag">E</span><div><small>cluster-report-日期.md</small></div></div>
+          </div>
+          <div class="conn"></div>
+          <div class="node good-node"><span class="tag">F</span><div><small>producer_writer.py</small> dry-run</div></div>
+          <div class="conn short"></div>
+          <div class="node artifact"><span class="tag">G</span><div><small>run-report-日期.md</small></div></div>
+          <div class="conn"></div>
+          <div class="node gate"><div><span class="gq">閘門 H</span>格式與規則通過？</div></div>
+          <div class="conn short"></div>
+          <div class="branch">
+            <div class="branch-col">
+              <div class="branch-label no">否</div>
+              <div class="node bad-node"><span class="tag">I</span><div>停下來，修 draft / candidate</div></div>
+            </div>
+            <div class="branch-col">
+              <div class="branch-label yes">是</div>
+              <div class="node good-node"><span class="tag">J</span><div><small>run_daily_update.sh --apply</small></div></div>
+            </div>
+          </div>
+          <div class="conn"></div>
+          <div class="node"><span class="tag">K</span><div>atomic write 到 <small>autofarm/docs/feed.json</small></div></div>
+          <div class="conn"></div>
+          <div class="node"><span class="tag">L</span><div>MNnews watcher 接手同步</div></div>
+          <div class="conn"></div>
+          <div class="node good-node"><span class="tag">M</span><div>validate + recompute + commit + push</div></div>
+          <div class="gate-note">出錯停在 <b>閘門 H</b>，也就是 publish 之前；watcher 仍是最後一道保險。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="sec-head"><span class="sec-num">02</span><h2>新的分工：一人一職</h2></div>
+    <p class="sec-sub">原本 LLM 同時負責選題、cluster、寫 JSON、修錯，責任全混在一起。現在切成四段，每段只做一件事。</p>
+    <div class="lanes">
+      <div class="lane">
+        <div class="dot">L</div>
+        <div class="who">LLM</div>
+        <div class="job">只負責新聞內容，不能直接寫 feed。</div>
+        <div class="out">→ draft</div>
+      </div>
+      <div class="lane">
+        <div class="dot">C</div>
+        <div class="who">cluster_decider.py</div>
+        <div class="job">只負責 cluster 判斷，留下原因與信心分數。</div>
+        <div class="out">→ candidate</div>
+      </div>
+      <div class="lane">
+        <div class="dot">W</div>
+        <div class="who">producer_writer.py</div>
+        <div class="job">只負責安全寫入 feed，先擋黑名單與壞格式。</div>
+        <div class="out">→ feed.json</div>
+      </div>
+      <div class="lane">
+        <div class="dot">M</div>
+        <div class="who">MNnews watcher</div>
+        <div class="job">只負責 production 同步，最後一道保險。</div>
+        <div class="out">→ GitHub / production</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="sec-head"><span class="sec-num">03</span><h2>解決了什麼</h2></div>
+    <p class="sec-sub">每一個原本的痛點，都對應到流程裡的一個固定環節。</p>
+    <div class="tbl">
+      <div class="trow head"><div class="tcell">原本問題</div><div class="tcell">新流程怎麼處理</div></div>
+      <div class="trow"><div class="tcell">LLM 直接改 feed.json</div><div class="tcell">LLM 只產 draft，不能直接寫 feed。</div></div>
+      <div class="trow"><div class="tcell">cluster 判斷不可追蹤</div><div class="tcell">cluster-report 會留下判斷原因與信心分數。</div></div>
+      <div class="trow"><div class="tcell">臨時腳本越堆越多</div><div class="tcell">固定入口改成 run_daily_update.sh。</div></div>
+      <div class="trow"><div class="tcell">壞來源、壞格式容易混進 feed</div><div class="tcell">writer 先擋黑名單、重複 URL、壞 summary、沒連結的 discussions。</div></div>
+      <div class="trow"><div class="tcell">寫到一半可能被 watcher 讀到</div><div class="tcell">writer 用 atomic write。</div></div>
+      <div class="trow"><div class="tcell">其他人很難接手</div><div class="tcell">pipeline 已推到 GitHub，commit 13c764b。</div></div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="sec-head"><span class="sec-num">04</span><h2>價值在哪裡</h2></div>
+    <p class="sec-sub">核心價值不是「明天 cluster 一定 100% 準」，而是讓錯誤可控、決策可查。</p>
+    <div class="value">
+      <ul>
+        <li><span class="mk">✓</span><span>錯誤會停在 publish 前。</span></li>
+        <li><span class="mk">✓</span><span>每天產出都會留下決策紀錄。</span></li>
+        <li><span class="mk">✓</span><span>cluster 判斷可以被檢查、調整，而不是藏在 LLM 當下的判斷裡。</span></li>
+        <li><span class="mk">✓</span><span>同事可以 pull repo，看到固定腳本與說明文件，不需要理解一堆臨時補丁。</span></li>
+        <li><span class="mk">✓</span><span>MNnews watcher 還在，保留原本最後一道保險。</span></li>
+      </ul>
+      <div class="punch">
+        <div class="row old"><span class="badge">以前</span><span>LLM 寫完直接上車，出事再補救。</span></div>
+        <div class="row new"><span class="badge">現在</span><span>LLM 交稿，程式判斷、驗證、留紀錄，再決定能不能上車。</span></div>
+      </div>
+      <div class="commit">commit <b>13c764b</b> · pipeline 已推上 GitHub</div>
+    </div>
+  </section>
+
+  <footer>區塊勢製圖 · MNnews AutoFarm pipeline</footer>
+
+</div>
+
+<script>
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+  },{threshold:.08});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i*60)+'ms';io.observe(el)});
+</script>
+</body>
+</html>
