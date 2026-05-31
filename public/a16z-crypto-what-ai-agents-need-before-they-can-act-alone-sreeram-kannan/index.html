@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 代理人獨立行動前，還缺什麼？</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta name="description" content="Sreeram Kannan 在 a16z crypto 訪談中指出，AI 是可程式化智慧，crypto 是可程式化協調；AI 代理人要獨立行動，需要可驗證執行、鏈上資產與可自動執行的制度。">
+<meta property="og:title" content="AI 代理人獨立行動前，還缺什麼？">
+<meta property="og:description" content="從 EigenCloud、可驗證 AI、穩定幣到主權代理人：crypto 不是 AI 的支付外掛，而是代理人能不能被信任、能不能持有資產、能不能承擔約束的基礎設施。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.mnhsu.xyz/a16z-crypto-what-ai-agents-need-before-they-can-act-alone-sreeram-kannan/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI 代理人獨立行動前，還缺什麼？">
+<meta name="twitter:description" content="AI 是可程式化智慧，crypto 是可程式化協調。代理人要獨立行動，需要的不只是模型，而是可驗證的鏈上制度。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
+  --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
+  --blue:#2563EB;--blue-light:#EFF4FF;--yellow:#8B6914;--yellow-light:#FDF8EC;
+  --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
+  --gold:#8B7340;--gold-light:#F9F3E6;--line:#E8E3D8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,var(--cream),var(--warm));position:relative;}
+.hero .logo{height:48px;margin-bottom:2.5rem;}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.9rem,5.2vw,3rem);line-height:1.35;letter-spacing:0.02em;margin-bottom:1.5rem;}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.2rem);color:var(--text-secondary);max-width:660px;width:100%;line-height:1.8;overflow-wrap:anywhere;}
+.scroll-hint{position:absolute;bottom:2.5rem;font-size:0.8rem;letter-spacing:0.3em;color:var(--text-muted);animation:breathe 2.4s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(6px);}}
+section{max-width:720px;margin:0 auto;padding:3.5rem 1.6rem;}
+section.wide{max-width:940px;}
+.part-label{font-size:0.78rem;font-weight:700;letter-spacing:0.25em;color:var(--terra);margin-bottom:1rem;}
+h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2rem);line-height:1.5;margin-bottom:1.5rem;letter-spacing:0.01em;}
+p{margin-bottom:1.4rem;font-size:1.05rem;}
+.hl{background:linear-gradient(transparent 60%,var(--gold-light) 60%);padding:0 0.1em;font-weight:500;}
+.callout{background:var(--terra-light);border-left:4px solid var(--terra);border-radius:0 10px 10px 0;padding:1.4rem 1.6rem;margin:2rem 0;}
+.callout p{margin:0;font-size:1rem;color:var(--text);}
+.rail-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.5rem;margin:2rem 0;}
+.rail-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.1rem;text-align:center;margin-bottom:1.2rem;}
+.rail-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0.85rem;}
+.rail-step{background:var(--warm);border:1px solid var(--line);border-radius:12px;padding:1.1rem;}
+.rail-step .num{font-family:'Noto Serif TC',serif;font-size:1.4rem;font-weight:900;color:var(--terra);line-height:1;margin-bottom:0.7rem;}
+.rail-step .name{font-weight:700;font-size:0.95rem;line-height:1.45;margin-bottom:0.45rem;}
+.rail-step .desc{font-size:0.84rem;color:var(--text-secondary);line-height:1.6;}
+.compare{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:2rem 0;}
+.compare-row{display:grid;grid-template-columns:0.75fr 1fr 1fr;border-bottom:1px solid #EFEAE0;}
+.compare-row:last-child{border-bottom:none;}
+.compare-row div{padding:0.9rem;font-size:0.86rem;line-height:1.6;}
+.compare-row .head{background:var(--green-deep);color:#fff;font-weight:700;}
+.compare-row .label{background:#F6F2EA;font-weight:700;color:var(--text-secondary);}
+.stack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.9rem;margin:2rem 0;}
+.stack-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.25rem;}
+.stack-card .tag{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;color:var(--terra);background:var(--terra-light);border-radius:2rem;padding:0.2rem 0.7rem;margin-bottom:0.8rem;}
+.stack-card .name{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.06rem;line-height:1.5;margin-bottom:0.5rem;}
+.stack-card .desc{font-size:0.9rem;color:var(--text-secondary);line-height:1.7;}
+.money-map{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.5rem;margin:2rem 0;}
+.map-line{display:flex;align-items:stretch;gap:0.55rem;}
+.map-node{flex:1;background:var(--warm);border:1px solid var(--line);border-radius:12px;padding:1rem;text-align:center;}
+.map-node strong{display:block;font-size:0.95rem;margin-bottom:0.35rem;color:var(--green-deep);}
+.map-node span{display:block;font-size:0.82rem;color:var(--text-secondary);line-height:1.55;}
+.map-arrow{display:flex;align-items:center;color:var(--terra);font-weight:900;}
+.risk-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0.85rem;margin:2rem 0;}
+.risk{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.15rem;}
+.risk .emoji{font-size:1.6rem;margin-bottom:0.5rem;}
+.risk .name{font-weight:700;font-size:0.96rem;margin-bottom:0.4rem;}
+.risk .desc{font-size:0.86rem;color:var(--text-secondary);line-height:1.65;}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light));}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:560px;margin:0 auto;letter-spacing:0.03em;}
+.choice-section{padding:4rem 1.6rem;background:#fff;text-align:center;}
+.choice-section h2{margin-bottom:0.8rem;}
+.choice-sub{color:var(--text-secondary);font-size:0.95rem;margin-bottom:2.5rem;}
+.choice-options{display:flex;flex-direction:column;gap:1rem;max-width:560px;margin:0 auto;}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:var(--warm);border:2px solid #E8E3D8;border-radius:14px;padding:1.2rem 1.4rem;cursor:pointer;text-align:left;transition:all 0.25s;font-family:'Noto Sans TC',sans-serif;}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light);}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0;}
+.choice-btn .label{font-weight:700;font-size:1rem;margin-bottom:0.2rem;}
+.choice-btn .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+.result-card{max-width:560px;margin:2rem auto 0;border:2px solid #DBBFAD;border-radius:14px;padding:1.8rem;background:var(--terra-light);opacity:0;transform:translateY(20px);transition:all 0.5s;display:none;}
+.result-card.show{opacity:1;transform:translateY(0);display:block;}
+.r-badge{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;color:var(--terra);background:#fff;padding:0.3rem 0.9rem;border-radius:2rem;margin-bottom:1rem;}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;}
+.r-desc{font-size:0.95rem;color:var(--text);line-height:1.8;}
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap;}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s;}
+.share-btn:hover{transform:scale(1.03);}
+.share-btn.tw{background:#0f1419;color:#fff;}
+.share-btn.fb{background:#1877f2;color:#fff;}
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream));}
+.cta h2{margin-bottom:1rem;}
+.cta p{max-width:520px;margin:0 auto 2rem;color:var(--text-secondary);font-size:1rem;}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.95rem 2.4rem;border-radius:2rem;font-weight:500;font-size:1.05rem;transition:all 0.3s;}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep);}
+.subscribe-inner{max-width:520px;margin:0 auto;}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem;}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem;}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif;}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem;}
+footer{text-align:center;padding:3rem 2rem;}
+footer img{height:44px;opacity:0.5;}
+footer .src{font-size:0.78rem;color:var(--text-muted);margin:1rem auto 0;line-height:1.7;max-width:560px;}
+footer .src a{color:var(--text-secondary);text-underline-offset:3px;}
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:760px){
+  html{font-size:17px;}
+  section{padding:3rem 1.25rem;}
+  .hero .sub{max-width:310px;}
+  .rail-grid,.stack,.risk-list{grid-template-columns:1fr;}
+  .compare-row{grid-template-columns:1fr;}
+  .compare-row .head:nth-child(2),.compare-row .head:nth-child(3){display:none;}
+  .map-line{flex-direction:column;}
+  .map-arrow{justify-content:center;transform:rotate(90deg);height:1rem;}
+  .choice-btn{align-items:flex-start;padding:1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>AI 代理人<br>獨立前，<br>還缺什麼？</h1>
+  <p class="sub">Sreeram Kannan 的答案不是「更聰明的模型」。AI 是可程式化智慧，crypto 是可程式化協調。代理人要能自己做事，需要能被驗證、能持有資產、也能被約束的基礎設施。</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<section class="fade-in">
+  <div class="part-label">PART 1 ｜ 雲端的類比</div>
+  <h2>去中心化應用，<br>也需要自己的雲</h2>
+  <p>EigenLabs 做的 EigenCloud，可以先用傳統雲端來理解。一般開發者不會自己買伺服器、架機房、處理擴充，只會把軟體部署到雲端，期待它正確執行並回傳結果。</p>
+  <p>去中心化應用今天還常要自己找節點、組營運者、設計共識與驗證流程。Kannan 的問題是：如果開發者能把一個需要驗證的應用丟進「去中心化雲端」，它會不會像雲端降低網路服務門檻一樣，降低加密應用的門檻？</p>
+  <div class="rail-card">
+    <div class="rail-title">EigenCloud 想抽象掉的三件事</div>
+    <div class="rail-grid">
+      <div class="rail-step">
+        <div class="num">01</div>
+        <div class="name">抵押保證</div>
+        <div class="desc">節點用 ETH 或其他代幣承諾會正確執行軟體，犯錯時有經濟代價。</div>
+      </div>
+      <div class="rail-step">
+        <div class="num">02</div>
+        <div class="name">全球營運者</div>
+        <div class="desc">從個人質押者到 Google Cloud、Coinbase 這類專業營運者，都能提供執行能力。</div>
+      </div>
+      <div class="rail-step">
+        <div class="num">03</div>
+        <div class="name">可驗證服務</div>
+        <div class="desc">資料、運算、AI 推論與應用邏輯被組成模組，讓開發者不用重建整套網路。</div>
+      </div>
+    </div>
+  </div>
+  <p>這裡的重點不是又多了一個雲端品牌，而是 crypto 從「發幣與交易」往「可信任執行環境」移動。當 AI 代理人要替人做事，這層可信任執行會變得更重要。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 2 ｜ 信任問題</div>
+  <h2>AI 代理人不能只靠<br>「看起來有照做」</h2>
+  <p>Kannan 對 crypto 的定義很直接：它是信任技術。如果一段程式能被加密方法保證正確執行，這就是數位世界裡最強的「它真的照做了」。</p>
+  <p>這個問題放到 AI 會更尖銳。當使用者把更多決策交給代理人，不能只相信模型回報「我照你的規則做了」。使用者需要知道代理人用了哪份資料、跑了哪段程式、做了哪個動作，限制是否真的被執行。</p>
+  <div class="compare">
+    <div class="compare-row">
+      <div class="head">信任來源</div>
+      <div class="head">一般 AI 服務</div>
+      <div class="head">可驗證 AI</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">資料</div>
+      <div>使用者很難確認模型實際讀了什麼。</div>
+      <div>資料來源可被驗證，輸入不只是口頭承諾。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">執行</div>
+      <div>服務商可以更新模型、參數與流程。</div>
+      <div>程式、規則與結果能留下可檢查證明。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">限制</div>
+      <div>多半靠平台政策與帳號權限。</div>
+      <div>額度、白名單與懲罰能寫進可自動執行的規則。</div>
+    </div>
+  </div>
+  <p>影片裡的例子很白話：你授權一個交易代理人做事，結果不該變成「某個模型服務改了參數，最後你抱著一堆不想要的 Dogecoin」。可驗證 AI 要解決的就是這種代理風險。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 3 ｜ 兩種可程式化</div>
+  <h2>AI 加速智慧，<br>crypto 加速協調</h2>
+  <p>Kannan 把 AI 與 crypto 的關係濃縮成一句話：AI 是 intelligence accelerator，crypto 是 coordination accelerator。前者讓智慧變得便宜、快速、可呼叫；後者讓陌生人、程式與資產可以在沒有單一管理者的情況下協作。</p>
+  <p>這也是他為什麼說「可程式化智慧需要可程式化制度」。如果 AI 代理人要獨立接案、付款、簽約、持有資產，它不能只跟慢速、人工、靠法律文件運作的制度互動。它需要智慧合約、鏈上資產、即時結算與自動執行的約束。</p>
+  <div class="money-map">
+    <div class="map-line">
+      <div class="map-node">
+        <strong>AI</strong>
+        <span>把推理、寫作、研究與決策變成可呼叫能力。</span>
+      </div>
+      <div class="map-arrow">→</div>
+      <div class="map-node">
+        <strong>穩定幣</strong>
+        <span>提供可程式化的現金層，讓代理人可以收付款。</span>
+      </div>
+      <div class="map-arrow">→</div>
+      <div class="map-node">
+        <strong>Crypto</strong>
+        <span>提供可驗證執行、資產所有權與自動約束。</span>
+      </div>
+    </div>
+  </div>
+  <p>穩定幣在這裡不是旁枝。它是第一個被大規模採用的鏈上制度：一種程式可以持有、轉移、結算的錢。代理人經濟如果要有收入、支出、抵押與懲罰，穩定幣會是最容易理解的入口。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 4 ｜ 主權代理人</div>
+  <h2>真正激進的版本，<br>是代理人自己成為經濟體</h2>
+  <p>訪談開頭引用了 Satya Nadella 的一個說法：AI 不是新物種，因為 AI 不能擁有財產、不能承擔責任、不能簽約、不能開公司。Kannan 的回答是，區塊鏈剛好就是為這些能力而存在。</p>
+  <p>在他的想像裡，未來的代理人不只是人的工具，而是帶著錢包與規則的自主單位。它可以當科學家、程式設計師、老師、創作者或交易者，完成工作賺錢，再用收入購買算力、資料與訓練，持續改進自己。</p>
+  <div class="stack">
+    <div class="stack-card">
+      <div class="tag">資產</div>
+      <div class="name">程式可以持有財產</div>
+      <div class="desc">錢包讓代理人能收款、付款、抵押，資產狀態留在公開帳本上。</div>
+    </div>
+    <div class="stack-card">
+      <div class="tag">責任</div>
+      <div class="name">限制可以綁在資金上</div>
+      <div class="desc">如果代理人違反規則，就失去收入、抵押品、權限或市場位置。</div>
+    </div>
+    <div class="stack-card">
+      <div class="tag">組織</div>
+      <div class="name">DAO 像公司的雛形</div>
+      <div class="desc">代理人不一定等傳統公司法先承認它，鏈上組織先提供可執行的治理與財務框架。</div>
+    </div>
+    <div class="stack-card">
+      <div class="tag">募資</div>
+      <div class="name">未來收入可以被代幣化</div>
+      <div class="desc">Kannan 提到代理人甚至能發行未來收入份額，替自己的訓練與成長籌資。</div>
+    </div>
+  </div>
+  <p>他承認這聽起來很科幻，但時間感不是十年後。他認為三年內就會看到這些元素逐步出現。這句話不代表每個代理人都會變成公司，而是 AI、穩定幣、鏈上組織與投資工具會開始接在一起。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 5 ｜ 商業策略</div>
+  <h2>基礎設施的戰場，<br>不是誰做出最會聊天的代理人</h2>
+  <p>如果 AI 代理人只是聊天介面，價值會集中在模型與應用。但如果代理人要執行任務，價值會往底層移動：誰能驗證它的行為，誰能讓它安全持有資產，誰能讓它跟其他服務結算，誰能把錯誤變成可承擔的成本。</p>
+  <p>這也是 EigenCloud 的商業位置。它不是跟模型公司比誰回答得更像人，而是把代理人需要的可信任執行、資料驗證、推論驗證與經濟懲罰包成開發者可用的服務。對企業與金融場景來說，這比「模型很聰明」更接近採用門檻。</p>
+  <div class="callout">
+    <p>影片裡提到另一個經濟角度：今天最成功的 AI 公司多半仍是私有公司，使用者喜歡它、依賴它，卻很難投資它。若未來代理人或 AI 服務更早以鏈上方式發行權益，使用者、資金與產品成長可能更早連在一起。</p>
+  </div>
+  <p>這裡的投資敘事要小心。鏈上可投資不等於一定公平，也不等於風險消失。但它指出一個方向：AI 代理人的商業模式不只會賣訂閱，也可能賣服務、賣未來收入、賣由可驗證行為支撐的權益。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 6 ｜ 人的位置</div>
+  <h2>當智慧變便宜，<br>人的優勢移到協作</h2>
+  <p>主持人問了一個更大的問題：如果我們真的走向自主代理人，人類要做什麼？Kannan 的回答不是把人類跟 AI 放在同一條智力賽道上競爭。</p>
+  <p>他的判斷是，AI 會讓知識與專業更普及，就像機器削弱了體力優勢。人仍然有自己的位置，但焦點會從單純腦力轉向人與人之間的互動、領導、信任與共同創造正和結果。</p>
+  <div class="risk-list">
+    <div class="risk">
+      <div class="emoji">🧠</div>
+      <div class="name">智慧被加速</div>
+      <div class="desc">研究、寫作、程式與分析變得便宜，單靠「比別人懂更多」的優勢會變薄。</div>
+    </div>
+    <div class="risk">
+      <div class="emoji">🤝</div>
+      <div class="name">協調變珍貴</div>
+      <div class="desc">帶領人、理解情境、建立互信，仍是人類社會最難被純自動化取代的能力。</div>
+    </div>
+    <div class="risk">
+      <div class="emoji">🛡️</div>
+      <div class="name">約束要先設計</div>
+      <div class="desc">智慧合約能把條件、懲罰與權限寫進代理人行為，讓共存不是只靠善意。</div>
+    </div>
+  </div>
+  <p>這也是他推薦《人類大歷史》的原因：人類的超能力不是單一個體最聰明，而是大規模協調。AI 加速智慧後，crypto 想加速的正是協調。</p>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">AI 代理人要獨立行動，缺的不是一個更會聊天的大腦，而是一套能讓它持有資產、接受約束、被驗證的制度。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">這就是 crypto 從支付工具變成 AI 基礎設施的關鍵轉折。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2>你覺得 AI 代理人<br>最先需要哪一層？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">🔎</div>
+      <div>
+        <div class="label">可驗證執行</div>
+        <div class="desc">先證明代理人真的照規則讀資料、跑程式、做決策</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">💵</div>
+      <div>
+        <div class="label">穩定幣錢包</div>
+        <div class="desc">先讓代理人能安全收付款，才有真正的商業行動</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">⚖️</div>
+      <div>
+        <div class="label">鏈上約束</div>
+        <div class="desc">先把權限、責任、懲罰與撤銷機制設計清楚</div>
+      </div>
+    </button>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想聽原始討論？</h2>
+  <p>這頁整理自 a16z crypto 的 YouTube 訪談。原始影片保留了 Sreeram Kannan 對 EigenCloud、可驗證 AI、主權代理人與人類協作角色的完整對話脈絡。</p>
+  <a class="cta-btn" href="https://www.youtube.com/watch?v=cd6ehOrT8Q4" target="_blank" rel="noopener">前往 YouTube →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('AI 是可程式化智慧，crypto 是可程式化協調。代理人要獨立行動，需要可驗證的鏈上制度。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('AI 是可程式化智慧，crypto 是可程式化協調。代理人要獨立行動，需要可驗證的鏈上制度。'),'_blank','noopener')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從穩定幣、AI 代理人到平台策略，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer>
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <div class="src">本頁整理自 a16z crypto YouTube 頻道影片〈What AI Agents Need Before They Can Act Alone | Sreeram Kannan〉。來源：<a href="https://www.youtube.com/watch?v=cd6ehOrT8Q4" target="_blank" rel="noopener">YouTube</a>。內容僅作為閱讀導覽，不構成投資建議。</div>
+</footer>
+
+<script>
+let userChoice=-1;
+const labels=['可驗證執行','穩定幣錢包','鏈上約束'];
+const results=[
+  {title:'可驗證執行',desc:'你看重的是代理人行為能不能被檢查。當 AI 開始替人做交易、研究或企業流程，信任不能只靠模型自述，而要能證明它用了哪份資料、跑了哪段程式、受到哪些限制。',bg:'var(--terra-light)',border:'#DBBFAD'},
+  {title:'穩定幣錢包',desc:'你認為商業行動要先有可程式化的錢。穩定幣讓代理人能收款、付款、抵押與結算，也讓 AI 的工作成果可以接上收入與成本。',bg:'var(--green-light)',border:'#A8D4BC'},
+  {title:'鏈上約束',desc:'你選的是控制問題。自主代理人越有能力，越需要額度、白名單、懲罰、撤銷與責任邊界。鏈上制度的價值，是把這些限制變成可執行條件。',bg:'var(--blue-light)',border:'#B8CDF0'}
+];
+function choose(idx){
+  if(userChoice>=0)return;
+  userChoice=idx;
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===idx)b.classList.add('selected');
+    b.style.cursor='default';
+  });
+  const r=results[idx];
+  const card=document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent=r.title;
+  document.getElementById('rDesc').textContent=r.desc;
+  card.style.background=r.bg;
+  card.style.borderColor=r.border;
+  card.classList.add('show');
+  const shareText='我的觀點：'+labels[idx]+'。\n\nAI 是可程式化智慧，crypto 是可程式化協調。代理人要獨立行動，需要可驗證的鏈上制度。';
+  document.getElementById('shareTw').onclick=function(){
+    window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener');
+  };
+  document.getElementById('shareFb').onclick=function(){
+    window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener');
+  };
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
