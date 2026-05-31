@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIP-1559 的等待經濟學</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta name="description" content="a16z crypto Research Series 邀請 Moshe Babaioff 討論 EIP-1559：當交易願意等待，base fee 不只是手續費機制，而是鏈上基礎設施如何用價格訊號分配稀缺區塊空間。">
+<meta property="og:title" content="EIP-1559 的等待經濟學">
+<meta property="og:description" content="從 patient bidders、社會福利、區塊容量彈性到 AI 代理人與穩定幣基礎設施：這支 a16z crypto 研究分享說明，鏈上價格訊號決定交易如何排隊，也決定基礎設施能承載什麼商業活動。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.mnhsu.xyz/a16z-crypto-on-the-welfare-of-eip-1559-with-patient-bidders-with-moshe-babaioff/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EIP-1559 的等待經濟學">
+<meta name="twitter:description" content="當交易願意等待，EIP-1559 的 base fee 變成鏈上基礎設施的價格訊號。它能不能接近最佳社會福利，取決於耐心、容量彈性與調價速度。">
+<style>
+:root{
+  --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
+  --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
+  --blue:#2563EB;--blue-light:#EFF4FF;--yellow:#8B6914;--yellow-light:#FDF8EC;
+  --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
+  --gold:#8B7340;--gold-light:#F9F3E6;--line:#E8E3D8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,var(--cream),var(--warm));position:relative;}
+.hero .logo{height:48px;margin-bottom:2.5rem;}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.9rem,5.2vw,3rem);line-height:1.35;letter-spacing:0.02em;margin-bottom:1.5rem;}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.2rem);color:var(--text-secondary);max-width:680px;width:100%;line-height:1.8;overflow-wrap:anywhere;}
+.scroll-hint{position:absolute;bottom:2.5rem;font-size:0.8rem;letter-spacing:0.3em;color:var(--text-muted);animation:breathe 2.4s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(6px);}}
+section{max-width:720px;margin:0 auto;padding:3.5rem 1.6rem;}
+section.wide{max-width:940px;}
+.part-label{font-size:0.78rem;font-weight:700;letter-spacing:0.25em;color:var(--terra);margin-bottom:1rem;}
+h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2rem);line-height:1.5;margin-bottom:1.5rem;letter-spacing:0.01em;}
+p{margin-bottom:1.4rem;font-size:1.05rem;}
+.hl{background:linear-gradient(transparent 60%,var(--gold-light) 60%);padding:0 0.1em;font-weight:500;}
+.callout{background:var(--terra-light);border-left:4px solid var(--terra);border-radius:0 10px 10px 0;padding:1.4rem 1.6rem;margin:2rem 0;}
+.callout p{margin:0;font-size:1rem;color:var(--text);}
+.rail-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.5rem;margin:2rem 0;}
+.rail-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.1rem;text-align:center;margin-bottom:1.2rem;}
+.rail-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0.85rem;}
+.rail-step{background:var(--warm);border:1px solid var(--line);border-radius:12px;padding:1.1rem;}
+.rail-step .num{font-family:'Noto Serif TC',serif;font-size:1.4rem;font-weight:900;color:var(--terra);line-height:1;margin-bottom:0.7rem;}
+.rail-step .name{font-weight:700;font-size:0.95rem;line-height:1.45;margin-bottom:0.45rem;}
+.rail-step .desc{font-size:0.84rem;color:var(--text-secondary);line-height:1.6;}
+.compare{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:2rem 0;}
+.compare-row{display:grid;grid-template-columns:0.8fr 1fr 1fr;border-bottom:1px solid #EFEAE0;}
+.compare-row:last-child{border-bottom:none;}
+.compare-row div{padding:0.9rem;font-size:0.86rem;line-height:1.6;}
+.compare-row .head{background:var(--green-deep);color:#fff;font-weight:700;}
+.compare-row .label{background:#F6F2EA;font-weight:700;color:var(--text-secondary);}
+.stack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.9rem;margin:2rem 0;}
+.stack-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.25rem;}
+.stack-card .tag{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;color:var(--terra);background:var(--terra-light);border-radius:2rem;padding:0.2rem 0.7rem;margin-bottom:0.8rem;}
+.stack-card .name{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.06rem;line-height:1.5;margin-bottom:0.5rem;}
+.stack-card .desc{font-size:0.9rem;color:var(--text-secondary);line-height:1.7;}
+.money-map{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.5rem;margin:2rem 0;}
+.map-line{display:flex;align-items:stretch;gap:0.55rem;}
+.map-node{flex:1;background:var(--warm);border:1px solid var(--line);border-radius:12px;padding:1rem;text-align:center;}
+.map-node strong{display:block;font-size:0.95rem;margin-bottom:0.35rem;color:var(--green-deep);}
+.map-node span{display:block;font-size:0.82rem;color:var(--text-secondary);line-height:1.55;}
+.map-arrow{display:flex;align-items:center;color:var(--terra);font-weight:900;}
+.risk-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0.85rem;margin:2rem 0;}
+.risk{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.15rem;}
+.risk .emoji{font-size:1.6rem;margin-bottom:0.5rem;}
+.risk .name{font-weight:700;font-size:0.96rem;margin-bottom:0.4rem;}
+.risk .desc{font-size:0.86rem;color:var(--text-secondary);line-height:1.65;}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light));}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:560px;margin:0 auto;letter-spacing:0.03em;}
+.choice-section{padding:4rem 1.6rem;background:#fff;text-align:center;}
+.choice-section h2{margin-bottom:0.8rem;}
+.choice-sub{color:var(--text-secondary);font-size:0.95rem;margin-bottom:2.5rem;}
+.choice-options{display:flex;flex-direction:column;gap:1rem;max-width:560px;margin:0 auto;}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:var(--warm);border:2px solid #E8E3D8;border-radius:14px;padding:1.2rem 1.4rem;cursor:pointer;text-align:left;transition:all 0.25s;font-family:'Noto Sans TC',sans-serif;}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light);}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0;}
+.choice-btn .label{font-weight:700;font-size:1rem;margin-bottom:0.2rem;}
+.choice-btn .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+.result-card{max-width:560px;margin:2rem auto 0;border:2px solid #DBBFAD;border-radius:14px;padding:1.8rem;background:var(--terra-light);opacity:0;transform:translateY(20px);transition:all 0.5s;display:none;}
+.result-card.show{opacity:1;transform:translateY(0);display:block;}
+.r-badge{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;color:var(--terra);background:#fff;padding:0.3rem 0.9rem;border-radius:2rem;margin-bottom:1rem;}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;}
+.r-desc{font-size:0.95rem;color:var(--text);line-height:1.8;}
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap;}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s;}
+.share-btn:hover{transform:scale(1.03);}
+.share-btn.tw{background:#0f1419;color:#fff;}
+.share-btn.fb{background:#1877f2;color:#fff;}
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream));}
+.cta h2{margin-bottom:1rem;}
+.cta p{max-width:540px;margin:0 auto 2rem;color:var(--text-secondary);font-size:1rem;}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.95rem 2.4rem;border-radius:2rem;font-weight:500;font-size:1.05rem;transition:all 0.3s;}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep);}
+.subscribe-inner{max-width:520px;margin:0 auto;}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem;}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem;}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif;}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem;}
+footer{text-align:center;padding:3rem 2rem;}
+footer img{height:44px;opacity:0.5;}
+footer .src{font-size:0.78rem;color:var(--text-muted);margin:1rem auto 0;line-height:1.7;max-width:560px;}
+footer .src a{color:var(--text-secondary);text-underline-offset:3px;}
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:760px){
+  html{font-size:17px;}
+  section{padding:3rem 1.25rem;}
+  .hero .sub{max-width:330px;}
+  .rail-grid,.stack,.risk-list{grid-template-columns:1fr;}
+  .compare-row{grid-template-columns:1fr;}
+  .compare-row .head:nth-child(2),.compare-row .head:nth-child(3){display:none;}
+  .map-line{flex-direction:column;}
+  .map-arrow{justify-content:center;transform:rotate(90deg);height:1rem;}
+  .choice-btn{align-items:flex-start;padding:1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>EIP-1559 的<br>等待經濟學</h1>
+  <p class="sub">Moshe Babaioff 在 a16z crypto Research Series 問的是一個很實際的問題：如果有些交易不急著進下一個區塊，Ethereum 的 base fee 能不能把區塊空間分給最值得等待的人？</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<section class="fade-in">
+  <div class="part-label">PART 1 ｜ 影片真正問什麼</div>
+  <h2>手續費不是價格表，<br>是區塊空間的排隊規則</h2>
+  <p>EIP-1559 常被簡化成「base fee 會燃燒，tip 給驗證者」。這場研究分享關心的不是 ETH 會不會通縮，而是另一個更底層的問題：這套價格機制能不能帶來好的社會福利。</p>
+  <p>這裡的社會福利很直白。每筆交易有大小，也有使用者願意為每單位區塊空間付出的價值。區塊空間有限，誰被放進區塊，誰就創造價值；誰被排除，就沒有在那一輪產生價值。</p>
+  <div class="callout">
+    <p>如果 crypto 要承載支付、穩定幣、AI 代理人與代幣化資產，手續費機制就不是技術細節。它決定鏈上經濟在擁擠時，先服務高價值交易，還是被短期雜訊占滿。</p>
+  </div>
+  <p>Bitcoin 式的拍賣比較像讓驗證者挑出對自己收入最好的交易。EIP-1559 改成一個隨供需調整的 base fee。價格太低，區塊會滿，下一輪價格上升；價格太高，區塊變空，下一輪價格下降。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 2 ｜ Patient bidders</div>
+  <h2>願意等的人，<br>改變了手續費的問題</h2>
+  <p>過去許多分析假設使用者很急。交易如果沒有立刻被打包，就離開系統。Babaioff 這篇研究改看另一種使用者：patient bidders。交易進入 mempool 後可以等，晚幾個區塊被打包也不損失價值。</p>
+  <p>這個假設聽起來抽象，其實很貼近基礎設施。不是每筆交易都像搶 NFT、清算倉位或套利那樣分秒必爭。批次支付、穩定幣撥款、企業結算、定期再平衡、AI 代理人的非緊急任務，都可能願意等到費用合理再執行。</p>
+  <div class="compare">
+    <div class="compare-row">
+      <div class="head">交易類型</div>
+      <div class="head">急著上鏈</div>
+      <div class="head">可以等待</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">價值來源</div>
+      <div>速度本身就是價值，晚一步可能失去機會。</div>
+      <div>完成結算才重要，晚幾輪不一定改變結果。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">價格反應</div>
+      <div>願意付高費用插隊，或直接放棄交易。</div>
+      <div>留在 mempool 裡，等 base fee 下降或容量釋出。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">商業場景</div>
+      <div>清算、套利、熱門鑄造、緊急提款。</div>
+      <div>薪資、穩定幣付款、鏈上帳務、代理人例行任務。</div>
+    </div>
+  </div>
+  <p>研究的切入點是：如果交易可以等，EIP-1559 的價格調整就不只是處理下一個區塊，而是在一段時間內替整個排隊系統分配容量。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 3 ｜ EIP-1559 怎麼運作</div>
+  <h2>價格會追需求，<br>但追得太慢也會出事</h2>
+  <p>EIP-1559 有兩個容量概念。目標區塊大小是 B，硬上限大約是 2B。區塊可以短暫超過目標，但如果一直太滿，base fee 會往上調；如果用量低於目標，base fee 會往下調。</p>
+  <p>影片把它視為一個鏈上動態價格機制。使用者設定自己願意付的最高價格。只要交易價值高於 base fee，就有資格被打包。base fee 本身被燃燒，讓驗證者比較難靠操弄手續費獲利。</p>
+  <div class="rail-card">
+    <div class="rail-title">一輪 EIP-1559 的直覺版</div>
+    <div class="rail-grid">
+      <div class="rail-step">
+        <div class="num">01</div>
+        <div class="name">設定門檻</div>
+        <div class="desc">base fee 像進場門票。價值低於門檻的交易先留在 mempool。</div>
+      </div>
+      <div class="rail-step">
+        <div class="num">02</div>
+        <div class="name">打包交易</div>
+        <div class="desc">驗證者從合格交易中塞滿可用空間，但不一定按照最高價值排序。</div>
+      </div>
+      <div class="rail-step">
+        <div class="num">03</div>
+        <div class="name">調整價格</div>
+        <div class="desc">上一輪超過目標，下一輪 base fee 上升；低於目標，下一輪下降。</div>
+      </div>
+    </div>
+  </div>
+  <p>研究先證明一個基礎直覺：雖然每個區塊最多可以塞到 2B，長期平均不會一直維持在 2B。價格調整會把平均用量拉回目標附近，只是需要一段追價時間。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 4 ｜ 研究結果</div>
+  <h2>在完全耐心的世界，<br>它接近最佳排程</h2>
+  <p>主結果可以用一句話理解：如果交易完全耐心、價值有上下界、區塊有容量彈性，EIP-1559 在多給一些時間後，可以接近知道未來的最佳離線排程。</p>
+  <p>這句話裡有三個限制。第一，交易要願意等。第二，機制需要額外時間讓價格追到正確區間。第三，容量彈性很重要，因為價格制不是每輪都能精準挑出最好的交易。</p>
+  <div class="stack">
+    <div class="stack-card">
+      <div class="tag">耐心</div>
+      <div class="name">交易留在 mempool</div>
+      <div class="desc">只要不因等待而折價，系統就能用時間修正短期價格錯誤。</div>
+    </div>
+    <div class="stack-card">
+      <div class="tag">容量</div>
+      <div class="name">短期允許超過目標</div>
+      <div class="desc">2B 的硬上限讓系統在需求突然上升時有緩衝，而不是立刻拒絕所有人。</div>
+    </div>
+    <div class="stack-card">
+      <div class="tag">價格</div>
+      <div class="name">base fee 逐步搜尋</div>
+      <div class="desc">調價參數越小，福利損失越低；但價格追上需求需要更久。</div>
+    </div>
+    <div class="stack-card">
+      <div class="tag">驗證者</div>
+      <div class="name">只假設不故意留空</div>
+      <div class="desc">研究沒有要求驗證者完美排序，只要求還能塞進合格交易時不要空著。</div>
+    </div>
+  </div>
+  <p>這是 EIP-1559 比「費用變穩定」更深的意義。它把區塊鏈從每個區塊各自競價的市場，推向一個用價格訊號管理等待隊伍的系統。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 5 ｜ 壞消息</div>
+  <h2>一旦有人不能等，<br>保證就會變脆弱</h2>
+  <p>研究也給出負面結果。模型一放寬，福利保證就變差。只要混入部分耐心的交易，例如價值會隨時間折扣，或過了十輪就歸零，就會出現固定比例的福利損失。</p>
+  <p>原因不難理解。EIP-1559 的優勢來自「價格可以慢慢追」。但如果交易的價值會隨等待消失，追價時間本身就是成本。最佳排程可能早就把高價值交易放進去，價格制卻還在用低價交易填空。</p>
+  <div class="risk-list">
+    <div class="risk">
+      <div class="emoji">⏳</div>
+      <div class="name">等待會折價</div>
+      <div class="desc">交易不是永遠同價值。清算、套利與提款延遲都可能造成損失。</div>
+    </div>
+    <div class="risk">
+      <div class="emoji">📏</div>
+      <div class="name">大交易會卡位</div>
+      <div class="desc">當單筆交易接近整個目標區塊大小，容量彈性的邊界更容易被打滿。</div>
+    </div>
+    <div class="risk">
+      <div class="emoji">🎚️</div>
+      <div class="name">調價有取捨</div>
+      <div class="desc">調太快會震盪，調太慢會錯過高價值需求。沒有免費參數。</div>
+    </div>
+  </div>
+  <p>這不是說 EIP-1559 失敗，而是提醒開發者不要把 base fee 當成萬能市場。它擅長處理可等待的需求，對時間敏感的交易仍需要額外設計。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 6 ｜ AI、穩定幣與商業策略</div>
+  <h2>未來鏈上使用者，<br>可能是程式在排隊</h2>
+  <p>這支影片表面上是演算法賽局理論，實際上跟 AI、穩定幣與商業策略很近。AI 代理人會把更多例行工作變成自動交易。穩定幣會把更多付款、結算與帳務搬上鏈。兩者合在一起，區塊空間會從散戶搶交易，變成大量程式化需求互相排隊。</p>
+  <p>到那時，手續費機制會成為產品體驗的一部分。企業不只問「這條鏈便不便宜」，也會問「我的交易可不可以用可預期的方式等待」、「急件能不能插隊」、「批次付款會不會被高頻交易擠掉」。</p>
+  <div class="money-map">
+    <div class="map-line">
+      <div class="map-node">
+        <strong>AI 代理人</strong>
+        <span>自動發起任務、支付費用、等待合適價格與回報結果。</span>
+      </div>
+      <div class="map-arrow">→</div>
+      <div class="map-node">
+        <strong>穩定幣</strong>
+        <span>把薪資、採購、清算與跨境付款變成可程式化交易流。</span>
+      </div>
+      <div class="map-arrow">→</div>
+      <div class="map-node">
+        <strong>手續費市場</strong>
+        <span>決定這些交易如何等待、排序，以及在壅塞時誰先被服務。</span>
+      </div>
+    </div>
+  </div>
+  <p>商業策略的重點也因此改變。做鏈上基礎設施，不只是提供 RPC、錢包、穩定幣 API 或結算服務。你賣的是可預期的排隊品質，讓不同時間敏感度的交易能用不同方式進入同一條鏈。</p>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">EIP-1559 的核心不是讓手續費便宜，而是讓有限區塊空間有一個會自我調整的價格訊號。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">當鏈上需求來自 AI 代理人、穩定幣與企業結算，這個訊號就會變成基礎設施的商業能力。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2>如果你在設計鏈上產品，<br>最想優先服務哪種交易？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">⚡</div>
+      <div>
+        <div class="label">急件優先</div>
+        <div class="desc">清算、提款、套利與緊急操作需要明確插隊能力</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">⏳</div>
+      <div>
+        <div class="label">可等待交易</div>
+        <div class="desc">批次付款、穩定幣撥款與例行任務需要可預期排隊</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">🤖</div>
+      <div>
+        <div class="label">代理人任務</div>
+        <div class="desc">AI 程式會自動判斷何時付費、何時等待、何時取消</div>
+      </div>
+    </button>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想聽原始研究分享？</h2>
+  <p>這頁整理自 a16z crypto Research Series。原始影片保留了完整模型、證明直覺、下界結果，以及聽眾對區塊目標大小與價格制的提問。</p>
+  <a class="cta-btn" href="https://www.youtube.com/watch?v=upNrtR-Ve9M" target="_blank" rel="noopener">前往 YouTube →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('EIP-1559 的核心不是讓手續費便宜，而是讓有限區塊空間有一個會自我調整的價格訊號。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('EIP-1559 的核心不是讓手續費便宜，而是讓有限區塊空間有一個會自我調整的價格訊號。'),'_blank','noopener')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從穩定幣、AI 代理人到平台策略，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer>
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <div class="src">本頁整理自 a16z crypto YouTube 頻道影片〈On the Welfare of EIP-1559 with Patient Bidders with Moshe Babaioff〉。來源：<a href="https://www.youtube.com/watch?v=upNrtR-Ve9M" target="_blank" rel="noopener">YouTube</a>。內容僅作為閱讀導覽，不構成投資建議。</div>
+</footer>
+
+<script>
+let userChoice=-1;
+const labels=['急件優先','可等待交易','代理人任務'];
+const results=[
+  {title:'急件優先',desc:'你看重的是時間價值。這類交易不能只靠平均費用市場，產品需要清楚的優先權、上限控管與失敗回報。',bg:'var(--terra-light)',border:'#DBBFAD'},
+  {title:'可等待交易',desc:'你看重的是排隊品質。批次付款與穩定幣結算不一定要立刻完成，但需要知道等待能換來合理費用與可預期結果。',bg:'var(--green-light)',border:'#A8D4BC'},
+  {title:'代理人任務',desc:'你押注程式化需求。AI 代理人會把等待、付費與取消變成策略，手續費市場會直接影響代理人的商業模式。',bg:'var(--blue-light)',border:'#B8CDF0'}
+];
+function choose(idx){
+  if(userChoice>=0)return;
+  userChoice=idx;
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===idx)b.classList.add('selected');
+    b.style.cursor='default';
+  });
+  const r=results[idx];
+  const card=document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent=r.title;
+  document.getElementById('rDesc').textContent=r.desc;
+  card.style.background=r.bg;
+  card.style.borderColor=r.border;
+  card.classList.add('show');
+  const shareText='我的觀點：'+labels[idx]+'。\n\nEIP-1559 的核心不是讓手續費便宜，而是讓有限區塊空間有一個會自我調整的價格訊號。';
+  document.getElementById('shareTw').onclick=function(){
+    window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener');
+  };
+  document.getElementById('shareFb').onclick=function(){
+    window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener');
+  };
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
