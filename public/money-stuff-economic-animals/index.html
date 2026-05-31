@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>經濟動物</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta name="description" content="Money Stuff 這集從天氣預測市場、Avis 軋空、Musk 系公司上市與避險基金人才戰，拆出一個金融直覺：誘因會把人帶往最能獲利的位置。">
+<meta property="og:title" content="經濟動物">
+<meta property="og:description" content="天氣感測器、軋空敘事、雙重股權與 1,100 萬美元違約金，Money Stuff 這集把金融市場拆成誘因問題。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.mnhsu.xyz/money-stuff-economic-animals/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="經濟動物">
+<meta name="twitter:description" content="Money Stuff: Economic Animals。市場、公司和人才都不是抽象名詞，而是一群會順著誘因移動的人。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
+  --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
+  --blue:#2563EB;--blue-light:#EFF4FF;--yellow:#8B6914;--yellow-light:#FDF8EC;
+  --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
+  --gold:#8B7340;--gold-light:#F9F3E6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,var(--cream),var(--warm));position:relative;}
+.hero .logo{height:48px;margin-bottom:2.5rem;}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.95rem,5.4vw,3.1rem);line-height:1.35;letter-spacing:0.02em;margin-bottom:1.5rem;}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.2rem);color:var(--text-secondary);width:100%;max-width:660px;line-height:1.8;overflow-wrap:anywhere;}
+.scroll-hint{position:absolute;bottom:2.5rem;font-size:0.8rem;letter-spacing:0.3em;color:var(--text-muted);animation:breathe 2.4s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(6px);}}
+section{max-width:720px;margin:0 auto;padding:3.5rem 1.6rem;}
+section.wide{max-width:900px;}
+.part-label{font-size:0.78rem;font-weight:700;letter-spacing:0.25em;color:var(--terra);margin-bottom:1rem;}
+h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2rem);line-height:1.5;margin-bottom:1.5rem;letter-spacing:0.01em;}
+p{margin-bottom:1.4rem;font-size:1.05rem;}
+.hl{background:linear-gradient(transparent 60%,var(--gold-light) 60%);padding:0 0.1em;font-weight:500;}
+.callout{background:var(--terra-light);border-left:4px solid var(--terra);border-radius:0 10px 10px 0;padding:1.4rem 1.6rem;margin:2rem 0;}
+.callout p{margin:0;font-size:1rem;color:var(--text);}
+.market-card{background:#fff;border:1px solid #E8E3D8;border-radius:12px;overflow:hidden;margin:2rem 0;}
+.market-row{display:grid;grid-template-columns:0.72fr 1fr 1fr;border-bottom:1px solid #EFEAE0;}
+.market-row:last-child{border-bottom:none;}
+.market-row div{padding:0.9rem;font-size:0.86rem;line-height:1.65;}
+.market-row .head{background:var(--green-deep);color:#fff;font-weight:700;}
+.market-row .label{background:#F6F2EA;font-weight:700;color:var(--text-secondary);}
+.logic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:0.85rem;margin:2rem 0;}
+.logic-card{background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.2rem;}
+.logic-card .tag{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;color:var(--terra);background:var(--terra-light);border-radius:2rem;padding:0.2rem 0.65rem;margin-bottom:0.8rem;}
+.logic-card .name{font-weight:700;color:var(--green-deep);font-size:1rem;margin-bottom:0.5rem;}
+.logic-card .idea{font-size:0.86rem;color:var(--text-secondary);line-height:1.7;}
+.flow-card{background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.4rem;margin:2rem 0;}
+.flow-title{font-weight:700;color:var(--green-deep);margin-bottom:1rem;}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0.55rem;align-items:stretch;}
+.flow-step{background:var(--warm);border:1px solid #E8E3D8;border-radius:10px;padding:0.8rem;text-align:center;display:flex;flex-direction:column;justify-content:center;min-height:90px;}
+.flow-step .n{font-family:'Noto Serif TC',serif;font-weight:900;font-size:1.25rem;color:var(--terra);line-height:1;}
+.flow-step .t{font-size:0.82rem;font-weight:700;line-height:1.45;margin-top:0.45rem;}
+.flow-note{font-size:0.82rem;color:var(--text-secondary);line-height:1.7;margin-top:1rem;margin-bottom:0;}
+.warning-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.85rem;margin:2rem 0;}
+.warning-list div{background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.1rem;}
+.warning-list .k{font-weight:700;color:var(--terra);margin-bottom:0.45rem;}
+.warning-list .v{font-size:0.86rem;color:var(--text-secondary);line-height:1.7;}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light));}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:620px;margin:0 auto;letter-spacing:0.03em;}
+.choice-section{padding:4rem 1.6rem;background:#fff;text-align:center;}
+.choice-section h2{margin-bottom:0.8rem;}
+.choice-sub{color:var(--text-secondary);font-size:0.95rem;margin-bottom:2.5rem;}
+.choice-options{display:flex;flex-direction:column;gap:1rem;max-width:580px;margin:0 auto;}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:var(--warm);border:2px solid #E8E3D8;border-radius:14px;padding:1.2rem 1.4rem;cursor:pointer;text-align:left;transition:all 0.25s;font-family:'Noto Sans TC',sans-serif;}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light);}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0;}
+.choice-btn .label{font-weight:700;font-size:1rem;margin-bottom:0.2rem;}
+.choice-btn .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+.result-card{max-width:580px;margin:2rem auto 0;border:2px solid #DBBFAD;border-radius:14px;padding:1.8rem;background:var(--terra-light);opacity:0;transform:translateY(20px);transition:all 0.5s;display:none;}
+.result-card.show{opacity:1;transform:translateY(0);display:block;}
+.r-badge{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;color:var(--terra);background:#fff;padding:0.3rem 0.9rem;border-radius:2rem;margin-bottom:1rem;}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;}
+.r-desc{font-size:0.95rem;color:var(--text);line-height:1.8;}
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap;}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s;}
+.share-btn:hover{transform:scale(1.03);}
+.share-btn.tw{background:#0f1419;color:#fff;}
+.share-btn.fb{background:#1877f2;color:#fff;}
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream));}
+.cta h2{margin-bottom:1rem;}
+.cta p{max-width:540px;margin:0 auto 2rem;color:var(--text-secondary);font-size:1rem;}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.95rem 2.4rem;border-radius:2rem;font-weight:500;font-size:1.05rem;transition:all 0.3s;}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep);}
+.subscribe-inner{max-width:520px;margin:0 auto;}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem;}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem;}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif;}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem;}
+footer{text-align:center;padding:3rem 2rem;}
+footer img{height:44px;opacity:0.5;}
+footer .src{font-size:0.78rem;color:var(--text-muted);margin:1rem auto 0;line-height:1.7;max-width:620px;overflow-wrap:anywhere;}
+footer .src a{color:var(--text-muted);text-underline-offset:0.18em;}
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:720px){
+  html{font-size:17px;}
+  section{padding:3rem 1.25rem;}
+  .market-row{grid-template-columns:1fr;}
+  .market-row .head:nth-child(2),.market-row .head:nth-child(3){display:none;}
+  .flow{grid-template-columns:1fr;}
+  .flow-step{min-height:auto;padding:0.95rem;text-align:left;flex-direction:row;align-items:center;justify-content:flex-start;gap:0.85rem;}
+  .flow-step .t{margin-top:0;}
+  .choice-btn{align-items:flex-start;padding:1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>經濟動物，<br>會往哪裡跑？</h1>
+  <p class="sub">Money Stuff 這集從天氣預測市場、Avis 軋空、Musk 系公司上市與避險基金人才戰，拆出同一個金融直覺：市場不是抽象機器，而是一群會順著誘因移動的人。</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<section class="fade-in">
+  <div class="part-label">PART 1 ｜ 天氣、賭盤與保險</div>
+  <h2>只要有市場，<br>感測器也會變成目標</h2>
+  <p>Polymarket 上有人押巴黎氣溫。問題是，「巴黎氣溫」最後不是整座城市的平均體感，而是巴黎戴高樂機場某個感測器的讀數。逐字稿裡提到，這個月有兩次讀數在幾分鐘內突然升高四到五度，讓原本機率很低的投注獲利數萬美元。法國氣象單位因此調查，市場上也出現有人拿吹風機對著感測器的玩笑。</p>
+  <p>Matt Levine 的拆法很簡單。衍生性金融商品本來就可能被操縱，因為有人可以動到底層資產，讓衍生性商品賺錢。預測市場把這個表面積放大到幾乎無限。只要一件事能被寫成合約，大家就會開始問：這件事能不能被影響？成本是多少？報酬夠不夠？</p>
+  <div class="market-card">
+    <div class="market-row">
+      <div class="head">工具</div>
+      <div class="head">真正決定輸贏的東西</div>
+      <div class="head">誘因跑去哪裡</div>
+    </div>
+    <div class="market-row">
+      <div class="label">穀物期貨</div>
+      <div>中西部天氣會影響作物供給。</div>
+      <div>操縱整個天氣很難，成本遠高於報酬。</div>
+    </div>
+    <div class="market-row">
+      <div class="label">巴黎氣溫賭盤</div>
+      <div>某個機場感測器的讀數。</div>
+      <div>如果合約只看一個點，那個點就變成金融基礎建設。</div>
+    </div>
+    <div class="market-row">
+      <div class="label">演唱會雨量保險</div>
+      <div>場館裡自己架設的氣象站。</div>
+      <div>保險公司要防止有人用澆水壺製造理賠。</div>
+    </div>
+  </div>
+  <p>Bad Bunny 的演唱會保險提供另一個版本。他擔心哥倫比亞演唱會因暴雨取消，但官方雨量點離場館一英里，微氣候不同。保險安排最後變成場館內建一座氣象站。這和預測市場很像：合約越精準，測量點越重要；測量點越重要，防操縱就變成產品的一部分。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 2 ｜ AVIS 與軋空敘事</div>
+  <h2>軋空可以是真的，<br>也可以只是咒語</h2>
+  <p>Avis 股價一個月前約 100 美元，節目錄音前曾衝到 713 美元。市場直覺叫它 short squeeze，軋空。這個說法有材料：Avis 放空比例高，兩家避險基金 SRS 和 Pentwater 又被說成握有 108% 的股票經濟部位。</p>
+  <p>但 108% 不一定代表它們真的登記持有 108% 的普通股。逐字稿裡 Matt 拆成兩層：它們可能實際持有約 69% 股票，另外還有大量 swap 部位。swap 的直覺是，銀行站在中間，一邊讓多方拿到股價上漲的經濟效果，一邊讓空方拿到下跌的經濟效果。兩邊其實可以隔著銀行對賭，不一定需要市場上所有股票都被借光。</p>
+  <div class="flow-card">
+    <div class="flow-title">軋空故事裡的三條路</div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="n">1</div>
+        <div class="t">空方借股賣出</div>
+      </div>
+      <div class="flow-step">
+        <div class="n">2</div>
+        <div class="t">股價急漲</div>
+      </div>
+      <div class="flow-step">
+        <div class="n">3</div>
+        <div class="t">空方補券</div>
+      </div>
+      <div class="flow-step">
+        <div class="n">4</div>
+        <div class="t">投資人喊軋空</div>
+      </div>
+      <div class="flow-step">
+        <div class="n">5</div>
+        <div class="t">公司考慮賣股</div>
+      </div>
+    </div>
+    <p class="flow-note">如果多方和空方很多曝險都在 swap 裡，股價仍可能暴衝，但市場不一定會看到大型避險基金被抬出去的畫面。</p>
+  </div>
+  <p>「軋空」這個字對迷因股有魔法。只要夠多人相信軋空正在發生，就可能買進股票，讓股價因為敘事而上漲。公司管理層看到股價暴衝，另一個誘因出現：趁高價發行股票。JPMorgan 的報告就把這次上漲視為 Avis 可能透過資本市場交易創造價值的機會。</p>
+  <p>這裡的兩難很乾脆。如果公司趁高價賣股，可以拿到便宜資金，對長期股東有利；但發行新股也會增加市場籌碼，降低軋空壓力。迷因股投資人喜歡股價上漲，卻不一定喜歡公司利用上漲。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 3 ｜ MUSK 系公司與上市時間</div>
+  <h2>控制權可以設計，<br>但時程不能亂塞</h2>
+  <p>節目接著談到 Musk 系公司上市、收購 Cursor、AI、雙重股權與 Tesla。這段的金融直覺不在科技願景，而在上市流程。公司如果準備上市，招股書、會計師簽證、研究分析師教育、SEC 審查都需要穩定的公司樣貌。你不能四月才說要買一家重要 AI 公司，六月就把合併後財務資料塞進招股書。</p>
+  <p>所以做法變成：先告訴市場有收購意向，但真正交割放到 IPO 之後。這像是在買一個選擇權，而不是完成一筆乾淨收購。逐字稿提到，如果交易沒成，可能有高達交易金額 17% 的分手費。傳統分手費常見在交易價值的 2% 左右，這個數字反映另一個誘因：和 Elon Musk 做併購，賣方會要求更高的確定性補償。</p>
+  <div class="warning-list">
+    <div>
+      <div class="k">上市前</div>
+      <div class="v">公司要讓投資人看懂業務、財務與風險，不能每週改一次故事。</div>
+    </div>
+    <div>
+      <div class="k">收購案</div>
+      <div class="v">AI 團隊、晶片、資料中心和產品路線可以有策略理由，但文件時程仍要走完。</div>
+    </div>
+    <div>
+      <div class="k">控制權</div>
+      <div class="v">雙重股權讓創辦人保留投票權，公開市場投資人買的是他繼續掌舵。</div>
+    </div>
+  </div>
+  <p>雙重股權是另一個控制工具。上市時就設計 A 類、B 類股，創辦人每股十票，投資人每股一票，市場可以接受。但 Tesla 上市時沒有這套安排，事後很難補。節目裡因此出現一個 Matt 式推演：如果一家公司上市時帶著雙重股權，再去買另一家沒有雙重股權的公司，控制權問題就換了一種解法。</p>
+  <div class="callout">
+    <p>科技故事講的是願景，金融文件處理的是權利。上市、併購、分手費、雙重股權，都在回答同一題：如果事情變了，誰還能說了算？</p>
+  </div>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 4 ｜ 避險基金人才戰</div>
+  <h2>經濟動物不是罵人，<br>是職涯定價模型</h2>
+  <p>這集標題來自避險基金人才市場。多策略避險基金搶投資組合經理，常要等候選人完成 gardening leave，也就是離職後一段不能立即到競爭對手工作的空窗期。通常你挖一個人，可能要等一年；但如果有人已經等了十一個月，下個月就能上工，他突然變得更值錢。</p>
+  <p>這就是所謂 interception trade。獵才顧問知道誰快結束空窗期，其他基金也知道這個人即將可用，於是有人在最後一刻提出更高條件，把已經簽好的候選人攔截走。原公司也可能加碼把人留住。這聽起來像房地產裡有人臨門加價搶走房子，只是金額變成數百萬、上千萬美元。</p>
+  <div class="logic-grid">
+    <div class="logic-card">
+      <div class="tag">預測市場</div>
+      <div class="name">合約看哪裡，人就碰哪裡</div>
+      <div class="idea">天氣賭盤把一個感測器變成報酬來源，防操縱變成市場設計的一部分。</div>
+    </div>
+    <div class="logic-card">
+      <div class="tag">迷因股</div>
+      <div class="name">敘事本身可以推動價格</div>
+      <div class="idea">軋空可能是真的，也可能是吸引買盤的口號。公司還會思考能不能趁高價賣股。</div>
+    </div>
+    <div class="logic-card">
+      <div class="tag">上市公司</div>
+      <div class="name">願景要被文件馴服</div>
+      <div class="idea">AI 收購、IPO 和雙重股權都能講故事，但招股書與會計時程會限制故事怎麼變。</div>
+    </div>
+    <div class="logic-card">
+      <div class="tag">人才市場</div>
+      <div class="name">選擇權會被重新報價</div>
+      <div class="idea">快結束空窗期的經理更稀缺，簽好的合約也可能成為下一輪談判籌碼。</div>
+    </div>
+  </div>
+  <p>Schonfeld 起訴一位後來留在 Millennium 的投資組合經理，要求 1,100 萬美元違約金。它的說法是，雙方已簽雇用合約與保密協議，候選人卻拿著這份合約回原公司，讓原公司匹配條件。Matt 的反應不是道德審判，而是誘因分析：這些人每天的工作就是辨識選擇權、定價機會、提高報酬。如果他們在自己的職涯上不這麼做，反而奇怪。</p>
+  <p>「economic animals」這句話的意思不是人只愛錢，而是市場一旦把選擇權標上價格，人就會順著價格移動。避險基金能付更多，所以大型平台能留住人才；候選人知道自己快能上工，所以報價上升；簽約方知道自己可能被放鳥，所以把違約金寫進合約。</p>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">金融市場不是抽象的價格曲線，而是一群會順著誘因移動的人。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">Matt Levine 的拆法，是先找出合約看哪裡、權利在誰手上、誰有動機把事情推向對自己有利的結果。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2>這集你最想帶走哪一個金融直覺？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">🌡️</div>
+      <div>
+        <div class="label">先找測量點</div>
+        <div class="desc">合約看哪個數字，市場就會把那個數字變成目標</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">📈</div>
+      <div>
+        <div class="label">敘事也是籌碼</div>
+        <div class="desc">軋空、IPO、AI 願景都會改變投資人和公司的下一步</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">💼</div>
+      <div>
+        <div class="label">人會定價自己的選擇權</div>
+        <div class="desc">人才市場裡，合約、空窗期和違約金都是金融工具</div>
+      </div>
+    </button>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想聽原始對話？</h2>
+  <p>這頁整理自 Bloomberg Podcasts 的 Money Stuff: The Podcast。原始節目保留 Matt Levine 和 Katie Greifeld 對預測市場、Avis、Musk 系公司與避險基金人才戰的完整對話節奏。</p>
+  <a class="cta-btn" href="https://www.youtube.com/watch?v=TQJQxV_sw1Y" target="_blank" rel="noopener">前往 YouTube →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Money Stuff 這集從天氣感測器、Avis 軋空、Musk 系公司上市與避險基金人才戰，拆出一個金融直覺：人會順著誘因移動。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('Money Stuff: Economic Animals。市場不是抽象機器，而是一群會順著誘因移動的人。'),'_blank','noopener')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從 AI、金融市場到平台策略，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer>
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <div class="src">來源：Bloomberg Podcasts 的 Money Stuff: The Podcast〈Economic Animals〉。YouTube：<a href="https://www.youtube.com/watch?v=TQJQxV_sw1Y" target="_blank" rel="noopener">https://www.youtube.com/watch?v=TQJQxV_sw1Y</a></div>
+</footer>
+
+<script>
+let userChoice=-1;
+const labels=['先找測量點','敘事也是籌碼','人會定價自己的選擇權'];
+const results=[
+  {title:'先找測量點',desc:'你帶走的是預測市場那一段的核心：合約不是看抽象現實，而是看某個可驗證數字。只要那個數字能被影響，它就會吸引金融誘因。',bg:'var(--terra-light)',border:'#DBBFAD'},
+  {title:'敘事也是籌碼',desc:'你看到的是 Avis 和 Musk 系公司共同的地方：軋空、AI、IPO、雙重股權都不是純故事。故事會改變投資人、公司和律師下一步能做什麼。',bg:'var(--blue-light)',border:'#B8CDF0'},
+  {title:'人會定價自己的選擇權',desc:'你盯上的是 economic animals 這句話。避險基金經理懂得把空窗期、簽約、反悔和違約金全部放進報價，因為那就是他們每天在市場裡做的事。',bg:'var(--green-light)',border:'#A8D4BC'}
+];
+function choose(idx){
+  if(userChoice>=0)return;
+  userChoice=idx;
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===idx)b.classList.add('selected');
+    b.style.cursor='default';
+  });
+  const r=results[idx];
+  const card=document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent=r.title;
+  document.getElementById('rDesc').textContent=r.desc;
+  card.style.background=r.bg;
+  card.style.borderColor=r.border;
+  card.classList.add('show');
+  const shareText='我的觀點：'+labels[idx]+'。\n\nMoney Stuff 這集提醒我：市場不是抽象機器，而是一群會順著誘因移動的人。';
+  document.getElementById('shareTw').onclick=function(){
+    window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener');
+  };
+  document.getElementById('shareFb').onclick=function(){
+    window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener');
+  };
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
