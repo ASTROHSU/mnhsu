@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新鮮勢分數與事件鏈</title>
+<meta name="description" content="新鮮勢過去怎麼計算分數、怎麼決定 Parent / Child，以及這次修改後的新機制。">
+<meta property="og:title" content="新鮮勢分數與事件鏈">
+<meta property="og:description" content="把舊分數機制、新分數機制，以及 Parent / Child 的判斷邏輯說清楚。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.mnhsu.xyz/mnnews-score-chain/">
+<meta property="og:image" content="https://www.mnhsu.xyz/mnnews-score-chain/cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="新鮮勢分數與事件鏈">
+<meta name="twitter:description" content="把舊分數機制、新分數機制，以及 Parent / Child 的判斷邏輯說清楚。">
+<meta name="twitter:image" content="https://www.mnhsu.xyz/mnnews-score-chain/cover.png">
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --warm:#FAFAF7;
+  --cream:#EDE0D4;
+  --terra:#C06A3A;
+  --terra-light:#F5EBE5;
+  --green:#2D6B4F;
+  --green-light:#E8F3ED;
+  --green-deep:#0D2E20;
+  --blue:#2563EB;
+  --blue-light:#EFF4FF;
+  --yellow:#8B6914;
+  --yellow-light:#FDF8EC;
+  --text:#2C2A25;
+  --text-secondary:#6B6860;
+  --text-muted:#9E9A90;
+  --gold:#8B7340;
+  --gold-light:#F9F3E6;
+  --line:#E8E3D8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:18px;scroll-behavior:smooth}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:var(--warm);
+  color:var(--text);
+  line-height:1.9;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:4rem 1.5rem;
+  background:linear-gradient(180deg,var(--cream),var(--warm));
+  position:relative;
+}
+.hero img{height:48px;margin-bottom:2rem;opacity:.88}
+h1{
+  font-family:'Noto Serif TC',serif;
+  font-size:clamp(2.15rem,6vw,4rem);
+  font-weight:900;
+  line-height:1.25;
+  letter-spacing:.02em;
+  max-width:780px;
+  margin-bottom:1.2rem;
+}
+.hero p{
+  max-width:680px;
+  color:var(--text-secondary);
+  font-size:clamp(1rem,2.4vw,1.18rem);
+}
+.scroll-hint{
+  position:absolute;
+  bottom:2rem;
+  left:50%;
+  transform:translateX(-50%);
+  color:var(--text-muted);
+  font-size:.72rem;
+  letter-spacing:.18em;
+  animation:breathe 1.8s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{opacity:.45;transform:translate(-50%,0)}50%{opacity:1;transform:translate(-50%,6px)}}
+section{
+  max-width:720px;
+  margin:0 auto;
+  padding:4rem 1.4rem;
+}
+section.wide{max-width:940px}
+.part-label{
+  color:var(--terra);
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.24em;
+  margin-bottom:1rem;
+}
+h2{
+  font-family:'Noto Serif TC',serif;
+  font-size:clamp(1.45rem,4vw,2.15rem);
+  font-weight:700;
+  line-height:1.5;
+  margin-bottom:1.2rem;
+}
+p{font-size:1.03rem;margin-bottom:1.25rem}
+.hl{
+  background:linear-gradient(transparent 62%,var(--gold-light) 62%);
+  padding:0 .08em;
+  font-weight:500;
+}
+.diagram{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:1.2rem;
+  margin:2rem 0;
+}
+.diagram h3{
+  font-family:'Noto Serif TC',serif;
+  font-size:1.1rem;
+  line-height:1.45;
+  margin-bottom:1rem;
+}
+.diagram p{
+  font-size:.9rem;
+  color:var(--text-secondary);
+  margin:.9rem 0 0;
+  line-height:1.7;
+}
+.formula{
+  display:grid;
+  gap:.65rem;
+}
+.formula-row{
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:1rem;
+  align-items:start;
+  padding:.75rem 0;
+  border-top:1px solid var(--line);
+}
+.formula-row:first-child{border-top:0}
+.formula-row span:first-child{
+  color:var(--text-secondary);
+  font-size:.86rem;
+  font-weight:700;
+}
+.formula-row span:last-child{
+  font-size:.96rem;
+  line-height:1.65;
+}
+.split{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1rem;
+}
+.box{
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:1rem;
+  background:#fff;
+}
+.box.old{background:var(--terra-light);border-color:#E4C9BA}
+.box.new{background:var(--green-light);border-color:#B8D6C7}
+.box h3{
+  font-family:'Noto Serif TC',serif;
+  font-size:1.05rem;
+  line-height:1.45;
+  margin-bottom:.65rem;
+}
+.box p{
+  color:var(--text-secondary);
+  font-size:.9rem;
+  line-height:1.7;
+  margin:0;
+}
+.flow{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:.75rem;
+}
+.step{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:.9rem;
+}
+.step .n{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:1.55rem;
+  height:1.55rem;
+  border-radius:50%;
+  background:var(--terra);
+  color:#fff;
+  font-size:.75rem;
+  margin-bottom:.8rem;
+}
+.step h3{
+  font-family:'Noto Serif TC',serif;
+  font-size:1rem;
+  line-height:1.45;
+  margin-bottom:.45rem;
+}
+.step p{
+  margin:0;
+  color:var(--text-secondary);
+  font-size:.84rem;
+  line-height:1.65;
+}
+.big-quote,.choice-section,.cta,.subscribe-cta{
+  width:100vw;
+  margin-left:calc(-50vw + 50%);
+  position:relative;
+  box-sizing:border-box;
+}
+.big-quote{
+  text-align:center;
+  padding:4rem 2rem;
+  background:linear-gradient(180deg,var(--warm),var(--terra-light));
+}
+.big-quote p{
+  font-family:'Noto Serif TC',serif;
+  font-size:clamp(1.4rem,4vw,2rem);
+  font-weight:700;
+  line-height:1.6;
+  max-width:620px;
+  margin:0 auto;
+  letter-spacing:.03em;
+}
+.choice-section{
+  text-align:center;
+  padding:4rem 1.4rem;
+  background:var(--warm);
+}
+.choice-section h2{
+  max-width:720px;
+  margin:0 auto 1rem;
+}
+.choice-sub{
+  color:var(--text-secondary);
+  max-width:560px;
+  margin:0 auto 2rem;
+}
+.choice-options{
+  max-width:900px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1rem;
+}
+.choice-btn{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:12px;
+  padding:1rem;
+  text-align:left;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:.8rem;
+  cursor:pointer;
+  transition:transform .2s,border-color .2s,background .2s;
+}
+.choice-btn:hover{transform:translateY(-2px);border-color:var(--terra)}
+.choice-btn.selected{background:var(--gold-light);border-color:var(--terra)}
+.emoji{font-size:1.5rem;line-height:1}
+.label{font-weight:700;margin-bottom:.25rem}
+.desc{font-size:.86rem;color:var(--text-secondary);line-height:1.55}
+.result-card{
+  display:none;
+  max-width:620px;
+  margin:2rem auto 0;
+  border:1px solid #DBBFAD;
+  border-radius:12px;
+  padding:1.4rem;
+  text-align:left;
+  background:var(--terra-light);
+}
+.result-card.show{display:block}
+.r-badge{
+  color:var(--terra);
+  font-size:.76rem;
+  font-weight:700;
+  letter-spacing:.18em;
+  margin-bottom:.65rem;
+}
+.r-title{
+  font-family:'Noto Serif TC',serif;
+  font-size:1.3rem;
+  font-weight:700;
+  line-height:1.5;
+  margin-bottom:.65rem;
+}
+.r-desc{
+  color:var(--text-secondary);
+  line-height:1.75;
+}
+.cta{
+  text-align:center;
+  padding:4rem 2rem;
+  background:linear-gradient(180deg,#F5F3ED,var(--cream));
+}
+.cta h2{margin-bottom:.8rem}
+.cta p{
+  max-width:560px;
+  margin:0 auto 1.5rem;
+  color:var(--text-secondary);
+}
+.cta-btn{
+  display:inline-block;
+  background:var(--terra);
+  color:#fff;
+  text-decoration:none;
+  padding:.9rem 2rem;
+  border-radius:2rem;
+  font-weight:500;
+}
+.share-row{
+  display:flex;
+  gap:.5rem;
+  justify-content:center;
+  margin-top:1.2rem;
+  flex-wrap:wrap;
+}
+.share-btn{
+  padding:.55rem 1.2rem;
+  border-radius:2rem;
+  border:none;
+  font-size:.8rem;
+  font-weight:500;
+  cursor:pointer;
+  font-family:'Noto Sans TC',sans-serif;
+  letter-spacing:.05em;
+  transition:transform .2s;
+}
+.share-btn:hover{transform:scale(1.03)}
+.share-btn.tw{background:#0f1419;color:#fff}
+.share-btn.fb{background:#1877f2;color:#fff}
+.subscribe-cta{
+  text-align:center;
+  padding:4rem 2rem 5rem;
+  background:var(--green-deep);
+}
+.subscribe-inner{
+  max-width:520px;
+  margin:0 auto;
+}
+.subscribe-eyebrow{
+  font-size:.85rem;
+  font-weight:500;
+  letter-spacing:.15em;
+  color:rgba(255,255,255,.5);
+  margin-bottom:1rem;
+}
+.subscribe-title{
+  font-family:'Noto Serif TC',serif;
+  font-size:clamp(1.3rem,3.5vw,1.7rem);
+  font-weight:700;
+  line-height:1.6;
+  color:#fff;
+  margin-bottom:1rem;
+}
+.subscribe-desc{
+  font-size:.95rem;
+  color:rgba(255,255,255,.7);
+  line-height:1.8;
+  margin-bottom:2rem;
+}
+.subscribe-btn{
+  display:inline-block;
+  background:var(--terra);
+  color:#fff;
+  text-decoration:none;
+  padding:.9rem 2.2rem;
+  border-radius:2rem;
+  font-weight:500;
+  font-size:1rem;
+  transition:all .3s;
+  font-family:'Noto Sans TC',sans-serif;
+}
+.subscribe-btn:hover{
+  background:#A8572E;
+  transform:translateY(-1px);
+}
+.subscribe-note{
+  font-size:.8rem;
+  color:rgba(255,255,255,.4);
+  margin-top:1rem;
+}
+footer{
+  text-align:center;
+  padding:3rem 2rem;
+  font-size:.75rem;
+  color:var(--text-muted);
+  letter-spacing:.15em;
+}
+.fade-in{
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity .8s ease,transform .8s ease;
+}
+.fade-in.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+@media (max-width:840px){
+  .split,.flow,.choice-options{grid-template-columns:1fr}
+  .formula-row{grid-template-columns:1fr;gap:.25rem}
+  section{padding:3.4rem 1.2rem}
+  .hero{padding:3rem 1.3rem}
+}
+</style>
+</head>
+<body>
+<div class="hero">
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>新鮮勢不是新聞分數表，是首頁排序器</h1>
+  <p>它要決定哪幾件事現在該浮上來，也要讓讀者看懂一則新聞跟過去事件的關係。</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<section>
+  <div class="part-label fade-in">PART 1 ｜ 舊分數怎麼算</div>
+  <h2 class="fade-in">過去的分數很直覺，也太容易把事情壓扁</h2>
+  <p class="fade-in">舊版有兩層分數。第一層是事件本身的重要度，公式很簡單：一個來源 2 分，一則社群討論 1 分。這讓分數很好懂，但也讓第 3 篇報導和第 30 篇報導有同樣重量。</p>
+  <p class="fade-in">第二層是首頁排序用的 display_score。它會把重要度扣掉時間衰減，再乘上群體閱讀行為。舊版每天扣 3 分，今天發生的新聞加 2 分。30 分的事件，10 天後就會歸零。</p>
+  <div class="diagram fade-in">
+    <h3>舊版分數管線</h3>
+    <div class="formula">
+      <div class="formula-row"><span>事件重要度</span><span>source_count × 2 + discussion_count</span></div>
+      <div class="formula-row"><span>時間衰減</span><span>每天扣 3 分，只有當天加 2 分</span></div>
+      <div class="formula-row"><span>閱讀行為</span><span>glance、repeat、click、discuss、dwell 用原始次數線性扣分，最低可以壓到 10%</span></div>
+      <div class="formula-row"><span>Parent 分數</span><span>Parent 會加總 direct children 各自衰減後的重要度</span></div>
+    </div>
+    <p>這套做法的問題不是「會衰減」，而是衰減太急。讀者看過幾次之後，重要事件也可能很快被打到低分區。</p>
+  </div>
+  <p class="fade-in">Clarity Act 這種兩週前的新聞，如果沒有新進展，本來就應該往下走。問題在於：舊版一方面會把近期重要事件扣太快，另一方面又可能讓長事件靠來源累積撐太久。首頁看起來就會失去層次。</p>
+</section>
+
+<section class="wide">
+  <div class="part-label fade-in">PART 2 ｜ 新分數怎麼改</div>
+  <h2 class="fade-in">新機制把「重要」和「現在該不該看見」分開</h2>
+  <div class="split fade-in">
+    <div class="box old">
+      <h3>舊版像加總表</h3>
+      <p>來源越多，分數一路往上。時間越久，分數一路往下。讀者看過越多，分數線性下降。</p>
+    </div>
+    <div class="box new">
+      <h3>新版像排序器</h3>
+      <p>先算事件本身的重要度，再用時間、新鮮度、人工 boost 與閱讀疲勞決定它現在的位置。</p>
+    </div>
+  </div>
+  <div class="diagram fade-in">
+    <h3>新版 importance_score：遞減收益</h3>
+    <div class="formula">
+      <div class="formula-row"><span>來源 1 到 8</span><span>每個 2 分</span></div>
+      <div class="formula-row"><span>來源 9 到 16</span><span>每個 1 分</span></div>
+      <div class="formula-row"><span>來源 17 到 36</span><span>每個 0.5 分</span></div>
+      <div class="formula-row"><span>來源 37 之後</span><span>不再加分</span></div>
+      <div class="formula-row"><span>討論 1 到 10</span><span>每則 1 分</span></div>
+      <div class="formula-row"><span>討論 11 到 20</span><span>每則 0.5 分，之後不再加分</span></div>
+    </div>
+    <p>這保留交叉報導的價值，但不讓長事件靠第 37 篇來源繼續往前擠。</p>
+  </div>
+  <div class="diagram fade-in">
+    <h3>新版 display_score：慢一點、穩一點</h3>
+    <div class="formula">
+      <div class="formula-row"><span>時間</span><span>前 1 天不扣分，之後每天扣 1.5 分</span></div>
+      <div class="formula-row"><span>新鮮度</span><span>今天加 4 分，昨天加 3 分，前天加 2 分，第 3 天加 1 分</span></div>
+      <div class="formula-row"><span>閱讀疲勞</span><span>行為訊號改用 log1p，越後面的曝光邊際影響越小，最低保留 60%</span></div>
+      <div class="formula-row"><span>Parent</span><span>只加 direct children 各自衰減後的分數，老 child 歸零後不再拖累也不再貢獻</span></div>
+    </div>
+    <p>新版不是讓舊聞不衰減，而是讓衰減更像「換位」而不是「消失」。首頁會換血，但不會把大家一起打成低分。</p>
+  </div>
+</section>
+
+<section>
+  <div class="part-label fade-in">PART 3 ｜ 舊 Parent / Child 怎麼判斷</div>
+  <h2 class="fade-in">舊機制把「像」看得太重</h2>
+  <p class="fade-in">過去的 YouTube 候選流程會把影片標題、候選 tags、來源 topics、逐字稿，跟既有事件的標題、tags、summary、sources 做 weighted token overlap。最接近的事件分數超過 8，就建議當 child。超過 4.5，也會建議可能掛在某個 parent 底下。</p>
+  <p class="fade-in">這解決了召回問題，卻沒有解決關係問題。它能找出「看起來相關」的事件，但不能回答「是不是同一件事的下一階段」。</p>
+  <div class="diagram fade-in">
+    <h3>舊版判斷的盲點</h3>
+    <div class="flow">
+      <div class="step"><div class="n">1</div><h3>詞彙重疊</h3><p>同一個公司名、tag 或主題字會推高分數。</p></div>
+      <div class="step"><div class="n">2</div><h3>分數過線</h3><p>高於門檻就建議放進既有 parent。</p></div>
+      <div class="step"><div class="n">3</div><h3>人工確認</h3><p>審稿者再判斷主軸是不是獨立事件。</p></div>
+      <div class="step"><div class="n">4</div><h3>容易變桶</h3><p>同主題事件被塞在一起，看起來像一條故事。</p></div>
+    </div>
+    <p>預測市場就是典型例子。HIP-4、內線交易、氣象站操縱、CFTC 管轄權都會碰到「預測市場」，但讀者需要的脈絡不是同一種。</p>
+  </div>
+</section>
+
+<section>
+  <div class="part-label fade-in">PART 4 ｜ 新 Parent / Child 怎麼判斷</div>
+  <h2 class="fade-in">新版把相似主題和同一故事拆開</h2>
+  <p class="fade-in">這次調整採用三個方法論：TDT 把新事件偵測、後續追蹤、相似內容連結拆成不同任務；story chain 研究區分「同一事件鏈」與「相似主題」；event coreference 要看 who、what、where、when 與事件實體。</p>
+  <p class="fade-in">落到新鮮勢，意思很簡單：文字相似只用來找候選，不直接決定 parent_id。真正判斷 child 時，要看事件框架。</p>
+  <div class="diagram fade-in">
+    <h3>新版事件框架</h3>
+    <div class="formula">
+      <div class="formula-row"><span>actor</span><span>誰做了事</span></div>
+      <div class="formula-row"><span>action</span><span>做了什麼動作</span></div>
+      <div class="formula-row"><span>object</span><span>動作指向哪個法案、產品、漏洞、案件、提案或交易</span></div>
+      <div class="formula-row"><span>venue</span><span>在哪個市場、法院、管轄區或鏈上環境</span></div>
+      <div class="formula-row"><span>mechanism</span><span>事情怎麼發生</span></div>
+      <div class="formula-row"><span>phase</span><span>是不是同一件事的下一階段</span></div>
+    </div>
+    <p>child 必須共享同一個 object、case、product、proposal、exploit 或 investigation，且 action 或 phase 能接成一條故事。</p>
+  </div>
+  <div class="diagram fade-in">
+    <h3>四種關係各自有位置</h3>
+    <div class="formula">
+      <div class="formula-row"><span>同一事件新增來源</span><span>併入 sources[]，不建立 child</span></div>
+      <div class="formula-row"><span>同一故事下一階段</span><span>使用 parent_id</span></div>
+      <div class="formula-row"><span>有背景價值</span><span>使用 context_links[]</span></div>
+      <div class="formula-row"><span>只是主題相似</span><span>保留 parent_id: null</span></div>
+    </div>
+    <p>Parent / Child 不再承擔「背景脈絡」和「主題分類」。它只表示同一件事接著發展。</p>
+  </div>
+</section>
+
+<section>
+  <div class="part-label fade-in">PART 5 ｜ 三個例子</div>
+  <h2 class="fade-in">改動後，讀者看到的關係會更窄，也更準</h2>
+  <div class="diagram fade-in">
+    <h3>CoinOne 與 Upbit 母公司股權</h3>
+    <p>OKX 與 Korea Investment 投資 CoinOne，三星旗下公司投資 Upbit 母公司，兩者都指向韓國交易所股權與傳統金融入場。但 actor、object、交易標的不同。新版會把它們當成 context_links 或各自 top-level，不會硬接 Parent / Child。</p>
+  </div>
+  <div class="diagram fade-in">
+    <h3>HIP-4 與預測市場操縱</h3>
+    <p>HIP-4 是 Hyperliquid 的產品與治理線。內線交易、氣象站操縱、預言機資料問題是風險與執法線。它們共享「預測市場」這個主題，但 object、mechanism、phase 都不同。</p>
+  </div>
+  <div class="diagram fade-in">
+    <h3>同一法案提出、通過、簽署</h3>
+    <p>同一法案從提出、排審、表決到簽署，是同一個 object 的階段推進。這才是 Parent / Child 該承接的故事線。</p>
+  </div>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">parent_id 只代表同一件事接著發展，不代表同一個主題。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">
+    主題分類交給 tags；背景脈絡交給 context_links；故事鏈才交給 parent_id。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2 class="fade-in">你最在意這次改動<br>解決哪一件事？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的判斷</p>
+
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">📉</div>
+      <div>
+        <div class="label">分數不要掉太快</div>
+        <div class="desc">重要事件會退場，但不會因為幾次曝光就被打到底。</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">🧭</div>
+      <div>
+        <div class="label">事件鏈不要變主題桶</div>
+        <div class="desc">同主題可以有脈絡，但不代表它們是同一條故事。</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">✍️</div>
+      <div>
+        <div class="label">保留人工審稿空間</div>
+        <div class="desc">程式先找候選，最後仍要看事件框架和讀者理解。</div>
+      </div>
+    </button>
+  </div>
+
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想看更深入的分析？</h2>
+  <p>這份互動頁已經把核心改動說完。後續可以把更多實例、審稿規則與 feed 清理紀錄補成正式文章。</p>
+  <a class="cta-btn" href="https://www.mnhsu.xyz/mnnews-score-chain/" target="_blank">閱讀完整文章 →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('新鮮勢這次把分數和事件鏈拆開處理：分數回答現在該不該浮上來，parent_id 只代表同一件事接著發展。\\n\\n')+'&url='+encodeURIComponent(location.href),'_blank')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('新鮮勢這次把分數和事件鏈拆開處理：分數回答現在該不該浮上來，parent_id 只代表同一件事接著發展。'),'_blank')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從穩定幣、AI 代理人到平台策略，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer><img src="https://i.urusai.cc/yaku8.png" alt="區塊勢" style="height:44px;opacity:0.5"></footer>
+
+<script>
+let userChoice = -1;
+const labels = ['分數不要掉太快', '事件鏈不要變主題桶', '保留人工審稿空間'];
+const results = [
+  {
+    title: '你在意的是首頁排序的穩定度',
+    desc: '新版把時間衰減放慢，並把閱讀行為改成疲勞係數。重要事件還是會讓位，但不會因為被看過幾次就失去存在感。',
+    bg: 'var(--terra-light)',
+    border: '#DBBFAD'
+  },
+  {
+    title: '你在意的是脈絡不要失真',
+    desc: '新版把 story chain、context link 和 topic 分開。讀者看到 child 時，應該知道它是同一件事的下一階段。',
+    bg: 'var(--yellow-light)',
+    border: '#E4D5B8'
+  },
+  {
+    title: '你在意的是程式不要假裝懂脈絡',
+    desc: '新版讓 lexical overlap 只做候選召回。真正的 child 判斷要看 actor、action、object、venue、mechanism 和 phase。',
+    bg: 'var(--green-light)',
+    border: '#A8D4BC'
+  }
+];
+
+window.choose = function choose(idx){
+  if(userChoice >= 0) return;
+  userChoice = idx;
+  document.querySelectorAll('.choice-btn').forEach((b, i) => {
+    if(i === idx) b.classList.add('selected');
+    b.style.cursor = 'default';
+  });
+  const r = results[idx];
+  const card = document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent = r.title;
+  document.getElementById('rDesc').textContent = r.desc;
+  card.style.background = r.bg;
+  card.style.borderColor = r.border;
+  card.classList.add('show');
+
+  const shareText = `我的觀點：${labels[idx]}。\n\n新鮮勢這次把分數和事件鏈拆開處理：分數回答現在該不該浮上來，parent_id 只代表同一件事接著發展。`;
+  document.getElementById('shareTw').onclick = function(){
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText + '\n\n') + '&url=' + encodeURIComponent(location.href), '_blank');
+  };
+  document.getElementById('shareFb').onclick = function(){
+    window.open('https://www.facebook.com/share.php?u=' + encodeURIComponent(location.href) + '&quote=' + encodeURIComponent(shareText), '_blank');
+  };
+  setTimeout(() => card.scrollIntoView({ behavior:'smooth', block:'center' }), 100);
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold:0.12 });
+document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+</script>
+</body>
+</html>
