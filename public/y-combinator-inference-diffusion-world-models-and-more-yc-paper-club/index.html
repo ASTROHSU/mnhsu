@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 論文變產品</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta name="description" content="Y Combinator Paper Club 第一場：從推論速度、擴散控制、世界模型、泛化到資料效率，讀懂 AI 研究如何變成早期公司的產品、市場與募資判斷。">
+<meta property="og:title" content="AI 論文變產品">
+<meta property="og:description" content="把 YC Paper Club 的五段研究分享，整理成創業者該看的 AI 產品與市場路線。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.mnhsu.xyz/y-combinator-inference-diffusion-world-models-and-more-yc-paper-club/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI 論文變產品">
+<meta name="twitter:description" content="從推論、世界模型到資料效率，讀懂 AI 論文如何變成早期公司的成長路徑。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
+  --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
+  --blue:#2563EB;--blue-light:#EFF4FF;--yellow:#8B6914;--yellow-light:#FDF8EC;
+  --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
+  --gold:#8B7340;--gold-light:#F9F3E6;--line:#E8E3D8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{color:inherit;text-underline-offset:3px;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,var(--cream),var(--warm));position:relative;}
+.hero .logo{height:48px;margin-bottom:2.5rem;}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(2rem,5.2vw,3.2rem);line-height:1.32;letter-spacing:0.02em;margin-bottom:1.5rem;width:100%;max-width:780px;min-width:0;overflow-wrap:anywhere;}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.18rem);color:var(--text-secondary);width:100%;max-width:720px;min-width:0;line-height:1.8;overflow-wrap:anywhere;word-break:break-word;}
+.hero .source-tag{font-size:0.82rem;color:var(--text-muted);letter-spacing:0.08em;margin-top:1rem;}
+.scroll-hint{position:absolute;bottom:2.5rem;font-size:0.8rem;letter-spacing:0.3em;color:var(--text-muted);animation:breathe 2.4s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(6px);}}
+section{max-width:720px;margin:0 auto;padding:3.5rem 1.6rem;}
+section.wide{max-width:940px;}
+.part-label{font-size:0.78rem;font-weight:700;letter-spacing:0.25em;color:var(--terra);margin-bottom:1rem;}
+h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2rem);line-height:1.5;margin-bottom:1.5rem;letter-spacing:0.01em;}
+p{margin-bottom:1.4rem;font-size:1.05rem;}
+.hl{background:linear-gradient(transparent 60%,var(--gold-light) 60%);padding:0 0.1em;font-weight:500;}
+.callout{background:var(--terra-light);border-left:4px solid var(--terra);border-radius:0 10px 10px 0;padding:1.4rem 1.6rem;margin:2rem 0;}
+.callout p{margin:0;font-size:1rem;color:var(--text);}
+.paper-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0.75rem;margin:2rem 0;}
+.paper-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1rem;}
+.paper-card .num{font-family:'Noto Serif TC',serif;font-size:1.35rem;font-weight:900;color:var(--terra);line-height:1;margin-bottom:0.65rem;}
+.paper-card .name{font-weight:700;font-size:0.9rem;line-height:1.45;margin-bottom:0.35rem;}
+.paper-card .desc{font-size:0.78rem;color:var(--text-secondary);line-height:1.6;}
+.compare{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:2rem 0;}
+.compare-row{display:grid;grid-template-columns:0.8fr 1.05fr 1.15fr;border-bottom:1px solid #EFEAE0;}
+.compare-row:last-child{border-bottom:none;}
+.compare-row div{padding:0.95rem;font-size:0.86rem;line-height:1.6;}
+.compare-row .head{background:var(--green-deep);color:#fff;font-weight:700;}
+.compare-row .label{background:#F6F2EA;font-weight:700;color:var(--text-secondary);}
+.flow-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.5rem;margin:2rem 0;}
+.flow-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.12rem;text-align:center;margin-bottom:1.25rem;}
+.flow-line{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0.55rem;}
+.flow-node{background:var(--warm);border:1px solid var(--line);border-radius:12px;padding:0.9rem;text-align:center;}
+.flow-node strong{display:block;font-size:0.84rem;color:var(--green-deep);line-height:1.35;margin-bottom:0.35rem;}
+.flow-node span{display:block;font-size:0.76rem;color:var(--text-secondary);line-height:1.45;}
+.signal-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0.85rem;margin:2rem 0;}
+.signal{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.15rem;}
+.signal .emoji{font-size:1.55rem;margin-bottom:0.45rem;}
+.signal .name{font-weight:700;font-size:0.96rem;margin-bottom:0.4rem;}
+.signal .desc{font-size:0.84rem;color:var(--text-secondary);line-height:1.65;}
+.metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0.85rem;margin:2rem 0;}
+.metric{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.15rem;text-align:center;}
+.metric .num{font-family:'Noto Serif TC',serif;font-size:1.55rem;font-weight:900;color:var(--terra);line-height:1;margin-bottom:0.65rem;}
+.metric .name{font-weight:700;font-size:0.9rem;line-height:1.45;margin-bottom:0.35rem;}
+.metric .desc{font-size:0.78rem;color:var(--text-secondary);line-height:1.6;}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light));}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:650px;margin:0 auto;letter-spacing:0.03em;}
+.choice-section{padding:4rem 1.6rem;background:#fff;text-align:center;}
+.choice-section h2{margin-bottom:0.8rem;}
+.choice-sub{color:var(--text-secondary);font-size:0.95rem;margin-bottom:2.5rem;}
+.choice-options{display:flex;flex-direction:column;gap:1rem;max-width:580px;margin:0 auto;}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:var(--warm);border:2px solid #E8E3D8;border-radius:14px;padding:1.2rem 1.4rem;cursor:pointer;text-align:left;transition:all 0.25s;font-family:'Noto Sans TC',sans-serif;width:100%;}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light);}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0;}
+.choice-btn .label{font-weight:700;font-size:1rem;margin-bottom:0.2rem;}
+.choice-btn .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+.result-card{max-width:580px;margin:2rem auto 0;border:2px solid #DBBFAD;border-radius:14px;padding:1.8rem;background:var(--terra-light);opacity:0;transform:translateY(20px);transition:all 0.5s;display:none;text-align:left;}
+.result-card.show{opacity:1;transform:translateY(0);display:block;}
+.r-badge{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;color:var(--terra);background:#fff;padding:0.3rem 0.9rem;border-radius:2rem;margin-bottom:1rem;}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;}
+.r-desc{font-size:0.95rem;color:var(--text);line-height:1.8;}
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap;}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s;}
+.share-btn:hover{transform:scale(1.03);}
+.share-btn.tw{background:#0f1419;color:#fff;}
+.share-btn.fb{background:#1877f2;color:#fff;}
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream));}
+.cta h2{margin-bottom:1rem;}
+.cta p{max-width:560px;margin:0 auto 2rem;color:var(--text-secondary);font-size:1rem;}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.95rem 2.4rem;border-radius:2rem;font-weight:500;font-size:1.05rem;transition:all 0.3s;}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep);}
+.subscribe-inner{max-width:520px;margin:0 auto;}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem;}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem;}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif;}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem;}
+footer{text-align:center;padding:3rem 2rem;}
+footer img{height:44px;opacity:0.5;}
+footer .src{font-size:0.78rem;color:var(--text-muted);margin:1rem auto 0;line-height:1.7;max-width:660px;letter-spacing:0;}
+footer .src a{color:var(--text-secondary);}
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:760px){
+  html{font-size:17px;}
+  section{padding:3rem 1.25rem;}
+  .paper-grid,.signal-grid,.metric-grid{grid-template-columns:1fr;}
+  .compare-row{grid-template-columns:1fr;}
+  .compare-row .head:nth-child(2),.compare-row .head:nth-child(3){display:none;}
+  .flow-line{grid-template-columns:1fr;}
+  .choice-btn{align-items:flex-start;padding:1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>AI 論文變產品，<br>創業者該看哪裡？</h1>
+  <p class="sub">YC 第一場 Paper Club，<br>把研究者、創辦人與投資人<br>拉進同一個房間。<br>重點不是講完公式，<br>而是看見下一批產品、<br>市場與募資故事。</p>
+  <p class="source-tag">來源：Y Combinator</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<section class="fade-in">
+  <div class="part-label">PART 1 ｜ YC 為什麼辦 Paper Club</div>
+  <h2>這不是讀書會，<br>而是把研究變成公司的入口</h2>
+  <p>開場時，YC 說有超過一千人申請參加，最後只留下約一百人。主持人請現場舉手：誰有 citation、誰募過一百萬、五百萬、一千萬、五千萬美元。這個房間同時有研究聲望與公司經驗。</p>
+  <p>YC 選在 Pioneer 舉辦也有脈絡。主持人回憶 2016 年自己在 YC 時，早期 OpenAI 團隊會坐在旁邊問創辦人正在解什麼問題，因為他們也在找研究方向。這場 Paper Club 想重建同一件事：讓 AI 研究不只在論文裡循環，也能碰到產品壓力、客戶需求與公司判斷。</p>
+  <div class="callout">
+    <p>創業者讀 AI 論文，不是為了背新名詞。要問的是：哪個限制正在變貴、哪個能力快要變便宜、哪種產品以前做不到，現在開始有機會。</p>
+  </div>
+  <p>這支影片的五段分享剛好形成一張地圖：推論速度、機器人控制、世界模型、泛化理論與資料效率。它們看起來分散，放在新創視角下，其實都在回答同一題：下一個 AI 公司會卡在哪裡，又能從哪裡長出來。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 2 ｜ 五篇 paper 的創業翻譯</div>
+  <h2>每篇論文都對應一種產品問題，<br>不是一段技術展示</h2>
+  <div class="paper-grid">
+    <div class="paper-card">
+      <div class="num">01</div>
+      <div class="name">推論</div>
+      <div class="desc">速度不只省錢，會決定模型能想多久、能服務多少人。</div>
+    </div>
+    <div class="paper-card">
+      <div class="num">02</div>
+      <div class="name">擴散控制</div>
+      <div class="desc">代理人先想像多個行動結果，再挑最接近目標的路徑。</div>
+    </div>
+    <div class="paper-card">
+      <div class="num">03</div>
+      <div class="name">世界模型</div>
+      <div class="desc">系統要知道自己預測錯了，才有機會安全地進入真實場景。</div>
+    </div>
+    <div class="paper-card">
+      <div class="num">04</div>
+      <div class="name">泛化</div>
+      <div class="desc">大模型不是魔法，壓縮、平坦解與偏好會影響學得多好。</div>
+    </div>
+    <div class="paper-card">
+      <div class="num">05</div>
+      <div class="name">資料效率</div>
+      <div class="desc">當好資料稀缺、算力變多，訓練配方本身會變成競爭力。</div>
+    </div>
+  </div>
+  <p>如果只把這些分享當成技術趨勢，會錯過 YC 的用意。Paper Club 把研究者和創辦人放在一起，是因為 AI 新創的產品邊界，常常先出現在研究限制裡。推論慢，產品就不能即時互動；代理人不會預測後果，就不敢接高風險流程；資料不夠，募再多錢也可能只是在重複訓練相同資訊。</p>
+  <p>創辦人要看的不是「哪篇 paper 最紅」，而是哪個限制會變成客戶願意付錢的痛點。這也是技術團隊和市場團隊最需要共用的語言。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 3 ｜ 推論不是成本中心</div>
+  <h2>當模型會思考，<br>速度就變成產品能力</h2>
+  <p>第一段分享談 Speculative Speculative Decoding。一般的 speculative decoding 會讓小模型先猜幾個 token，大模型再一次驗證。因為驗證比逐字生成更容易，系統可以用較低延遲接近大模型輸出。</p>
+  <p>新的想法是把原本前後相依的流程拆開。小模型不只先猜下一批 token，還會預測大模型可能接受到哪裡、接著會補哪個 token，並在大模型驗證時同步準備下一輪。若猜中，就把草稿延遲藏起來。分享者說這類預測可達到約 80% 到 90% 命中率，足以帶來速度提升。</p>
+  <div class="flow-card">
+    <div class="flow-title">推論系統的產品含義</div>
+    <div class="flow-line">
+      <div class="flow-node"><strong>更低延遲</strong><span>使用者感覺像即時互動</span></div>
+      <div class="flow-node"><strong>更多 token</strong><span>代理人能做更長規劃</span></div>
+      <div class="flow-node"><strong>更低成本</strong><span>同一預算服務更多請求</span></div>
+      <div class="flow-node"><strong>更高上限</strong><span>速度決定可交付的思考量</span></div>
+    </div>
+  </div>
+  <p>這對早期公司很重要。很多 AI 產品不是輸在模型不夠聰明，而是使用者等不起、單次請求太貴、代理人想得不夠久。當模型表現會隨思考量增加，tokens per second 就不只是工程指標，而是使用體驗、毛利與能力上限。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 4 ｜ 世界模型與可控代理人</div>
+  <h2>下一代代理人不能只回覆，<br>還要先想像行動後果</h2>
+  <p>第二段談 Diffusion Model Predictive Control。做法是把控制拆成三件事：提出一組可能行動、用 dynamics model 預測未來狀態、依照目標選出最好的行動。擴散模型的角色，是更好地產生多步行動提案與多步未來預測，減少一步一步推下去的誤差。</p>
+  <p>第三段延伸到 latent world model。世界模型的目標，是讓系統學會「如果我做這個動作，世界會變成什麼樣」。它可以在潛在空間裡快速規劃，也可以偵測模型誤差。當物體顏色被改掉、位置突然被移動，模型錯誤會出現尖峰，表示代理人知道自己碰到不熟悉的狀況。</p>
+  <div class="compare">
+    <div class="compare-row">
+      <div class="head">產品場景</div>
+      <div class="head">只有回覆模型</div>
+      <div class="head">有世界模型的代理人</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">機器人</div>
+      <div>模仿看過的動作，環境變了就容易失準。</div>
+      <div>先預測行動後果，再依新目標或新動態調整。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">企業流程</div>
+      <div>依照指令呼叫工具，但不一定知道副作用。</div>
+      <div>把不同路徑的結果先攤開，降低錯誤操作成本。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">高風險產品</div>
+      <div>回答看起來順，但不知道自己何時不確定。</div>
+      <div>能偵測預測錯誤，必要時停下來或交給人。</div>
+    </div>
+  </div>
+  <p>這給 AI 新創一個清楚方向：真正能進入工作流的代理人，不只要會生成文字，也要能規劃、校正、知道自己可能錯。能把「可控」和「可偵錯」做進產品的人，會比只做聊天介面的人更接近企業採購。</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 5 ｜ 泛化與資料效率</div>
+  <h2>算力變多之後，<br>好資料反而更稀缺</h2>
+  <p>第四段分享 Andrew Gordon Wilson 的觀點：深度學習沒有那麼神祕。過度參數化、benign overfitting、double descent 這些現象，不必被當成不可解釋的魔法。PAC-Bayes、壓縮、平坦解與 soft inductive bias，仍然能幫助理解為什麼大模型可以在訓練資料上擬合得很好，卻仍能在新資料上表現不錯。</p>
+  <p>第五段把問題推到更接近商業現實的地方：如果資料有限，但算力很多，預訓練該怎麼做？分享者提到，公開估計的人類文字資料成長很慢，而預訓練算力投入成長快很多。未來每個資料點能分到更多算力，訓練方法就要改。</p>
+  <div class="metric-grid">
+    <div class="metric">
+      <div class="num">30x</div>
+      <div class="name">更強 weight decay</div>
+      <div class="desc">在資料受限設定下，強正則化讓更大模型繼續降低 loss。</div>
+    </div>
+    <div class="metric">
+      <div class="num">5x</div>
+      <div class="name">資料效率</div>
+      <div class="desc">regularization 加 ensembling 的配方，帶來有效資料量提升。</div>
+    </div>
+    <div class="metric">
+      <div class="num">83%</div>
+      <div class="name">蒸餾保留</div>
+      <div class="desc">把 ensemble 蒸餾回小模型，仍保留多數 loss 改善。</div>
+    </div>
+    <div class="metric">
+      <div class="num">17x</div>
+      <div class="name">延續預訓練</div>
+      <div class="desc">在數學資料設定裡，少量資料加配方可接近完整資料效果。</div>
+    </div>
+  </div>
+  <p>這對創辦人的翻譯很直接。當所有人都能買 GPU，資料、評估方法、訓練配方與蒸餾管線會變得更重要。護城河不一定是「我有最大的模型」，也可能是「我能用有限資料做出足夠好的模型，而且推論成本可接受」。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 6 ｜ 從 paper 到成長路徑</div>
+  <h2>創辦人要找的不是技術名詞，<br>而是會持續變痛的瓶頸</h2>
+  <p>把五段分享放在一起，會看到 AI 新創的成長路徑不是「先做 demo，再等市場出現」。更好的順序是先找正在變痛的限制，再看技術是否讓你能交付新能力，最後找到願意為那個能力付錢的客戶。</p>
+  <div class="compare">
+    <div class="compare-row">
+      <div class="head">你讀到的 paper</div>
+      <div class="head">創業者該問</div>
+      <div class="head">可能的公司路線</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">推論加速</div>
+      <div>誰的產品受限於延遲、成本或思考長度？</div>
+      <div>代理人平台、推論基礎設施、即時互動產品。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">擴散控制</div>
+      <div>哪個場景需要在部署時適應新目標？</div>
+      <div>機器人、自動化流程、能重規劃的操作代理人。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">世界模型</div>
+      <div>客戶為什麼不敢讓 AI 自己行動？</div>
+      <div>可偵錯代理人、安全監控、真實場景模擬。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">泛化理論</div>
+      <div>你的模型如何在新客戶、新資料上保持可靠？</div>
+      <div>評估、模型壓縮、訓練偏好設計、可靠性工具。</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">資料效率</div>
+      <div>你的稀缺資產是資料、標註、回饋還是領域知識？</div>
+      <div>垂直模型、蒸餾管線、合成資料與高品質資料產品。</div>
+    </div>
+  </div>
+  <p>募資故事也會跟著改變。投資人不只想聽「我們用了最新模型」，而是想知道你掌握哪個瓶頸、為誰省下多少成本、讓哪個新工作流第一次變可行。研究可以讓你比市場早一步看到能力變化，但公司要靠產品與客戶把那一步走完。</p>
+  <div class="signal-grid">
+    <div class="signal">
+      <div class="emoji">⏱️</div>
+      <div class="name">能力是否變便宜</div>
+      <div class="desc">若推論或訓練成本下降，原本太貴的使用情境會重新打開。</div>
+    </div>
+    <div class="signal">
+      <div class="emoji">🧭</div>
+      <div class="name">風險是否可管理</div>
+      <div class="desc">能預測後果、偵測錯誤、知道何時停下來，企業才敢部署。</div>
+    </div>
+    <div class="signal">
+      <div class="emoji">📦</div>
+      <div class="name">資產是否可累積</div>
+      <div class="desc">資料、評估、蒸餾與客戶回饋，會決定 demo 能不能變成公司。</div>
+    </div>
+  </div>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">在 AI 新創裡，論文不是產品路線圖；它是提早看見下一個成本、延遲、資料或信任瓶頸的工具。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">YC Paper Club 的價值，是把研究問題翻成創辦人能行動的市場問題。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2 class="fade-in">如果你今天做 AI 新創，<br>會先押哪個瓶頸？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">⚡</div>
+      <div>
+        <div class="label">推論速度與成本</div>
+        <div class="desc">讓模型想更久、回更快、服務更多請求，直接改變產品體驗與毛利。</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">🧠</div>
+      <div>
+        <div class="label">可控代理人</div>
+        <div class="desc">把規劃、世界模型與錯誤偵測做進產品，讓 AI 敢接真實工作流。</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">📚</div>
+      <div>
+        <div class="label">資料效率</div>
+        <div class="desc">用有限高品質資料、訓練配方與蒸餾，做出可部署的小而強模型。</div>
+      </div>
+    </button>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想聽原始分享？</h2>
+  <p>這頁整理自 Y Combinator YouTube 頻道影片。原始影片保留了五段 paper talk 對推論、擴散控制、世界模型、泛化與資料效率的完整說明。</p>
+  <a class="cta-btn" href="https://www.youtube.com/watch?v=wE1ZgJdt4uM" target="_blank" rel="noopener">前往 YouTube →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('AI 創業者讀論文，不是追名詞，而是提早看見下一個產品瓶頸。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('AI 創業者讀論文，不是追名詞，而是提早看見下一個產品瓶頸。'),'_blank','noopener')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從 AI 代理人、創投生態到平台策略，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer>
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <div class="src">本頁整理自 Y Combinator YouTube 頻道影片〈Inference, Diffusion, World Models, and More | YC Paper Club〉。來源：<a href="https://www.youtube.com/watch?v=wE1ZgJdt4uM" target="_blank" rel="noopener">YouTube</a>。</div>
+</footer>
+
+<script>
+let userChoice=-1;
+const labels=['推論速度與成本','可控代理人','資料效率'];
+const results=[
+  {title:'你押的是 AI 產品的即時性',desc:'這條路徑把推論當成產品能力。當模型表現會隨思考量增加，速度、成本與 tokens per second 會一起決定使用者願不願意每天打開。',bg:'var(--terra-light)',border:'#DBBFAD'},
+  {title:'你押的是 AI 進入工作流的門檻',desc:'這條路徑關心的不只是回答，而是行動前能不能預測後果、行動中能不能偵測錯誤。企業要的是可控、可回溯、可停下來的代理人。',bg:'var(--green-light)',border:'#A8D4BC'},
+  {title:'你押的是資料稀缺時代的配方',desc:'這條路徑把高品質資料、評估、正則化、ensemble 與蒸餾視為資產。當算力變多，能把有限資料榨出更多能力的人會有優勢。',bg:'var(--blue-light)',border:'#B8CDF0'}
+];
+function choose(idx){
+  if(userChoice>=0)return;
+  userChoice=idx;
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===idx)b.classList.add('selected');
+    b.style.cursor='default';
+  });
+  const r=results[idx];
+  const card=document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent=r.title;
+  document.getElementById('rDesc').textContent=r.desc;
+  card.style.background=r.bg;
+  card.style.borderColor=r.border;
+  card.classList.add('show');
+  const shareText='我的觀點：'+labels[idx]+'。\n\nAI 創業者讀論文，應該看見下一個產品瓶頸。';
+  document.getElementById('shareTw').onclick=function(){
+    window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener');
+  };
+  document.getElementById('shareFb').onclick=function(){
+    window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener');
+  };
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
