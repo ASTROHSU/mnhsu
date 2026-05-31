@@ -16,7 +16,16 @@ import {
 const repoRoot = path.resolve(new URL('..', import.meta.url).pathname);
 const sources = JSON.parse(readFileSync(path.join(repoRoot, 'scripts/youtube-sources.json'), 'utf8'));
 const rawArgs = process.argv.slice(2);
-const maxJobs = Number(argValue('--max-jobs') || process.env.YOUTUBE_PUBLISH_MAX_JOBS || 3);
+const drainQueue = rawArgs.includes('--drain') || process.env.YOUTUBE_PUBLISH_DRAIN === '1';
+const maxJobs = drainQueue ? Number.POSITIVE_INFINITY : Number(argValue('--max-jobs') || process.env.YOUTUBE_PUBLISH_MAX_JOBS || 3);
+
+if (!Number.isFinite(maxJobs) && !drainQueue) {
+  throw new Error('--max-jobs must be a finite number.');
+}
+
+if (Number.isFinite(maxJobs) && (!Number.isInteger(maxJobs) || maxJobs < 1)) {
+  throw new Error('--max-jobs must be a positive integer.');
+}
 
 function log(message) {
   console.log(`[${new Date().toISOString()}] ${message}`);
@@ -159,7 +168,8 @@ async function main() {
       }
     }
 
-    log(`Worker stopped after max jobs: ${maxJobs}.`);
+    if (drainQueue) log(`Worker drained runnable queue after ${processed} job(s).`);
+    else log(`Worker stopped after max jobs: ${maxJobs}.`);
   } finally {
     releaseLock();
   }

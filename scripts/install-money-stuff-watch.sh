@@ -22,6 +22,7 @@ cat > "$PLIST" <<PLIST
     <string>${NODE_BIN}</string>
     <string>${REPO_DIR}/scripts/youtube-run-queue.mjs</string>
     <string>--all</string>
+    <string>--drain</string>
   </array>
 
   <key>WorkingDirectory</key>
@@ -58,7 +59,7 @@ launchctl bootstrap "gui/$(id -u)" "$PLIST"
 launchctl enable "gui/$(id -u)/com.staarrr.mnhsu-money-stuff-watch"
 
 echo "Installed launchd job: $PLIST"
-echo "It scans configured YouTube sources daily at 03:00 local time and publishes queued jobs one at a time."
+echo "It scans configured YouTube sources daily at 03:00 local time and drains runnable queued jobs one at a time."
 echo "Logs:"
 echo "  $LOG_DIR/watch.log"
 echo "  $LOG_DIR/watch.err.log"

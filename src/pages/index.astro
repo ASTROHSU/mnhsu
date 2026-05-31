@@ -112,6 +112,39 @@ const links = [
   { href: 'https://github.com/ASTROHSU', label: 'GitHub' },
 ];
 
+const sourceFilters = [
+  { id: 'money-stuff', label: 'Money Stuff', tags: ['Money Stuff', 'Bloomberg'] },
+  { id: 'stripe', label: 'Stripe', tags: ['Stripe', 'Cheeky Pint'] },
+  { id: 'y-combinator', label: 'Y Combinator', tags: ['Y Combinator', 'YC'] },
+  { id: 'a16z-crypto', label: 'a16z crypto', tags: ['a16z crypto'] },
+  { id: 'a16z', label: 'a16z', tags: ['a16z'] },
+  { id: 'every', label: 'Every', tags: ['Every'] },
+  { id: 'blocktrend', label: 'Blocktrend', tags: ['區塊勢', '穩定幣', 'Ethereum', 'Ondo', 'RWA'] },
+];
+
+const topicFilters = [
+  { id: 'ai', label: 'AI', tags: ['AI', 'Technology', 'Attention API'] },
+  { id: 'crypto', label: 'Crypto', tags: ['Crypto', 'Ethereum', 'ETH', '穩定幣', 'RWA', 'Ondo', '代幣化', '股票代幣'] },
+  { id: 'startups', label: 'Startups', tags: ['Startups', 'YC', 'Y Combinator', '創業'] },
+  { id: 'finance', label: 'Finance', tags: ['Money Stuff', 'Bloomberg', 'BlackRock', '貨幣市場基金', '會計', '金融科技'] },
+  { id: 'podcasts', label: 'Podcasts', tags: ['Podcast'] },
+  { id: 'taiwan', label: 'Taiwan', tags: ['台灣', '會計', '內控'] },
+];
+
+const hasAnyTag = (project, tags) => tags.some((tag) => project.tags.includes(tag));
+const sourceFor = (project) => sourceFilters.find((source) => hasAnyTag(project, source.tags)) || { id: 'other', label: 'Other' };
+const topicsFor = (project) => topicFilters.filter((topic) => hasAnyTag(project, topic.tags));
+const projectsWithFilters = projects.map((project) => {
+  const source = sourceFor(project);
+  const topics = topicsFor(project);
+  return {
+    ...project,
+    sourceId: source.id,
+    sourceLabel: source.label,
+    topicIds: topics.map((topic) => topic.id),
+  };
+});
+
 const contactEmail = 'mn@mnhsu.xyz';
 ---
 
@@ -148,9 +181,31 @@ const contactEmail = 'mn@mnhsu.xyz';
       <main>
         <section id="work" class="block">
           <h2 class="block-title">work</h2>
-          <div class="work-grid">
-            {projects.map((project) => (
-              <a href={project.href} class="project">
+          <div class="filter-panel" aria-label="Work filters">
+            <div class="filter-group" aria-label="Source filters">
+              <span class="filter-label">source</span>
+              <button class="filter-chip active" type="button" data-filter-type="source" data-filter-value="">all</button>
+              {sourceFilters.map((source) => (
+                <button class="filter-chip" type="button" data-filter-type="source" data-filter-value={source.id}>{source.label}</button>
+              ))}
+            </div>
+            <div class="filter-group" aria-label="Topic filters">
+              <span class="filter-label">topic</span>
+              <button class="filter-chip active" type="button" data-filter-type="topic" data-filter-value="">all</button>
+              {topicFilters.map((topic) => (
+                <button class="filter-chip" type="button" data-filter-type="topic" data-filter-value={topic.id}>{topic.label}</button>
+              ))}
+            </div>
+            <div class="filter-status" data-filter-status>{projects.length} items</div>
+          </div>
+          <div class="work-grid" data-work-grid>
+            {projectsWithFilters.map((project) => (
+              <a
+                href={project.href}
+                class="project"
+                data-source={project.sourceId}
+                data-topics={project.topicIds.join(' ')}
+              >
                 <div class="project-title">
                   <span class="zh">{project.zh}</span>
                   <span class="en">{project.en}</span>
@@ -166,6 +221,7 @@ const contactEmail = 'mn@mnhsu.xyz';
               </a>
             ))}
           </div>
+          <p class="empty-state" data-empty-state hidden>沒有符合條件的頁面。</p>
         </section>
 
         <section id="about" class="block">
@@ -188,6 +244,38 @@ const contactEmail = 'mn@mnhsu.xyz';
         <span>mnhsu © 2026</span>
       </footer>
     </div>
+    <script>
+      const state = { source: '', topic: '' };
+      const projects = [...document.querySelectorAll('.project[data-source]')];
+      const status = document.querySelector('[data-filter-status]');
+      const emptyState = document.querySelector('[data-empty-state]');
+
+      function updateFilters() {
+        let visible = 0;
+        for (const project of projects) {
+          const sourceMatch = !state.source || project.dataset.source === state.source;
+          const topics = (project.dataset.topics || '').split(' ').filter(Boolean);
+          const topicMatch = !state.topic || topics.includes(state.topic);
+          const show = sourceMatch && topicMatch;
+          project.hidden = !show;
+          if (show) visible += 1;
+        }
+        if (status) status.textContent = `${visible} item${visible === 1 ? '' : 's'}`;
+        if (emptyState) emptyState.hidden = visible !== 0;
+      }
+
+      for (const chip of document.querySelectorAll('.filter-chip')) {
+        chip.addEventListener('click', () => {
+          const type = chip.dataset.filterType;
+          if (!type) return;
+          state[type] = chip.dataset.filterValue || '';
+          document
+            .querySelectorAll(`.filter-chip[data-filter-type="${type}"]`)
+            .forEach((item) => item.classList.toggle('active', item === chip));
+          updateFilters();
+        });
+      }
+    </script>
   </body>
 </html>
 
@@ -271,8 +359,61 @@ const contactEmail = 'mn@mnhsu.xyz';
   .block-title {
     font-size: 26px;
     font-weight: 700;
-    margin: 0 0 80px 0;
+    margin: 0 0 48px 0;
     letter-spacing: -0.005em;
+  }
+
+  .filter-panel {
+    display: grid;
+    gap: 18px;
+    margin-bottom: 64px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .filter-label {
+    min-width: 56px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .filter-chip {
+    appearance: none;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink);
+    border-radius: 999px;
+    padding: 7px 13px;
+    font: inherit;
+    font-size: 13px;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .filter-chip:hover {
+    border-color: var(--accent);
+  }
+
+  .filter-chip.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+  }
+
+  .filter-status {
+    color: var(--muted);
+    font-size: 13px;
   }
 
   .work-grid {
@@ -283,6 +424,10 @@ const contactEmail = 'mn@mnhsu.xyz';
 
   .project {
     display: block;
+  }
+
+  .project[hidden] {
+    display: none;
   }
 
   .project-title {
@@ -322,6 +467,12 @@ const contactEmail = 'mn@mnhsu.xyz';
   .project:hover .project-title {
     text-decoration: underline;
     text-underline-offset: 4px;
+  }
+
+  .empty-state {
+    margin: 0;
+    color: var(--muted);
+    font-size: 16px;
   }
 
   .about-body {
@@ -396,7 +547,35 @@ const contactEmail = 'mn@mnhsu.xyz';
 
     .block-title {
       font-size: 22px;
-      margin-bottom: 48px;
+      margin-bottom: 32px;
+    }
+
+    .filter-panel {
+      margin-bottom: 44px;
+      gap: 16px;
+      padding-bottom: 22px;
+    }
+
+    .filter-group {
+      align-items: flex-start;
+      flex-wrap: nowrap;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .filter-label {
+      position: sticky;
+      left: 0;
+      z-index: 1;
+      background: var(--bg);
+      padding: 7px 8px 7px 0;
+      min-width: auto;
+    }
+
+    .filter-chip {
+      flex: 0 0 auto;
     }
 
     .work-grid {

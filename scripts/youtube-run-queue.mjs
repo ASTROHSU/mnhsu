@@ -13,6 +13,8 @@ for (let index = 0; index < rawArgs.length; index += 1) {
     index += 1;
   } else if (arg.startsWith('--max-jobs=')) {
     workerArgs.push(arg);
+  } else if (arg === '--drain') {
+    workerArgs.push(arg);
   } else {
     scanArgs.push(arg);
   }
