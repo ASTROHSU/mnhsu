@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一袋蛇金融</title>
+<link rel="icon" type="image/png" href="https://i.urusai.cc/yaku8.png">
+<meta name="description" content="Money Stuff 這集從 Pershing Square 封閉型基金、Jain Global 多策略基金、Blue Owl 私募信貸 BDC，到 Avis 軋空交易，拆開金融包裝裡真正的誘因與風險。">
+<meta property="og:title" content="一袋蛇金融">
+<meta property="og:description" content="Matt Levine 式拆解：金融工具的名字常常很漂亮，真正要看的是誰拿到權利、誰付出成本、誰最後被風險咬一口。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.mnhsu.xyz/money-stuff-bag-of-snakes/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一袋蛇金融">
+<meta name="twitter:description" content="從封閉型基金折價、多策略基金成本、私募信貸贖回，到 Avis 軋空後的短線交易獲利規則。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --warm:#FAFAF7;--cream:#EDE0D4;--terra:#C06A3A;--terra-light:#F5EBE5;
+  --green:#2D6B4F;--green-light:#E8F3ED;--green-deep:#0D2E20;
+  --blue:#2563EB;--blue-light:#EFF4FF;--yellow:#8B6914;--yellow-light:#FDF8EC;
+  --text:#2C2A25;--text-secondary:#6B6860;--text-muted:#9E9A90;
+  --gold:#8B7340;--gold-light:#F9F3E6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:18px;scroll-behavior:smooth;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--warm);color:var(--text);line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;background:linear-gradient(180deg,var(--cream),var(--warm));position:relative;}
+.hero .logo{height:48px;margin-bottom:2.5rem;}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.95rem,5.4vw,3.1rem);line-height:1.35;letter-spacing:0.02em;margin-bottom:1.5rem;}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.2rem);color:var(--text-secondary);width:100%;max-width:650px;line-height:1.8;overflow-wrap:anywhere;}
+.scroll-hint{position:absolute;bottom:2.5rem;font-size:0.8rem;letter-spacing:0.3em;color:var(--text-muted);animation:breathe 2.4s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(6px);}}
+section{max-width:720px;margin:0 auto;padding:3.5rem 1.6rem;}
+section.wide{max-width:900px;}
+.part-label{font-size:0.78rem;font-weight:700;letter-spacing:0.25em;color:var(--terra);margin-bottom:1rem;}
+h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:clamp(1.5rem,4vw,2rem);line-height:1.5;margin-bottom:1.5rem;letter-spacing:0.01em;}
+p{margin-bottom:1.4rem;font-size:1.05rem;}
+.hl{background:linear-gradient(transparent 60%,var(--gold-light) 60%);padding:0 0.1em;font-weight:500;}
+.callout{background:var(--terra-light);border-left:4px solid var(--terra);border-radius:0 10px 10px 0;padding:1.4rem 1.6rem;margin:2rem 0;}
+.callout p{margin:0;font-size:1rem;color:var(--text);}
+.market-card{background:#fff;border:1px solid #E8E3D8;border-radius:12px;overflow:hidden;margin:2rem 0;}
+.market-row{display:grid;grid-template-columns:0.72fr 1fr 1fr;border-bottom:1px solid #EFEAE0;}
+.market-row:last-child{border-bottom:none;}
+.market-row div{padding:0.9rem;font-size:0.86rem;line-height:1.65;}
+.market-row .head{background:var(--green-deep);color:#fff;font-weight:700;}
+.market-row .label{background:#F6F2EA;font-weight:700;color:var(--text-secondary);}
+.logic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:0.85rem;margin:2rem 0;}
+.logic-card{background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.2rem;}
+.logic-card .tag{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;color:var(--terra);background:var(--terra-light);border-radius:2rem;padding:0.2rem 0.65rem;margin-bottom:0.8rem;}
+.logic-card .name{font-weight:700;color:var(--green-deep);font-size:1rem;margin-bottom:0.5rem;}
+.logic-card .idea{font-size:0.86rem;color:var(--text-secondary);line-height:1.7;}
+.flow-card{background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.4rem;margin:2rem 0;}
+.flow-title{font-weight:700;color:var(--green-deep);margin-bottom:1rem;}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0.55rem;align-items:stretch;}
+.flow-step{background:var(--warm);border:1px solid #E8E3D8;border-radius:10px;padding:0.8rem;text-align:center;display:flex;flex-direction:column;justify-content:center;min-height:90px;}
+.flow-step .n{font-family:'Noto Serif TC',serif;font-weight:900;font-size:1.25rem;color:var(--terra);line-height:1;}
+.flow-step .t{font-size:0.82rem;font-weight:700;line-height:1.45;margin-top:0.45rem;}
+.flow-note{font-size:0.82rem;color:var(--text-secondary);line-height:1.7;margin-top:1rem;margin-bottom:0;}
+.warning-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.85rem;margin:2rem 0;}
+.warning-list div{background:#fff;border:1px solid #E8E3D8;border-radius:12px;padding:1.1rem;}
+.warning-list .k{font-weight:700;color:var(--terra);margin-bottom:0.45rem;}
+.warning-list .v{font-size:0.86rem;color:var(--text-secondary);line-height:1.7;}
+.big-quote{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,var(--warm),var(--terra-light));}
+.big-quote p{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;line-height:1.6;max-width:620px;margin:0 auto;letter-spacing:0.03em;}
+.choice-section{padding:4rem 1.6rem;background:#fff;text-align:center;}
+.choice-section h2{margin-bottom:0.8rem;}
+.choice-sub{color:var(--text-secondary);font-size:0.95rem;margin-bottom:2.5rem;}
+.choice-options{display:flex;flex-direction:column;gap:1rem;max-width:580px;margin:0 auto;}
+.choice-btn{display:flex;align-items:center;gap:1rem;background:var(--warm);border:2px solid #E8E3D8;border-radius:14px;padding:1.2rem 1.4rem;cursor:pointer;text-align:left;transition:all 0.25s;font-family:'Noto Sans TC',sans-serif;}
+.choice-btn:hover{border-color:var(--terra);transform:translateY(-2px);}
+.choice-btn.selected{border-color:var(--terra);background:var(--terra-light);}
+.choice-btn .emoji{font-size:1.8rem;flex-shrink:0;}
+.choice-btn .label{font-weight:700;font-size:1rem;margin-bottom:0.2rem;}
+.choice-btn .desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.5;}
+.result-card{max-width:580px;margin:2rem auto 0;border:2px solid #DBBFAD;border-radius:14px;padding:1.8rem;background:var(--terra-light);opacity:0;transform:translateY(20px);transition:all 0.5s;display:none;}
+.result-card.show{opacity:1;transform:translateY(0);display:block;}
+.r-badge{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;color:var(--terra);background:#fff;padding:0.3rem 0.9rem;border-radius:2rem;margin-bottom:1rem;}
+.r-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;}
+.r-desc{font-size:0.95rem;color:var(--text);line-height:1.8;}
+.share-row{display:flex;gap:0.5rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap;}
+.share-btn{padding:0.55rem 1.2rem;border-radius:2rem;border:none;font-size:0.8rem;font-weight:500;cursor:pointer;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;transition:transform 0.2s;}
+.share-btn:hover{transform:scale(1.03);}
+.share-btn.tw{background:#0f1419;color:#fff;}
+.share-btn.fb{background:#1877f2;color:#fff;}
+.cta{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F3ED,var(--cream));}
+.cta h2{margin-bottom:1rem;}
+.cta p{max-width:540px;margin:0 auto 2rem;color:var(--text-secondary);font-size:1rem;}
+.cta-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.95rem 2.4rem;border-radius:2rem;font-weight:500;font-size:1.05rem;transition:all 0.3s;}
+.cta-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-cta{text-align:center;padding:4rem 2rem 5rem;background:var(--green-deep);}
+.subscribe-inner{max-width:520px;margin:0 auto;}
+.subscribe-eyebrow{font-size:0.85rem;font-weight:500;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:1rem;}
+.subscribe-title{font-family:'Noto Serif TC',serif;font-size:clamp(1.3rem,3.5vw,1.7rem);font-weight:700;line-height:1.6;color:#fff;margin-bottom:1rem;}
+.subscribe-desc{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;}
+.subscribe-btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:500;font-size:1rem;transition:all 0.3s;font-family:'Noto Sans TC',sans-serif;}
+.subscribe-btn:hover{background:#A8572E;transform:translateY(-1px);}
+.subscribe-note{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:1rem;}
+footer{text-align:center;padding:3rem 2rem;}
+footer img{height:44px;opacity:0.5;}
+footer .src{font-size:0.78rem;color:var(--text-muted);margin:1rem auto 0;line-height:1.7;max-width:620px;overflow-wrap:anywhere;}
+footer .src a{color:var(--text-muted);text-underline-offset:0.18em;}
+.big-quote,.choice-section,.cta,.subscribe-cta{width:100vw;margin-left:calc(-50vw + 50%);position:relative;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:720px){
+  html{font-size:17px;}
+  section{padding:3rem 1.25rem;}
+  .market-row{grid-template-columns:1fr;}
+  .market-row .head:nth-child(2),.market-row .head:nth-child(3){display:none;}
+  .flow{grid-template-columns:1fr;}
+  .flow-step{min-height:auto;padding:0.95rem;text-align:left;flex-direction:row;align-items:center;justify-content:flex-start;gap:0.85rem;}
+  .flow-step .t{margin-top:0;}
+  .choice-btn{align-items:flex-start;padding:1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="logo" src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <h1>一袋蛇金融，<br>誰最後被咬？</h1>
+  <p class="sub">Money Stuff 這集從 Bill Ackman 的封閉型基金、Bobby Jain 的多策略基金、Blue Owl 的私募信貸，到 Avis 軋空後的短線交易獲利規則，拆開金融包裝裡真正的誘因。</p>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<section class="fade-in">
+  <div class="part-label">PART 1 ｜ PERSHING SQUARE</div>
+  <h2>封閉型基金的物理，<br>不是靠信念改寫</h2>
+  <p>Bill Ackman 想把 Pershing Square USA 做成新的封閉型基金。最早的野心很大：募 250 億美元，上市後還要像少數明星資產一樣，交易價格高於淨值。問題是，封閉型基金通常不這樣運作。</p>
+  <p>封閉型基金的股數固定，投資人不能像 ETF 那樣拿基金單位去贖回底層資產。市場價格一旦低於淨值，套利機制不會自動把折價抹平。Ackman 的舊封閉型基金本來就長期折價，新的 PSUS 上市後也跌到淨值以下。</p>
+  <div class="market-card">
+    <div class="market-row">
+      <div class="head">工具</div>
+      <div class="head">投資人拿到什麼</div>
+      <div class="head">價格為何會卡住</div>
+    </div>
+    <div class="market-row">
+      <div class="label">ETF</div>
+      <div>可以透過申購贖回連到底層資產。</div>
+      <div>折價或溢價通常會被套利壓回去。</div>
+    </div>
+    <div class="market-row">
+      <div class="label">封閉型基金</div>
+      <div>拿到固定股數的上市基金股票。</div>
+      <div>不能直接贖回底層資產，折價可能長期存在。</div>
+    </div>
+    <div class="market-row">
+      <div class="label">PSUS 版本</div>
+      <div>基金股票，加上一點 Pershing Square 管理公司股票。</div>
+      <div>贈品能補貼 IPO，但不能改變封閉型基金的交易習慣。</div>
+    </div>
+  </div>
+  <p>這次真正有用的誘因，是把 Pershing Square 管理公司的股票搭配送給買 PSUS 的投資人。錨定投資人拿到更多，公開 IPO 投資人拿到較少。上市後，前者大致小賺，後者小賠。Matt Levine 的直覺很乾脆：這不是什麼道德奇觀，這就是金融交易裡常見的價格分層。</p>
+  <div class="callout">
+    <p>Ackman 想要的是永久資本，像 Berkshire Hathaway 那樣讓投資人長期坐在車上。但封閉型基金不是 Berkshire。它可以擁有永久資本，也可能永久折價。</p>
+  </div>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 2 ｜ JAIN GLOBAL</div>
+  <h2>多策略基金不是新創，<br>它一開門就要有規模</h2>
+  <p>Bobby Jain 從 Millennium 出來創辦 Jain Global，市場一開始期待很高。他曾在 Millennium 擔任重要角色，也懂多策略基金的架構與流程。兩年後，Jain Global 決定歸還外部資本，回到只替 Millennium 管錢。</p>
+  <p>這件事讓人想問：如果 Bobby Jain 都很難做起來，新的多策略基金到底要怎麼活？答案不在投資靈感，而在成本結構。這種平台要聘很多投資組合經理、交易、風控、科技與營運團隊。你還沒長到足夠規模，固定成本就已經先來了。</p>
+  <div class="flow-card">
+    <div class="flow-title">多策略平台的啟動難題</div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="n">1</div>
+        <div class="t">找投資組合經理</div>
+      </div>
+      <div class="flow-step">
+        <div class="n">2</div>
+        <div class="t">付市場級薪酬</div>
+      </div>
+      <div class="flow-step">
+        <div class="n">3</div>
+        <div class="t">配置足夠資本</div>
+      </div>
+      <div class="flow-step">
+        <div class="n">4</div>
+        <div class="t">扣掉 pass-through 費用</div>
+      </div>
+      <div class="flow-step">
+        <div class="n">5</div>
+        <div class="t">才輪到投資人報酬</div>
+      </div>
+    </div>
+    <p class="flow-note">多策略基金常把部分營運與人才成本直接轉嫁給投資人，這就是 pass-through fees。規模不夠時，成本會先吃掉報酬。</p>
+  </div>
+  <p>科技新創可以跟員工說：現在少拿現金，多拿股票，十年後一起變大。多策略基金很難這樣說。投資人不是來等十年十倍，他們要的是每年穩定、低波動、跟市場不太相關的報酬。投資組合經理也不一定想用高風險股權換掉今天的高額現金薪酬。</p>
+  <p>這就是 Matt 把它和科技新創對照的原因。多策略基金看起來像一間可以長大的公司，但客戶買的是穩定報酬，不是早期成長故事。你還在爬坡時，他們會先問：扣完成本之後，我今年拿到什麼？</p>
+</section>
+
+<section class="fade-in">
+  <div class="part-label">PART 3 ｜ BLUE OWL BDC</div>
+  <h2>私募信貸賣的是穩，<br>所以折價很難成交</h2>
+  <p>Boaz Weinstein 先前公開出價，想用每美元 65 美分買 Blue Owl 的一檔非交易型 BDC。結果他買到不到 1%。這不像失敗，反而像一次市場心理測試：投資人到底有多想逃？</p>
+  <p>非交易型 BDC 的賣點，是投資人不用每天看市場價格。帳面淨值大多平穩，贖回通常按接近 100 美分處理，只是每季有上限。如果一個外部投資人跳出來說「我現在用 65 美分收」，多數人不會覺得這是流動性救命繩，而會覺得那不是他們買這個產品的目的。</p>
+  <div class="warning-list">
+    <div>
+      <div class="k">股票投資人</div>
+      <div class="v">市場價格跌了，賣在虧損位置很正常。價格每天告訴你現實。</div>
+    </div>
+    <div>
+      <div class="k">BDC 投資人</div>
+      <div class="v">產品被包裝成穩定收益。65 美分的出價像是在承認袋子裡有問題。</div>
+    </div>
+    <div>
+      <div class="k">基金管理人</div>
+      <div class="v">如果太多人排隊贖回，就用上限拖時間，避免被迫賣資產。</div>
+    </div>
+  </div>
+  <p>Matt 自己也說，他持有另一檔 Blue Owl 非交易型 BDC。這讓觀察更有趣：這類投資人不一定恐慌，他們可能只是把贖回表格丟一邊，或想按淨值慢慢排隊離場。Weinstein 沒買到很多，代表市場沒有出現大規模認賠逃命。</p>
+  <p>這個故事和 PSUS 剛好相反。封閉型基金會每天用市場價格提醒你折價存在；非交易型 BDC 則把價格波動藏起來，讓投資人相信淨值仍然穩。兩者都在處理同一個問題：當資產不容易賣，投資人到底該用什麼價格相信自己能退出？</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 4 ｜ AVIS 與 SHORT-SWING PROFIT</div>
+  <h2>軋空可以很壯觀，<br>法律細節也可以更壯觀</h2>
+  <p>Avis 的股價短時間從一百多美元衝到七百多美元，背後有兩家避險基金 SRS 和 Pentwater 持有超過一百％的股票曝險。空方一擠，價格就被推上去。真正的故事在後面：Pentwater 在高點賣出大量股票，獲利可能非常驚人。</p>
+  <p>美國證券法有一條短線交易獲利規則。持股超過 10% 的內部人，如果在六個月內買進又賣出，相關獲利要繳回公司。市場原本以為 Pentwater 很難真正從軋空獲利，因為它持股太多、時間太短。</p>
+  <div class="market-card">
+    <div class="market-row">
+      <div class="head">問題</div>
+      <div class="head">直覺答案</div>
+      <div class="head">Pentwater 的說法</div>
+    </div>
+    <div class="market-row">
+      <div class="label">它有沒有超過 10%</div>
+      <div>有，所以短線交易獲利規則可能適用。</div>
+      <div>整體管理的曝險很大，但帳戶和基金是分開的。</div>
+    </div>
+    <div class="market-row">
+      <div class="label">它能不能賣高點</div>
+      <div>可以賣，但六個月內的獲利可能要繳回 Avis。</div>
+      <div>只有約 9.4 萬股屬於要繳回的那一桶。</div>
+    </div>
+    <div class="market-row">
+      <div class="label">誰最後拿錢</div>
+      <div>Avis 想拿更多，Pentwater 想保留大部分。</div>
+      <div>最後可能進入法律追討或和解談判。</div>
+    </div>
+  </div>
+  <p>Pentwater 把交易分成兩桶。一桶承認適用短線交易獲利規則，準備把獲利繳回 Avis。另一桶說是不同基金或帳戶賣出的股份，不屬於六個月內買賣的同一批。第一桶是幾萬股，第二桶是幾百萬股。差別不是小數點，是誰拿走大部分獲利。</p>
+  <p>Avis 當然會想查。這筆錢對公司是天外飛來的機會：它不用賣股票，卻可能從避險基金的軋空交易拿到一筆補償。Matt 的語氣很像在看魔術後台：他不一定說這違法，但他很想知道那些股份到底怎麼在不同帳戶之間買進和賣出。</p>
+</section>
+
+<section class="fade-in wide">
+  <div class="part-label">PART 5 ｜ 這集共同的直覺</div>
+  <h2>每個袋子外面，<br>都寫著不同的漂亮名字</h2>
+  <p>這集題目叫 Bag of Snakes，開場是買房後發現屋況麻煩的生活抱怨。但放回金融世界，這個比喻很準。很多金融產品被賣出去時，都像一個看起來合理的袋子：封閉型基金、永久資本、多策略平台、非交易型 BDC、短線交易規則。</p>
+  <p>拆開之後，裡面有幾條蛇。封閉型基金的蛇叫折價；多策略基金的蛇叫固定成本；非交易型 BDC 的蛇叫流動性錯覺；Avis 軋空的蛇叫法律桶子。Matt Levine 的方法不是先判斷誰聰明、誰壞，而是問三個問題。</p>
+  <div class="logic-grid">
+    <div class="logic-card">
+      <div class="tag">權利</div>
+      <div class="name">誰真的拿到可執行的東西？</div>
+      <div class="idea">PSUS 投資人拿到基金股票，不是底層資產的贖回權。BDC 投資人拿到的是有限贖回，不是即時流動性。</div>
+    </div>
+    <div class="logic-card">
+      <div class="tag">成本</div>
+      <div class="name">誰先被扣錢？</div>
+      <div class="idea">多策略基金的投資組合經理薪酬和平台成本，會在投資人看到淨報酬之前先發生。</div>
+    </div>
+    <div class="logic-card">
+      <div class="tag">價格</div>
+      <div class="name">市場價格能不能被忽略？</div>
+      <div class="idea">封閉型基金不能忽略折價。非交易型 BDC 則讓投資人選擇暫時不看 65 美分的市場出價。</div>
+    </div>
+    <div class="logic-card">
+      <div class="tag">規則</div>
+      <div class="name">法律是牆，還是路線圖？</div>
+      <div class="idea">短線交易獲利規則看似擋住 Pentwater，但基金、帳戶和交易桶子的安排，可能改變錢最後流向誰。</div>
+    </div>
+  </div>
+  <p>對台灣讀者來說，這集最好用的不是記住每家公司名字，而是學會先拆包裝。金融產品常用「穩定」「永久」「高評等」「特殊機會」這些字降低警覺。真正要問的是：如果事情不像簡報上那樣順，誰還能退出，誰被鎖住，誰拿到錢，誰只拿到故事？</p>
+</section>
+
+<div class="big-quote">
+  <p class="fade-in"><span class="hl">金融裡最重要的問題，常常不是袋子叫什麼，而是打開之後誰要把蛇抓出來。</span></p>
+  <p class="fade-in" style="font-size:1rem;font-family:'Noto Sans TC',sans-serif;color:var(--text-secondary);margin-top:1.5rem;font-weight:400;letter-spacing:0;">Matt Levine 的拆法，是把名字拿掉，只留下權利、價格、成本和風險。</p>
+</div>
+
+<div class="choice-section" id="choice">
+  <h2>這集你最想先檢查哪一條蛇？</h2>
+  <p class="choice-sub fade-in">選完之後，分享你的觀點</p>
+  <div class="choice-options fade-in">
+    <button class="choice-btn" onclick="choose(0)">
+      <div class="emoji">📉</div>
+      <div>
+        <div class="label">折價與退出</div>
+        <div class="desc">產品說自己穩，但我要先看能不能照合理價格離場</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(1)">
+      <div class="emoji">🏗️</div>
+      <div>
+        <div class="label">規模與成本</div>
+        <div class="desc">平台故事再漂亮，也要先問成本會不會吃掉報酬</div>
+      </div>
+    </button>
+    <button class="choice-btn" onclick="choose(2)">
+      <div class="emoji">⚖️</div>
+      <div>
+        <div class="label">規則與桶子</div>
+        <div class="desc">法律限制常常不是終點，而是金融工程開始畫路線的地方</div>
+      </div>
+    </button>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="r-badge">你的觀點</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div class="share-row">
+      <button class="share-btn tw" id="shareTw">分享到 𝕏</button>
+      <button class="share-btn fb" id="shareFb">分享到 Facebook</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>想聽原始對話？</h2>
+  <p>這頁整理自 Bloomberg Podcasts 的 Money Stuff: The Podcast。原始節目保留 Matt Levine 與 Katie Greifeld 對 Pershing Square、Jain Global、Blue Owl 與 Avis 的完整對話節奏。</p>
+  <a class="cta-btn" href="https://www.youtube.com/watch?v=41wsYdkShKQ" target="_blank" rel="noopener">前往 YouTube →</a>
+  <div class="share-row" style="margin-top:1.5rem">
+    <button class="share-btn tw" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Money Stuff 這集像在拆一袋蛇：封閉型基金折價、多策略基金成本、BDC 流動性錯覺，還有 Avis 軋空後的法律桶子。\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener')">分享到 𝕏</button>
+    <button class="share-btn fb" onclick="window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent('Money Stuff 這集提醒我：金融產品的名字是袋子，權利、價格、成本和風險才是裡面的東西。'),'_blank','noopener')">分享到 Facebook</button>
+  </div>
+</div>
+
+<div class="subscribe-cta">
+  <div class="subscribe-inner fade-in">
+    <p class="subscribe-eyebrow">喜歡這種分析嗎？</p>
+    <h2 class="subscribe-title">區塊勢每週深入拆解一個<br>你該知道的科技趨勢</h2>
+    <p class="subscribe-desc">從金融市場、AI 到平台策略，用台灣讀者看得懂的語言，把複雜的產業變局說清楚。目前已有超過 2 萬位讀者訂閱。</p>
+    <a class="subscribe-btn" href="https://www.blocktrend.today/subscribe" target="_blank" rel="noopener">免費訂閱區塊勢 →</a>
+    <p class="subscribe-note">也可以直接付費支持，解鎖每週完整文章</p>
+  </div>
+</div>
+
+<footer>
+  <img src="https://i.urusai.cc/yaku8.png" alt="區塊勢">
+  <div class="src">來源：Bloomberg Podcasts 的 Money Stuff: The Podcast〈Bag of Snakes〉。YouTube：<a href="https://www.youtube.com/watch?v=41wsYdkShKQ" target="_blank" rel="noopener">https://www.youtube.com/watch?v=41wsYdkShKQ</a></div>
+</footer>
+
+<script>
+let userChoice=-1;
+const labels=['折價與退出','規模與成本','規則與桶子'];
+const results=[
+  {title:'你先看退出價格',desc:'你抓到的是封閉型基金和非交易型 BDC 的共同問題：產品說得再穩，最後都要回答投資人能不能用合理價格把錢拿回來。',bg:'var(--terra-light)',border:'#DBBFAD'},
+  {title:'你先看成本結構',desc:'你盯上的是多策略基金最硬的一段。投資組合經理、科技、風控和營運成本不會等公司長大才出現，規模不夠時，報酬先被成本吃掉。',bg:'var(--green-light)',border:'#A8D4BC'},
+  {title:'你先看規則怎麼被使用',desc:'你在看 Avis 故事裡最 Matt Levine 的部分：法律限制不只會禁止交易，也會變成金融人安排帳戶、基金和交易順序時必須繞過的地圖。',bg:'var(--blue-light)',border:'#B8CDF0'}
+];
+function choose(idx){
+  if(userChoice>=0)return;
+  userChoice=idx;
+  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
+    if(i===idx)b.classList.add('selected');
+    b.style.cursor='default';
+  });
+  const r=results[idx];
+  const card=document.getElementById('resultCard');
+  document.getElementById('rTitle').textContent=r.title;
+  document.getElementById('rDesc').textContent=r.desc;
+  card.style.background=r.bg;
+  card.style.borderColor=r.border;
+  card.classList.add('show');
+  const shareText='我的觀點：'+labels[idx]+'。\n\nMoney Stuff 這集提醒我：金融產品的名字是袋子，權利、價格、成本和風險才是裡面的東西。';
+  document.getElementById('shareTw').onclick=function(){
+    window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText+'\n\n')+'&url='+encodeURIComponent(location.href),'_blank','noopener');
+  };
+  document.getElementById('shareFb').onclick=function(){
+    window.open('https://www.facebook.com/share.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText),'_blank','noopener');
+  };
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
